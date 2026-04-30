@@ -1,0 +1,149 @@
+:root {
+  color: #20242b;
+  background: #f7f4ee;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) 1fr;
+  min-height: 100vh;
+}
+
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px;
+  border-right: 1px solid rgba(32, 36, 43, 0.12);
+  background: #fffdfa;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #00736f;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  max-width: 11ch;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.metrics div {
+  padding: 14px;
+  border: 1px solid rgba(32, 36, 43, 0.14);
+  border-radius: 8px;
+}
+
+.metrics span,
+.selection strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+small {
+  color: #6f7278;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  font-weight: 700;
+}
+
+input[type='range'] {
+  width: 100%;
+  accent-color: #00736f;
+}
+
+button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  background: #20242b;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00736f;
+}
+
+.selection {
+  display: grid;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(32, 36, 43, 0.12);
+}
+
+.sketch-canvas {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #f7f4ee;
+  cursor: grab;
+  touch-action: none;
+}
+
+.sketch-canvas canvas {
+  display: block;
+}
+
+.sketch-canvas:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 780px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .control-panel {
+    border-right: 0;
+    border-bottom: 1px solid rgba(32, 36, 43, 0.12);
+  }
+
+  h1 {
+    max-width: none;
+    font-size: 32px;
+  }
+
+  .sketch-canvas {
+    min-height: 62vh;
+  }
+}
