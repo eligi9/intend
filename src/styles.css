@@ -173,9 +173,7 @@ button.active {
 }
 
 .read-toolbar {
-  display: flex;
-  align-items: start;
-  justify-content: space-between;
+  display: grid;
   gap: 20px;
 }
 
@@ -197,36 +195,54 @@ button.active {
   font-size: 28px;
 }
 
-.read-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.read-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: start;
 }
 
-.read-filters input {
-  flex: 1 1 300px;
-  padding: 0 12px;
-}
-
+.read-search,
+.filter-column,
+.filter-panel,
 .filter-group {
   display: grid;
   gap: 8px;
 }
 
+.read-search small,
+.filter-column > small,
 .filter-group small {
   font-weight: 800;
   text-transform: uppercase;
 }
 
+.read-search input {
+  width: 100%;
+  padding: 0 12px;
+}
+
+.filter-panel {
+  grid-template-columns: minmax(180px, 0.36fr) minmax(360px, 1fr);
+  align-items: start;
+  width: 100%;
+  max-width: none;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(32, 36, 43, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 253, 250, 0.58);
+}
+
 .filter-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .reader-surface {
   display: grid;
-  gap: 16px;
+  gap: 22px;
   width: 100%;
   min-height: 310px;
   padding: 30px;
@@ -243,7 +259,17 @@ button.active {
   border-color: rgba(0, 115, 111, 0.45);
 }
 
-.reader-meta,
+.reader-heading {
+  display: grid;
+  gap: 3px;
+}
+
+.reader-heading strong {
+  color: #20242b;
+  font-size: 16px;
+}
+
+.reader-heading span,
 .reader-context,
 .reader-position {
   color: #6f7278;
@@ -261,11 +287,16 @@ button.active {
 
 .read-actions {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
 .read-actions button {
   padding: 0 16px;
+}
+
+.read-actions .read-count {
+  margin-left: auto;
 }
 
 .label-strip {
@@ -297,11 +328,17 @@ button.active {
 }
 
 .annotation-list article {
+  position: relative;
   padding: 16px;
   border: 1px solid var(--annotation-color);
   border-radius: 8px;
   color: var(--annotation-color);
   background: color-mix(in srgb, var(--annotation-color) 12%, transparent);
+  outline: none;
+}
+
+.annotation-list article:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--annotation-color) 28%, transparent);
 }
 
 .annotation-list article small {
@@ -311,6 +348,36 @@ button.active {
 .annotation-list p {
   margin: 6px 0 0;
   line-height: 1.45;
+}
+
+.annotation-tooltip {
+  position: absolute;
+  z-index: 5;
+  left: 16px;
+  bottom: calc(100% + 8px);
+  display: block;
+  width: min(520px, calc(100vw - 72px));
+  padding: 12px 14px;
+  border: 1px solid var(--annotation-color);
+  border-radius: 8px;
+  color: var(--annotation-color);
+  background: color-mix(in srgb, var(--annotation-color) 14%, #fffdfa);
+  box-shadow: 0 12px 30px rgba(32, 36, 43, 0.16);
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+}
+
+.annotation-list article:hover .annotation-tooltip,
+.annotation-list article:focus-visible .annotation-tooltip,
+.annotation-list article:focus-within .annotation-tooltip {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .empty-state {
@@ -345,8 +412,26 @@ button.active {
     padding: 20px;
   }
 
+  .read-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-panel {
+    grid-template-columns: 1fr;
+  }
+
   .read-toolbar {
     display: grid;
+  }
+
+  .read-actions {
+    flex-wrap: wrap;
+  }
+
+  .read-actions .read-count {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-end;
   }
 
   .reader-surface {

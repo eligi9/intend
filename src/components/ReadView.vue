@@ -115,56 +115,61 @@ function toggleOverLabel(label: IntentLabelKey) {
         <p class="eyebrow">Read View</p>
         <h2>Statements</h2>
       </div>
-
-      <div class="read-count">
-        <strong>{{ currentRecordPosition.current }}</strong>
-        <span>/ {{ currentRecordPosition.total }}</span>
-      </div>
     </header>
 
-    <div class="read-filters">
-      <input
-        :value="filters.query"
-        type="search"
-        placeholder="Suche nach Autor, Kontext oder Statement"
-        @input="store.setQuery(($event.target as HTMLInputElement).value)"
-      />
-    </div>
-
-    <section class="filter-group" aria-label="Sector Filter">
-      <small>Sector</small>
-      <div class="filter-row">
-        <FilterButton
-          v-for="sector in sectors"
-          :key="sector"
-          :label="sector"
-          color="#858b94"
-          :active="filters.sectors.includes(sector)"
-          @click="toggleSector(sector)"
+    <section class="read-controls" aria-label="Statement Filter">
+      <div class="read-search">
+        <small>Search</small>
+        <input
+          :value="filters.query"
+          type="search"
+          placeholder="Autor, Kontext oder Statement"
+          @input="store.setQuery(($event.target as HTMLInputElement).value)"
         />
       </div>
-    </section>
 
-    <section class="filter-group" aria-label="Überlabel Filter">
-      <small>Mobilisierung Strategie</small>
-      <div class="filter-row">
-        <FilterButton
-          v-for="group in intentTaxonomy"
-          :key="group.id"
-          :label="group.label"
-          :color="taxonomyButtonColors[group.id]"
-          :active="group.parentLabel ? filters.labelsAny.includes(group.parentLabel) : false"
-          @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
-        />
+      <div class="filter-column">
+        <small>Filter</small>
+
+        <div class="filter-panel">
+          <section class="filter-group" aria-label="Sector Filter">
+            <small>Sector</small>
+            <div class="filter-row">
+              <FilterButton
+                v-for="sector in sectors"
+                :key="sector"
+                :label="sector"
+                color="#858b94"
+                :active="filters.sectors.includes(sector)"
+                @click="toggleSector(sector)"
+              />
+            </div>
+          </section>
+
+          <section class="filter-group" aria-label="Überlabel Filter">
+            <small>Mobilisierung Strategie</small>
+            <div class="filter-row">
+              <FilterButton
+                v-for="group in intentTaxonomy"
+                :key="group.id"
+                :label="group.label"
+                :color="taxonomyButtonColors[group.id]"
+                :active="group.parentLabel ? filters.labelsAny.includes(group.parentLabel) : false"
+                @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
+              />
+            </div>
+          </section>
+        </div>
       </div>
     </section>
 
     <button v-if="currentRecord" type="button" class="reader-surface" @click="store.nextRecord">
-      <span class="reader-meta">
-        {{ currentRecord.author }} · {{ currentRecord.sector }} · {{ currentRecord.date }}
-      </span>
+      <span class="reader-heading">
+        <strong>{{ currentRecord.author }}</strong>
+        <span>{{ currentRecord.sector }} · {{ currentRecord.date }}</span>
 
-      <span class="reader-position">{{ currentRecord.position }}</span>
+        <span class="reader-position">{{ currentRecord.position }}</span>
+      </span>
 
       <span class="reader-statement">{{ currentRecord.statement }}</span>
 
@@ -179,6 +184,10 @@ function toggleOverLabel(label: IntentLabelKey) {
     <div v-if="currentRecord" class="read-actions">
       <button type="button" @click="store.previousRecord">Zurück</button>
       <button type="button" @click="store.nextRecord">Nächstes Statement</button>
+      <div class="read-count">
+        <strong>{{ currentRecordPosition.current }}</strong>
+        <span>/ {{ currentRecordPosition.total }}</span>
+      </div>
     </div>
 
     <section v-if="visibleSubLabels.length > 0" class="label-strip" aria-label="Aktive Sublabels">
@@ -196,10 +205,13 @@ function toggleOverLabel(label: IntentLabelKey) {
         v-for="annotation in annotations"
         :key="`${annotation.label}-${annotation.type}-${annotation.text}`"
         :style="{ '--annotation-color': annotation.color }"
-        :title="annotation.briefJustification ?? undefined"
+        :tabindex="annotation.briefJustification ? 0 : undefined"
       >
         <small>{{ annotation.label }} · {{ annotation.type }}</small>
         <p>{{ annotation.text }}</p>
+        <span v-if="annotation.briefJustification" class="annotation-tooltip" role="tooltip">
+          {{ annotation.briefJustification }}
+        </span>
       </article>
     </section>
   </section>
