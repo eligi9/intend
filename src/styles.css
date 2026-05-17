@@ -24,6 +24,14 @@ input {
   font: inherit;
 }
 
+input {
+  min-height: 42px;
+  border: 1px solid rgba(32, 36, 43, 0.18);
+  border-radius: 8px;
+  color: #20242b;
+  background: #fffdfa;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: minmax(280px, 360px) 1fr;
@@ -101,6 +109,10 @@ button:hover {
   background: #00736f;
 }
 
+button.active {
+  background: #00736f;
+}
+
 .selection {
   display: grid;
   gap: 4px;
@@ -128,6 +140,184 @@ button:hover {
   cursor: grabbing;
 }
 
+.workspace {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+.workspace--full {
+  grid-column: 1 / -1;
+}
+
+.view-switch {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(32, 36, 43, 0.12);
+  background: #f7f4ee;
+}
+
+.view-switch button {
+  min-width: 90px;
+  min-height: 36px;
+}
+
+.read-view {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: 28px;
+  overflow: auto;
+}
+
+.read-toolbar {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.read-toolbar h2 {
+  margin: 0;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.read-count {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  color: #6f7278;
+}
+
+.read-count strong {
+  color: #20242b;
+  font-size: 28px;
+}
+
+.read-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.read-filters input {
+  flex: 1 1 300px;
+  padding: 0 12px;
+}
+
+.filter-group {
+  display: grid;
+  gap: 8px;
+}
+
+.filter-group small {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.reader-surface {
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  min-height: 310px;
+  padding: 30px;
+  border: 1px solid rgba(32, 36, 43, 0.14);
+  border-radius: 8px;
+  color: #20242b;
+  background: #fffdfa;
+  text-align: left;
+}
+
+.reader-surface:hover {
+  color: #20242b;
+  background: #fffdfa;
+  border-color: rgba(0, 115, 111, 0.45);
+}
+
+.reader-meta,
+.reader-context,
+.reader-position {
+  color: #6f7278;
+}
+
+.reader-position {
+  font-weight: 700;
+}
+
+.reader-statement {
+  max-width: 980px;
+  font-size: 30px;
+  line-height: 1.22;
+}
+
+.read-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.read-actions button {
+  padding: 0 16px;
+}
+
+.label-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.label-strip span {
+  padding: 7px 10px;
+  border: 1px solid var(--label-color);
+  border-radius: 999px;
+  color: var(--label-color);
+  background: color-mix(in srgb, var(--label-color) 12%, transparent);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.annotation-list {
+  display: grid;
+  gap: 10px;
+}
+
+.empty-state {
+  padding: 16px;
+  border: 1px solid rgba(32, 36, 43, 0.14);
+  border-radius: 8px;
+  background: #fffdfa;
+}
+
+.annotation-list article {
+  padding: 16px;
+  border: 1px solid var(--annotation-color);
+  border-radius: 8px;
+  color: var(--annotation-color);
+  background: color-mix(in srgb, var(--annotation-color) 12%, transparent);
+}
+
+.annotation-list article small {
+  color: var(--annotation-color);
+}
+
+.annotation-list p {
+  margin: 6px 0 0;
+  line-height: 1.45;
+}
+
+.empty-state {
+  display: grid;
+  gap: 6px;
+}
+
 @media (max-width: 780px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -145,5 +335,25 @@ button:hover {
 
   .sketch-canvas {
     min-height: 62vh;
+  }
+
+  .workspace {
+    min-height: auto;
+  }
+
+  .read-view {
+    padding: 20px;
+  }
+
+  .read-toolbar {
+    display: grid;
+  }
+
+  .reader-surface {
+    padding: 22px;
+  }
+
+  .reader-statement {
+    font-size: 23px;
   }
 }

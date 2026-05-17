@@ -47,6 +47,7 @@ export const useIntentDataStore = defineStore('intentData', {
       labelsAny: [],
       labelsAll: [],
     } as IntentFilters,
+    readIndex: 0,
     sliceOffset: 0,
     sliceSize: 25,
   }),
@@ -95,6 +96,17 @@ export const useIntentDataStore = defineStore('intentData', {
 
     currentSlice(): IntentRecord[] {
       return this.filteredRecords.slice(this.sliceOffset, this.sliceOffset + this.sliceSize)
+    },
+
+    currentRecord(): IntentRecord | null {
+      return this.filteredRecords[this.readIndex] ?? null
+    },
+
+    currentRecordPosition(): { current: number; total: number } {
+      return {
+        current: this.filteredCount === 0 ? 0 : this.readIndex + 1,
+        total: this.filteredCount,
+      }
     },
 
     currentSliceMeta(): { offset: number; size: number; count: number; total: number; hasNext: boolean } {
@@ -160,6 +172,23 @@ export const useIntentDataStore = defineStore('intentData', {
 
     resetSlice() {
       this.sliceOffset = 0
+      this.readIndex = 0
+    },
+
+    setReadIndex(index: number) {
+      this.readIndex = Math.max(0, Math.min(index, Math.max(0, this.filteredCount - 1)))
+    },
+
+    nextRecord() {
+      if (this.filteredCount === 0) return
+      this.readIndex = (this.readIndex + 1) % this.filteredCount
+      this.sliceOffset = Math.floor(this.readIndex / this.sliceSize) * this.sliceSize
+    },
+
+    previousRecord() {
+      if (this.filteredCount === 0) return
+      this.readIndex = (this.readIndex - 1 + this.filteredCount) % this.filteredCount
+      this.sliceOffset = Math.floor(this.readIndex / this.sliceSize) * this.sliceSize
     },
   },
 })
