@@ -11,7 +11,7 @@ const activeView = ref<'canvas' | 'read' | 'authors'>('read')
 <template>
   <main class="app-shell">
     <ControlPanel v-if="activeView === 'canvas'" />
-    <section class="workspace" :class="{ 'workspace--full': activeView === 'read' }">
+    <section class="workspace" :class="{ 'workspace--full': activeView === 'read' || activeView === 'authors' }">
       <nav class="view-switch" aria-label="Ansicht wechseln">
         <button type="button" :class="{ active: activeView === 'read' }" @click="activeView = 'read'">
           Read
