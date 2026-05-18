@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
 import dataset from '../../data/intent-dataset.json'
 import type { IntentDataset, IntentFilters, IntentLabelKey, IntentRecord } from '../types/intentData'
 import { matchesIntentFilters, uniqueSorted } from '../utils/intentFilters'
@@ -26,132 +27,137 @@ export const intentLabelKeys = [
 
 const intentDataset = dataset as IntentDataset
 
-export const useIntentDataStore = defineStore('intentData', {
-  state: () => ({
-    records: intentDataset.records,
-    filters: {
-      query: '',
-      sectors: [],
-      authors: [],
-      labelsAny: [],
-      labelsAll: [],
-    } as IntentFilters,
-    readIndex: 0,
-    sliceOffset: 0,
-    sliceSize: 25,
-  }),
+const emptyFilters = (): IntentFilters => ({
+  query: '',
+  sectors: [],
+  authors: [],
+  labelsAny: [],
+  labelsAll: [],
+})
 
-  getters: {
-    totalCount: (state) => state.records.length,
+export const useIntentDataStore = defineStore('intentData', () => {
+  const records = ref<IntentRecord[]>(intentDataset.records)
+  const filters = ref<IntentFilters>(emptyFilters())
+  const readIndex = ref(0)
+  const sliceOffset = ref(0)
+  const sliceSize = ref(25)
 
-    sectors: (state) => uniqueSorted(state.records.map((record) => record.sector)),
+  const totalCount = computed(() => records.value.length)
+  const sectors = computed(() => uniqueSorted(records.value.map((record) => record.sector)))
+  const authors = computed(() => uniqueSorted(records.value.map((record) => record.author)))
+  const labelKeys = computed(() => intentLabelKeys)
+  const filteredRecords = computed(() =>
+    records.value.filter((record) => matchesIntentFilters(record, filters.value)),
+  )
+  const filteredCount = computed(() => filteredRecords.value.length)
+  const currentSlice = computed(() =>
+    filteredRecords.value.slice(sliceOffset.value, sliceOffset.value + sliceSize.value),
+  )
+  const currentRecord = computed(() => filteredRecords.value[readIndex.value] ?? null)
+  const currentRecordPosition = computed(() => ({
+    current: filteredCount.value === 0 ? 0 : readIndex.value + 1,
+    total: filteredCount.value,
+  }))
+  const currentSliceMeta = computed(() => ({
+    offset: sliceOffset.value,
+    size: sliceSize.value,
+    count: currentSlice.value.length,
+    total: filteredCount.value,
+    hasNext: sliceOffset.value + sliceSize.value < filteredCount.value,
+  }))
 
-    authors: (state) => uniqueSorted(state.records.map((record) => record.author)),
+  function resetSlice() {
+    sliceOffset.value = 0
+    readIndex.value = 0
+  }
 
-    labelKeys: () => intentLabelKeys,
+  function setQuery(query: string) {
+    filters.value.query = query
+    resetSlice()
+  }
 
-    filteredRecords: (state) =>
-      state.records.filter((record) => matchesIntentFilters(record, state.filters)),
+  function setSectors(sectors: string[]) {
+    filters.value.sectors = sectors
+    resetSlice()
+  }
 
-    filteredCount(): number {
-      return this.filteredRecords.length
-    },
+  function setAuthors(authors: string[]) {
+    filters.value.authors = authors
+    resetSlice()
+  }
 
-    currentSlice(): IntentRecord[] {
-      return this.filteredRecords.slice(this.sliceOffset, this.sliceOffset + this.sliceSize)
-    },
+  function setLabelsAny(labels: IntentLabelKey[]) {
+    filters.value.labelsAny = labels
+    resetSlice()
+  }
 
-    currentRecord(): IntentRecord | null {
-      return this.filteredRecords[this.readIndex] ?? null
-    },
+  function setLabelsAll(labels: IntentLabelKey[]) {
+    filters.value.labelsAll = labels
+    resetSlice()
+  }
 
-    currentRecordPosition(): { current: number; total: number } {
-      return {
-        current: this.filteredCount === 0 ? 0 : this.readIndex + 1,
-        total: this.filteredCount,
-      }
-    },
+  function clearFilters() {
+    filters.value = emptyFilters()
+    resetSlice()
+  }
 
-    currentSliceMeta(): { offset: number; size: number; count: number; total: number; hasNext: boolean } {
-      return {
-        offset: this.sliceOffset,
-        size: this.sliceSize,
-        count: this.currentSlice.length,
-        total: this.filteredCount,
-        hasNext: this.sliceOffset + this.sliceSize < this.filteredCount,
-      }
-    },
-  },
+  function setSlice(offset: number, size?: number) {
+    sliceSize.value = Math.max(1, size ?? sliceSize.value)
+    sliceOffset.value = Math.max(0, Math.min(offset, Math.max(0, filteredCount.value - 1)))
+  }
 
-  actions: {
-    setQuery(query: string) {
-      this.filters.query = query
-      this.resetSlice()
-    },
+  function nextSlice() {
+    setSlice(sliceOffset.value + sliceSize.value)
+  }
 
-    setSectors(sectors: string[]) {
-      this.filters.sectors = sectors
-      this.resetSlice()
-    },
+  function previousSlice() {
+    setSlice(sliceOffset.value - sliceSize.value)
+  }
 
-    setAuthors(authors: string[]) {
-      this.filters.authors = authors
-      this.resetSlice()
-    },
+  function setReadIndex(index: number) {
+    readIndex.value = Math.max(0, Math.min(index, Math.max(0, filteredCount.value - 1)))
+  }
 
-    setLabelsAny(labels: IntentLabelKey[]) {
-      this.filters.labelsAny = labels
-      this.resetSlice()
-    },
+  function nextRecord() {
+    if (filteredCount.value === 0) return
+    readIndex.value = (readIndex.value + 1) % filteredCount.value
+    sliceOffset.value = Math.floor(readIndex.value / sliceSize.value) * sliceSize.value
+  }
 
-    setLabelsAll(labels: IntentLabelKey[]) {
-      this.filters.labelsAll = labels
-      this.resetSlice()
-    },
+  function previousRecord() {
+    if (filteredCount.value === 0) return
+    readIndex.value = (readIndex.value - 1 + filteredCount.value) % filteredCount.value
+    sliceOffset.value = Math.floor(readIndex.value / sliceSize.value) * sliceSize.value
+  }
 
-    clearFilters() {
-      this.filters = {
-        query: '',
-        sectors: [],
-        authors: [],
-        labelsAny: [],
-        labelsAll: [],
-      }
-      this.resetSlice()
-    },
-
-    setSlice(offset: number, size?: number) {
-      this.sliceSize = Math.max(1, size ?? this.sliceSize)
-      this.sliceOffset = Math.max(0, Math.min(offset, Math.max(0, this.filteredCount - 1)))
-    },
-
-    nextSlice() {
-      this.setSlice(this.sliceOffset + this.sliceSize)
-    },
-
-    previousSlice() {
-      this.setSlice(this.sliceOffset - this.sliceSize)
-    },
-
-    resetSlice() {
-      this.sliceOffset = 0
-      this.readIndex = 0
-    },
-
-    setReadIndex(index: number) {
-      this.readIndex = Math.max(0, Math.min(index, Math.max(0, this.filteredCount - 1)))
-    },
-
-    nextRecord() {
-      if (this.filteredCount === 0) return
-      this.readIndex = (this.readIndex + 1) % this.filteredCount
-      this.sliceOffset = Math.floor(this.readIndex / this.sliceSize) * this.sliceSize
-    },
-
-    previousRecord() {
-      if (this.filteredCount === 0) return
-      this.readIndex = (this.readIndex - 1 + this.filteredCount) % this.filteredCount
-      this.sliceOffset = Math.floor(this.readIndex / this.sliceSize) * this.sliceSize
-    },
-  },
+  return {
+    records,
+    filters,
+    readIndex,
+    sliceOffset,
+    sliceSize,
+    totalCount,
+    sectors,
+    authors,
+    labelKeys,
+    filteredRecords,
+    filteredCount,
+    currentSlice,
+    currentRecord,
+    currentRecordPosition,
+    currentSliceMeta,
+    setQuery,
+    setSectors,
+    setAuthors,
+    setLabelsAny,
+    setLabelsAll,
+    clearFilters,
+    setSlice,
+    nextSlice,
+    previousSlice,
+    resetSlice,
+    setReadIndex,
+    nextRecord,
+    previousRecord,
+  }
 })

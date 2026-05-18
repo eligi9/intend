@@ -1,61 +1,71 @@
 import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
 import type { CanvasNode, CanvasSettings } from '../types/visualization'
 import { createNode, randomNodeStyle } from '../utils/visualizationNodes'
 
-export const useVisualizationStore = defineStore('visualization', {
-  state: () => ({
-    nodes: Array.from({ length: 14 }, (_, index) => createNode(index)) as CanvasNode[],
-    settings: {
-      speed: 1,
-      attraction: 0.35,
-      showTrails: true,
-    } as CanvasSettings,
-  }),
+export const useVisualizationStore = defineStore('visualization', () => {
+  const nodes = ref<CanvasNode[]>(Array.from({ length: 14 }, (_, index) => createNode(index)))
+  const settings = ref<CanvasSettings>({
+    speed: 1,
+    attraction: 0.35,
+    showTrails: true,
+  })
 
-  getters: {
-    selectedNode: (state) => state.nodes.find((node) => node.selected) ?? null,
-    averageValue: (state) =>
-      Math.round(state.nodes.reduce((sum, node) => sum + node.value, 0) / state.nodes.length),
-  },
+  const selectedNode = computed(() => nodes.value.find((node) => node.selected) ?? null)
+  const averageValue = computed(() =>
+    Math.round(nodes.value.reduce((sum, node) => sum + node.value, 0) / nodes.value.length),
+  )
 
-  actions: {
-    addNode() {
-      this.nodes.push(createNode(this.nodes.length))
-    },
+  function addNode() {
+    nodes.value.push(createNode(nodes.value.length))
+  }
 
-    selectNode(id: string | null) {
-      this.nodes.forEach((node) => {
-        node.selected = node.id === id
-      })
-    },
+  function selectNode(id: string | null) {
+    nodes.value.forEach((node) => {
+      node.selected = node.id === id
+    })
+  }
 
-    updateNodePosition(id: string, x: number, y: number) {
-      const node = this.nodes.find((item) => item.id === id)
+  function updateNodePosition(id: string, x: number, y: number) {
+    const node = nodes.value.find((item) => item.id === id)
 
-      if (!node) return
+    if (!node) return
 
-      node.x = x
-      node.y = y
-      node.vx = 0
-      node.vy = 0
-    },
+    node.x = x
+    node.y = y
+    node.vx = 0
+    node.vy = 0
+  }
 
-    randomizeValues() {
-      this.nodes.forEach((node, index) => {
-        Object.assign(node, randomNodeStyle(index))
-      })
-    },
+  function randomizeValues() {
+    nodes.value.forEach((node, index) => {
+      Object.assign(node, randomNodeStyle(index))
+    })
+  }
 
-    setSpeed(speed: number) {
-      this.settings.speed = speed
-    },
+  function setSpeed(speed: number) {
+    settings.value.speed = speed
+  }
 
-    setAttraction(attraction: number) {
-      this.settings.attraction = attraction
-    },
+  function setAttraction(attraction: number) {
+    settings.value.attraction = attraction
+  }
 
-    toggleTrails() {
-      this.settings.showTrails = !this.settings.showTrails
-    },
-  },
+  function toggleTrails() {
+    settings.value.showTrails = !settings.value.showTrails
+  }
+
+  return {
+    nodes,
+    settings,
+    selectedNode,
+    averageValue,
+    addNode,
+    selectNode,
+    updateNodePosition,
+    randomizeValues,
+    setSpeed,
+    setAttraction,
+    toggleTrails,
+  }
 })
