@@ -29,10 +29,9 @@ const props = withDefaults(
 
 const ringStroke = computed(() => Math.max(2, props.size * 0.035))
 const ringGap = computed(() => Math.max(2, props.size * 0.035))
-const totalRingSpace = computed(() =>
-  rings.value.length > 0
-    ? rings.value.length * ringStroke.value + (rings.value.length - 1) * ringGap.value
-    : 0,
+const maxRingCount = strategyDisplayOrder.length
+const totalRingSpace = computed(
+  () => maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value,
 )
 const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
 
