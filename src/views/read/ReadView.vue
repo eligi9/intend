@@ -149,4 +149,6 @@ function toggleOverLabel(label: IntentLabelKey) {
   </section>
 </template>
 
-<style scoped src="./ReadView.css"></style>
+<style scoped>
+@import './ReadView.css';
+</style>

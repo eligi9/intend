@@ -33,4 +33,6 @@ onBeforeUnmount(() => {
   <section ref="canvasHost" class="sketch-canvas" aria-label="Interaktive Canvas-Visualisierung" />
 </template>
 
-<style scoped src="./SketchCanvas.css"></style>
+<style scoped>
+@import './SketchCanvas.css';
+</style>

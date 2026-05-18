@@ -63,4 +63,6 @@ const { nodes, settings, selectedNode, averageValue } = storeToRefs(store)
   </aside>
 </template>
 
-<style scoped src="./ControlPanel.css"></style>
+<style scoped>
+@import './ControlPanel.css';
+</style>
