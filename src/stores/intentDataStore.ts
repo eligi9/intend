@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import authorAdditionalData from '../../data/author-additional-data.json'
 import authorDataset from '../../data/author-dataset.json'
 import dataset from '../../data/intent-dataset.json'
-import type { AuthorAdditionalDataset, AuthorDataset } from '../types/authorData'
+import type { AuthorDataset } from '../types/authorData'
 import type { IntentDataset, IntentFilters, IntentLabelKey, IntentRecord } from '../types/intentData'
 import { matchesIntentFilters, uniqueSorted } from '../utils/intentFilters'
 
@@ -30,7 +29,6 @@ export const intentLabelKeys = [
 
 const intentDataset = dataset as IntentDataset
 const intentAuthorDataset = authorDataset as AuthorDataset
-const intentAuthorAdditionalData = authorAdditionalData as AuthorAdditionalDataset
 
 const emptyFilters = (): IntentFilters => ({
   query: '',
@@ -50,20 +48,7 @@ export const useIntentDataStore = defineStore('intentData', () => {
   const totalCount = computed(() => records.value.length)
   const sectors = computed(() => uniqueSorted(records.value.map((record) => record.sector)))
   const authors = computed(() => uniqueSorted(records.value.map((record) => record.author)))
-  const authorProfiles = computed(() =>
-    intentAuthorDataset.authors.map((author) => {
-      const additional = intentAuthorAdditionalData.authors[author.name]
-
-      return {
-        ...author,
-        dateOfBirth: additional?.dateOfBirth ?? author.dateOfBirth,
-        gender: additional?.gender ?? author.gender,
-        party: additional?.party ?? author.party,
-        notes: additional?.notes ?? null,
-        externalIds: additional?.externalIds ?? {},
-      }
-    }),
-  )
+  const authorProfiles = computed(() => intentAuthorDataset.authors)
   const authorProfileCount = computed(() => authorProfiles.value.length)
   const labelKeys = computed(() => intentLabelKeys)
   const filteredRecords = computed(() =>
