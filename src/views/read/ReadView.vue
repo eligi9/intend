@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import FilterButton from './FilterButton.vue'
-import { intentLabelKeys, useIntentDataStore } from '../stores/intentDataStore'
-import type { IntentLabelKey } from '../types/intentData'
-import { intentTaxonomy } from '../types/intentTaxonomy'
+import FilterButton from '../../components/filter-button/FilterButton.vue'
+import { intentLabelKeys, useIntentDataStore } from '../../stores/intentDataStore'
+import type { IntentLabelKey } from '../../types/intentData'
+import { intentTaxonomy } from '../../types/intentTaxonomy'
 import {
   collectIntentAnnotations,
   getActiveLabels,
@@ -12,8 +12,8 @@ import {
   intentLabelNames,
   subLabelColors,
   taxonomyButtonColors,
-} from '../utils/intentLabels'
-import { toggleArrayItem } from '../utils/arrays'
+} from '../../utils/intentLabels'
+import { toggleArrayItem } from '../../utils/arrays'
 
 const store = useIntentDataStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
@@ -148,3 +148,5 @@ function toggleOverLabel(label: IntentLabelKey) {
     </section>
   </section>
 </template>
+
+<style scoped src="./ReadView.css"></style>

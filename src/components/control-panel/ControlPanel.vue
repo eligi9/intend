@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useVisualizationStore } from '../stores/visualizationStore'
+import { useVisualizationStore } from '../../stores/visualizationStore'
 
 const store = useVisualizationStore()
 const { nodes, settings, selectedNode, averageValue } = storeToRefs(store)
@@ -62,3 +62,5 @@ const { nodes, settings, selectedNode, averageValue } = storeToRefs(store)
     </div>
   </aside>
 </template>
+
+<style scoped src="./ControlPanel.css"></style>

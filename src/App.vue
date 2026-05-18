@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import ControlPanel from './components/ControlPanel.vue'
-import ReadView from './components/ReadView.vue'
-import SketchCanvas from './components/SketchCanvas.vue'
+import ControlPanel from './components/control-panel/ControlPanel.vue'
+import CanvasView from './views/canvas/CanvasView.vue'
+import ReadView from './views/read/ReadView.vue'
 
 const activeView = ref<'canvas' | 'read'>('read')
 </script>
@@ -21,7 +21,7 @@ const activeView = ref<'canvas' | 'read'>('read')
       </nav>
 
       <ReadView v-if="activeView === 'read'" />
-      <SketchCanvas v-else />
+      <CanvasView v-else />
     </section>
   </main>
 </template>

@@ -1,0 +1,24 @@
+.sketch-canvas {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #f7f4ee;
+  cursor: grab;
+  touch-action: none;
+}
+
+.sketch-canvas :deep(canvas) {
+  display: block;
+}
+
+.sketch-canvas:active {
+  cursor: grabbing;
+}
+
+@media (max-width: 780px) {
+  .sketch-canvas {
+    min-height: 62vh;
+  }
+}

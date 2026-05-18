@@ -2,8 +2,8 @@
 import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import type p5 from 'p5'
 import { storeToRefs } from 'pinia'
-import { useVisualizationStore } from '../stores/visualizationStore'
-import { createOpenCanvasSketch } from '../sketches/openCanvasSketch'
+import { useVisualizationStore } from '../../stores/visualizationStore'
+import { createOpenCanvasSketch } from '../../sketches/openCanvasSketch'
 
 const canvasHost = ref<HTMLElement | null>(null)
 const store = useVisualizationStore()
@@ -32,3 +32,5 @@ onBeforeUnmount(() => {
 <template>
   <section ref="canvasHost" class="sketch-canvas" aria-label="Interaktive Canvas-Visualisierung" />
 </template>
+
+<style scoped src="./SketchCanvas.css"></style>
