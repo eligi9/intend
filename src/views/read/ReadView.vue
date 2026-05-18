@@ -32,7 +32,7 @@ const annotations = computed(() => {
 })
 
 function toggleSector(sector: string) {
-  store.setSectors(toggleArrayItem(filters.value.sectors, sector))
+  store.setSectors(filters.value.sectors.includes(sector) ? [] : [sector])
 }
 
 function toggleOverLabel(label: IntentLabelKey) {
