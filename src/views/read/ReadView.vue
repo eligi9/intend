@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import FilterButton from '../../components/filter-button/FilterButton.vue'
-import { intentLabelKeys, useIntentDataStore } from '../../stores/intentDataStore'
+import { intentLabelKeys, useStatementStore } from '../../stores/statementStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import {
@@ -15,7 +15,7 @@ import {
 } from '../../utils/intentLabels'
 import { toggleArrayItem } from '../../utils/arrays'
 
-const store = useIntentDataStore()
+const store = useStatementStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
 const swipeStart = ref<{ x: number; y: number } | null>(null)
 
