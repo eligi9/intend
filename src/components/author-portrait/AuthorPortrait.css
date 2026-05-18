@@ -2,8 +2,8 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: calc(270px * var(--author-portrait-scale));
-  height: calc(270px * var(--author-portrait-scale));
+  width: var(--author-portrait-size);
+  height: var(--author-portrait-size);
   margin: 0;
   flex: 0 0 auto;
 }
@@ -19,9 +19,9 @@
 .author-portrait__ring::before {
   content: '';
   display: block;
-  width: calc(var(--ring-size) * var(--author-portrait-scale));
-  height: calc(var(--ring-size) * var(--author-portrait-scale));
-  border: calc(5px * var(--author-portrait-scale)) solid var(--ring-color);
+  width: calc(var(--author-image-size) + var(--ring-offset) * 2);
+  height: calc(var(--author-image-size) + var(--ring-offset) * 2);
+  border: var(--author-ring-stroke) solid var(--ring-color);
   border-radius: 50%;
   box-sizing: border-box;
 }
@@ -32,8 +32,8 @@
   left: 50%;
   display: grid;
   place-items: center;
-  width: calc(180px * var(--author-portrait-scale));
-  height: calc(180px * var(--author-portrait-scale));
+  width: var(--author-image-size);
+  height: var(--author-image-size);
   overflow: hidden;
   border-radius: 50%;
   background: #f0efeb;
@@ -54,7 +54,7 @@
   width: 100%;
   height: 100%;
   color: #6f7278;
-  font-size: calc(58px * var(--author-portrait-scale));
+  font-size: calc(var(--author-image-size) * 0.32);
   font-weight: 800;
   line-height: 1;
   background: #f0efeb;

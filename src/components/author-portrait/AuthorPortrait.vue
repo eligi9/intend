@@ -17,7 +17,7 @@ const strategyDisplayOrder: IntentLabelKey[] = [
   'individual_needs',
 ]
 
-const ringSizes = [270, 250, 232, 212]
+const ringOffsets = [12, 20, 28, 36]
 
 const props = withDefaults(
   defineProps<{
@@ -25,11 +25,15 @@ const props = withDefaults(
     size?: number
   }>(),
   {
-    size: 270,
+    size: 88,
   },
 )
 
-const scale = computed(() => props.size / 270)
+const ringStroke = computed(() => Math.max(2, props.size * 0.035))
+const portraitSize = computed(() => {
+  const outerOffset = rings.value.length > 0 ? ringOffsets[rings.value.length - 1] : 0
+  return props.size + outerOffset * 2
+})
 
 const rings = computed(() => {
   const usedLabels = new Set(props.author.usedTopLevelStrategyLabels)
@@ -39,7 +43,7 @@ const rings = computed(() => {
     .map((label, index) => ({
       label,
       color: strategyColors[label] ?? '#858b94',
-      size: ringSizes[index],
+      offset: ringOffsets[index],
     }))
 })
 
@@ -47,13 +51,20 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
 </script>
 
 <template>
-  <figure class="author-portrait" :style="{ '--author-portrait-scale': scale }">
+  <figure
+    class="author-portrait"
+    :style="{
+      '--author-portrait-size': `${portraitSize}px`,
+      '--author-image-size': `${size}px`,
+      '--author-ring-stroke': `${ringStroke}px`,
+    }"
+  >
     <span class="author-portrait__rings" aria-hidden="true">
       <span
         v-for="ring in rings"
         :key="ring.label"
         class="author-portrait__ring"
-        :style="{ '--ring-color': ring.color, '--ring-size': `${ring.size}px` }"
+        :style="{ '--ring-color': ring.color, '--ring-offset': `${ring.offset}px` }"
       />
     </span>
 

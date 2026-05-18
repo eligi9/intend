@@ -16,7 +16,7 @@ const { authorInstances } = storeToRefs(authorStore)
 
     <section class="author-view__grid" aria-label="Autoren">
       <article v-for="author in authorInstances" :key="author.id" class="author-view__item">
-        <AuthorPortrait :author="author" :size="220" />
+        <AuthorPortrait :author="author" :size="76" />
       </article>
     </section>
   </section>

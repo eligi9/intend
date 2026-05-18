@@ -1,48 +1,49 @@
 .author-view {
   display: grid;
   align-content: start;
-  gap: 28px;
-  padding: 28px;
+  gap: 18px;
+  padding: 20px 24px;
   overflow: auto;
 }
 
 .author-view__header {
   display: grid;
-  gap: 8px;
+  gap: 4px;
 }
 
 .author-view__header h2 {
   margin: 0;
-  font-size: 40px;
+  font-size: 32px;
   line-height: 1;
 }
 
 .author-view__grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 28px;
-  align-items: flex-start;
+  gap: 8px 10px;
+  align-items: center;
+  align-content: flex-start;
 }
 
 .author-view__item {
   display: grid;
   place-items: center;
-  width: 220px;
-  min-height: 220px;
+  width: 148px;
+  min-height: 148px;
 }
 
 @media (max-width: 780px) {
   .author-view {
-    padding: 20px;
+    padding: 18px;
   }
 
   .author-view__grid {
-    gap: 20px;
+    gap: 12px;
     justify-content: center;
   }
 
   .author-view__item {
-    width: 180px;
-    min-height: 180px;
+    width: 148px;
+    min-height: 148px;
   }
 }
