@@ -58,7 +58,7 @@ export const useIntentDataStore = defineStore('intentData', () => {
         ...author,
         dateOfBirth: additional?.dateOfBirth ?? author.dateOfBirth,
         gender: additional?.gender ?? author.gender,
-        parties: additional?.parties ?? author.parties,
+        party: additional?.party ?? author.party,
         notes: additional?.notes ?? null,
         externalIds: additional?.externalIds ?? {},
       }

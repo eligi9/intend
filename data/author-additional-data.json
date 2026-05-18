@@ -5,9 +5,7 @@
     "Almog Cohen": {
       "dateOfBirth": "1988-01-12",
       "gender": "male",
-      "parties": [
-        "Jewish Power"
-      ],
+      "party": "Jewish Power",
       "notes": null,
       "externalIds": {
         "wikidata": "Q113389177",
@@ -15,13 +13,20 @@
         "wikidataSource": "https://www.wikidata.org/wiki/Q113389177"
       }
     },
+    "Alon Davidi": {
+      "dateOfBirth": "1973",
+      "gender": "male",
+      "party": "Likud",
+      "notes": null,
+      "externalIds": {
+        "wikidata": "Q16131854",
+        "wikidataSource": "https://www.wikidata.org/wiki/Q16131854"
+      }
+    },
     "Amichai Chikli": {
       "dateOfBirth": "1981-09-12",
       "gender": "male",
-      "parties": [
-        "Likud",
-        "New Right"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q105581659",
@@ -32,10 +37,7 @@
     "Amichai Eliyahu": {
       "dateOfBirth": "1979-04-24",
       "gender": "male",
-      "parties": [
-        "Jewish Power",
-        "Religious Zionism"
-      ],
+      "party": "Jewish Power",
       "notes": null,
       "externalIds": {
         "wikidata": "Q115005935",
@@ -46,9 +48,7 @@
     "Amit Halevi": {
       "dateOfBirth": "1971-06-05",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q97816805",
@@ -59,10 +59,7 @@
     "Ariel Kallner": {
       "dateOfBirth": "1980-07-05",
       "gender": "male",
-      "parties": [
-        "Likud",
-        "Zionism"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63197463",
@@ -73,10 +70,7 @@
     "Avi Dichter": {
       "dateOfBirth": "1952-12-14",
       "gender": "male",
-      "parties": [
-        "Kadima",
-        "Likud"
-      ],
+      "party": "Kadima",
       "notes": null,
       "externalIds": {
         "wikidata": "Q790699",
@@ -87,9 +81,7 @@
     "Avigdor Lieberman": {
       "dateOfBirth": "1958-07-05",
       "gender": "male",
-      "parties": [
-        "Israel Our Home"
-      ],
+      "party": "Israel Our Home",
       "notes": null,
       "externalIds": {
         "wikidata": "Q58311",
@@ -100,9 +92,7 @@
     "Benjamin Netanyahu": {
       "dateOfBirth": "1949-10-21",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q43723",
@@ -113,9 +103,7 @@
     "Benny Gantz": {
       "dateOfBirth": "1959-06-09",
       "gender": "male",
-      "parties": [
-        "Blue and White Israel Resilience Party"
-      ],
+      "party": "Blue and White Israel Resilience Party",
       "notes": null,
       "externalIds": {
         "wikidata": "Q557436",
@@ -126,9 +114,7 @@
     "Bezalel Smotrich": {
       "dateOfBirth": "1981-02-27",
       "gender": "male",
-      "parties": [
-        "Religious Zionism"
-      ],
+      "party": "Religious Zionism",
       "notes": null,
       "externalIds": {
         "wikidata": "Q18759744",
@@ -139,9 +125,7 @@
     "Boaz Bismuth": {
       "dateOfBirth": "1964-11-25",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q12404410",
@@ -152,9 +136,7 @@
     "Danny Dannon": {
       "dateOfBirth": "1971-05-08",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q2919440",
@@ -165,7 +147,7 @@
     "David Roet": {
       "dateOfBirth": "1963-08-13",
       "gender": "male",
-      "parties": [],
+      "party": null,
       "notes": null,
       "externalIds": {
         "wikidata": "Q123815364",
@@ -173,24 +155,10 @@
         "wikidataSource": "https://www.wikidata.org/wiki/Q123815364"
       }
     },
-    "Alon Davidi": {
-      "dateOfBirth": "1973",
-      "gender": "male",
-      "parties": [
-        "Likud"
-      ],
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q16131854",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q16131854"
-      }
-    },
     "Galit Distel Atbaryan": {
       "dateOfBirth": "1971-01-10",
       "gender": "female",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q18822566",
@@ -201,9 +169,7 @@
     "Gila Gamliel": {
       "dateOfBirth": "1974-02-24",
       "gender": "female",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q445611",
@@ -214,9 +180,7 @@
     "Hanoch Milwidsky": {
       "dateOfBirth": "1973-02-13",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q115005812",
@@ -227,11 +191,7 @@
     "Idit Silman": {
       "dateOfBirth": "1980-10-27",
       "gender": "female",
-      "parties": [
-        "Likud",
-        "New Right",
-        "The Jewish Home"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63181940",
@@ -242,9 +202,7 @@
     "Isaac Herzog": {
       "dateOfBirth": "1960-09-22",
       "gender": "male",
-      "parties": [
-        "Israeli Labor Party"
-      ],
+      "party": "Israeli Labor Party",
       "notes": null,
       "externalIds": {
         "wikidata": "Q983258",
@@ -255,9 +213,7 @@
     "Israel Katz": {
       "dateOfBirth": "1955-09-21",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q487304",
@@ -268,17 +224,14 @@
     "Israeli Officials": {
       "dateOfBirth": null,
       "gender": null,
-      "parties": [],
+      "party": null,
       "notes": null,
       "externalIds": {}
     },
     "Itamar Ben Gvir": {
       "dateOfBirth": "1976-05-06",
       "gender": "male",
-      "parties": [
-        "Jewish Power",
-        "Kach"
-      ],
+      "party": "Jewish Power",
       "notes": null,
       "externalIds": {
         "wikidata": "Q12403861",
@@ -289,9 +242,7 @@
     "Keti Shitrit": {
       "dateOfBirth": "1960-01-22",
       "gender": "female",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63166467",
@@ -302,9 +253,7 @@
     "Limor Son Har-Melech": {
       "dateOfBirth": "1979-07-30",
       "gender": "female",
-      "parties": [
-        "Jewish Power"
-      ],
+      "party": "Jewish Power",
       "notes": null,
       "externalIds": {
         "wikidata": "Q115092610",
@@ -315,7 +264,7 @@
     "Maj. Gen. Ghassan Alian": {
       "dateOfBirth": "1972-03-21",
       "gender": "male",
-      "parties": [],
+      "party": null,
       "notes": null,
       "externalIds": {
         "wikidata": "Q16129259",
@@ -326,9 +275,7 @@
     "May Golan": {
       "dateOfBirth": "1986-05-03",
       "gender": "female",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q25490011",
@@ -339,17 +286,14 @@
     "Members of the Israeli Kenesset": {
       "dateOfBirth": null,
       "gender": null,
-      "parties": [],
+      "party": null,
       "notes": null,
       "externalIds": {}
     },
     "Michal Waldiger": {
       "dateOfBirth": "1969-01-06",
       "gender": "female",
-      "parties": [
-        "Religious Zionism",
-        "The Jewish Home"
-      ],
+      "party": "Religious Zionism",
       "notes": null,
       "externalIds": {
         "wikidata": "Q106226075",
@@ -360,9 +304,7 @@
     "Miki Levi": {
       "dateOfBirth": "1951-06-21",
       "gender": "male",
-      "parties": [
-        "There Is A Future"
-      ],
+      "party": "There Is A Future",
       "notes": null,
       "externalIds": {
         "wikidata": "Q3701621",
@@ -373,23 +315,21 @@
     "Minister of National Security": {
       "dateOfBirth": null,
       "gender": null,
-      "parties": [],
+      "party": null,
       "notes": null,
       "externalIds": {}
     },
     "Ministry of Intelligence": {
       "dateOfBirth": null,
       "gender": null,
-      "parties": [],
+      "party": null,
       "notes": null,
       "externalIds": {}
     },
     "Moshe Arbel": {
       "dateOfBirth": "1983-12-26",
       "gender": "male",
-      "parties": [
-        "Shas"
-      ],
+      "party": "Shas",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63200127",
@@ -400,9 +340,7 @@
     "Moshe Saad": {
       "dateOfBirth": "1972-09-14",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q113289336",
@@ -413,9 +351,7 @@
     "Nissim Vaturi": {
       "dateOfBirth": "1969-10-23",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q104051298",
@@ -426,9 +362,7 @@
     "Oded Forer": {
       "dateOfBirth": "1977-05-30",
       "gender": "male",
-      "parties": [
-        "Israel Our Home"
-      ],
+      "party": "Israel Our Home",
       "notes": null,
       "externalIds": {
         "wikidata": "Q20898016",
@@ -439,9 +373,7 @@
     "Ohad Tal": {
       "dateOfBirth": "1982-01-04",
       "gender": "male",
-      "parties": [
-        "The Religious Zionism"
-      ],
+      "party": "The Religious Zionism",
       "notes": null,
       "externalIds": {
         "wikidata": "Q115051874",
@@ -452,9 +384,7 @@
     "Omer Bar-Lev": {
       "dateOfBirth": "1953-10-02",
       "gender": "male",
-      "parties": [
-        "Israeli Labor Party"
-      ],
+      "party": "Israeli Labor Party",
       "notes": null,
       "externalIds": {
         "wikidata": "Q3593286",
@@ -465,9 +395,7 @@
     "Orit Strook": {
       "dateOfBirth": "1960-03-15",
       "gender": "female",
-      "parties": [
-        "The Jewish Home"
-      ],
+      "party": "The Jewish Home",
       "notes": null,
       "externalIds": {
         "wikidata": "Q3593944",
@@ -478,9 +406,7 @@
     "Revital Gotliv": {
       "dateOfBirth": "1975-11-03",
       "gender": "female",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "genderSource": "https://en.wikipedia.org/wiki/Tally_Gotliv",
@@ -491,9 +417,7 @@
     "Ron Dermer": {
       "dateOfBirth": "1971-04-16",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q7363705",
@@ -504,9 +428,7 @@
     "Shlomo Karhi": {
       "dateOfBirth": "1982-04-06",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63124881",
@@ -517,9 +439,7 @@
     "Simcha Rothman": {
       "dateOfBirth": "1980-08-13",
       "gender": "male",
-      "parties": [
-        "Religious Zionism"
-      ],
+      "party": "Religious Zionism",
       "notes": null,
       "externalIds": {
         "wikidata": "Q105127281",
@@ -530,9 +450,7 @@
     "Tzipi Hotovely": {
       "dateOfBirth": "1978-12-02",
       "gender": "female",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q445606",
@@ -543,10 +461,7 @@
     "Tzvi Sukkot": {
       "dateOfBirth": "1990-10-03",
       "gender": "male",
-      "parties": [
-        "Jewish Power",
-        "Religious Zionism"
-      ],
+      "party": "Jewish Power",
       "notes": null,
       "externalIds": {
         "genderSource": "https://www.jewishpress.com/news/israel/the-knesset/mk-tzvi-sukkot-announces-the-end-of-his-term-in-the-knesset/2025/01/19/",
@@ -557,9 +472,7 @@
     "Yair Lapid": {
       "dateOfBirth": "1963-11-05",
       "gender": "male",
-      "parties": [
-        "There Is A Future"
-      ],
+      "party": "There Is A Future",
       "notes": null,
       "externalIds": {
         "wikidata": "Q1396120",
@@ -570,11 +483,7 @@
     "Yifat Shasha Biton": {
       "dateOfBirth": "1973-05-23",
       "gender": "female",
-      "parties": [
-        "Kulanu",
-        "Likud",
-        "New Hope"
-      ],
+      "party": "Kulanu",
       "notes": null,
       "externalIds": {
         "wikidata": "Q19634043",
@@ -585,10 +494,7 @@
     "Yoav Gallant": {
       "dateOfBirth": "1958-11-08",
       "gender": "male",
-      "parties": [
-        "Kulanu",
-        "Likud"
-      ],
+      "party": "Kulanu",
       "notes": null,
       "externalIds": {
         "wikidata": "Q723506",
@@ -599,9 +505,7 @@
     "Yoav Kisch": {
       "dateOfBirth": "1968-12-06",
       "gender": "male",
-      "parties": [
-        "Likud"
-      ],
+      "party": "Likud",
       "notes": null,
       "externalIds": {
         "wikidata": "Q18785311",
