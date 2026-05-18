@@ -1,3 +1,23 @@
+export interface AuthorImage {
+  url: string
+  sourceUrl: string
+  wikidataImageProperty: string
+  commonsFile: string
+  originalUrl: string
+  downloadedFrom: string
+  title: string
+  creator: string | null
+  credit: string | null
+  license: string | null
+  licenseUrl: string | null
+  attributionRequired: string | null
+  copyrighted: string | null
+  attribution: string
+  isModified: boolean
+  modifications: string
+  retrievedAt: string
+}
+
 export interface AuthorProfile {
   id: string
   name: string
@@ -6,6 +26,7 @@ export interface AuthorProfile {
   position: string | null
   sector: string | null
   party: string | null
+  image: AuthorImage | null
   notes?: string | null
   externalIds?: Record<string, string>
 }

@@ -1,6 +1,6 @@
 {
   "name": "Intent Author Dataset",
-  "generatedAt": "2026-05-18T14:12:35.776Z",
+  "generatedAt": "2026-05-18T14:26:59.458Z",
   "sourceDataset": "data/intent-dataset.json",
   "authorCount": 48,
   "authors": [
@@ -17,6 +17,25 @@
         "wikidata": "Q113389177",
         "genderSource": "https://www.wikidata.org/wiki/Q113389177",
         "wikidataSource": "https://www.wikidata.org/wiki/Q113389177"
+      },
+      "image": {
+        "url": "/images/authors/almog-cohen.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Almog_Cohen.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q113389177#P18",
+        "commonsFile": "File:Almog Cohen.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Almog_Cohen.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Almog_Cohen.jpg/960px-Almog_Cohen.jpg",
+        "title": "Almog Cohen",
+        "creator": "יוסי לוגסי פלשמן",
+        "credit": "אלון נוריאל",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Almog Cohen. Creator: יוסי לוגסי פלשמן. Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -31,6 +50,25 @@
       "externalIds": {
         "wikidata": "Q16131854",
         "wikidataSource": "https://www.wikidata.org/wiki/Q16131854"
+      },
+      "image": {
+        "url": "/images/authors/alon-davidi.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alon_Davidi.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q16131854#P18",
+        "commonsFile": "File:Alon Davidi.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Alon_Davidi.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Alon_Davidi.jpg/960px-Alon_Davidi.jpg",
+        "title": "Alon Davidi",
+        "creator": "Reuven Kopitchinski",
+        "credit": "ירון ששון - דוברות עיריית שדרות",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Reuven Kopitchinski",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -46,6 +84,25 @@
         "wikidata": "Q105581659",
         "genderSource": "https://www.wikidata.org/wiki/Q105581659",
         "wikidataSource": "https://www.wikidata.org/wiki/Q105581659"
+      },
+      "image": {
+        "url": "/images/authors/amichai-chikli.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:עמיחי_שיקלי_צילום_ראובן_קפוצ׳ינסקי_(cropped).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q105581659#P18",
+        "commonsFile": "File:עמיחי שיקלי צילום ראובן קפוצ׳ינסקי (cropped).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/4/46/%D7%A2%D7%9E%D7%99%D7%97%D7%99_%D7%A9%D7%99%D7%A7%D7%9C%D7%99_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%A8%D7%90%D7%95%D7%91%D7%9F_%D7%A7%D7%A4%D7%95%D7%A6%D7%B3%D7%99%D7%A0%D7%A1%D7%A7%D7%99_%28cropped%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/4/46/%D7%A2%D7%9E%D7%99%D7%97%D7%99_%D7%A9%D7%99%D7%A7%D7%9C%D7%99_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%A8%D7%90%D7%95%D7%91%D7%9F_%D7%A7%D7%A4%D7%95%D7%A6%D7%B3%D7%99%D7%A0%D7%A1%D7%A7%D7%99_%28cropped%29.jpg",
+        "title": "עמיחי שיקלי צילום ראובן קפוצ׳ינסקי (cropped)",
+        "creator": "ראובן קופיצינסקי , צלם 053514246",
+        "credit": "ראובן קופיצינסקי , צלם 053514246",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "עמיחי שיקלי צילום ראובן קפוצ׳ינסקי (cropped). Creator: ראובן קופיצינסקי , צלם 053514246. Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -61,6 +118,25 @@
         "wikidata": "Q115005935",
         "genderSource": "https://www.wikidata.org/wiki/Q115005935",
         "wikidataSource": "https://www.wikidata.org/wiki/Q115005935"
+      },
+      "image": {
+        "url": "/images/authors/amichai-eliyahu.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amichai_Eliyahu.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q115005935#P18",
+        "commonsFile": "File:Amichai Eliyahu.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/99/Amichai_Eliyahu.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Amichai_Eliyahu.jpg/960px-Amichai_Eliyahu.jpg",
+        "title": "Amichai Eliyahu",
+        "creator": "יוסי לוגסי פלשמן",
+        "credit": "אלון נוריאל",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Amichai Eliyahu. Creator: יוסי לוגסי פלשמן. Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -76,6 +152,25 @@
         "wikidata": "Q97816805",
         "genderSource": "https://www.wikidata.org/wiki/Q97816805",
         "wikidataSource": "https://www.wikidata.org/wiki/Q97816805"
+      },
+      "image": {
+        "url": "/images/authors/amit-halevi.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amit_Halevi_(ZAC_2603).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q97816805#P18",
+        "commonsFile": "File:Amit Halevi (ZAC 2603).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Amit_Halevi_%28ZAC_2603%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Amit_Halevi_%28ZAC_2603%29.jpg/960px-Amit_Halevi_%28ZAC_2603%29.jpg",
+        "title": "Knesset member, Amit Halevy",
+        "creator": "Haim Zach",
+        "credit": "This file was donated to Wikimedia Commons by the Knesset Archives. link to the source: Amit Halevi To view all images uploaded courtesy of Knesset Archive This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing.",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Haim Zach / Knesset Archives",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -91,6 +186,25 @@
         "wikidata": "Q63197463",
         "genderSource": "https://www.wikidata.org/wiki/Q63197463",
         "wikidataSource": "https://www.wikidata.org/wiki/Q63197463"
+      },
+      "image": {
+        "url": "/images/authors/ariel-kallner.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ariel_Kallner.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q63197463#P18",
+        "commonsFile": "File:Ariel Kallner.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/da/Ariel_Kallner.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Ariel_Kallner.jpg/960px-Ariel_Kallner.jpg",
+        "title": "Ariel Kallner",
+        "creator": "שרון גבאי",
+        "credit": "שרון גבאי",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Sharon Gabay",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -106,6 +220,25 @@
         "wikidata": "Q790699",
         "genderSource": "https://www.wikidata.org/wiki/Q790699",
         "wikidataSource": "https://www.wikidata.org/wiki/Q790699"
+      },
+      "image": {
+        "url": "/images/authors/avi-dichter.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Avi_dichter.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q790699#P18",
+        "commonsFile": "File:Avi dichter.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Avi_dichter.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Avi_dichter.jpg",
+        "title": "Avi dichter",
+        "creator": "Shirley Steinberg (שירלי שטיינברג)",
+        "credit": "אבי דיכטר",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Avi dichter. Creator: Shirley Steinberg (שירלי שטיינברג). Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -121,6 +254,25 @@
         "wikidata": "Q58311",
         "genderSource": "https://www.wikidata.org/wiki/Q58311",
         "wikidataSource": "https://www.wikidata.org/wiki/Q58311"
+      },
+      "image": {
+        "url": "/images/authors/avigdor-lieberman.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Avigdor_Lieberman_2017.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q58311#P18",
+        "commonsFile": "File:Avigdor Lieberman 2017.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/Avigdor_Lieberman_2017.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/0/06/Avigdor_Lieberman_2017.jpg",
+        "title": "Avigdor Lieberman 2017",
+        "creator": "Jim Mattis",
+        "credit": "170307-D-GY869-147",
+        "license": "Public domain",
+        "licenseUrl": null,
+        "attributionRequired": "false",
+        "copyrighted": "False",
+        "attribution": "Avigdor Lieberman 2017. Creator: Jim Mattis. Source: Wikimedia Commons. License: Public domain. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -136,6 +288,25 @@
         "wikidata": "Q43723",
         "genderSource": "https://www.wikidata.org/wiki/Q43723",
         "wikidataSource": "https://www.wikidata.org/wiki/Q43723"
+      },
+      "image": {
+        "url": "/images/authors/benjamin-netanyahu.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Benjamin_Netanyahu,_February_2023.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q43723#P18",
+        "commonsFile": "File:Benjamin Netanyahu, February 2023.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/74/Benjamin_Netanyahu%2C_February_2023.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Benjamin_Netanyahu%2C_February_2023.jpg/960px-Benjamin_Netanyahu%2C_February_2023.jpg",
+        "title": "Benjamin Netanyahu, February 2023",
+        "creator": "Avi Ohayon",
+        "credit": "Government Press Office of Israel",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Avi Ohayon / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -151,6 +322,25 @@
         "wikidata": "Q557436",
         "genderSource": "https://www.wikidata.org/wiki/Q557436",
         "wikidataSource": "https://www.wikidata.org/wiki/Q557436"
+      },
+      "image": {
+        "url": "/images/authors/benny-gantz.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Benny_Gantz_2019_(cropped).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q557436#P18",
+        "commonsFile": "File:Benny Gantz 2019 (cropped).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Benny_Gantz_2019_%28cropped%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/8/84/Benny_Gantz_2019_%28cropped%29.jpg",
+        "title": "Benny Gantz 2019 (cropped)",
+        "creator": "Reuven Kopitchinski",
+        "credit": "עידית וקסלר צח - רמ\"ט ארגון - מפלגת חוסן לישראל",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Benny Gantz 2019 (cropped). Creator: Reuven Kopitchinski. Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -166,6 +356,25 @@
         "wikidata": "Q18759744",
         "genderSource": "https://www.wikidata.org/wiki/Q18759744",
         "wikidataSource": "https://www.wikidata.org/wiki/Q18759744"
+      },
+      "image": {
+        "url": "/images/authors/bezalel-smotrich.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bezalel_Smotrich.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q18759744#P18",
+        "commonsFile": "File:Bezalel Smotrich.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/Bezalel_Smotrich.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Bezalel_Smotrich.jpg/960px-Bezalel_Smotrich.jpg",
+        "title": "Bezalel Smotrich",
+        "creator": "Avi Ohayon",
+        "credit": "Government Press Office of Israel",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Avi Ohayon / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -181,6 +390,25 @@
         "wikidata": "Q12404410",
         "genderSource": "https://www.wikidata.org/wiki/Q12404410",
         "wikidataSource": "https://www.wikidata.org/wiki/Q12404410"
+      },
+      "image": {
+        "url": "/images/authors/boaz-bismuth.jpeg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boaz_Bismuth.jpeg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q12404410#P18",
+        "commonsFile": "File:Boaz Bismuth.jpeg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Boaz_Bismuth.jpeg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Boaz_Bismuth.jpeg/960px-Boaz_Bismuth.jpeg",
+        "title": "Boaz Bismuth",
+        "creator": "Eric Sultan",
+        "credit": "Boaz Bismuth",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Eric Sultan",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -196,6 +424,25 @@
         "wikidata": "Q2919440",
         "genderSource": "https://www.wikidata.org/wiki/Q2919440",
         "wikidataSource": "https://www.wikidata.org/wiki/Q2919440"
+      },
+      "image": {
+        "url": "/images/authors/danny-dannon.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Danny_danon2.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q2919440#P18",
+        "commonsFile": "File:Danny danon2.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/92/Danny_danon2.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Danny_danon2.jpg/960px-Danny_danon2.jpg",
+        "title": "Danny danon2",
+        "creator": "Darko",
+        "credit": "Own work",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Danny danon2. Creator: Darko. Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -211,7 +458,8 @@
         "wikidata": "Q123815364",
         "genderSource": "https://www.wikidata.org/wiki/Q123815364",
         "wikidataSource": "https://www.wikidata.org/wiki/Q123815364"
-      }
+      },
+      "image": null
     },
     {
       "id": "galit-distel-atbaryan",
@@ -226,6 +474,25 @@
         "wikidata": "Q18822566",
         "genderSource": "https://www.wikidata.org/wiki/Q18822566",
         "wikidataSource": "https://www.wikidata.org/wiki/Q18822566"
+      },
+      "image": {
+        "url": "/images/authors/galit-distel-atbaryan.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Galit_Distel-Atbaryan.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q18822566#P18",
+        "commonsFile": "File:Galit Distel-Atbaryan.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Galit_Distel-Atbaryan.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Galit_Distel-Atbaryan.jpg/960px-Galit_Distel-Atbaryan.jpg",
+        "title": "Galit Distel-Atbaryan",
+        "creator": "Mark Neyman",
+        "credit": "Government Press Office of Israel",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Mark Neyman / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -241,6 +508,25 @@
         "wikidata": "Q445611",
         "genderSource": "https://www.wikidata.org/wiki/Q445611",
         "wikidataSource": "https://www.wikidata.org/wiki/Q445611"
+      },
+      "image": {
+        "url": "/images/authors/gila-gamliel.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gila_Gamliel_1.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q445611#P18",
+        "commonsFile": "File:Gila Gamliel 1.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Gila_Gamliel_1.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Gila_Gamliel_1.jpg/960px-Gila_Gamliel_1.jpg",
+        "title": "Gila Gamliel 1",
+        "creator": "Haim Zach",
+        "credit": "Government Press Office of Israel",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Haim Zach / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -256,6 +542,25 @@
         "wikidata": "Q115005812",
         "genderSource": "https://www.wikidata.org/wiki/Q115005812",
         "wikidataSource": "https://www.wikidata.org/wiki/Q115005812"
+      },
+      "image": {
+        "url": "/images/authors/hanoch-milwidsky.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hanoch_Milwidsky.JPG",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q115005812#P18",
+        "commonsFile": "File:Hanoch Milwidsky.JPG",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Hanoch_Milwidsky.JPG",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Hanoch_Milwidsky.JPG/960px-Hanoch_Milwidsky.JPG",
+        "title": "Hanoch Milwidsky",
+        "creator": "Inbal Marmari",
+        "credit": "דוברות חה\"כ חנוך מילביצקי",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Inbal Marmari",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -271,6 +576,25 @@
         "wikidata": "Q63181940",
         "genderSource": "https://www.wikidata.org/wiki/Q63181940",
         "wikidataSource": "https://www.wikidata.org/wiki/Q63181940"
+      },
+      "image": {
+        "url": "/images/authors/idit-silman.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:עידית_סילמן_(cropped).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q63181940#P18",
+        "commonsFile": "File:עידית סילמן (cropped).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e6/%D7%A2%D7%99%D7%93%D7%99%D7%AA_%D7%A1%D7%99%D7%9C%D7%9E%D7%9F_%28cropped%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/e/e6/%D7%A2%D7%99%D7%93%D7%99%D7%AA_%D7%A1%D7%99%D7%9C%D7%9E%D7%9F_%28cropped%29.jpg",
+        "title": "עידית סילמן (cropped)",
+        "creator": "Baruch Greenberg",
+        "credit": "ברוך גרינברג",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Baruch Greenberg",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -286,6 +610,25 @@
         "wikidata": "Q983258",
         "genderSource": "https://www.wikidata.org/wiki/Q983258",
         "wikidataSource": "https://www.wikidata.org/wiki/Q983258"
+      },
+      "image": {
+        "url": "/images/authors/isaac-herzog.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Israeli_President_Isaac_Herzog_in_2024_(cropped).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q983258#P18",
+        "commonsFile": "File:Israeli President Isaac Herzog in 2024 (cropped).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Israeli_President_Isaac_Herzog_in_2024_%28cropped%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Israeli_President_Isaac_Herzog_in_2024_%28cropped%29.jpg",
+        "title": "Israeli President Isaac Herzog in 2024 (cropped)",
+        "creator": "U.S. Department of State",
+        "credit": "https://www.flickr.com/photos/9364837@N06/53783290977/",
+        "license": "Public domain",
+        "licenseUrl": null,
+        "attributionRequired": "false",
+        "copyrighted": "False",
+        "attribution": "Israeli President Isaac Herzog in 2024 (cropped). Creator: U.S. Department of State. Source: Wikimedia Commons. License: Public domain. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -301,6 +644,25 @@
         "wikidata": "Q487304",
         "genderSource": "https://www.wikidata.org/wiki/Q487304",
         "wikidataSource": "https://www.wikidata.org/wiki/Q487304"
+      },
+      "image": {
+        "url": "/images/authors/israel-katz.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:ישראל_כץ_(cropped).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q487304#P18",
+        "commonsFile": "File:ישראל כץ (cropped).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ed/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%9B%D7%A5_%28cropped%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/e/ed/%D7%99%D7%A9%D7%A8%D7%90%D7%9C_%D7%9B%D7%A5_%28cropped%29.jpg",
+        "title": "ישראל כץ (cropped)",
+        "creator": "ששון תירם. The original uploader was Yarondvash at Hebrew Wikipedia. (Original text: צילום: ששון תירם)",
+        "credit": "לשכת השר",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "ישראל כץ (cropped). Creator: ששון תירם. The original uploader was Yarondvash at Hebrew Wikipedia. (Original text: צילום: ששון תירם). Source: Wikimedia Commons. License: CC BY 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -312,7 +674,8 @@
       "sector": "Legislators",
       "party": null,
       "notes": null,
-      "externalIds": {}
+      "externalIds": {},
+      "image": null
     },
     {
       "id": "itamar-ben-gvir",
@@ -327,6 +690,25 @@
         "wikidata": "Q12403861",
         "genderSource": "https://www.wikidata.org/wiki/Q12403861",
         "wikidataSource": "https://www.wikidata.org/wiki/Q12403861"
+      },
+      "image": {
+        "url": "/images/authors/itamar-ben-gvir.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Itamar_Ben_Gvir_3_(cropped).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q12403861#P18",
+        "commonsFile": "File:Itamar Ben Gvir 3 (cropped).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Itamar_Ben_Gvir_3_%28cropped%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Itamar_Ben_Gvir_3_%28cropped%29.jpg",
+        "title": "Itamar Ben Gvir 3 (cropped)",
+        "creator": "אלון נוריאל",
+        "credit": "אלון נוריאל",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Itamar Ben Gvir 3 (cropped). Creator: אלון נוריאל. Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -342,6 +724,25 @@
         "wikidata": "Q63166467",
         "genderSource": "https://www.wikidata.org/wiki/Q63166467",
         "wikidataSource": "https://www.wikidata.org/wiki/Q63166467"
+      },
+      "image": {
+        "url": "/images/authors/keti-shitrit.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:MK_Keti_Shitrit.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q63166467#P18",
+        "commonsFile": "File:MK Keti Shitrit.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/MK_Keti_Shitrit.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/MK_Keti_Shitrit.jpg/960px-MK_Keti_Shitrit.jpg",
+        "title": "MK Keti Shitrit",
+        "creator": "Ckbsea",
+        "credit": "Own work",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "MK Keti Shitrit. Creator: Ckbsea. Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -357,6 +758,25 @@
         "wikidata": "Q115092610",
         "genderSource": "https://www.wikidata.org/wiki/Q115092610",
         "wikidataSource": "https://www.wikidata.org/wiki/Q115092610"
+      },
+      "image": {
+        "url": "/images/authors/limor-son-har-melech.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Limor_Son_Har-Melech.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q115092610#P18",
+        "commonsFile": "File:Limor Son Har-Melech.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Limor_Son_Har-Melech.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Limor_Son_Har-Melech.jpg/960px-Limor_Son_Har-Melech.jpg",
+        "title": "Limor Son Har-Melech",
+        "creator": "יוסי לוגסי פלשמן",
+        "credit": "אלון נוריאל",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Limor Son Har-Melech. Creator: יוסי לוגסי פלשמן. Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -372,6 +792,25 @@
         "wikidata": "Q16129259",
         "genderSource": "https://www.wikidata.org/wiki/Q16129259",
         "wikidataSource": "https://www.wikidata.org/wiki/Q16129259"
+      },
+      "image": {
+        "url": "/images/authors/maj-gen-ghassan-alian.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:רסאן_עליאן.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q16129259#P18",
+        "commonsFile": "File:רסאן עליאן.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/%D7%A8%D7%A1%D7%90%D7%9F_%D7%A2%D7%9C%D7%99%D7%90%D7%9F.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/%D7%A8%D7%A1%D7%90%D7%9F_%D7%A2%D7%9C%D7%99%D7%90%D7%9F.jpg/960px-%D7%A8%D7%A1%D7%90%D7%9F_%D7%A2%D7%9C%D7%99%D7%90%D7%9F.jpg",
+        "title": "רסאן עליאן",
+        "creator": "IDF Spokesperson's Unit photographer",
+        "credit": "This file contains IDF content and released by the Israeli Defence Forces Spokesperson's Unit. To view all images uploaded courtesy of IDF Spokesperson's Unit This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing.",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "IDF Spokesperson's Unit",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -387,6 +826,25 @@
         "wikidata": "Q25490011",
         "genderSource": "https://www.wikidata.org/wiki/Q25490011",
         "wikidataSource": "https://www.wikidata.org/wiki/Q25490011"
+      },
+      "image": {
+        "url": "/images/authors/may-golan.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:May_Golan_(cropped).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q25490011#P18",
+        "commonsFile": "File:May Golan (cropped).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/May_Golan_%28cropped%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/May_Golan_%28cropped%29.jpg/960px-May_Golan_%28cropped%29.jpg",
+        "title": "May Golan (cropped)",
+        "creator": "Kfir Ziv (כפיר זיו), הראל הרשקוביץ (עריכה)",
+        "credit": "May Golan (מאי גולן)",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "May Golan (cropped). Creator: Kfir Ziv (כפיר זיו), הראל הרשקוביץ (עריכה). Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -398,7 +856,8 @@
       "sector": "Legislators",
       "party": null,
       "notes": null,
-      "externalIds": {}
+      "externalIds": {},
+      "image": null
     },
     {
       "id": "michal-waldiger",
@@ -413,6 +872,25 @@
         "wikidata": "Q106226075",
         "genderSource": "https://www.wikidata.org/wiki/Q106226075",
         "wikidataSource": "https://www.wikidata.org/wiki/Q106226075"
+      },
+      "image": {
+        "url": "/images/authors/michal-waldiger.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Michal_Waldiger.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q106226075#P18",
+        "commonsFile": "File:Michal Waldiger.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Michal_Waldiger.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Michal_Waldiger.jpg/960px-Michal_Waldiger.jpg",
+        "title": "Michal Waldiger",
+        "creator": "Baruch Greenberg",
+        "credit": "ברוך גרינברג",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Baruch Greenberg",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -428,6 +906,25 @@
         "wikidata": "Q3701621",
         "genderSource": "https://www.wikidata.org/wiki/Q3701621",
         "wikidataSource": "https://www.wikidata.org/wiki/Q3701621"
+      },
+      "image": {
+        "url": "/images/authors/miki-levi.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:מיקי_לוי.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q3701621#P18",
+        "commonsFile": "File:מיקי לוי.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/00/%D7%9E%D7%99%D7%A7%D7%99_%D7%9C%D7%95%D7%99.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/0/00/%D7%9E%D7%99%D7%A7%D7%99_%D7%9C%D7%95%D7%99.jpg",
+        "title": "מיקי לוי",
+        "creator": "en:Yesh Atid political party",
+        "credit": "en:Yesh Atid political party",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "מיקי לוי. Creator: en:Yesh Atid political party. Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -439,7 +936,8 @@
       "sector": "Legislators",
       "party": null,
       "notes": null,
-      "externalIds": {}
+      "externalIds": {},
+      "image": null
     },
     {
       "id": "ministry-of-intelligence",
@@ -450,7 +948,8 @@
       "sector": "Legislators",
       "party": null,
       "notes": null,
-      "externalIds": {}
+      "externalIds": {},
+      "image": null
     },
     {
       "id": "moshe-arbel",
@@ -465,6 +964,25 @@
         "wikidata": "Q63200127",
         "genderSource": "https://www.wikidata.org/wiki/Q63200127",
         "wikidataSource": "https://www.wikidata.org/wiki/Q63200127"
+      },
+      "image": {
+        "url": "/images/authors/moshe-arbel.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Moshe_Arbel.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q63200127#P18",
+        "commonsFile": "File:Moshe Arbel.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Moshe_Arbel.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Moshe_Arbel.jpg/960px-Moshe_Arbel.jpg",
+        "title": "Moshe Arbel",
+        "creator": "גדעון שרון לע\"מ / Government Press Office of Israel",
+        "credit": "נתי עטר",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "גדעון שרון לע\"מ / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -480,6 +998,25 @@
         "wikidata": "Q113289336",
         "genderSource": "https://www.wikidata.org/wiki/Q113289336",
         "wikidataSource": "https://www.wikidata.org/wiki/Q113289336"
+      },
+      "image": {
+        "url": "/images/authors/moshe-saad.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:משה_סעדה.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q113289336#P18",
+        "commonsFile": "File:משה סעדה.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/4/44/%D7%9E%D7%A9%D7%94_%D7%A1%D7%A2%D7%93%D7%94.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/%D7%9E%D7%A9%D7%94_%D7%A1%D7%A2%D7%93%D7%94.jpg/960px-%D7%9E%D7%A9%D7%94_%D7%A1%D7%A2%D7%93%D7%94.jpg",
+        "title": "משה סעדה",
+        "creator": "Atbannett עמיחי בנעט",
+        "credit": "Own work",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "משה סעדה. Creator: Atbannett עמיחי בנעט. Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -495,6 +1032,25 @@
         "wikidata": "Q104051298",
         "genderSource": "https://www.wikidata.org/wiki/Q104051298",
         "wikidataSource": "https://www.wikidata.org/wiki/Q104051298"
+      },
+      "image": {
+        "url": "/images/authors/nissim-vaturi.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissim_Vaturi.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q104051298#P18",
+        "commonsFile": "File:Nissim Vaturi.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Nissim_Vaturi.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Nissim_Vaturi.jpg/960px-Nissim_Vaturi.jpg",
+        "title": "Nissim Vaturi",
+        "creator": "צילם: שרון רביבו קמפיין הליכוד",
+        "credit": "ניסים ואטורי",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Nissim Vaturi. Creator: צילם: שרון רביבו קמפיין הליכוד. Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -510,6 +1066,25 @@
         "wikidata": "Q20898016",
         "genderSource": "https://www.wikidata.org/wiki/Q20898016",
         "wikidataSource": "https://www.wikidata.org/wiki/Q20898016"
+      },
+      "image": {
+        "url": "/images/authors/oded-forer.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oded_Forer_(SHL_8651).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q20898016#P18",
+        "commonsFile": "File:Oded Forer (SHL 8651).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Oded_Forer_%28SHL_8651%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Oded_Forer_%28SHL_8651%29.jpg/960px-Oded_Forer_%28SHL_8651%29.jpg",
+        "title": "Knesset member, Oded Forer",
+        "creator": "Shlomi Amsalem",
+        "credit": "This file was donated to Wikimedia Commons by the Knesset Archives. link to the source: Oded Forer To view all images uploaded courtesy of Knesset Archive This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing.",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Shlomi Amsalem / Knesset Archives",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -525,6 +1100,25 @@
         "wikidata": "Q115051874",
         "genderSource": "https://www.wikidata.org/wiki/Q115051874",
         "wikidataSource": "https://www.wikidata.org/wiki/Q115051874"
+      },
+      "image": {
+        "url": "/images/authors/ohad-tal.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ohad_Tal2.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q115051874#P18",
+        "commonsFile": "File:Ohad Tal2.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/db/Ohad_Tal2.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Ohad_Tal2.jpg/960px-Ohad_Tal2.jpg",
+        "title": "Ohad Tal2",
+        "creator": "שחר כהן",
+        "credit": "צילום: שחר כהן",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "צילום: שחר כהן",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -540,6 +1134,25 @@
         "wikidata": "Q3593286",
         "genderSource": "https://www.wikidata.org/wiki/Q3593286",
         "wikidataSource": "https://www.wikidata.org/wiki/Q3593286"
+      },
+      "image": {
+        "url": "/images/authors/omer-bar-lev.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:עומר_בר_לב.JPG",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q3593286#P18",
+        "commonsFile": "File:עומר בר לב.JPG",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/%D7%A2%D7%95%D7%9E%D7%A8_%D7%91%D7%A8_%D7%9C%D7%91.JPG",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/9/9b/%D7%A2%D7%95%D7%9E%D7%A8_%D7%91%D7%A8_%D7%9C%D7%91.JPG",
+        "title": "עומר בר לב",
+        "creator": "יוסיוס",
+        "credit": "Own work",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "עומר בר לב. Creator: יוסיוס. Source: Wikimedia Commons. License: CC BY-SA 3.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -555,6 +1168,25 @@
         "wikidata": "Q3593944",
         "genderSource": "https://www.wikidata.org/wiki/Q3593944",
         "wikidataSource": "https://www.wikidata.org/wiki/Q3593944"
+      },
+      "image": {
+        "url": "/images/authors/orit-strook.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Orit_Strook_(E32J026291).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q3593944#P18",
+        "commonsFile": "File:Orit Strook (E32J026291).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Orit_Strook_%28E32J026291%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Orit_Strook_%28E32J026291%29.jpg/960px-Orit_Strook_%28E32J026291%29.jpg",
+        "title": "Knesset member, Orit Strock",
+        "creator": "Nati Shohat",
+        "credit": "This file was donated to Wikimedia Commons by the Knesset Archives. link to the source: Orit Strook To view all images uploaded courtesy of Knesset Archive This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing.",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Nati Shohat / Knesset Archives",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -570,6 +1202,25 @@
         "genderSource": "https://en.wikipedia.org/wiki/Tally_Gotliv",
         "wikidata": "Q113989783",
         "wikidataSource": "https://www.wikidata.org/wiki/Q113989783"
+      },
+      "image": {
+        "url": "/images/authors/revital-gotliv.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tali_Gottlieb.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q113989783#P18",
+        "commonsFile": "File:Tali Gottlieb.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Tali_Gottlieb.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Tali_Gottlieb.jpg",
+        "title": "Tali Gottlieb",
+        "creator": "Tali Gottlieb",
+        "credit": "Tali Gottlieb",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Tali Gottlieb. Creator: Tali Gottlieb. Source: Wikimedia Commons. License: CC BY 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -585,6 +1236,25 @@
         "wikidata": "Q7363705",
         "genderSource": "https://www.wikidata.org/wiki/Q7363705",
         "wikidataSource": "https://www.wikidata.org/wiki/Q7363705"
+      },
+      "image": {
+        "url": "/images/authors/ron-dermer.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ron_Dermer.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q7363705#P18",
+        "commonsFile": "File:Ron Dermer.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Ron_Dermer.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Ron_Dermer.jpg/960px-Ron_Dermer.jpg",
+        "title": "Ron Dermer",
+        "creator": "Avi Ohayon",
+        "credit": "Government Press Office of Israel",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Avi Ohayon / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -600,6 +1270,25 @@
         "wikidata": "Q63124881",
         "genderSource": "https://www.wikidata.org/wiki/Q63124881",
         "wikidataSource": "https://www.wikidata.org/wiki/Q63124881"
+      },
+      "image": {
+        "url": "/images/authors/shlomo-karhi.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:חבר_הכנסת_ד״ר_שלמה_קרעי.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q63124881#P18",
+        "commonsFile": "File:חבר הכנסת ד״ר שלמה קרעי.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/%D7%97%D7%91%D7%A8_%D7%94%D7%9B%D7%A0%D7%A1%D7%AA_%D7%93%D7%B4%D7%A8_%D7%A9%D7%9C%D7%9E%D7%94_%D7%A7%D7%A8%D7%A2%D7%99.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/%D7%97%D7%91%D7%A8_%D7%94%D7%9B%D7%A0%D7%A1%D7%AA_%D7%93%D7%B4%D7%A8_%D7%A9%D7%9C%D7%9E%D7%94_%D7%A7%D7%A8%D7%A2%D7%99.jpg/960px-%D7%97%D7%91%D7%A8_%D7%94%D7%9B%D7%A0%D7%A1%D7%AA_%D7%93%D7%B4%D7%A8_%D7%A9%D7%9C%D7%9E%D7%94_%D7%A7%D7%A8%D7%A2%D7%99.jpg",
+        "title": "חבר הכנסת ד״ר שלמה קרעי",
+        "creator": "Hagar Cohen (הגר כהן)",
+        "credit": "Own work",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "חבר הכנסת ד״ר שלמה קרעי. Creator: Hagar Cohen (הגר כהן). Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -615,6 +1304,25 @@
         "wikidata": "Q105127281",
         "genderSource": "https://www.wikidata.org/wiki/Q105127281",
         "wikidataSource": "https://www.wikidata.org/wiki/Q105127281"
+      },
+      "image": {
+        "url": "/images/authors/simcha-rothman.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Simcha_Rothman.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q105127281#P18",
+        "commonsFile": "File:Simcha Rothman.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/71/Simcha_Rothman.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/7/71/Simcha_Rothman.jpg",
+        "title": "Simcha Rothman",
+        "creator": "שמואל שניידר",
+        "credit": "שמחה רוטמן",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Simcha Rothman. Creator: שמואל שניידר. Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -630,6 +1338,25 @@
         "wikidata": "Q445606",
         "genderSource": "https://www.wikidata.org/wiki/Q445606",
         "wikidataSource": "https://www.wikidata.org/wiki/Q445606"
+      },
+      "image": {
+        "url": "/images/authors/tzipi-hotovely.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tzipi_Hotovely_DSC0068.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q445606#P18",
+        "commonsFile": "File:Tzipi Hotovely DSC0068.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Tzipi_Hotovely_DSC0068.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Tzipi_Hotovely_DSC0068.jpg/960px-Tzipi_Hotovely_DSC0068.jpg",
+        "title": "Tzipi Hotovely DSC0068",
+        "creator": "Arielinson",
+        "credit": "Own work",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Tzipi Hotovely DSC0068. Creator: Arielinson. Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -645,6 +1372,25 @@
         "genderSource": "https://www.jewishpress.com/news/israel/the-knesset/mk-tzvi-sukkot-announces-the-end-of-his-term-in-the-knesset/2025/01/19/",
         "wikidata": "Q50379434",
         "wikidataSource": "https://www.wikidata.org/wiki/Q50379434"
+      },
+      "image": {
+        "url": "/images/authors/tzvi-sukkot.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:צבי_סוכות.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q50379434#P18",
+        "commonsFile": "File:צבי סוכות.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/%D7%A6%D7%91%D7%99_%D7%A1%D7%95%D7%9B%D7%95%D7%AA.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/2/2a/%D7%A6%D7%91%D7%99_%D7%A1%D7%95%D7%9B%D7%95%D7%AA.jpg",
+        "title": "צבי סוכות",
+        "creator": "יאיר דב",
+        "credit": "Own work",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "צבי סוכות. Creator: יאיר דב. Source: Wikimedia Commons. License: CC BY-SA 4.0. Modifications: none.",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -660,6 +1406,25 @@
         "wikidata": "Q1396120",
         "genderSource": "https://www.wikidata.org/wiki/Q1396120",
         "wikidataSource": "https://www.wikidata.org/wiki/Q1396120"
+      },
+      "image": {
+        "url": "/images/authors/yair-lapid.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yair_Lapid_(D1237-011).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q1396120#P18",
+        "commonsFile": "File:Yair Lapid (D1237-011).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Yair_Lapid_%28D1237-011%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Yair_Lapid_%28D1237-011%29.jpg/960px-Yair_Lapid_%28D1237-011%29.jpg",
+        "title": "Yair Lapid (D1237-011)",
+        "creator": "Avi Ohayon",
+        "credit": "This is available from National Photo Collection of Israel, Photography dept. Government Press Office (link), under the digital ID D1237-011. This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing for more information.",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Avi Ohayon / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -675,6 +1440,25 @@
         "wikidata": "Q19634043",
         "genderSource": "https://www.wikidata.org/wiki/Q19634043",
         "wikidataSource": "https://www.wikidata.org/wiki/Q19634043"
+      },
+      "image": {
+        "url": "/images/authors/yifat-shasha-biton.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:יפעת_שאשא_ביטון.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q19634043#P18",
+        "commonsFile": "File:יפעת שאשא ביטון.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0e/%D7%99%D7%A4%D7%A2%D7%AA_%D7%A9%D7%90%D7%A9%D7%90_%D7%91%D7%99%D7%98%D7%95%D7%9F.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/%D7%99%D7%A4%D7%A2%D7%AA_%D7%A9%D7%90%D7%A9%D7%90_%D7%91%D7%99%D7%98%D7%95%D7%9F.jpg/960px-%D7%99%D7%A4%D7%A2%D7%AA_%D7%A9%D7%90%D7%A9%D7%90_%D7%91%D7%99%D7%98%D7%95%D7%9F.jpg",
+        "title": "יפעת שאשא ביטון",
+        "creator": "Oded Karni",
+        "credit": "Government Press Office of Israel",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Oded Karni / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -690,6 +1474,25 @@
         "wikidata": "Q723506",
         "genderSource": "https://www.wikidata.org/wiki/Q723506",
         "wikidataSource": "https://www.wikidata.org/wiki/Q723506"
+      },
+      "image": {
+        "url": "/images/authors/yoav-gallant.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yoav_Galant_1.jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q723506#P18",
+        "commonsFile": "File:Yoav Galant 1.jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/4/40/Yoav_Galant_1.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Yoav_Galant_1.jpg/960px-Yoav_Galant_1.jpg",
+        "title": "Yoav Galant 1",
+        "creator": "Avi Ohayon",
+        "credit": "Government Press Office of Israel",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Avi Ohayon / Government Press Office of Israel",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     },
     {
@@ -705,6 +1508,25 @@
         "wikidata": "Q18785311",
         "genderSource": "https://www.wikidata.org/wiki/Q18785311",
         "wikidataSource": "https://www.wikidata.org/wiki/Q18785311"
+      },
+      "image": {
+        "url": "/images/authors/yoav-kisch.jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yoav_Kish_(SHL_9437).jpg",
+        "wikidataImageProperty": "https://www.wikidata.org/wiki/Q18785311#P18",
+        "commonsFile": "File:Yoav Kish (SHL 9437).jpg",
+        "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Yoav_Kish_%28SHL_9437%29.jpg",
+        "downloadedFrom": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Yoav_Kish_%28SHL_9437%29.jpg/960px-Yoav_Kish_%28SHL_9437%29.jpg",
+        "title": "Knesset member, Yoav Kisch",
+        "creator": "Shlomi Amsalem",
+        "credit": "This file was donated to Wikimedia Commons by the Knesset Archives. link to the source: Yoav Kish To view all images uploaded courtesy of Knesset Archive This tag does not indicate the copyright status of the attached work. A normal copyright tag is still required. See Commons:Licensing.",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "attributionRequired": "true",
+        "copyrighted": "True",
+        "attribution": "Shlomi Amsalem / Knesset Archives",
+        "isModified": false,
+        "modifications": "none",
+        "retrievedAt": "2026-05-18"
       }
     }
   ]
