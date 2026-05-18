@@ -4,81 +4,120 @@
   "authors": {
     "Almog Cohen": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q113389177",
+        "genderSource": "https://www.wikidata.org/wiki/Q113389177"
+      }
     },
     "Amichai Chikli": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q105581659",
+        "genderSource": "https://www.wikidata.org/wiki/Q105581659"
+      }
     },
     "Amichai Eliyahu": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q115005935",
+        "genderSource": "https://www.wikidata.org/wiki/Q115005935"
+      }
     },
     "Amit Halevi": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q97816805",
+        "genderSource": "https://www.wikidata.org/wiki/Q97816805"
+      }
     },
     "Ariel Kallner": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q63197463",
+        "genderSource": "https://www.wikidata.org/wiki/Q63197463"
+      }
     },
     "Avi Dichter": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q790699",
+        "genderSource": "https://www.wikidata.org/wiki/Q790699"
+      }
     },
     "Avigdor Lieberman": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q58311",
+        "genderSource": "https://www.wikidata.org/wiki/Q58311"
+      }
     },
     "Benjamin Netanyahu": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q43723",
+        "genderSource": "https://www.wikidata.org/wiki/Q43723"
+      }
     },
     "Benny Gantz": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q557436",
+        "genderSource": "https://www.wikidata.org/wiki/Q557436"
+      }
     },
     "Bezalel Smotrich": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q18759744",
+        "genderSource": "https://www.wikidata.org/wiki/Q18759744"
+      }
     },
     "Boaz Bismuth": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q12404410",
+        "genderSource": "https://www.wikidata.org/wiki/Q12404410"
+      }
     },
     "Danny Dannon": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q2919440",
+        "genderSource": "https://www.wikidata.org/wiki/Q2919440"
+      }
     },
     "David Roet": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q123815364",
+        "genderSource": "https://www.wikidata.org/wiki/Q123815364"
+      }
     },
     "Eilon Davidi": {
       "age": null,
@@ -88,39 +127,57 @@
     },
     "Galit Distel Atbaryan": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q18822566",
+        "genderSource": "https://www.wikidata.org/wiki/Q18822566"
+      }
     },
     "Gila Gamliel": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q445611",
+        "genderSource": "https://www.wikidata.org/wiki/Q445611"
+      }
     },
     "Hanoch Milwidsky": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q115005812",
+        "genderSource": "https://www.wikidata.org/wiki/Q115005812"
+      }
     },
     "Idit Silman": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q63181940",
+        "genderSource": "https://www.wikidata.org/wiki/Q63181940"
+      }
     },
     "Isaac Herzog": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q983258",
+        "genderSource": "https://www.wikidata.org/wiki/Q983258"
+      }
     },
     "Israel Katz": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q487304",
+        "genderSource": "https://www.wikidata.org/wiki/Q487304"
+      }
     },
     "Israeli Officials": {
       "age": null,
@@ -130,33 +187,48 @@
     },
     "Itamar Ben Gvir": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q12403861",
+        "genderSource": "https://www.wikidata.org/wiki/Q12403861"
+      }
     },
     "Keti Shitrit": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q63166467",
+        "genderSource": "https://www.wikidata.org/wiki/Q63166467"
+      }
     },
     "Limor Son Har-Melech": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q115092610",
+        "genderSource": "https://www.wikidata.org/wiki/Q115092610"
+      }
     },
     "Maj. Gen. Ghassan Alian": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q16129259",
+        "genderSource": "https://www.wikidata.org/wiki/Q16129259"
+      }
     },
     "May Golan": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q25490011",
+        "genderSource": "https://www.wikidata.org/wiki/Q25490011"
+      }
     },
     "Members of the Israeli Kenesset": {
       "age": null,
@@ -166,15 +238,21 @@
     },
     "Michal Waldiger": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q106226075",
+        "genderSource": "https://www.wikidata.org/wiki/Q106226075"
+      }
     },
     "Miki Levi": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q3701621",
+        "genderSource": "https://www.wikidata.org/wiki/Q3701621"
+      }
     },
     "Minister of National Security": {
       "age": null,
@@ -190,105 +268,154 @@
     },
     "Moshe Arbel": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q63200127",
+        "genderSource": "https://www.wikidata.org/wiki/Q63200127"
+      }
     },
     "Moshe Saad": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q113289336",
+        "genderSource": "https://www.wikidata.org/wiki/Q113289336"
+      }
     },
     "Nissim Vaturi": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q104051298",
+        "genderSource": "https://www.wikidata.org/wiki/Q104051298"
+      }
     },
     "Oded Forer": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q20898016",
+        "genderSource": "https://www.wikidata.org/wiki/Q20898016"
+      }
     },
     "Ohad Tal": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q115051874",
+        "genderSource": "https://www.wikidata.org/wiki/Q115051874"
+      }
     },
     "Omer Bar-Lev": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q3593286",
+        "genderSource": "https://www.wikidata.org/wiki/Q3593286"
+      }
     },
     "Orit Strook": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q3593944",
+        "genderSource": "https://www.wikidata.org/wiki/Q3593944"
+      }
     },
     "Revital Gotliv": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "genderSource": "https://en.wikipedia.org/wiki/Tally_Gotliv"
+      }
     },
     "Ron Dermer": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q7363705",
+        "genderSource": "https://www.wikidata.org/wiki/Q7363705"
+      }
     },
     "Shlomo Karhi": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q63124881",
+        "genderSource": "https://www.wikidata.org/wiki/Q63124881"
+      }
     },
     "Simcha Rothman": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q105127281",
+        "genderSource": "https://www.wikidata.org/wiki/Q105127281"
+      }
     },
     "Tzipi Hotovely": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q445606",
+        "genderSource": "https://www.wikidata.org/wiki/Q445606"
+      }
     },
     "Tzvi Sukkot": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "genderSource": "https://www.jewishpress.com/news/israel/the-knesset/mk-tzvi-sukkot-announces-the-end-of-his-term-in-the-knesset/2025/01/19/"
+      }
     },
     "Yair Lapid": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q1396120",
+        "genderSource": "https://www.wikidata.org/wiki/Q1396120"
+      }
     },
     "Yifat Shasha Biton": {
       "age": null,
-      "gender": null,
+      "gender": "female",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q19634043",
+        "genderSource": "https://www.wikidata.org/wiki/Q19634043"
+      }
     },
     "Yoav Gallant": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q723506",
+        "genderSource": "https://www.wikidata.org/wiki/Q723506"
+      }
     },
     "Yoav Kisch": {
       "age": null,
-      "gender": null,
+      "gender": "male",
       "notes": null,
-      "externalIds": {}
+      "externalIds": {
+        "wikidata": "Q18785311",
+        "genderSource": "https://www.wikidata.org/wiki/Q18785311"
+      }
     }
   }
 }
