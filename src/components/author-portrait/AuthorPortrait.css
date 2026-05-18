@@ -9,8 +9,7 @@
 }
 
 .author-portrait__rings,
-.author-portrait__ring,
-.author-portrait__image-shell {
+.author-portrait__ring {
   position: absolute;
   inset: 0;
   display: grid;
@@ -28,11 +27,17 @@
 }
 
 .author-portrait__image-shell {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
   width: calc(180px * var(--author-portrait-scale));
   height: calc(180px * var(--author-portrait-scale));
   overflow: hidden;
   border-radius: 50%;
   background: #f0efeb;
+  transform: translate(-50%, -50%);
 }
 
 .author-portrait__image {
