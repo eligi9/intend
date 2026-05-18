@@ -85,6 +85,9 @@
   color: #20242b;
   background: #fffdfa;
   text-align: left;
+  cursor: default;
+  touch-action: pan-y;
+  user-select: text;
 }
 
 .reader-surface:hover {

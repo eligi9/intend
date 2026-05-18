@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import FilterButton from '../../components/filter-button/FilterButton.vue'
 import { intentLabelKeys, useIntentDataStore } from '../../stores/intentDataStore'
@@ -17,6 +17,7 @@ import { toggleArrayItem } from '../../utils/arrays'
 
 const store = useIntentDataStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
+const swipeStart = ref<{ x: number; y: number } | null>(null)
 
 const activeLabels = computed(() => {
   if (!currentRecord.value) return []
@@ -37,6 +38,36 @@ function toggleSector(sector: string) {
 
 function toggleOverLabel(label: IntentLabelKey) {
   store.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
+}
+
+function startStatementSwipe(event: TouchEvent) {
+  const touch = event.touches[0]
+  if (!touch) return
+
+  swipeStart.value = {
+    x: touch.clientX,
+    y: touch.clientY,
+  }
+}
+
+function finishStatementSwipe(event: TouchEvent) {
+  if (!swipeStart.value) return
+
+  const touch = event.changedTouches[0]
+  if (!touch) return
+
+  const deltaX = touch.clientX - swipeStart.value.x
+  const deltaY = touch.clientY - swipeStart.value.y
+  swipeStart.value = null
+
+  if (Math.abs(deltaX) < 56 || Math.abs(deltaY) > 72) return
+
+  if (deltaX < 0) {
+    store.nextRecord()
+    return
+  }
+
+  store.previousRecord()
 }
 </script>
 
@@ -95,7 +126,12 @@ function toggleOverLabel(label: IntentLabelKey) {
       </div>
     </section>
 
-    <button v-if="currentRecord" type="button" class="reader-surface" @click="store.nextRecord">
+    <article
+      v-if="currentRecord"
+      class="reader-surface"
+      @touchstart.passive="startStatementSwipe"
+      @touchend.passive="finishStatementSwipe"
+    >
       <span class="reader-heading">
         <strong>{{ currentRecord.author }}</strong>
         <span class="reader-meta-line">{{ currentRecord.sector }} · {{ currentRecord.date }}</span>
@@ -106,7 +142,7 @@ function toggleOverLabel(label: IntentLabelKey) {
       <span class="reader-statement">{{ currentRecord.statement }}</span>
 
       <span v-if="currentRecord.context" class="reader-context">{{ currentRecord.context }}</span>
-    </button>
+    </article>
 
     <div v-else class="empty-state">
       <strong>Keine Statements gefunden</strong>
