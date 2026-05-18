@@ -98,7 +98,7 @@ function toggleOverLabel(label: IntentLabelKey) {
     <button v-if="currentRecord" type="button" class="reader-surface" @click="store.nextRecord">
       <span class="reader-heading">
         <strong>{{ currentRecord.author }}</strong>
-        <span>{{ currentRecord.sector }} · {{ currentRecord.date }}</span>
+        <span class="reader-meta-line">{{ currentRecord.sector }} · {{ currentRecord.date }}</span>
 
         <span class="reader-position">{{ currentRecord.position }}</span>
       </span>
