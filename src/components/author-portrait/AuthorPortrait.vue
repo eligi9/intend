@@ -17,23 +17,24 @@ const strategyDisplayOrder: IntentLabelKey[] = [
   'individual_needs',
 ]
 
-const ringOffsets = [12, 20, 28, 36]
-
 const props = withDefaults(
   defineProps<{
     author: AuthorInstance
     size?: number
   }>(),
   {
-    size: 88,
+    size: 148,
   },
 )
 
 const ringStroke = computed(() => Math.max(2, props.size * 0.035))
-const portraitSize = computed(() => {
-  const outerOffset = rings.value.length > 0 ? ringOffsets[rings.value.length - 1] : 0
-  return props.size + outerOffset * 2
-})
+const ringGap = computed(() => Math.max(2, props.size * 0.035))
+const totalRingSpace = computed(() =>
+  rings.value.length > 0
+    ? rings.value.length * ringStroke.value + (rings.value.length - 1) * ringGap.value
+    : 0,
+)
+const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
 
 const rings = computed(() => {
   const usedLabels = new Set(props.author.usedTopLevelStrategyLabels)
@@ -43,7 +44,7 @@ const rings = computed(() => {
     .map((label, index) => ({
       label,
       color: strategyColors[label] ?? '#858b94',
-      offset: ringOffsets[index],
+      index,
     }))
 })
 
@@ -54,8 +55,9 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
   <figure
     class="author-portrait"
     :style="{
-      '--author-portrait-size': `${portraitSize}px`,
-      '--author-image-size': `${size}px`,
+      '--author-portrait-size': `${size}px`,
+      '--author-image-size': `${imageSize}px`,
+      '--author-ring-gap': `${ringGap}px`,
       '--author-ring-stroke': `${ringStroke}px`,
     }"
   >
@@ -64,7 +66,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
         v-for="ring in rings"
         :key="ring.label"
         class="author-portrait__ring"
-        :style="{ '--ring-color': ring.color, '--ring-offset': `${ring.offset}px` }"
+        :style="{ '--ring-color': ring.color, '--ring-index': ring.index }"
       />
     </span>
 

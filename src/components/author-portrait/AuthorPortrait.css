@@ -19,8 +19,16 @@
 .author-portrait__ring::before {
   content: '';
   display: block;
-  width: calc(var(--author-image-size) + var(--ring-offset) * 2);
-  height: calc(var(--author-image-size) + var(--ring-offset) * 2);
+  width: calc(
+    var(--author-image-size) +
+    ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
+    (var(--ring-index) * var(--author-ring-gap) * 2)
+  );
+  height: calc(
+    var(--author-image-size) +
+    ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
+    (var(--ring-index) * var(--author-ring-gap) * 2)
+  );
   border: var(--author-ring-stroke) solid var(--ring-color);
   border-radius: 50%;
   box-sizing: border-box;

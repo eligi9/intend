@@ -28,8 +28,8 @@
 .author-view__item {
   display: grid;
   place-items: center;
-  width: 148px;
-  min-height: 148px;
+  width: 118px;
+  min-height: 118px;
 }
 
 @media (max-width: 780px) {
@@ -43,7 +43,7 @@
   }
 
   .author-view__item {
-    width: 148px;
-    min-height: 148px;
+    width: 118px;
+    min-height: 118px;
   }
 }
