@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+import authorAdditionalData from '../../data/author-additional-data.json'
+import authorDataset from '../../data/author-dataset.json'
 import dataset from '../../data/intent-dataset.json'
+import type { AuthorAdditionalDataset, AuthorDataset } from '../types/authorData'
 import type { IntentDataset, IntentFilters, IntentLabelKey, IntentRecord } from '../types/intentData'
 import { matchesIntentFilters, uniqueSorted } from '../utils/intentFilters'
 
@@ -26,6 +29,8 @@ export const intentLabelKeys = [
 ] as const satisfies readonly IntentLabelKey[]
 
 const intentDataset = dataset as IntentDataset
+const intentAuthorDataset = authorDataset as AuthorDataset
+const intentAuthorAdditionalData = authorAdditionalData as AuthorAdditionalDataset
 
 const emptyFilters = (): IntentFilters => ({
   query: '',
@@ -45,6 +50,20 @@ export const useIntentDataStore = defineStore('intentData', () => {
   const totalCount = computed(() => records.value.length)
   const sectors = computed(() => uniqueSorted(records.value.map((record) => record.sector)))
   const authors = computed(() => uniqueSorted(records.value.map((record) => record.author)))
+  const authorProfiles = computed(() =>
+    intentAuthorDataset.authors.map((author) => {
+      const additional = intentAuthorAdditionalData.authors[author.id]
+
+      return {
+        ...author,
+        age: additional?.age ?? author.age,
+        gender: additional?.gender ?? author.gender,
+        notes: additional?.notes ?? null,
+        externalIds: additional?.externalIds ?? {},
+      }
+    }),
+  )
+  const authorProfileCount = computed(() => authorProfiles.value.length)
   const labelKeys = computed(() => intentLabelKeys)
   const filteredRecords = computed(() =>
     records.value.filter((record) => matchesIntentFilters(record, filters.value)),
@@ -139,6 +158,8 @@ export const useIntentDataStore = defineStore('intentData', () => {
     totalCount,
     sectors,
     authors,
+    authorProfiles,
+    authorProfileCount,
     labelKeys,
     filteredRecords,
     filteredCount,
