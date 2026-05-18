@@ -1,0 +1,56 @@
+.author-portrait {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(270px * var(--author-portrait-scale));
+  height: calc(270px * var(--author-portrait-scale));
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.author-portrait__rings,
+.author-portrait__ring,
+.author-portrait__image-shell {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.author-portrait__ring::before {
+  content: '';
+  display: block;
+  width: calc(var(--ring-size) * var(--author-portrait-scale));
+  height: calc(var(--ring-size) * var(--author-portrait-scale));
+  border: calc(5px * var(--author-portrait-scale)) solid var(--ring-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.author-portrait__image-shell {
+  width: calc(180px * var(--author-portrait-scale));
+  height: calc(180px * var(--author-portrait-scale));
+  overflow: hidden;
+  border-radius: 50%;
+  background: #f0efeb;
+}
+
+.author-portrait__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
+}
+
+.author-portrait__fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: #6f7278;
+  font-size: calc(58px * var(--author-portrait-scale));
+  font-weight: 800;
+  line-height: 1;
+  background: #f0efeb;
+}
