@@ -1,338 +1,290 @@
 {
   "name": "Intent Author Additional Data",
-  "description": "Human-maintained enrichment data for author profiles. Keep ids aligned with data/author-dataset.json.",
+  "description": "Human-maintained enrichment data for author profiles. Keys are author names from data/intent-dataset.json.",
   "authors": {
-    "almog-cohen": {
-      "name": "Almog Cohen",
+    "Almog Cohen": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "amichai-chikli": {
-      "name": "Amichai Chikli",
+    "Amichai Chikli": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "amichai-eliyahu": {
-      "name": "Amichai Eliyahu",
+    "Amichai Eliyahu": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "amit-halevi": {
-      "name": "Amit Halevi",
+    "Amit Halevi": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "ariel-kallner": {
-      "name": "Ariel Kallner",
+    "Ariel Kallner": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "avi-dichter": {
-      "name": "Avi Dichter",
+    "Avi Dichter": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "avigdor-lieberman": {
-      "name": "Avigdor Lieberman",
+    "Avigdor Lieberman": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "benjamin-netanyahu": {
-      "name": "Benjamin Netanyahu",
+    "Benjamin Netanyahu": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "benny-gantz": {
-      "name": "Benny Gantz",
+    "Benny Gantz": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "bezalel-smotrich": {
-      "name": "Bezalel Smotrich",
+    "Bezalel Smotrich": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "boaz-bismuth": {
-      "name": "Boaz Bismuth",
+    "Boaz Bismuth": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "danny-dannon": {
-      "name": "Danny Dannon",
+    "Danny Dannon": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "david-roet": {
-      "name": "David Roet",
+    "David Roet": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "eilon-davidi": {
-      "name": "Eilon Davidi",
+    "Eilon Davidi": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "galit-distel-atbaryan": {
-      "name": "Galit Distel Atbaryan",
+    "Galit Distel Atbaryan": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "gila-gamliel": {
-      "name": "Gila Gamliel",
+    "Gila Gamliel": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "hanoch-milwidsky": {
-      "name": "Hanoch Milwidsky",
+    "Hanoch Milwidsky": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "idit-silman": {
-      "name": "Idit Silman",
+    "Idit Silman": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "isaac-herzog": {
-      "name": "Isaac Herzog",
+    "Isaac Herzog": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "israel-katz": {
-      "name": "Israel Katz",
+    "Israel Katz": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "israeli-officials": {
-      "name": "Israeli Officials",
+    "Israeli Officials": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "itamar-ben-gvir": {
-      "name": "Itamar Ben Gvir",
+    "Itamar Ben Gvir": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "keti-shitrit": {
-      "name": "Keti Shitrit",
+    "Keti Shitrit": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "limor-son-har-melech": {
-      "name": "Limor Son Har-Melech",
+    "Limor Son Har-Melech": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "maj-gen-ghassan-alian": {
-      "name": "Maj. Gen. Ghassan Alian",
+    "Maj. Gen. Ghassan Alian": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "may-golan": {
-      "name": "May Golan",
+    "May Golan": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "members-of-the-israeli-kenesset": {
-      "name": "Members of the Israeli Kenesset",
+    "Members of the Israeli Kenesset": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "michal-waldiger": {
-      "name": "Michal Waldiger",
+    "Michal Waldiger": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "miki-levi": {
-      "name": "Miki Levi",
+    "Miki Levi": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "minister-of-national-security": {
-      "name": "Minister of National Security",
+    "Minister of National Security": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "ministry-of-intelligence": {
-      "name": "Ministry of Intelligence",
+    "Ministry of Intelligence": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "moshe-arbel": {
-      "name": "Moshe Arbel",
+    "Moshe Arbel": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "moshe-saad": {
-      "name": "Moshe Saad",
+    "Moshe Saad": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "nissim-vaturi": {
-      "name": "Nissim Vaturi",
+    "Nissim Vaturi": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "oded-forer": {
-      "name": "Oded Forer",
+    "Oded Forer": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "ohad-tal": {
-      "name": "Ohad Tal",
+    "Ohad Tal": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "omer-bar-lev": {
-      "name": "Omer Bar-Lev",
+    "Omer Bar-Lev": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "orit-strook": {
-      "name": "Orit Strook",
+    "Orit Strook": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "revital-gotliv": {
-      "name": "Revital Gotliv",
+    "Revital Gotliv": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "ron-dermer": {
-      "name": "Ron Dermer",
+    "Ron Dermer": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "shlomo-karhi": {
-      "name": "Shlomo Karhi",
+    "Shlomo Karhi": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "simcha-rothman": {
-      "name": "Simcha Rothman",
+    "Simcha Rothman": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "tzipi-hotovely": {
-      "name": "Tzipi Hotovely",
+    "Tzipi Hotovely": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "tzvi-sukkot": {
-      "name": "Tzvi Sukkot",
+    "Tzvi Sukkot": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "yair-lapid": {
-      "name": "Yair Lapid",
+    "Yair Lapid": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "yifat-shasha-biton": {
-      "name": "Yifat Shasha Biton",
+    "Yifat Shasha Biton": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "yoav-gallant": {
-      "name": "Yoav Gallant",
+    "Yoav Gallant": {
       "age": null,
       "gender": null,
       "notes": null,
       "externalIds": {}
     },
-    "yoav-kisch": {
-      "name": "Yoav Kisch",
+    "Yoav Kisch": {
       "age": null,
       "gender": null,
       "notes": null,

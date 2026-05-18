@@ -52,7 +52,7 @@ export const useIntentDataStore = defineStore('intentData', () => {
   const authors = computed(() => uniqueSorted(records.value.map((record) => record.author)))
   const authorProfiles = computed(() =>
     intentAuthorDataset.authors.map((author) => {
-      const additional = intentAuthorAdditionalData.authors[author.id]
+      const additional = intentAuthorAdditionalData.authors[author.name]
 
       return {
         ...author,

@@ -62,7 +62,6 @@ export interface AuthorDataset {
 }
 
 export interface AuthorAdditionalProfile {
-  name: string
   age: number | null
   gender: string | null
   notes: string | null
