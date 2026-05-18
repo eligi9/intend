@@ -27,13 +27,17 @@ const props = withDefaults(
   },
 )
 
-const ringStroke = computed(() => Math.max(2, props.size * 0.035))
-const ringGap = computed(() => Math.max(2, props.size * 0.035))
+const ringStroke = computed(() => Math.max(2, props.size * 0.03))
+const ringGap = computed(() => ringStroke.value * 0.5)
 const maxRingCount = strategyDisplayOrder.length
 const totalRingSpace = computed(
   () => maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value,
 )
 const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
+
+const outerRingColor = computed(() =>
+  rings.value.length ? rings.value[rings.value.length - 1].color : '#858b94',
+)
 
 const rings = computed(() => {
   const usedLabels = new Set(props.author.usedTopLevelStrategyLabels)
@@ -58,6 +62,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
       '--author-image-size': `${imageSize}px`,
       '--author-ring-gap': `${ringGap}px`,
       '--author-ring-stroke': `${ringStroke}px`,
+      '--author-shadow-color': `${outerRingColor}`,
     }"
   >
     <span class="author-portrait__rings" aria-hidden="true">
