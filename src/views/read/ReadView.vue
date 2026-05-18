@@ -36,7 +36,7 @@ function toggleSector(sector: string) {
 }
 
 function toggleOverLabel(label: IntentLabelKey) {
-  store.setLabelsAny(toggleArrayItem(filters.value.labelsAny, label))
+  store.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
 }
 </script>
 
@@ -86,7 +86,7 @@ function toggleOverLabel(label: IntentLabelKey) {
                 :key="group.id"
                 :label="group.label"
                 :color="taxonomyButtonColors[group.id]"
-                :active="group.parentLabel ? filters.labelsAny.includes(group.parentLabel) : false"
+                :active="group.parentLabel ? filters.labelsAll.includes(group.parentLabel) : false"
                 @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
               />
             </div>
