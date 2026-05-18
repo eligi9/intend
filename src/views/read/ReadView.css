@@ -137,6 +137,10 @@
   line-height: 1.22;
 }
 
+.reader-statement-muted {
+  color: #8b9098;
+}
+
 .reader-context {
   margin-top: 18px;
 }

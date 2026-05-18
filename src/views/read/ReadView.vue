@@ -32,6 +32,34 @@ const annotations = computed(() => {
   return collectIntentAnnotations(currentRecord.value, activeLabels.value)
 })
 
+const statementSegments = computed(() => {
+  if (!currentRecord.value) return []
+
+  return splitBracketedText(currentRecord.value.statement)
+})
+
+function splitBracketedText(text: string) {
+  const segments: { text: string; muted: boolean }[] = []
+  const bracketPattern = /\[[^\]]*\]/g
+  let cursor = 0
+  let match: RegExpExecArray | null
+
+  while ((match = bracketPattern.exec(text))) {
+    if (match.index > cursor) {
+      segments.push({ text: text.slice(cursor, match.index), muted: false })
+    }
+
+    segments.push({ text: match[0], muted: true })
+    cursor = match.index + match[0].length
+  }
+
+  if (cursor < text.length) {
+    segments.push({ text: text.slice(cursor), muted: false })
+  }
+
+  return segments
+}
+
 function toggleSector(sector: string) {
   store.setSectors(filters.value.sectors.includes(sector) ? [] : [sector])
 }
@@ -139,7 +167,15 @@ function finishStatementSwipe(event: TouchEvent) {
         <span class="reader-position">{{ currentRecord.position }}</span>
       </span>
 
-      <span class="reader-statement">{{ currentRecord.statement }}</span>
+      <span class="reader-statement">
+        <span
+          v-for="(segment, index) in statementSegments"
+          :key="`${segment.text}-${index}`"
+          :class="{ 'reader-statement-muted': segment.muted }"
+        >
+          {{ segment.text }}
+        </span>
+      </span>
 
       <span v-if="currentRecord.context" class="reader-context">{{ currentRecord.context }}</span>
     </article>
