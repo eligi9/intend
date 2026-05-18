@@ -7,8 +7,7 @@
     {
       "id": "almog-cohen",
       "name": "Almog Cohen",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (Otza Yehudit - Jewish Power)",
       "positions": [
         "Member of the Israeli Knesset (Otza Yehudit - Jewish Power)"
@@ -179,13 +178,188 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1988-01-12",
+      "parties": [
+        "Jewish Power"
+      ]
+    },
+    {
+      "id": "alon-davidi",
+      "name": "Alon Davidi",
+      "gender": "male",
+      "primaryPosition": "Mayor of Sderot",
+      "positions": [
+        "Mayor of Sderot"
+      ],
+      "primarySector": "Legislators",
+      "sectors": [
+        "Legislators"
+      ],
+      "statementCount": 1,
+      "statementIds": [
+        "legislators-0039"
+      ],
+      "statements": [
+        {
+          "id": "legislators-0039",
+          "date": "03/11/2023",
+          "sector": "Legislators",
+          "position": "Mayor of Sderot"
+        }
+      ],
+      "strategies": {
+        "usesAllTopLevelLabels": false,
+        "usedTopLevelLabelCount": 2,
+        "topLevelLabelCount": 4,
+        "usedTopLevelLabels": [
+          "enemy_image",
+          "just_cause"
+        ],
+        "topLevel": {
+          "enemy_image": {
+            "id": "enemy-image",
+            "label": "Enemy Image",
+            "uses": true,
+            "count": 1,
+            "statementIds": [
+              "legislators-0039"
+            ],
+            "childLabels": {
+              "homogenization": {
+                "uses": true,
+                "count": 1,
+                "statementIds": [
+                  "legislators-0039"
+                ]
+              },
+              "immutability": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              },
+              "essentialization": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              },
+              "dehumanization": {
+                "uses": true,
+                "count": 1,
+                "statementIds": [
+                  "legislators-0039"
+                ]
+              },
+              "threat_construction": {
+                "uses": true,
+                "count": 1,
+                "statementIds": [
+                  "legislators-0039"
+                ]
+              }
+            },
+            "usesAllChildLabels": false,
+            "usedChildLabelCount": 3,
+            "childLabelCount": 5
+          },
+          "just_cause": {
+            "id": "just-cause",
+            "label": "Just Cause",
+            "uses": true,
+            "count": 1,
+            "statementIds": [
+              "legislators-0039"
+            ],
+            "childLabels": {
+              "security_rationale": {
+                "uses": true,
+                "count": 1,
+                "statementIds": [
+                  "legislators-0039"
+                ]
+              },
+              "selfdefence_counterterrorism": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              },
+              "retaliation": {
+                "uses": true,
+                "count": 1,
+                "statementIds": [
+                  "legislators-0039"
+                ]
+              }
+            },
+            "usesAllChildLabels": false,
+            "usedChildLabelCount": 2,
+            "childLabelCount": 3
+          },
+          "individual_needs": {
+            "id": "individual-needs",
+            "label": "Individual Needs",
+            "uses": false,
+            "count": 0,
+            "statementIds": [],
+            "childLabels": {
+              "meaning": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              },
+              "status": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              },
+              "hope_for_victory": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              }
+            },
+            "usesAllChildLabels": false,
+            "usedChildLabelCount": 0,
+            "childLabelCount": 3
+          },
+          "rhetorical_foreclosure": {
+            "id": "rhetorical-foreclosure",
+            "label": "Rhetorical Foreclosure",
+            "uses": false,
+            "count": 0,
+            "statementIds": [],
+            "childLabels": {
+              "no_alternative_framing": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              },
+              "humanity_as_weakness": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              },
+              "external_criticism_rejection": {
+                "uses": false,
+                "count": 0,
+                "statementIds": []
+              }
+            },
+            "usesAllChildLabels": false,
+            "usedChildLabelCount": 0,
+            "childLabelCount": 3
+          }
+        }
+      },
+      "dateOfBirth": "1973",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "amichai-chikli",
       "name": "Amichai Chikli",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Diaspora Affairs",
       "positions": [
         "Minister of Diaspora Affairs"
@@ -331,13 +505,17 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1981-09-12",
+      "parties": [
+        "Likud",
+        "New Right"
+      ]
     },
     {
       "id": "amichai-eliyahu",
       "name": "Amichai Eliyahu",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Heritage",
       "positions": [
         "Minister of Heritage"
@@ -525,13 +703,17 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1979-04-24",
+      "parties": [
+        "Jewish Power",
+        "Religious Zionism"
+      ]
     },
     {
       "id": "amit-halevi",
       "name": "Amit Halevi",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (Likud)",
       "positions": [
         "Member of the Israeli Knesset (Likud)"
@@ -690,13 +872,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1971-06-05",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "ariel-kallner",
       "name": "Ariel Kallner",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (Likud)",
       "positions": [
         "Member of the Israeli Knesset (Likud)"
@@ -853,13 +1038,17 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1980-07-05",
+      "parties": [
+        "Likud",
+        "Zionism"
+      ]
     },
     {
       "id": "avi-dichter",
       "name": "Avi Dichter",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Agriculture and Rural Development",
       "positions": [
         "Minister of Agriculture and Rural Development"
@@ -1005,13 +1194,17 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1952-12-14",
+      "parties": [
+        "Kadima",
+        "Likud"
+      ]
     },
     {
       "id": "avigdor-lieberman",
       "name": "Avigdor Lieberman",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Former Minister of Finance",
       "positions": [
         "Former Minister of Finance",
@@ -1173,13 +1366,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1958-07-05",
+      "parties": [
+        "Israel Our Home"
+      ]
     },
     {
       "id": "benjamin-netanyahu",
       "name": "Benjamin Netanyahu",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Prime Minister",
       "positions": [
         "Prime Minister"
@@ -1461,13 +1657,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1949-10-21",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "benny-gantz",
       "name": "Benny Gantz",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "War Cabinet Minister",
       "positions": [
         "War Cabinet Minister"
@@ -1626,13 +1825,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1959-06-09",
+      "parties": [
+        "Blue and White Israel Resilience Party"
+      ]
     },
     {
       "id": "bezalel-smotrich",
       "name": "Bezalel Smotrich",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Finance",
       "positions": [
         "Minister of Finance"
@@ -2017,13 +2219,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1981-02-27",
+      "parties": [
+        "Religious Zionism"
+      ]
     },
     {
       "id": "boaz-bismuth",
       "name": "Boaz Bismuth",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (Likud)",
       "positions": [
         "Member of the Israeli Knesset (Likud)"
@@ -2187,13 +2392,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1964-11-25",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "danny-dannon",
       "name": "Danny Dannon",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (Likud and Yesh Atid respectively)",
       "positions": [
         "Member of the Israeli Knesset (Likud and Yesh Atid respectively)"
@@ -2339,13 +2547,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1971-05-08",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "david-roet",
       "name": "David Roet",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Israeli Ambassador to Austria",
       "positions": [
         "Israeli Ambassador to Austria"
@@ -2491,182 +2702,14 @@
             "childLabelCount": 3
           }
         }
-      }
-    },
-    {
-      "id": "eilon-davidi",
-      "name": "Eilon Davidi",
-      "age": null,
-      "gender": null,
-      "primaryPosition": "Mayor of Sderot",
-      "positions": [
-        "Mayor of Sderot"
-      ],
-      "primarySector": "Legislators",
-      "sectors": [
-        "Legislators"
-      ],
-      "statementCount": 1,
-      "statementIds": [
-        "legislators-0039"
-      ],
-      "statements": [
-        {
-          "id": "legislators-0039",
-          "date": "03/11/2023",
-          "sector": "Legislators",
-          "position": "Mayor of Sderot"
-        }
-      ],
-      "strategies": {
-        "usesAllTopLevelLabels": false,
-        "usedTopLevelLabelCount": 2,
-        "topLevelLabelCount": 4,
-        "usedTopLevelLabels": [
-          "enemy_image",
-          "just_cause"
-        ],
-        "topLevel": {
-          "enemy_image": {
-            "id": "enemy-image",
-            "label": "Enemy Image",
-            "uses": true,
-            "count": 1,
-            "statementIds": [
-              "legislators-0039"
-            ],
-            "childLabels": {
-              "homogenization": {
-                "uses": true,
-                "count": 1,
-                "statementIds": [
-                  "legislators-0039"
-                ]
-              },
-              "immutability": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              },
-              "essentialization": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              },
-              "dehumanization": {
-                "uses": true,
-                "count": 1,
-                "statementIds": [
-                  "legislators-0039"
-                ]
-              },
-              "threat_construction": {
-                "uses": true,
-                "count": 1,
-                "statementIds": [
-                  "legislators-0039"
-                ]
-              }
-            },
-            "usesAllChildLabels": false,
-            "usedChildLabelCount": 3,
-            "childLabelCount": 5
-          },
-          "just_cause": {
-            "id": "just-cause",
-            "label": "Just Cause",
-            "uses": true,
-            "count": 1,
-            "statementIds": [
-              "legislators-0039"
-            ],
-            "childLabels": {
-              "security_rationale": {
-                "uses": true,
-                "count": 1,
-                "statementIds": [
-                  "legislators-0039"
-                ]
-              },
-              "selfdefence_counterterrorism": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              },
-              "retaliation": {
-                "uses": true,
-                "count": 1,
-                "statementIds": [
-                  "legislators-0039"
-                ]
-              }
-            },
-            "usesAllChildLabels": false,
-            "usedChildLabelCount": 2,
-            "childLabelCount": 3
-          },
-          "individual_needs": {
-            "id": "individual-needs",
-            "label": "Individual Needs",
-            "uses": false,
-            "count": 0,
-            "statementIds": [],
-            "childLabels": {
-              "meaning": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              },
-              "status": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              },
-              "hope_for_victory": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              }
-            },
-            "usesAllChildLabels": false,
-            "usedChildLabelCount": 0,
-            "childLabelCount": 3
-          },
-          "rhetorical_foreclosure": {
-            "id": "rhetorical-foreclosure",
-            "label": "Rhetorical Foreclosure",
-            "uses": false,
-            "count": 0,
-            "statementIds": [],
-            "childLabels": {
-              "no_alternative_framing": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              },
-              "humanity_as_weakness": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              },
-              "external_criticism_rejection": {
-                "uses": false,
-                "count": 0,
-                "statementIds": []
-              }
-            },
-            "usesAllChildLabels": false,
-            "usedChildLabelCount": 0,
-            "childLabelCount": 3
-          }
-        }
-      }
+      },
+      "dateOfBirth": "1963-08-13",
+      "parties": []
     },
     {
       "id": "galit-distel-atbaryan",
       "name": "Galit Distel Atbaryan",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Member of the Israeli Knesset (Likud), former  Minister of Information",
       "positions": [
         "Member of the Israeli Knesset (Likud), former  Minister of Information",
@@ -2846,13 +2889,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1971-01-10",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "gila-gamliel",
       "name": "Gila Gamliel",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Minister of Intelligence",
       "positions": [
         "Minister of Intelligence"
@@ -3004,13 +3050,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1974-02-24",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "hanoch-milwidsky",
       "name": "Hanoch Milwidsky",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (Likud)",
       "positions": [
         "Member of the Israeli Knesset (Likud)"
@@ -3162,13 +3211,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1973-02-13",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "idit-silman",
       "name": "Idit Silman",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Minister of Environmental Protection",
       "positions": [
         "Minister of Environmental Protection"
@@ -3352,13 +3404,18 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1980-10-27",
+      "parties": [
+        "Likud",
+        "New Right",
+        "The Jewish Home"
+      ]
     },
     {
       "id": "isaac-herzog",
       "name": "Isaac Herzog",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "President",
       "positions": [
         "President"
@@ -3537,13 +3594,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1960-09-22",
+      "parties": [
+        "Israeli Labor Party"
+      ]
     },
     {
       "id": "israel-katz",
       "name": "Israel Katz",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Defence",
       "positions": [
         "Minister of Defence",
@@ -3734,12 +3794,15 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1955-09-21",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "israeli-officials",
       "name": "Israeli Officials",
-      "age": null,
       "gender": null,
       "primaryPosition": "Israeli Officials",
       "positions": [
@@ -3893,13 +3956,14 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": null,
+      "parties": []
     },
     {
       "id": "itamar-ben-gvir",
       "name": "Itamar Ben Gvir",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of National Security",
       "positions": [
         "Minister of National Security"
@@ -4272,13 +4336,17 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1976-05-06",
+      "parties": [
+        "Jewish Power",
+        "Kach"
+      ]
     },
     {
       "id": "keti-shitrit",
       "name": "Keti Shitrit",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Member of the Israeli Knesset - Likud",
       "positions": [
         "Member of the Israeli Knesset - Likud"
@@ -4432,13 +4500,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1960-01-22",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "limor-son-har-melech",
       "name": "Limor Son Har-Melech",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Member of the Israeli Knesset (Otzma Yehudit - Jewish Power)",
       "positions": [
         "Member of the Israeli Knesset (Otzma Yehudit - Jewish Power)"
@@ -4623,13 +4694,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1979-07-30",
+      "parties": [
+        "Jewish Power"
+      ]
     },
     {
       "id": "maj-gen-ghassan-alian",
       "name": "Maj. Gen. Ghassan Alian",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Coordinator of Government Activities in the Territories",
       "positions": [
         "Coordinator of Government Activities in the Territories"
@@ -4779,13 +4853,14 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1972-03-21",
+      "parties": []
     },
     {
       "id": "may-golan",
       "name": "May Golan",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Minister of Women Empowerment",
       "positions": [
         "Minister of Women Empowerment"
@@ -4992,12 +5067,15 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1986-05-03",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "members-of-the-israeli-kenesset",
       "name": "Members of the Israeli Kenesset",
-      "age": null,
       "gender": null,
       "primaryPosition": "Government",
       "positions": [
@@ -5144,13 +5222,14 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": null,
+      "parties": []
     },
     {
       "id": "michal-waldiger",
       "name": "Michal Waldiger",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Member of the Israeli Knesset - Religious Zionism",
       "positions": [
         "Member of the Israeli Knesset - Religious Zionism"
@@ -5309,13 +5388,17 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1969-01-06",
+      "parties": [
+        "Religious Zionism",
+        "The Jewish Home"
+      ]
     },
     {
       "id": "miki-levi",
       "name": "Miki Levi",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Members of the Israeli Knesset",
       "positions": [
         "Members of the Israeli Knesset"
@@ -5461,12 +5544,15 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1951-06-21",
+      "parties": [
+        "There Is A Future"
+      ]
     },
     {
       "id": "minister-of-national-security",
       "name": "Minister of National Security",
-      "age": null,
       "gender": null,
       "primaryPosition": "Minister of National Security",
       "positions": [
@@ -5619,12 +5705,13 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": null,
+      "parties": []
     },
     {
       "id": "ministry-of-intelligence",
       "name": "Ministry of Intelligence",
-      "age": null,
       "gender": null,
       "primaryPosition": "Ministry of Intelligence",
       "positions": [
@@ -5771,13 +5858,14 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": null,
+      "parties": []
     },
     {
       "id": "moshe-arbel",
       "name": "Moshe Arbel",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Interior",
       "positions": [
         "Minister of Interior"
@@ -5936,13 +6024,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1983-12-26",
+      "parties": [
+        "Shas"
+      ]
     },
     {
       "id": "moshe-saad",
       "name": "Moshe Saad",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (Likud)",
       "positions": [
         "Member of the Israeli Knesset (Likud)"
@@ -6094,13 +6185,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1972-09-14",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "nissim-vaturi",
       "name": "Nissim Vaturi",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Deputy Speaker of Knesset (Likud)",
       "positions": [
         "Deputy Speaker of Knesset (Likud)"
@@ -6455,13 +6549,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1969-10-23",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "oded-forer",
       "name": "Oded Forer",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset  (Yisrael Beiteinu)",
       "positions": [
         "Member of the Israeli Knesset  (Yisrael Beiteinu)"
@@ -6613,13 +6710,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1977-05-30",
+      "parties": [
+        "Israel Our Home"
+      ]
     },
     {
       "id": "ohad-tal",
       "name": "Ohad Tal",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (National Union–Tkuma)",
       "positions": [
         "Member of the Israeli Knesset (National Union–Tkuma)"
@@ -6787,13 +6887,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1982-01-04",
+      "parties": [
+        "The Religious Zionism"
+      ]
     },
     {
       "id": "omer-bar-lev",
       "name": "Omer Bar-Lev",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset and Former Minister of National Security",
       "positions": [
         "Member of the Israeli Knesset and Former Minister of National Security"
@@ -6945,13 +7048,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1953-10-02",
+      "parties": [
+        "Israeli Labor Party"
+      ]
     },
     {
       "id": "orit-strook",
       "name": "Orit Strook",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Minister of Settlements and National Missions",
       "positions": [
         "Minister of Settlements and National Missions"
@@ -7103,13 +7209,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1960-03-15",
+      "parties": [
+        "The Jewish Home"
+      ]
     },
     {
       "id": "revital-gotliv",
       "name": "Revital Gotliv",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Member of the Israeli Knesset (Likud)",
       "positions": [
         "Member of the Israeli Knesset (Likud)"
@@ -7415,13 +7524,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1975-11-03",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "ron-dermer",
       "name": "Ron Dermer",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Strategic Affairs",
       "positions": [
         "Minister of Strategic Affairs"
@@ -7567,13 +7679,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1971-04-16",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "shlomo-karhi",
       "name": "Shlomo Karhi",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Communications",
       "positions": [
         "Minister of Communications"
@@ -7769,13 +7884,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1982-04-06",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "simcha-rothman",
       "name": "Simcha Rothman",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset - Religious Zionism",
       "positions": [
         "Member of the Israeli Knesset - Religious Zionism"
@@ -7934,13 +8052,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1980-08-13",
+      "parties": [
+        "Religious Zionism"
+      ]
     },
     {
       "id": "tzipi-hotovely",
       "name": "Tzipi Hotovely",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Israeli Ambassador to the UK",
       "positions": [
         "Israeli Ambassador to the UK"
@@ -8109,13 +8230,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1978-12-02",
+      "parties": [
+        "Likud"
+      ]
     },
     {
       "id": "tzvi-sukkot",
       "name": "Tzvi Sukkot",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset - Religious Zionism",
       "positions": [
         "Member of the Israeli Knesset - Religious Zionism"
@@ -8281,13 +8405,17 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1990-10-03",
+      "parties": [
+        "Jewish Power",
+        "Religious Zionism"
+      ]
     },
     {
       "id": "yair-lapid",
       "name": "Yair Lapid",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Member of the Israeli Knesset (Yesh Atid)",
       "positions": [
         "Member of the Israeli Knesset (Yesh Atid)"
@@ -8444,13 +8572,16 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1963-11-05",
+      "parties": [
+        "There Is A Future"
+      ]
     },
     {
       "id": "yifat-shasha-biton",
       "name": "Yifat Shasha Biton",
-      "age": null,
-      "gender": null,
+      "gender": "female",
       "primaryPosition": "Member of the Israeli Knesset (New Hope)",
       "positions": [
         "Member of the Israeli Knesset (New Hope)"
@@ -8596,13 +8727,18 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1973-05-23",
+      "parties": [
+        "Kulanu",
+        "Likud",
+        "New Hope"
+      ]
     },
     {
       "id": "yoav-gallant",
       "name": "Yoav Gallant",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Defense",
       "positions": [
         "Minister of Defense"
@@ -8840,13 +8976,17 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1958-11-08",
+      "parties": [
+        "Kulanu",
+        "Likud"
+      ]
     },
     {
       "id": "yoav-kisch",
       "name": "Yoav Kisch",
-      "age": null,
-      "gender": null,
+      "gender": "male",
       "primaryPosition": "Minister of Education",
       "positions": [
         "Minister of Education"
@@ -9031,7 +9171,11 @@
             "childLabelCount": 3
           }
         }
-      }
+      },
+      "dateOfBirth": "1968-12-06",
+      "parties": [
+        "Likud"
+      ]
     }
   ]
 }

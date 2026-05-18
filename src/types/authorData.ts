@@ -39,8 +39,9 @@ export interface AuthorStrategySummary {
 export interface AuthorProfile {
   id: string
   name: string
-  age: number | null
+  dateOfBirth: string | null
   gender: string | null
+  parties: string[]
   primaryPosition: string | null
   positions: string[]
   primarySector: string | null
@@ -62,8 +63,9 @@ export interface AuthorDataset {
 }
 
 export interface AuthorAdditionalProfile {
-  age: number | null
+  dateOfBirth: string | null
   gender: string | null
+  parties: string[]
   notes: string | null
   externalIds: Record<string, string>
 }
