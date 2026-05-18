@@ -4,6 +4,7 @@ import authorDataset from '../../data/author-dataset.json'
 import dataset from '../../data/intent-dataset.json'
 import type { AuthorDataset } from '../types/authorData'
 import type { IntentDataset, IntentFilters, IntentLabelKey, IntentRecord } from '../types/intentData'
+import { createAuthorInstance, groupStatementsByAuthor } from '../utils/authorInstances'
 import { matchesIntentFilters, uniqueSorted } from '../utils/intentFilters'
 
 export const intentLabelKeys = [
@@ -49,6 +50,12 @@ export const useIntentDataStore = defineStore('intentData', () => {
   const sectors = computed(() => uniqueSorted(records.value.map((record) => record.sector)))
   const authors = computed(() => uniqueSorted(records.value.map((record) => record.author)))
   const authorProfiles = computed(() => intentAuthorDataset.authors)
+  const statementsByAuthor = computed(() => groupStatementsByAuthor(records.value))
+  const authorInstances = computed(() =>
+    authorProfiles.value.map((author) =>
+      createAuthorInstance(author, statementsByAuthor.value[author.name] ?? []),
+    ),
+  )
   const authorProfileCount = computed(() => authorProfiles.value.length)
   const labelKeys = computed(() => intentLabelKeys)
   const filteredRecords = computed(() =>
@@ -106,6 +113,14 @@ export const useIntentDataStore = defineStore('intentData', () => {
     resetSlice()
   }
 
+  function getStatementsForAuthor(authorName: string) {
+    return statementsByAuthor.value[authorName] ?? []
+  }
+
+  function getAuthorInstance(authorName: string) {
+    return authorInstances.value.find((author) => author.name === authorName) ?? null
+  }
+
   function setSlice(offset: number, size?: number) {
     sliceSize.value = Math.max(1, size ?? sliceSize.value)
     sliceOffset.value = Math.max(0, Math.min(offset, Math.max(0, filteredCount.value - 1)))
@@ -145,6 +160,8 @@ export const useIntentDataStore = defineStore('intentData', () => {
     sectors,
     authors,
     authorProfiles,
+    authorInstances,
+    statementsByAuthor,
     authorProfileCount,
     labelKeys,
     filteredRecords,
@@ -159,6 +176,8 @@ export const useIntentDataStore = defineStore('intentData', () => {
     setLabelsAny,
     setLabelsAll,
     clearFilters,
+    getStatementsForAuthor,
+    getAuthorInstance,
     setSlice,
     nextSlice,
     previousSlice,

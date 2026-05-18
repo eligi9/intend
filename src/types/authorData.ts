@@ -1,3 +1,5 @@
+import type { IntentLabelKey, IntentRecord } from './intentData'
+
 export interface AuthorImage {
   url: string
   sourceUrl: string
@@ -37,4 +39,23 @@ export interface AuthorDataset {
   sourceDataset: string
   authorCount: number
   authors: AuthorProfile[]
+}
+
+export interface AuthorTopLevelStrategyUsage {
+  id: string
+  label: string
+  labelKey: IntentLabelKey
+  statementCount: number
+  statementIds: string[]
+}
+
+export interface AuthorInstance extends AuthorProfile {
+  age: number | null
+  statements: IntentRecord[]
+  statementCount: number
+  usedTopLevelStrategies: AuthorTopLevelStrategyUsage[]
+  usedTopLevelStrategyLabels: IntentLabelKey[]
+  usedTopLevelStrategyCount: number
+  topLevelStrategyCount: number
+  usesAllTopLevelStrategies: boolean
 }
