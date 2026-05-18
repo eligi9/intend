@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import dataset from '../../data/intent-dataset.json'
 import type { IntentDataset, IntentFilters, IntentLabelKey, IntentRecord } from '../types/intentData'
+import { matchesIntentFilters, uniqueSorted } from '../utils/intentFilters'
 
 export const intentLabelKeys = [
   'enemy_image',
@@ -24,18 +25,6 @@ export const intentLabelKeys = [
 ] as const satisfies readonly IntentLabelKey[]
 
 const intentDataset = dataset as IntentDataset
-
-function includesText(value: string | null | undefined, query: string) {
-  return value?.toLowerCase().includes(query) ?? false
-}
-
-function isLabelActive(record: IntentRecord, label: IntentLabelKey) {
-  return record[label] === 'yes'
-}
-
-function uniqueSorted(values: string[]) {
-  return [...new Set(values)].sort((a, b) => a.localeCompare(b))
-}
 
 export const useIntentDataStore = defineStore('intentData', {
   state: () => ({
@@ -61,34 +50,8 @@ export const useIntentDataStore = defineStore('intentData', {
 
     labelKeys: () => intentLabelKeys,
 
-    filteredRecords: (state) => {
-      const query = state.filters.query.trim().toLowerCase()
-
-      return state.records.filter((record) => {
-        const matchesQuery =
-          query.length === 0 ||
-          includesText(record.author, query) ||
-          includesText(record.position, query) ||
-          includesText(record.context, query) ||
-          includesText(record.statement, query)
-
-        const matchesSector =
-          state.filters.sectors.length === 0 || state.filters.sectors.includes(record.sector)
-
-        const matchesAuthor =
-          state.filters.authors.length === 0 || state.filters.authors.includes(record.author)
-
-        const matchesAnyLabel =
-          state.filters.labelsAny.length === 0 ||
-          state.filters.labelsAny.some((label) => isLabelActive(record, label))
-
-        const matchesAllLabels =
-          state.filters.labelsAll.length === 0 ||
-          state.filters.labelsAll.every((label) => isLabelActive(record, label))
-
-        return matchesQuery && matchesSector && matchesAuthor && matchesAnyLabel && matchesAllLabels
-      })
-    },
+    filteredRecords: (state) =>
+      state.records.filter((record) => matchesIntentFilters(record, state.filters)),
 
     filteredCount(): number {
       return this.filteredRecords.length
