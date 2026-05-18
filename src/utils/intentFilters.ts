@@ -21,7 +21,8 @@ export function matchesIntentFilters(record: IntentRecord, filters: IntentFilter
     includesText(record.context, query) ||
     includesText(record.statement, query)
 
-  const matchesSector = filters.sectors.length === 0 || filters.sectors.includes(record.sector)
+  const matchesSector =
+    filters.sectors.length === 0 || filters.sectors.every((sector) => record.sector === sector)
   const matchesAuthor = filters.authors.length === 0 || filters.authors.includes(record.author)
   const matchesAnyLabel =
     filters.labelsAny.length === 0 ||
