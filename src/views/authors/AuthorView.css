@@ -13,37 +13,37 @@
 
 .author-view__header {
   display: grid;
-  gap: 4px;
 }
 
 .author-view__header h2 {
   margin: 0;
-  font-size: 32px;
+  font-size: 48px;
   line-height: 1;
 }
 
 .author-filters,
-.author-filter-panel,
-.author-filter-group {
+.author-filter-card {
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 
-.author-filters > small,
-.author-filter-group small {
+.author-filters {
+  grid-template-columns: minmax(180px, 0.36fr) minmax(360px, 1fr);
+  align-items: stretch;
+  gap: 14px;
+}
+
+.author-filter-card {
+  align-content: start;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--author-view-background);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.author-filter-card small {
   font-weight: 800;
   text-transform: uppercase;
-}
-
-.author-filter-panel {
-  grid-template-columns: minmax(180px, 0.36fr) minmax(360px, 1fr);
-  align-items: start;
-  width: 100%;
-  gap: 12px;
-  padding: 12px;
-  border: 1px solid rgba(245, 243, 238, 0.16);
-  border-radius: 8px;
-  background: rgba(245, 243, 238, 0.06);
 }
 
 .author-filter-row {
@@ -86,7 +86,7 @@
     padding: 18px;
   }
 
-  .author-filter-panel {
+  .author-filters {
     grid-template-columns: 1fr;
   }
 

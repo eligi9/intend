@@ -38,42 +38,37 @@ function matchesAuthorFilters(authorLabels: IntentLabelKey[], sector: string | n
 <template>
   <section class="author-view">
     <header class="author-view__header">
-      <p class="eyebrow">Author View</p>
-      <h2>Autoren</h2>
+      <h2>Author View</h2>
     </header>
 
     <section class="author-filters" aria-label="Autoren Filter">
-      <small>Filter</small>
+      <section class="author-filter-card" aria-label="Sector Filter">
+        <small>Sector</small>
+        <div class="author-filter-row">
+          <FilterButton
+            v-for="sector in sectors"
+            :key="sector"
+            :label="sector"
+            color="#858b94"
+            :active="selectedSector === sector"
+            @click="toggleSector(sector)"
+          />
+        </div>
+      </section>
 
-      <div class="author-filter-panel">
-        <section class="author-filter-group" aria-label="Sector Filter">
-          <small>Sector</small>
-          <div class="author-filter-row">
-            <FilterButton
-              v-for="sector in sectors"
-              :key="sector"
-              :label="sector"
-              color="#858b94"
-              :active="selectedSector === sector"
-              @click="toggleSector(sector)"
-            />
-          </div>
-        </section>
-
-        <section class="author-filter-group" aria-label="Überlabel Filter">
-          <small>Mobilisierung Strategie</small>
-          <div class="author-filter-row">
-            <FilterButton
-              v-for="group in intentTaxonomy"
-              :key="group.id"
-              :label="group.label"
-              :color="taxonomyButtonColors[group.id]"
-              :active="group.parentLabel ? selectedLabels.includes(group.parentLabel) : false"
-              @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
-            />
-          </div>
-        </section>
-      </div>
+      <section class="author-filter-card" aria-label="Überlabel Filter">
+        <small>Mobilisierung Strategie</small>
+        <div class="author-filter-row">
+          <FilterButton
+            v-for="group in intentTaxonomy"
+            :key="group.id"
+            :label="group.label"
+            :color="taxonomyButtonColors[group.id]"
+            :active="group.parentLabel ? selectedLabels.includes(group.parentLabel) : false"
+            @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
+          />
+        </div>
+      </section>
     </section>
 
     <section class="author-view__grid" aria-label="Autoren">
