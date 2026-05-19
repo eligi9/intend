@@ -78,8 +78,18 @@
   width: 100%;
   height: 100%;
   color: #6f7278;
-  font-size: calc(var(--author-image-size) * 0.32);
+  font-size: calc(var(--author-image-size) * 0.48);
   font-weight: 800;
   line-height: 1;
   background: #f0efeb;
+}
+
+.author-portrait__fallback-icon {
+  width: 54%;
+  height: 54%;
+  fill: currentColor;
+}
+
+.author-portrait__fallback-unknown {
+  font-size: calc(var(--author-image-size) * 0.48);
 }
