@@ -28,7 +28,7 @@ const props = withDefaults(
 )
 
 const ringStroke = computed(() => Math.max(2, props.size * 0.03))
-const ringGap = computed(() => ringStroke.value * 0.5)
+const ringGap = computed(() => ringStroke.value * 0.25)
 const maxRingCount = strategyDisplayOrder.length
 const totalRingSpace = computed(
   () => maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value,
@@ -63,6 +63,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
       '--author-ring-gap': `${ringGap}px`,
       '--author-ring-stroke': `${ringStroke}px`,
       '--author-shadow-color': `${outerRingColor}`,
+      '--author-image-shadow-color': 'var(--author-view-background, #303030)',
     }"
   >
     <span class="author-portrait__rings" aria-hidden="true">
