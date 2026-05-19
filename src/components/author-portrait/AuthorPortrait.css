@@ -57,9 +57,9 @@
   pointer-events: none;
   background: radial-gradient(
     circle at center,
-    transparent 48%,
-    color-mix(in srgb, var(--author-image-shadow-color) 20%, transparent) 68%,
-    color-mix(in srgb, var(--author-image-shadow-color) 68%, transparent) 100%
+    transparent 72%,
+    color-mix(in srgb, var(--author-image-shadow-color) 24%, transparent) 82%,
+    var(--author-image-shadow-color) 100%
   );
 }
 

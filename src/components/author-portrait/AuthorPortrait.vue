@@ -28,7 +28,7 @@ const props = withDefaults(
 )
 
 const ringStroke = computed(() => Math.max(2, props.size * 0.03))
-const ringGap = computed(() => ringStroke.value * 0.25)
+const ringGap = computed(() => ringStroke.value * 0.5)
 const maxRingCount = strategyDisplayOrder.length
 const totalRingSpace = computed(
   () => maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value,
