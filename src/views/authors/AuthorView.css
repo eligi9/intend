@@ -28,13 +28,16 @@
 }
 
 .author-filters {
-  grid-template-columns: minmax(180px, 0.36fr) minmax(360px, 1fr);
-  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   gap: 14px;
 }
 
 .author-filter-card {
   align-content: start;
+  width: fit-content;
+  max-width: 100%;
   padding: 14px;
   border-radius: 8px;
   background: var(--author-view-background);
@@ -50,6 +53,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .author-view__grid {
@@ -84,10 +89,6 @@
 @media (max-width: 780px) {
   .author-view {
     padding: 18px;
-  }
-
-  .author-filters {
-    grid-template-columns: 1fr;
   }
 
   .author-view__grid {

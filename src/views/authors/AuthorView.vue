@@ -13,25 +13,46 @@ const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
 
 const selectedSector = ref<string | null>(null)
+const selectedGender = ref<string | null>(null)
 const selectedLabels = ref<IntentLabelKey[]>([])
 
 const sectors = computed(() =>
   [...new Set(authorInstances.value.map((author) => author.sector).filter(Boolean))] as string[],
 )
+const genders = computed(() => {
+  const availableGenders = new Set(authorInstances.value.map((author) => author.gender ?? 'unknown'))
+
+  return ['female', 'male', 'unknown'].filter((gender) => availableGenders.has(gender))
+})
 
 function toggleSector(sector: string) {
   selectedSector.value = selectedSector.value === sector ? null : sector
+}
+
+function toggleGender(gender: string) {
+  selectedGender.value = selectedGender.value === gender ? null : gender
 }
 
 function toggleOverLabel(label: IntentLabelKey) {
   selectedLabels.value = toggleArrayItem(selectedLabels.value, label)
 }
 
-function matchesAuthorFilters(authorLabels: IntentLabelKey[], sector: string | null) {
+function getGenderLabel(gender: string) {
+  if (gender === 'female') return 'Female'
+  if (gender === 'male') return 'Male'
+  return 'Unbekannt'
+}
+
+function matchesAuthorFilters(
+  authorLabels: IntentLabelKey[],
+  sector: string | null,
+  gender: string | null,
+) {
   const matchesSector = !selectedSector.value || sector === selectedSector.value
+  const matchesGender = !selectedGender.value || (gender ?? 'unknown') === selectedGender.value
   const matchesLabels = selectedLabels.value.every((label) => authorLabels.includes(label))
 
-  return matchesSector && matchesLabels
+  return matchesSector && matchesGender && matchesLabels
 }
 </script>
 
@@ -52,6 +73,20 @@ function matchesAuthorFilters(authorLabels: IntentLabelKey[], sector: string | n
             color="#858b94"
             :active="selectedSector === sector"
             @click="toggleSector(sector)"
+          />
+        </div>
+      </section>
+
+      <section class="author-filter-card" aria-label="Geschlecht Filter">
+        <small>Geschlecht</small>
+        <div class="author-filter-row">
+          <FilterButton
+            v-for="gender in genders"
+            :key="gender"
+            :label="getGenderLabel(gender)"
+            color="#858b94"
+            :active="selectedGender === gender"
+            @click="toggleGender(gender)"
           />
         </div>
       </section>
@@ -80,6 +115,7 @@ function matchesAuthorFilters(authorLabels: IntentLabelKey[], sector: string | n
           'author-view__item--muted': !matchesAuthorFilters(
             author.usedTopLevelStrategyLabels,
             author.sector,
+            author.gender,
           ),
         }"
       >
