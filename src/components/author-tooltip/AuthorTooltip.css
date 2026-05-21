@@ -10,18 +10,16 @@
   top: 50%;
   z-index: 20;
   display: grid;
-  gap: 7px;
-  width: max-content;
-  max-width: min(360px, calc(100vw - 48px));
+  gap: 10px;
+  width: min(265px, calc(100vw - 48px));
   padding: 14px 16px;
   color: #f5f3ee;
   font-size: 13px;
   line-height: 1.25;
   text-align: left;
   background: rgba(22, 22, 22, 0.96);
-  border: 1px solid rgba(245, 243, 238, 0.16);
   border-radius: 8px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 1);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%) scale(0.98);
@@ -50,14 +48,10 @@
 
 .author-tooltip--right .author-tooltip__panel::after {
   right: calc(100% - 5px);
-  border-bottom: 1px solid rgba(245, 243, 238, 0.16);
-  border-left: 1px solid rgba(245, 243, 238, 0.16);
 }
 
 .author-tooltip--left .author-tooltip__panel::after {
   left: calc(100% - 5px);
-  border-top: 1px solid rgba(245, 243, 238, 0.16);
-  border-right: 1px solid rgba(245, 243, 238, 0.16);
 }
 
 .author-tooltip:hover .author-tooltip__panel,
@@ -67,21 +61,55 @@
   transform: translateY(-50%) scale(1);
 }
 
+.author-tooltip__heading {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
 .author-tooltip__name {
   color: white;
   font-size: 15px;
-  line-height: 1.1;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .author-tooltip__position {
+  min-width: 0;
   color: rgba(245, 243, 238, 0.78);
+  font-size: 13px;
+  font-weight: 200;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.author-tooltip__meta {
+.author-tooltip__facts {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  color: rgba(245, 243, 238, 0.68);
+  gap: 7px;
+  color: rgb(170, 167, 161);
+}
+
+.author-tooltip__fact-labels,
+.author-tooltip__fact-values {
+  display: grid;
+  gap: 2px;
+}
+
+.author-tooltip__fact-labels {
+  min-width: 40px;
+}
+
+.author-tooltip__fact-values {
+  min-width: 0;
+}
+
+.author-tooltip__fact-labels span,
+.author-tooltip__fact-values span {
+  min-height: 16px;
+  font-size: 13px;
+  line-height: 1.2;
 }
 
 .author-tooltip__strategies {
@@ -99,14 +127,14 @@
   align-items: center;
   justify-content: center;
   min-width: 0;
-  min-height: 22px;
-  padding: 4px 7px;
+  min-height: 21px;
+  padding: 5px 8px;
   border: 1px solid var(--author-tooltip-badge-color);
   border-radius: 999px;
   color: var(--author-tooltip-badge-color);
   background: color-mix(in srgb, var(--author-tooltip-badge-color) 16%, transparent);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.2;
   white-space: nowrap;
 }

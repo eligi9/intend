@@ -37,19 +37,22 @@ const strategyBadges = computed(() =>
     <slot />
 
     <span class="author-tooltip__panel" role="tooltip">
-      <strong class="author-tooltip__name">{{ author.name }}</strong>
-
-      <span class="author-tooltip__position">{{ author.position ?? 'Position unbekannt' }}</span>
-
-      <span class="author-tooltip__meta">
-        <span>Age: {{ ageLabel }}</span>
-        <span>sex: {{ genderLabel }}</span>
-        <span>partie: {{ author.party ?? 'unknown' }}</span>
+      <span class="author-tooltip__heading">
+        <strong class="author-tooltip__name">{{ author.name }}</strong>
+        <span class="author-tooltip__position">{{ author.position ?? 'Position unbekannt' }}</span>
       </span>
 
-      <span class="author-tooltip__meta">
-        <span>{{ author.statementCount }} Statements</span>
-        <span>{{ author.usedTopLevelStrategyCount }}/{{ author.topLevelStrategyCount }} Strategien</span>
+      <span class="author-tooltip__facts">
+        <span class="author-tooltip__fact-labels">
+          <span>age:</span>
+          <span>sex:</span>
+          <span>partie:</span>
+        </span>
+        <span class="author-tooltip__fact-values">
+          <span>{{ ageLabel }}</span>
+          <span>{{ genderLabel }}</span>
+          <span>{{ author.party ?? 'unknown' }}</span>
+        </span>
       </span>
 
       <span v-if="strategyBadges.length > 0" class="author-tooltip__strategies">
