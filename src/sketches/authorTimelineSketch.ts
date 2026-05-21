@@ -90,7 +90,9 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
         p.circle(point.x, point.y, hovered ? 17 : 12)
       })
 
-      // The visual origin sits behind the portrait, so the lines appear to emerge from it.
+      p.noStroke()
+      p.fill(245, 243, 238, 210)
+      p.circle(anchor.x, anchor.y, 8)
     }
   }
 
