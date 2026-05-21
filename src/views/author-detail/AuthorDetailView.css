@@ -1,5 +1,6 @@
 .author-detail-view {
   --author-detail-background: #303030;
+  --author-detail-portrait-size: 168px;
 
   display: grid;
   align-content: start;
@@ -69,7 +70,7 @@
   z-index: 1;
   display: grid;
   min-inline-size: 0;
-  margin-block-start: clamp(-5.75rem, -10vw, -4.5rem);
+  margin-block-start: calc(var(--author-detail-portrait-size) / -2);
 }
 
 .author-detail__facts,
@@ -161,6 +162,6 @@
   }
 
   .author-detail__timeline {
-    margin-block-start: -4.5rem;
+    margin-block-start: calc(var(--author-detail-portrait-size) / -2);
   }
 }
