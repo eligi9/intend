@@ -69,7 +69,7 @@
   z-index: 1;
   display: grid;
   min-inline-size: 0;
-  margin-block-start: clamp(-2.5rem, -5vw, -1.75rem);
+  margin-block-start: clamp(-5.75rem, -10vw, -4.5rem);
 }
 
 .author-detail__facts,
@@ -161,6 +161,6 @@
   }
 
   .author-detail__timeline {
-    margin-block-start: -2rem;
+    margin-block-start: -4.5rem;
   }
 }

@@ -45,7 +45,7 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
       const model = createTimelineModel(state.statements)
       const paddingX = Math.max(42, p.width * 0.07)
       const axisY = p.height * 0.72
-      const anchor = { x: p.width / 2, y: Math.max(24, p.height * 0.085) }
+      const anchor = { x: p.width / 2, y: Math.max(52, p.height * 0.16) }
       const drawableWidth = p.width - paddingX * 2
       const points = model.points.map((point) => ({
         ...point,
@@ -90,9 +90,7 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
         p.circle(point.x, point.y, hovered ? 17 : 12)
       })
 
-      p.noStroke()
-      p.fill(245, 243, 238, 210)
-      p.circle(anchor.x, anchor.y, 8)
+      // The visual origin sits behind the portrait, so the lines appear to emerge from it.
     }
   }
 
