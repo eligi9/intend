@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useFloatingPlacement } from '../../composables/useFloatingPlacement'
 import type { AuthorInstance } from '../../types/authorData'
 
 const props = defineProps<{
   author: AuthorInstance
 }>()
+
+const tooltipRoot = ref<HTMLElement | null>(null)
+const { placement, updatePlacement } = useFloatingPlacement(tooltipRoot)
 
 const dateOfBirthLabel = computed(() => props.author.dateOfBirth ?? 'Unbekannt')
 const genderLabel = computed(() => {
@@ -20,7 +24,14 @@ const strategyLabel = computed(() => {
 </script>
 
 <template>
-  <span class="author-tooltip" tabindex="0">
+  <span
+    ref="tooltipRoot"
+    class="author-tooltip"
+    :class="`author-tooltip--${placement}`"
+    tabindex="0"
+    @mouseenter="updatePlacement"
+    @focusin="updatePlacement"
+  >
     <slot />
 
     <span class="author-tooltip__panel" role="tooltip">
