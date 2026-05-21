@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import AuthorTimelineP5 from '../../components/author-timeline/AuthorTimelineP5.vue'
-import AuthorTimelineSvg from '../../components/author-timeline/AuthorTimelineSvg.vue'
 import AuthorPortrait from '../../components/author-portrait/AuthorPortrait.vue'
 import StrategyBadge from '../../components/strategy-badge/StrategyBadge.vue'
 import { useAuthorStore } from '../../stores/authorStore'
@@ -54,8 +53,7 @@ const sexLabel = computed(() => {
         </div>
       </header>
 
-      <section class="author-detail__timeline-comparison" aria-label="Timeline Varianten">
-        <AuthorTimelineSvg :statements="author.statements" />
+      <section class="author-detail__timeline" aria-label="Interaktive Timeline">
         <AuthorTimelineP5 :statements="author.statements" />
       </section>
 
