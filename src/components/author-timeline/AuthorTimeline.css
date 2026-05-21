@@ -1,31 +1,13 @@
 .author-timeline {
   display: grid;
-  gap: 0.75rem;
   min-inline-size: 0;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  background: rgba(245, 243, 238, 0.055);
-  box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.36);
-}
-
-.author-timeline__header {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  color: rgba(245, 243, 238, 0.58);
-}
-
-.author-timeline__header small {
-  font-weight: 800;
-  text-transform: uppercase;
 }
 
 .author-timeline__canvas {
   inline-size: 100%;
-  block-size: clamp(16rem, 34vw, 24rem);
+  block-size: clamp(18rem, 38vw, 28rem);
 }
 
 .author-timeline__canvas {
   overflow: hidden;
-  border-radius: 0.375rem;
 }

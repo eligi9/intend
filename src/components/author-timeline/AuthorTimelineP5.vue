@@ -38,12 +38,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section class="author-timeline author-timeline--p5" aria-label="p5 Timeline">
-    <header class="author-timeline__header">
-      <small>p5 Timeline</small>
-      <span>{{ statements.length }} Statements</span>
-    </header>
-
+  <section class="author-timeline author-timeline--p5" aria-label="Interaktive Statement Timeline">
     <div ref="timelineHost" class="author-timeline__canvas" />
   </section>
 </template>

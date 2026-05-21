@@ -45,12 +45,12 @@ const sexLabel = computed(() => {
 
     <article v-if="author" class="author-detail">
       <header class="author-detail__hero">
-        <AuthorPortrait :author="author" :size="168" />
-
         <div class="author-detail__intro">
           <h2>{{ author.name }}</h2>
           <p>{{ author.position ?? 'Position unbekannt' }}</p>
         </div>
+
+        <AuthorPortrait :author="author" :size="168" />
       </header>
 
       <section class="author-detail__timeline" aria-label="Interaktive Timeline">

@@ -44,8 +44,8 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
     p.draw = () => {
       const model = createTimelineModel(state.statements)
       const paddingX = Math.max(42, p.width * 0.07)
-      const axisY = p.height * 0.7
-      const anchor = { x: p.width / 2, y: p.height * 0.08 }
+      const axisY = p.height * 0.72
+      const anchor = { x: p.width / 2, y: Math.max(4, p.height * 0.015) }
       const drawableWidth = p.width - paddingX * 2
       const points = model.points.map((point) => ({
         ...point,
@@ -92,7 +92,7 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
 
       p.noStroke()
       p.fill(245, 243, 238, 210)
-      p.circle(anchor.x, anchor.y, 9)
+      p.circle(anchor.x, anchor.y, 8)
     }
   }
 
