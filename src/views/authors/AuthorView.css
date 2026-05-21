@@ -69,6 +69,8 @@
 }
 
 .author-view__item {
+  position: relative;
+  z-index: 0;
   display: grid;
   place-items: center;
   flex: 0 0 104px;
@@ -88,9 +90,14 @@
 
 .author-view__item:hover,
 .author-view__item:focus-visible {
+  z-index: 10;
   background: transparent;
   outline: none;
   transform: translateY(-2px);
+}
+
+.author-view__item:focus-within {
+  z-index: 10;
 }
 
 .author-view__item:focus-visible {
