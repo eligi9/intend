@@ -1,0 +1,37 @@
+.strategy-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45em;
+  min-inline-size: 0;
+  min-block-size: var(--strategy-badge-min-block-size, 1.5rem);
+  padding-block: var(--strategy-badge-padding-block, 0.3125rem);
+  padding-inline: var(--strategy-badge-padding-inline, clamp(0.55rem, 3%, 0.875rem));
+  border: 1px solid var(--strategy-badge-color);
+  border-radius: 999px;
+  color: var(--strategy-badge-color);
+  background: color-mix(in srgb, var(--strategy-badge-color) 16%, transparent);
+  font-size: var(--strategy-badge-font-size, clamp(0.56rem, 2.5vw, 0.68rem));
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.strategy-badge__label {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.strategy-badge__count {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: var(--strategy-badge-count-size, 1.25rem);
+  min-block-size: var(--strategy-badge-count-size, 1.25rem);
+  padding-inline: 0.25em;
+  color: var(--strategy-badge-count-color, #303030);
+  background: var(--strategy-badge-color);
+  border-radius: 999px;
+  font-size: 0.9em;
+  line-height: 1;
+}

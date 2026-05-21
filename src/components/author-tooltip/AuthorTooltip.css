@@ -10,16 +10,17 @@
   top: 50%;
   z-index: 20;
   display: grid;
-  gap: 10px;
-  width: min(265px, calc(100vw - 48px));
-  padding: 14px 16px;
+  gap: 0.625rem;
+  inline-size: clamp(19rem, 30vw, 24rem);
+  max-inline-size: calc(100vw - 3rem);
+  padding: 0.875rem 1rem;
   color: #f5f3ee;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.25;
   text-align: left;
   background: rgba(22, 22, 22, 0.96);
-  border-radius: 8px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 1);
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 1);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%) scale(0.98);
@@ -29,29 +30,29 @@
 }
 
 .author-tooltip--right .author-tooltip__panel {
-  left: calc(100% + 14px);
+  left: calc(100% + 0.875rem);
 }
 
 .author-tooltip--left .author-tooltip__panel {
-  right: calc(100% + 14px);
+  right: calc(100% + 0.875rem);
 }
 
 .author-tooltip__panel::after {
   content: '';
   position: absolute;
   top: 50%;
-  width: 10px;
-  height: 10px;
+  width: 0.625rem;
+  height: 0.625rem;
   background: rgba(22, 22, 22, 0.96);
   transform: translateY(-50%) rotate(45deg);
 }
 
 .author-tooltip--right .author-tooltip__panel::after {
-  right: calc(100% - 5px);
+  right: calc(100% - 0.3125rem);
 }
 
 .author-tooltip--left .author-tooltip__panel::after {
-  left: calc(100% - 5px);
+  left: calc(100% - 0.3125rem);
 }
 
 .author-tooltip:hover .author-tooltip__panel,
@@ -63,13 +64,13 @@
 
 .author-tooltip__heading {
   display: grid;
-  gap: 2px;
+  gap: 0.125rem;
   min-width: 0;
 }
 
 .author-tooltip__name {
   color: white;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1;
 }
@@ -77,7 +78,7 @@
 .author-tooltip__position {
   min-width: 0;
   color: rgba(245, 243, 238, 0.78);
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 200;
   line-height: 1;
   overflow: hidden;
@@ -87,18 +88,18 @@
 
 .author-tooltip__facts {
   display: flex;
-  gap: 7px;
+  gap: 0.4375rem;
   color: rgb(170, 167, 161);
 }
 
 .author-tooltip__fact-labels,
 .author-tooltip__fact-values {
   display: grid;
-  gap: 2px;
+  gap: 0.125rem;
 }
 
 .author-tooltip__fact-labels {
-  min-width: 40px;
+  min-inline-size: 2.5rem;
 }
 
 .author-tooltip__fact-values {
@@ -108,14 +109,21 @@
 .author-tooltip__fact-labels span,
 .author-tooltip__fact-values span {
   min-height: 16px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   line-height: 1.2;
 }
 
 .author-tooltip__strategies {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  inline-size: 100%;
+  min-inline-size: min(18rem, 100%);
+}
+
+.author-tooltip__strategies--single {
+  inline-size: fit-content;
+  min-inline-size: 0;
 }
 
 .author-tooltip__strategies--empty {
@@ -123,18 +131,5 @@
 }
 
 .author-tooltip__badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  min-height: 21px;
-  padding: 5px 8px;
-  border: 1px solid var(--author-tooltip-badge-color);
-  border-radius: 999px;
-  color: var(--author-tooltip-badge-color);
-  background: color-mix(in srgb, var(--author-tooltip-badge-color) 16%, transparent);
-  font-size: 9px;
-  font-weight: 800;
-  line-height: 1.2;
-  white-space: nowrap;
+  flex: 0 0 auto;
 }

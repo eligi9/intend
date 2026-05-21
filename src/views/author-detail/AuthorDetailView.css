@@ -24,30 +24,38 @@
 }
 
 .author-detail__hero {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 26px;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  text-align: center;
 }
 
 .author-detail__intro {
   display: grid;
-  gap: 8px;
-  max-width: 760px;
+  justify-items: center;
+  gap: 0.5rem;
+  max-width: min(48rem, 100%);
 }
 
 .author-detail__intro h2 {
   margin: 0;
   color: white;
-  font-size: 52px;
+  font-size: clamp(2.375rem, 6vw, 4rem);
   line-height: 1;
 }
 
 .author-detail__intro p {
   margin: 0;
   color: rgba(245, 243, 238, 0.74);
-  font-size: 18px;
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
   line-height: 1.35;
+}
+
+.author-detail__timeline-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
 }
 
 .author-detail__facts,
@@ -69,27 +77,11 @@
 }
 
 .author-detail__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 28px;
-  padding: 6px 10px;
-  border: 1px solid var(--author-detail-badge-color);
-  border-radius: 999px;
-  color: var(--author-detail-badge-color);
-  background: color-mix(in srgb, var(--author-detail-badge-color) 16%, transparent);
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.author-detail__badge small {
-  display: inline-grid;
-  place-items: center;
-  min-width: 20px;
-  min-height: 20px;
-  color: #303030;
-  background: var(--author-detail-badge-color);
-  border-radius: 999px;
+  --strategy-badge-min-block-size: 1.75rem;
+  --strategy-badge-padding-block: 0.375rem;
+  --strategy-badge-padding-inline: 0.625rem;
+  --strategy-badge-font-size: 0.75rem;
+  --strategy-badge-count-size: 1.25rem;
 }
 
 .author-detail__empty {
@@ -134,5 +126,9 @@
 
   .author-detail__intro h2 {
     font-size: 38px;
+  }
+
+  .author-detail__timeline-comparison {
+    grid-template-columns: 1fr;
   }
 }

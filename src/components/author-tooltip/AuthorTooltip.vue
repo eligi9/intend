@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { useFloatingPlacement } from '../../composables/useFloatingPlacement'
 import type { AuthorInstance } from '../../types/authorData'
 import { taxonomyButtonColors } from '../../utils/intentLabels'
+import StrategyBadge from '../strategy-badge/StrategyBadge.vue'
 
 const props = defineProps<{
   author: AuthorInstance
@@ -55,15 +56,19 @@ const strategyBadges = computed(() =>
         </span>
       </span>
 
-      <span v-if="strategyBadges.length > 0" class="author-tooltip__strategies">
-        <span
+      <span
+        v-if="strategyBadges.length > 0"
+        class="author-tooltip__strategies"
+        :class="{ 'author-tooltip__strategies--single': strategyBadges.length === 1 }"
+      >
+        <StrategyBadge
           v-for="strategy in strategyBadges"
           :key="strategy.id"
+          :label="strategy.label"
+          :color="strategy.color"
+          :count="strategy.statementCount"
           class="author-tooltip__badge"
-          :style="{ '--author-tooltip-badge-color': strategy.color }"
-        >
-          {{ strategy.label }}
-        </span>
+        />
       </span>
 
       <span v-else class="author-tooltip__strategies author-tooltip__strategies--empty">

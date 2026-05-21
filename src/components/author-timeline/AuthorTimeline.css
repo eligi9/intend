@@ -1,0 +1,65 @@
+.author-timeline {
+  display: grid;
+  gap: 0.75rem;
+  min-inline-size: 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: rgba(245, 243, 238, 0.055);
+  box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.36);
+}
+
+.author-timeline__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: rgba(245, 243, 238, 0.58);
+}
+
+.author-timeline__header small {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.author-timeline__svg,
+.author-timeline__canvas {
+  inline-size: 100%;
+  block-size: clamp(16rem, 34vw, 24rem);
+}
+
+.author-timeline__svg {
+  display: block;
+  overflow: visible;
+}
+
+.author-timeline__canvas {
+  overflow: hidden;
+  border-radius: 0.375rem;
+}
+
+.author-timeline__axis,
+.author-timeline__tick line {
+  stroke: rgba(245, 243, 238, 0.44);
+  stroke-width: 2;
+}
+
+.author-timeline__tick text {
+  fill: rgba(245, 243, 238, 0.58);
+  font-size: 0.75rem;
+  text-anchor: middle;
+}
+
+.author-timeline__curve {
+  fill: none;
+  stroke: rgba(245, 243, 238, 0.24);
+  stroke-width: 2;
+}
+
+.author-timeline__point circle {
+  fill: #f5f3ee;
+  stroke: #303030;
+  stroke-width: 3;
+}
+
+.author-timeline__anchor {
+  fill: rgba(245, 243, 238, 0.82);
+}

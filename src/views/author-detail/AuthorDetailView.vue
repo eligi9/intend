@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
+import AuthorTimelineP5 from '../../components/author-timeline/AuthorTimelineP5.vue'
+import AuthorTimelineSvg from '../../components/author-timeline/AuthorTimelineSvg.vue'
 import AuthorPortrait from '../../components/author-portrait/AuthorPortrait.vue'
+import StrategyBadge from '../../components/strategy-badge/StrategyBadge.vue'
 import { useAuthorStore } from '../../stores/authorStore'
 import { taxonomyButtonColors } from '../../utils/intentLabels'
 
@@ -46,11 +49,15 @@ const sexLabel = computed(() => {
         <AuthorPortrait :author="author" :size="168" />
 
         <div class="author-detail__intro">
-          <p class="eyebrow">Author Detail</p>
           <h2>{{ author.name }}</h2>
           <p>{{ author.position ?? 'Position unbekannt' }}</p>
         </div>
       </header>
+
+      <section class="author-detail__timeline-comparison" aria-label="Timeline Varianten">
+        <AuthorTimelineSvg :statements="author.statements" />
+        <AuthorTimelineP5 :statements="author.statements" />
+      </section>
 
       <section class="author-detail__facts" aria-label="Autor Informationen">
         <span>Age: {{ ageLabel }}</span>
@@ -60,15 +67,14 @@ const sexLabel = computed(() => {
       </section>
 
       <section class="author-detail__strategies" aria-label="Verwendete Strategien">
-        <span
+        <StrategyBadge
           v-for="strategy in strategyBadges"
           :key="strategy.id"
+          :label="strategy.label"
+          :color="strategy.color"
+          :count="strategy.statementCount"
           class="author-detail__badge"
-          :style="{ '--author-detail-badge-color': strategy.color }"
-        >
-          {{ strategy.label }}
-          <small>{{ strategy.statementCount }}</small>
-        </span>
+        />
 
         <span v-if="strategyBadges.length === 0" class="author-detail__empty">
           Keine Strategie
