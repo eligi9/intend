@@ -12,6 +12,10 @@ import { taxonomyButtonColors } from '../../utils/intentLabels'
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
 
+const emit = defineEmits<{
+  selectAuthor: [authorId: string]
+}>()
+
 const selectedSector = ref<string | null>(null)
 const selectedGender = ref<string | null>(null)
 const selectedLabels = ref<IntentLabelKey[]>([])
@@ -107,9 +111,10 @@ function matchesAuthorFilters(
     </section>
 
     <section class="author-view__grid" aria-label="Autoren">
-      <article
+      <button
         v-for="author in authorInstances"
         :key="author.id"
+        type="button"
         class="author-view__item"
         :class="{
           'author-view__item--muted': !matchesAuthorFilters(
@@ -118,9 +123,11 @@ function matchesAuthorFilters(
             author.gender,
           ),
         }"
+        :aria-label="`${author.name} Details anzeigen`"
+        @click="emit('selectAuthor', author.id)"
       >
         <AuthorPortrait :author="author" :size="104" />
-      </article>
+      </button>
     </section>
   </section>
 </template>

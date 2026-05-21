@@ -1,0 +1,138 @@
+.author-detail-view {
+  --author-detail-background: #303030;
+
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  width: 100%;
+  padding: 20px 24px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: #f5f3ee;
+  background: var(--author-detail-background);
+}
+
+.author-detail-view__back {
+  justify-self: start;
+  min-height: 36px;
+  padding: 0 14px;
+}
+
+.author-detail {
+  display: grid;
+  gap: 20px;
+}
+
+.author-detail__hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 26px;
+}
+
+.author-detail__intro {
+  display: grid;
+  gap: 8px;
+  max-width: 760px;
+}
+
+.author-detail__intro h2 {
+  margin: 0;
+  color: white;
+  font-size: 52px;
+  line-height: 1;
+}
+
+.author-detail__intro p {
+  margin: 0;
+  color: rgba(245, 243, 238, 0.74);
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.author-detail__facts,
+.author-detail__strategies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--author-detail-background);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.author-detail__facts span {
+  color: rgba(245, 243, 238, 0.72);
+  font-weight: 700;
+}
+
+.author-detail__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+  padding: 6px 10px;
+  border: 1px solid var(--author-detail-badge-color);
+  border-radius: 999px;
+  color: var(--author-detail-badge-color);
+  background: color-mix(in srgb, var(--author-detail-badge-color) 16%, transparent);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.author-detail__badge small {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  min-height: 20px;
+  color: #303030;
+  background: var(--author-detail-badge-color);
+  border-radius: 999px;
+}
+
+.author-detail__empty {
+  color: rgba(245, 243, 238, 0.64);
+}
+
+.author-detail__statements {
+  display: grid;
+  gap: 12px;
+  max-width: 980px;
+}
+
+.author-detail__statements article {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(245, 243, 238, 0.06);
+}
+
+.author-detail__statements small {
+  color: rgba(245, 243, 238, 0.5);
+  font-weight: 800;
+}
+
+.author-detail__statements p {
+  margin: 0;
+  color: rgba(245, 243, 238, 0.88);
+  line-height: 1.45;
+}
+
+.author-detail-view__empty {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+
+@media (max-width: 780px) {
+  .author-detail-view {
+    padding: 18px;
+  }
+
+  .author-detail__intro h2 {
+    font-size: 38px;
+  }
+}
