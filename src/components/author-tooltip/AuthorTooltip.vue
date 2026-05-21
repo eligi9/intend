@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { useFloatingPlacement } from '../../composables/useFloatingPlacement'
 import type { AuthorInstance } from '../../types/authorData'
+import { taxonomyButtonColors } from '../../utils/intentLabels'
 
 const props = defineProps<{
   author: AuthorInstance
@@ -10,17 +11,18 @@ const props = defineProps<{
 const tooltipRoot = ref<HTMLElement | null>(null)
 const { placement, updatePlacement } = useFloatingPlacement(tooltipRoot)
 
-const dateOfBirthLabel = computed(() => props.author.dateOfBirth ?? 'Unbekannt')
+const ageLabel = computed(() => (props.author.age === null ? 'unknown' : props.author.age))
 const genderLabel = computed(() => {
-  if (props.author.gender === 'female') return 'weiblich'
-  if (props.author.gender === 'male') return 'maennlich'
-  return 'unbekannt'
+  if (props.author.gender === 'female') return 'female'
+  if (props.author.gender === 'male') return 'male'
+  return 'unknown'
 })
-const strategyLabel = computed(() => {
-  if (props.author.usedTopLevelStrategies.length === 0) return 'Keine Strategie'
-
-  return props.author.usedTopLevelStrategies.map((strategy) => strategy.label).join(', ')
-})
+const strategyBadges = computed(() =>
+  props.author.usedTopLevelStrategies.map((strategy) => ({
+    ...strategy,
+    color: taxonomyButtonColors[strategy.id] ?? '#858b94',
+  })),
+)
 </script>
 
 <template>
@@ -40,13 +42,9 @@ const strategyLabel = computed(() => {
       <span class="author-tooltip__position">{{ author.position ?? 'Position unbekannt' }}</span>
 
       <span class="author-tooltip__meta">
-        <span>{{ author.sector ?? 'Sector unbekannt' }}</span>
-        <span>{{ author.party ?? 'Partei unbekannt' }}</span>
-      </span>
-
-      <span class="author-tooltip__meta">
-        <span>Geboren: {{ dateOfBirthLabel }}</span>
-        <span>Geschlecht: {{ genderLabel }}</span>
+        <span>Age: {{ ageLabel }}</span>
+        <span>sex: {{ genderLabel }}</span>
+        <span>partie: {{ author.party ?? 'unknown' }}</span>
       </span>
 
       <span class="author-tooltip__meta">
@@ -54,7 +52,20 @@ const strategyLabel = computed(() => {
         <span>{{ author.usedTopLevelStrategyCount }}/{{ author.topLevelStrategyCount }} Strategien</span>
       </span>
 
-      <span class="author-tooltip__strategies">{{ strategyLabel }}</span>
+      <span v-if="strategyBadges.length > 0" class="author-tooltip__strategies">
+        <span
+          v-for="strategy in strategyBadges"
+          :key="strategy.id"
+          class="author-tooltip__badge"
+          :style="{ '--author-tooltip-badge-color': strategy.color }"
+        >
+          {{ strategy.label }}
+        </span>
+      </span>
+
+      <span v-else class="author-tooltip__strategies author-tooltip__strategies--empty">
+        Keine Strategie
+      </span>
     </span>
   </span>
 </template>
