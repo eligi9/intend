@@ -73,6 +73,16 @@
   margin-block-start: calc(var(--author-detail-portrait-size) / -2);
 }
 
+.author-detail__timeline-filters {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-block-start: -0.25rem;
+}
+
 .author-detail__facts,
 .author-detail__strategies {
   display: flex;
@@ -162,6 +172,8 @@
   }
 
   .author-detail__timeline {
+    inline-size: calc(100% + 2rem);
     margin-block-start: calc(var(--author-detail-portrait-size) / -2);
+    margin-inline: -1rem;
   }
 }

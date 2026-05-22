@@ -109,7 +109,7 @@ function createTicks(startDate: Date, endDate: Date) {
   return ticks.map((date) => ({
     id: getDateKey(date),
     date,
-    label: formatDateLabel(date),
+    label: getDateKey(date) === getDateKey(startDate) ? formatDateLabel(date) : formatMonthYearLabel(date),
     ratio: clampRatio((date.getTime() - startDate.getTime()) / range),
   }))
 }
@@ -128,6 +128,13 @@ export function formatDateLabel(date: Date) {
     month: 'short',
     year: date.getFullYear() === 2023 ? undefined : '2-digit',
   }).format(date)
+}
+
+function formatMonthYearLabel(date: Date) {
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = String(date.getFullYear()).slice(-2)
+
+  return `${month}/${year}`
 }
 
 function clampRatio(value: number) {

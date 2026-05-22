@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import AuthorTimelineP5 from '../../components/author-timeline/AuthorTimelineP5.vue'
 import AuthorPortrait from '../../components/author-portrait/AuthorPortrait.vue'
+import FilterButton from '../../components/filter-button/FilterButton.vue'
 import StrategyBadge from '../../components/strategy-badge/StrategyBadge.vue'
 import { useAuthorStore } from '../../stores/authorStore'
+import type { IntentLabelKey } from '../../types/intentData'
+import { toggleArrayItem } from '../../utils/arrays'
 import { taxonomyButtonColors } from '../../utils/intentLabels'
 
 const props = defineProps<{
@@ -17,6 +20,7 @@ const emit = defineEmits<{
 
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
+const selectedTimelineLabels = ref<IntentLabelKey[]>([])
 
 const author = computed(
   () => authorInstances.value.find((authorInstance) => authorInstance.id === props.authorId) ?? null,
@@ -35,6 +39,10 @@ const sexLabel = computed(() => {
   if (author.value?.gender === 'male') return 'male'
   return 'unknown'
 })
+
+function toggleTimelineLabel(label: IntentLabelKey) {
+  selectedTimelineLabels.value = toggleArrayItem(selectedTimelineLabels.value, label)
+}
 </script>
 
 <template>
@@ -53,8 +61,22 @@ const sexLabel = computed(() => {
         <AuthorPortrait :author="author" :size="168" />
       </header>
 
+      <section class="author-detail__timeline-filters" aria-label="Timeline Strategie Filter">
+        <FilterButton
+          v-for="strategy in strategyBadges"
+          :key="strategy.id"
+          :label="strategy.label"
+          :color="strategy.color"
+          :active="selectedTimelineLabels.includes(strategy.labelKey)"
+          @click="toggleTimelineLabel(strategy.labelKey)"
+        />
+      </section>
+
       <section class="author-detail__timeline" aria-label="Interaktive Timeline">
-        <AuthorTimelineP5 :statements="author.statements" />
+        <AuthorTimelineP5
+          :statements="author.statements"
+          :selected-labels="selectedTimelineLabels"
+        />
       </section>
 
       <section class="author-detail__facts" aria-label="Autor Informationen">

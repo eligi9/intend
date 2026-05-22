@@ -1,0 +1,22 @@
+.timeline-date-pill {
+  position: absolute;
+  left: var(--timeline-date-pill-x);
+  top: calc(var(--timeline-date-pill-y) + 1.65rem);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 1.85rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  color: rgba(48, 48, 48, 0.42);
+  background: #fffdfa;
+  box-shadow: 0 0.45rem 1.1rem rgba(0, 0, 0, 0.18);
+  font-size: clamp(0.95rem, 2.6vw, 1.2rem);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+}

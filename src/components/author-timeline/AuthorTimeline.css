@@ -1,4 +1,5 @@
 .author-timeline {
+  position: relative;
   display: grid;
   min-inline-size: 0;
 }
