@@ -6,7 +6,7 @@ import AuthorView from './views/authors/AuthorView.vue'
 import CanvasView from './views/canvas/CanvasView.vue'
 import ReadView from './views/read/ReadView.vue'
 
-const activeView = ref<'canvas' | 'read' | 'authors' | 'author-detail'>('read')
+const activeView = ref<'canvas' | 'read' | 'authors'>('read')
 const selectedAuthorId = ref<string | null>(null)
 
 function showAuthors() {
@@ -16,7 +16,11 @@ function showAuthors() {
 
 function showAuthorDetail(authorId: string) {
   selectedAuthorId.value = authorId
-  activeView.value = 'author-detail'
+  activeView.value = 'authors'
+}
+
+function closeAuthorDetail() {
+  selectedAuthorId.value = null
 }
 </script>
 
@@ -25,7 +29,7 @@ function showAuthorDetail(authorId: string) {
     <ControlPanel v-if="activeView === 'canvas'" />
     <section
       class="workspace"
-      :class="{ 'workspace--full': activeView === 'read' || activeView === 'authors' || activeView === 'author-detail' }"
+      :class="{ 'workspace--full': activeView === 'read' || activeView === 'authors' }"
     >
       <nav class="view-switch" aria-label="Ansicht wechseln">
         <button type="button" :class="{ active: activeView === 'read' }" @click="activeView = 'read'">
@@ -33,7 +37,7 @@ function showAuthorDetail(authorId: string) {
         </button>
         <button
           type="button"
-          :class="{ active: activeView === 'authors' || activeView === 'author-detail' }"
+          :class="{ active: activeView === 'authors' }"
           @click="showAuthors"
         >
           Authors
@@ -45,12 +49,13 @@ function showAuthorDetail(authorId: string) {
 
       <ReadView v-if="activeView === 'read'" />
       <AuthorView v-else-if="activeView === 'authors'" @select-author="showAuthorDetail" />
-      <AuthorDetailView
-        v-else-if="activeView === 'author-detail' && selectedAuthorId"
-        :author-id="selectedAuthorId"
-        @back="showAuthors"
-      />
       <CanvasView v-else />
     </section>
+
+    <AuthorDetailView
+      v-if="selectedAuthorId"
+      :author-id="selectedAuthorId"
+      @close="closeAuthorDetail"
+    />
   </main>
 </template>

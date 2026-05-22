@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  back: []
+  close: []
 }>()
 
 const authorStore = useAuthorStore()
@@ -47,8 +47,13 @@ function toggleTimelineLabel(label: IntentLabelKey) {
 
 <template>
   <section class="author-detail-view">
-    <button type="button" class="author-detail-view__back" @click="emit('back')">
-      Zurueck
+    <button
+      type="button"
+      class="author-detail-view__close"
+      aria-label="Autor Detailansicht schliessen"
+      @click="emit('close')"
+    >
+      X
     </button>
 
     <article v-if="author" class="author-detail">
@@ -111,7 +116,7 @@ function toggleTimelineLabel(label: IntentLabelKey) {
 
     <div v-else class="author-detail-view__empty">
       <strong>Autor nicht gefunden</strong>
-      <button type="button" @click="emit('back')">Zurueck zur Uebersicht</button>
+      <button type="button" @click="emit('close')">Schliessen</button>
     </div>
   </section>
 </template>
