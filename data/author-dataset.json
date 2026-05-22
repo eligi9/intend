@@ -2,7 +2,7 @@
   "name": "Intent Author Dataset",
   "generatedAt": "2026-05-18T14:43:29.482Z",
   "sourceDataset": "data/intent-dataset.json",
-  "authorCount": 48,
+  "authorCount": 47,
   "authors": [
     {
       "id": "almog-cohen",
@@ -926,18 +926,6 @@
         "modifications": "none",
         "retrievedAt": "2026-05-18"
       }
-    },
-    {
-      "id": "minister-of-national-security",
-      "name": "Minister of National Security",
-      "dateOfBirth": null,
-      "gender": null,
-      "position": "Minister of National Security",
-      "sector": "Legislators",
-      "party": null,
-      "notes": null,
-      "externalIds": {},
-      "image": null
     },
     {
       "id": "ministry-of-intelligence",
