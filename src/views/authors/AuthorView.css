@@ -59,13 +59,16 @@
 }
 
 .author-view__grid {
+  --author-grid-gap: clamp(0.625rem, 1.3vw, 1rem);
+
   display: flex;
   flex-wrap: wrap;
-  gap: 10px 14px;
+  gap: var(--author-grid-gap);
   align-items: center;
   align-content: flex-start;
   justify-content: flex-start;
-  width: 100%;
+  width: min(100%, 62rem);
+  margin-inline: auto;
 }
 
 .author-view__item {
@@ -116,7 +119,6 @@
   }
 
   .author-view__grid {
-    gap: 12px;
     justify-content: flex-start;
   }
 
