@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 import ControlPanel from './components/control-panel/ControlPanel.vue'
 import AuthorDetailView from './views/author-detail/AuthorDetailView.vue'
 import AuthorView from './views/authors/AuthorView.vue'
@@ -8,6 +8,19 @@ import ReadView from './views/read/ReadView.vue'
 
 const activeView = ref<'canvas' | 'read' | 'authors'>('read')
 const selectedAuthorId = ref<string | null>(null)
+const bodyOverlayClass = 'author-detail-overlay-open'
+
+watch(
+  selectedAuthorId,
+  (authorId) => {
+    document.body.classList.toggle(bodyOverlayClass, authorId !== null)
+  },
+  { immediate: true },
+)
+
+onBeforeUnmount(() => {
+  document.body.classList.remove(bodyOverlayClass)
+})
 
 function showAuthors() {
   selectedAuthorId.value = null

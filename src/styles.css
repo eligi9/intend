@@ -21,6 +21,10 @@ body {
   overflow-x: hidden;
 }
 
+body.author-detail-overlay-open {
+  overflow: hidden;
+}
+
 button,
 input {
   font: inherit;
