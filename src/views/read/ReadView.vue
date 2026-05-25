@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import FilterButton from '../../components/filter-button/FilterButton.vue'
+import ReadStatementCard from '../../components/read-statement-card/ReadStatementCard.vue'
 import { intentLabelKeys, useStatementStore } from '../../stores/statementStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
@@ -17,7 +18,6 @@ import { toggleArrayItem } from '../../utils/arrays'
 
 const store = useStatementStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
-const swipeStart = ref<{ x: number; y: number } | null>(null)
 
 const activeLabels = computed(() => {
   if (!currentRecord.value) return []
@@ -32,34 +32,6 @@ const annotations = computed(() => {
   return collectIntentAnnotations(currentRecord.value, activeLabels.value)
 })
 
-const statementSegments = computed(() => {
-  if (!currentRecord.value) return []
-
-  return splitBracketedText(currentRecord.value.statement)
-})
-
-function splitBracketedText(text: string) {
-  const segments: { text: string; muted: boolean }[] = []
-  const bracketPattern = /\[[^\]]*\]/g
-  let cursor = 0
-  let match: RegExpExecArray | null
-
-  while ((match = bracketPattern.exec(text))) {
-    if (match.index > cursor) {
-      segments.push({ text: text.slice(cursor, match.index), muted: false })
-    }
-
-    segments.push({ text: match[0], muted: true })
-    cursor = match.index + match[0].length
-  }
-
-  if (cursor < text.length) {
-    segments.push({ text: text.slice(cursor), muted: false })
-  }
-
-  return segments
-}
-
 function toggleSector(sector: string) {
   store.setSectors(filters.value.sectors.includes(sector) ? [] : [sector])
 }
@@ -68,35 +40,6 @@ function toggleOverLabel(label: IntentLabelKey) {
   store.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
 }
 
-function startStatementSwipe(event: TouchEvent) {
-  const touch = event.touches[0]
-  if (!touch) return
-
-  swipeStart.value = {
-    x: touch.clientX,
-    y: touch.clientY,
-  }
-}
-
-function finishStatementSwipe(event: TouchEvent) {
-  if (!swipeStart.value) return
-
-  const touch = event.changedTouches[0]
-  if (!touch) return
-
-  const deltaX = touch.clientX - swipeStart.value.x
-  const deltaY = touch.clientY - swipeStart.value.y
-  swipeStart.value = null
-
-  if (Math.abs(deltaX) < 56 || Math.abs(deltaY) > 72) return
-
-  if (deltaX < 0) {
-    store.nextRecord()
-    return
-  }
-
-  store.previousRecord()
-}
 </script>
 
 <template>
@@ -154,31 +97,12 @@ function finishStatementSwipe(event: TouchEvent) {
       </div>
     </section>
 
-    <article
+    <ReadStatementCard
       v-if="currentRecord"
-      class="reader-surface"
-      @touchstart.passive="startStatementSwipe"
-      @touchend.passive="finishStatementSwipe"
-    >
-      <span class="reader-heading">
-        <strong>{{ currentRecord.author }}</strong>
-        <span class="reader-meta-line">{{ currentRecord.sector }} · {{ currentRecord.date }}</span>
-
-        <span class="reader-position">{{ currentRecord.position }}</span>
-      </span>
-
-      <span class="reader-statement">
-        <span
-          v-for="(segment, index) in statementSegments"
-          :key="`${segment.text}-${index}`"
-          :class="{ 'reader-statement-muted': segment.muted }"
-        >
-          {{ segment.text }}
-        </span>
-      </span>
-
-      <span v-if="currentRecord.context" class="reader-context">{{ currentRecord.context }}</span>
-    </article>
+      :record="currentRecord"
+      @previous="store.previousRecord"
+      @next="store.nextRecord"
+    />
 
     <div v-else class="empty-state">
       <strong>Keine Statements gefunden</strong>
