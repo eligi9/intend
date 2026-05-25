@@ -4,7 +4,6 @@ import { storeToRefs } from 'pinia'
 import AuthorTimelineP5 from '../../components/author-timeline/AuthorTimelineP5.vue'
 import AuthorPortrait from '../../components/author-portrait/AuthorPortrait.vue'
 import FilterButton from '../../components/filter-button/FilterButton.vue'
-import StrategyBadge from '../../components/strategy-badge/StrategyBadge.vue'
 import { useAuthorStore } from '../../stores/authorStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { toggleArrayItem } from '../../utils/arrays'
@@ -24,6 +23,7 @@ const selectedTimelineLabels = ref<IntentLabelKey[]>([])
 const stageRef = ref<HTMLElement | null>(null)
 const portraitRef = ref<HTMLElement | null>(null)
 const canvasOffset = ref('calc(var(--author-detail-portrait-size) / 2)')
+const canvasHeight = ref('clamp(18rem, 38vw, 28rem)')
 let stageResizeObserver: ResizeObserver | null = null
 
 const author = computed(
@@ -54,8 +54,11 @@ function updateCanvasOffset() {
   const stageBounds = stageRef.value.getBoundingClientRect()
   const portraitBounds = portraitRef.value.getBoundingClientRect()
   const portraitCenter = portraitBounds.top - stageBounds.top + portraitBounds.height / 2
+  const sketchBottom = window.innerHeight * 0.58
+  const sketchHeight = sketchBottom - (stageBounds.top + portraitCenter)
 
   canvasOffset.value = `${Math.max(0, Math.round(portraitCenter))}px`
+  canvasHeight.value = `${Math.max(260, Math.round(sketchHeight))}px`
 }
 
 onMounted(async () => {
@@ -96,7 +99,10 @@ onBeforeUnmount(() => {
       <section
         ref="stageRef"
         class="author-detail__stage"
-        :style="{ '--author-detail-canvas-offset': canvasOffset }"
+        :style="{
+          '--author-detail-canvas-offset': canvasOffset,
+          '--author-detail-canvas-height': canvasHeight,
+        }"
         aria-label="Autor Timeline Uebersicht"
       >
         <header class="author-detail__hero">
@@ -129,6 +135,13 @@ onBeforeUnmount(() => {
           </div>
         </header>
 
+        <section class="author-detail__timeline" aria-label="Interaktive Timeline">
+          <AuthorTimelineP5
+            :statements="author.statements"
+            :selected-labels="selectedTimelineLabels"
+          />
+        </section>
+
         <section class="author-detail__timeline-filters" aria-label="Timeline Strategie Filter">
           <FilterButton
             v-for="strategy in strategyBadges"
@@ -139,28 +152,6 @@ onBeforeUnmount(() => {
             @click="toggleTimelineLabel(strategy.labelKey)"
           />
         </section>
-
-        <section class="author-detail__timeline" aria-label="Interaktive Timeline">
-          <AuthorTimelineP5
-            :statements="author.statements"
-            :selected-labels="selectedTimelineLabels"
-          />
-        </section>
-      </section>
-
-      <section class="author-detail__strategies" aria-label="Verwendete Strategien">
-        <StrategyBadge
-          v-for="strategy in strategyBadges"
-          :key="strategy.id"
-          :label="strategy.label"
-          :color="strategy.color"
-          :count="strategy.statementCount"
-          class="author-detail__badge"
-        />
-
-        <span v-if="strategyBadges.length === 0" class="author-detail__empty">
-          Keine Strategie
-        </span>
       </section>
 
       <section class="author-detail__statements" aria-label="Statements">
