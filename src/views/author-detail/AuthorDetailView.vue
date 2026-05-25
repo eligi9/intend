@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import AuthorTimelineP5 from '../../components/author-timeline/AuthorTimelineP5.vue'
 import AuthorPortrait from '../../components/author-portrait/AuthorPortrait.vue'
@@ -21,6 +21,10 @@ const emit = defineEmits<{
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
 const selectedTimelineLabels = ref<IntentLabelKey[]>([])
+const stageRef = ref<HTMLElement | null>(null)
+const portraitRef = ref<HTMLElement | null>(null)
+const canvasOffset = ref('calc(var(--author-detail-portrait-size) / 2)')
+let stageResizeObserver: ResizeObserver | null = null
 
 const author = computed(
   () => authorInstances.value.find((authorInstance) => authorInstance.id === props.authorId) ?? null,
@@ -43,6 +47,38 @@ const sexLabel = computed(() => {
 function toggleTimelineLabel(label: IntentLabelKey) {
   selectedTimelineLabels.value = toggleArrayItem(selectedTimelineLabels.value, label)
 }
+
+function updateCanvasOffset() {
+  if (!stageRef.value || !portraitRef.value) return
+
+  const stageBounds = stageRef.value.getBoundingClientRect()
+  const portraitBounds = portraitRef.value.getBoundingClientRect()
+  const portraitCenter = portraitBounds.top - stageBounds.top + portraitBounds.height / 2
+
+  canvasOffset.value = `${Math.max(0, Math.round(portraitCenter))}px`
+}
+
+onMounted(async () => {
+  await nextTick()
+  updateCanvasOffset()
+
+  stageResizeObserver = new ResizeObserver(updateCanvasOffset)
+
+  if (stageRef.value) stageResizeObserver.observe(stageRef.value)
+  if (portraitRef.value) stageResizeObserver.observe(portraitRef.value)
+
+  window.addEventListener('resize', updateCanvasOffset)
+})
+
+watch(author, async () => {
+  await nextTick()
+  updateCanvasOffset()
+})
+
+onBeforeUnmount(() => {
+  stageResizeObserver?.disconnect()
+  window.removeEventListener('resize', updateCanvasOffset)
+})
 </script>
 
 <template>
@@ -57,38 +93,59 @@ function toggleTimelineLabel(label: IntentLabelKey) {
     </button>
 
     <article v-if="author" class="author-detail">
-      <header class="author-detail__hero">
-        <div class="author-detail__intro">
-          <h2>{{ author.name }}</h2>
-          <p>{{ author.position ?? 'Position unbekannt' }}</p>
-        </div>
+      <section
+        ref="stageRef"
+        class="author-detail__stage"
+        :style="{ '--author-detail-canvas-offset': canvasOffset }"
+        aria-label="Autor Timeline Uebersicht"
+      >
+        <header class="author-detail__hero">
+          <span ref="portraitRef" class="author-detail__portrait-anchor">
+            <AuthorPortrait :author="author" :size="168" />
+          </span>
 
-        <AuthorPortrait :author="author" :size="168" />
-      </header>
+          <div class="author-detail__intro">
+            <h2>{{ author.name }}</h2>
+            <p>{{ author.position ?? 'Position unbekannt' }}</p>
 
-      <section class="author-detail__timeline-filters" aria-label="Timeline Strategie Filter">
-        <FilterButton
-          v-for="strategy in strategyBadges"
-          :key="strategy.id"
-          :label="strategy.label"
-          :color="strategy.color"
-          :active="selectedTimelineLabels.includes(strategy.labelKey)"
-          @click="toggleTimelineLabel(strategy.labelKey)"
-        />
-      </section>
+            <dl class="author-detail__profile" aria-label="Autor Steckbrief">
+              <div>
+                <dt>Age</dt>
+                <dd>{{ ageLabel }}</dd>
+              </div>
+              <div>
+                <dt>Sex</dt>
+                <dd>{{ sexLabel }}</dd>
+              </div>
+              <div>
+                <dt>Party</dt>
+                <dd>{{ author.party ?? 'unknown' }}</dd>
+              </div>
+              <div>
+                <dt>Statements</dt>
+                <dd>{{ author.statementCount }}</dd>
+              </div>
+            </dl>
+          </div>
+        </header>
 
-      <section class="author-detail__timeline" aria-label="Interaktive Timeline">
-        <AuthorTimelineP5
-          :statements="author.statements"
-          :selected-labels="selectedTimelineLabels"
-        />
-      </section>
+        <section class="author-detail__timeline-filters" aria-label="Timeline Strategie Filter">
+          <FilterButton
+            v-for="strategy in strategyBadges"
+            :key="strategy.id"
+            :label="strategy.label"
+            :color="strategy.color"
+            :active="selectedTimelineLabels.includes(strategy.labelKey)"
+            @click="toggleTimelineLabel(strategy.labelKey)"
+          />
+        </section>
 
-      <section class="author-detail__facts" aria-label="Autor Informationen">
-        <span>Age: {{ ageLabel }}</span>
-        <span>sex: {{ sexLabel }}</span>
-        <span>partie: {{ author.party ?? 'unknown' }}</span>
-        <span>{{ author.statementCount }} Statements</span>
+        <section class="author-detail__timeline" aria-label="Interaktive Timeline">
+          <AuthorTimelineP5
+            :statements="author.statements"
+            :selected-labels="selectedTimelineLabels"
+          />
+        </section>
       </section>
 
       <section class="author-detail__strategies" aria-label="Verwendete Strategien">
