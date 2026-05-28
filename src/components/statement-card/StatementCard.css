@@ -4,7 +4,6 @@
   gap: clamp(1.5rem, 3vw, 3rem);
   align-items: stretch;
   width: 100%;
-  min-height: 310px;
   padding: 30px;
   border: 1px solid rgba(245, 243, 238, 0.14);
   border-radius: 8px;
@@ -80,6 +79,24 @@
   min-width: 0;
 }
 
+.statement-card__heading,
+.statement-card__compact-heading,
+.statement-card__context,
+.statement-card__quote-part {
+  transition: opacity 180ms ease;
+}
+
+.statement-card--focused .statement-card__heading,
+.statement-card--focused .statement-card__compact-heading,
+.statement-card--focused .statement-card__context,
+.statement-card--focused .statement-card__quote-part {
+  opacity: 0.14;
+}
+
+.statement-card--focused .statement-card__quote-highlight {
+  opacity: 1;
+}
+
 .statement-card__heading {
   display: grid;
   grid-template-rows: 22px 22px 24px;
@@ -101,6 +118,13 @@
   line-height: 22px;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.statement-card__compact-heading {
+  color: rgba(245, 243, 238, 0.62);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
 .statement-card__meta,

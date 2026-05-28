@@ -18,6 +18,8 @@ interface StatementSegment {
 
 const props = defineProps<{
   record: IntentRecord
+  showHeading?: boolean
+  compactHeading?: boolean
 }>()
 
 const hoveredLabel = ref<IntentLabelKey | null>(null)
@@ -150,7 +152,7 @@ function getDisplayLabel(label: IntentLabelKey) {
 </script>
 
 <template>
-  <article class="statement-card">
+  <article class="statement-card" :class="{ 'statement-card--focused': hoveredLabel }">
     <Transition name="statement-card-explanation">
       <aside
         v-if="hoveredBadge && hoveredExplanation"
@@ -166,11 +168,14 @@ function getDisplayLabel(label: IntentLabelKey) {
     </Transition>
 
     <div class="statement-card__contents">
-      <span class="statement-card__heading">
+      <span v-if="showHeading !== false" class="statement-card__heading">
         <strong>{{ record.author }}</strong>
         <span class="statement-card__meta">{{ record.sector }} · {{ record.date }}</span>
 
         <span class="statement-card__position">{{ record.position }}</span>
+      </span>
+      <span v-else-if="compactHeading" class="statement-card__compact-heading">
+        {{ record.date }}
       </span>
 
       <span class="statement-card__quote">
@@ -178,6 +183,7 @@ function getDisplayLabel(label: IntentLabelKey) {
           v-for="(segment, index) in statementSegments"
           :key="`${segment.text}-${index}`"
           :class="{
+            'statement-card__quote-part': true,
             'statement-card__quote-muted': segment.muted,
             'statement-card__quote-highlight': segment.color,
           }"

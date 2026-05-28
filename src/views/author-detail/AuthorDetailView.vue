@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import AuthorTimelineP5 from '../../components/author-timeline/AuthorTimelineP5.vue'
 import AuthorPortrait from '../../components/author-portrait/AuthorPortrait.vue'
 import FilterButton from '../../components/filter-button/FilterButton.vue'
+import StatementCard from '../../components/statement-card/StatementCard.vue'
 import { useAuthorStore } from '../../stores/authorStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { toggleArrayItem } from '../../utils/arrays'
@@ -155,10 +156,13 @@ onBeforeUnmount(() => {
       </section>
 
       <section class="author-detail__statements" aria-label="Statements">
-        <article v-for="statement in author.statements" :key="statement.id">
-          <small>{{ statement.date }} · {{ statement.sector }}</small>
-          <p>{{ statement.statement }}</p>
-        </article>
+        <StatementCard
+          v-for="statement in author.statements"
+          :key="statement.id"
+          :record="statement"
+          :show-heading="false"
+          compact-heading
+        />
       </section>
     </article>
 

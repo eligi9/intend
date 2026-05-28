@@ -6,12 +6,23 @@
   border: 1px solid var(--read-strategy-badge-color);
   border-radius: 999px;
   color: var(--read-strategy-badge-color);
-  background: color-mix(in srgb, var(--read-strategy-badge-color) 16%, transparent);
+  background: transparent;
   font-size: 13px;
   font-weight: 800;
   line-height: 1.15;
   text-align: left;
   white-space: nowrap;
+  transition:
+    color 140ms ease,
+    background 140ms ease;
+}
+
+.read-strategy-badge:hover,
+.read-strategy-badge:focus-visible,
+:global(.statement-card__badge-target:hover) .read-strategy-badge,
+:global(.statement-card__badge-target:focus-visible) .read-strategy-badge {
+  color: white;
+  background: var(--read-strategy-badge-color);
 }
 
 @media (max-width: 780px) {
