@@ -1,18 +1,26 @@
 .read-view {
+  --read-view-background: #303030;
+  --read-view-surface: rgba(245, 243, 238, 0.06);
+  --read-view-border: rgba(245, 243, 238, 0.14);
+  --read-control-panel-min-height: 66px;
+
   display: grid;
   align-content: start;
-  gap: 18px;
-  padding: 28px;
+  gap: 16px;
+  padding: 20px 28px 28px;
   overflow: auto;
+  min-height: 100%;
+  color: #f5f3ee;
+  background: var(--read-view-background);
 }
 
 .read-toolbar {
   display: grid;
-  gap: 20px;
 }
 
 .read-toolbar h2 {
   margin: 0;
+  color: white;
   font-size: 40px;
   line-height: 1;
 }
@@ -21,19 +29,42 @@
   display: flex;
   align-items: baseline;
   gap: 4px;
-  color: #6f7278;
+  color: rgba(245, 243, 238, 0.62);
 }
 
 .read-count strong {
-  color: #20242b;
+  color: #f5f3ee;
   font-size: 28px;
 }
 
 .read-controls {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-  align-items: start;
+  grid-template-columns: minmax(10rem, 1fr) max-content;
+  gap: 16px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.read-search {
+  min-width: 0;
+  grid-template-rows: auto 1fr;
+}
+
+.read-search__panel {
+  display: grid;
+  align-items: center;
+  height: 100%;
+  min-height: var(--read-control-panel-min-height);
+  padding: 12px;
+  border: 1px solid var(--read-view-border);
+  border-radius: 8px;
+  background: var(--read-view-surface);
+}
+
+.filter-column {
+  min-width: 0;
+  grid-template-rows: auto 1fr;
+  justify-self: end;
 }
 
 .read-search,
@@ -47,6 +78,7 @@
 .read-search small,
 .filter-column > small,
 .filter-group small {
+  color: rgba(245, 243, 238, 0.74);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -54,23 +86,32 @@
 .read-search input {
   width: 100%;
   padding: 0 12px;
+  border-color: rgba(245, 243, 238, 0.22);
+  color: #f5f3ee;
+  background: rgba(245, 243, 238, 0.06);
+}
+
+.read-search input::placeholder {
+  color: rgba(245, 243, 238, 0.42);
 }
 
 .filter-panel {
-  grid-template-columns: minmax(180px, 0.36fr) minmax(360px, 1fr);
+  display: flex;
+  flex-wrap: nowrap;
   align-items: start;
-  width: 100%;
+  width: max-content;
   max-width: none;
-  gap: 12px;
+  gap: 44px;
   padding: 12px;
-  border: 1px solid rgba(32, 36, 43, 0.12);
+  min-height: var(--read-control-panel-min-height);
+  border: 1px solid var(--read-view-border);
   border-radius: 8px;
-  background: rgba(255, 253, 250, 0.58);
+  background: var(--read-view-surface);
 }
 
 .filter-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
 }
 
@@ -88,85 +129,12 @@
   margin-left: auto;
 }
 
-.label-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.label-strip span {
-  padding: 7px 10px;
-  border: 1px solid var(--label-color);
-  border-radius: 999px;
-  color: var(--label-color);
-  background: color-mix(in srgb, var(--label-color) 12%, transparent);
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.annotation-list {
-  display: grid;
-  gap: 10px;
-}
-
 .empty-state {
   padding: 16px;
-  border: 1px solid rgba(32, 36, 43, 0.14);
+  border: 1px solid var(--read-view-border);
   border-radius: 8px;
-  background: #fffdfa;
-}
-
-.annotation-list article {
-  position: relative;
-  padding: 16px;
-  border: 1px solid var(--annotation-color);
-  border-radius: 8px;
-  color: var(--annotation-color);
-  background: color-mix(in srgb, var(--annotation-color) 12%, transparent);
-  outline: none;
-}
-
-.annotation-list article:focus-visible {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--annotation-color) 28%, transparent);
-}
-
-.annotation-list article small {
-  color: var(--annotation-color);
-}
-
-.annotation-list p {
-  margin: 6px 0 0;
-  line-height: 1.45;
-}
-
-.annotation-tooltip {
-  position: absolute;
-  z-index: 5;
-  left: 16px;
-  bottom: calc(100% + 8px);
-  display: block;
-  width: min(520px, calc(100vw - 72px));
-  padding: 12px 14px;
-  border: 1px solid var(--annotation-color);
-  border-radius: 8px;
-  color: var(--annotation-color);
-  background: color-mix(in srgb, var(--annotation-color) 14%, #fffdfa);
-  box-shadow: 0 12px 30px rgba(32, 36, 43, 0.16);
-  font-size: 13px;
-  line-height: 1.4;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(4px);
-  transition:
-    opacity 120ms ease,
-    transform 120ms ease;
-}
-
-.annotation-list article:hover .annotation-tooltip,
-.annotation-list article:focus-visible .annotation-tooltip,
-.annotation-list article:focus-within .annotation-tooltip {
-  opacity: 1;
-  transform: translateY(0);
+  color: #f5f3ee;
+  background: var(--read-view-surface);
 }
 
 .empty-state {
@@ -176,7 +144,7 @@
 
 @media (max-width: 780px) {
   .read-view {
-    padding: 20px;
+    padding: 16px 20px 20px;
   }
 
   .read-controls {

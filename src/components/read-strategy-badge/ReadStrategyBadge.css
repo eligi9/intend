@@ -1,0 +1,21 @@
+.read-strategy-badge {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--read-strategy-badge-color);
+  border-radius: 999px;
+  color: var(--read-strategy-badge-color);
+  background: color-mix(in srgb, var(--read-strategy-badge-color) 16%, transparent);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: left;
+  white-space: nowrap;
+}
+
+@media (max-width: 780px) {
+  .read-strategy-badge {
+    text-align: left;
+  }
+}

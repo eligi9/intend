@@ -1,35 +1,24 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import FilterButton from '../../components/filter-button/FilterButton.vue'
-import ReadStatementCard from '../../components/read-statement-card/ReadStatementCard.vue'
+import StatementCard from '../../components/statement-card/StatementCard.vue'
 import { intentLabelKeys, useStatementStore } from '../../stores/statementStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import {
-  collectIntentAnnotations,
   getActiveLabels,
-  getVisibleSubLabels,
-  intentLabelNames,
-  subLabelColors,
   taxonomyButtonColors,
 } from '../../utils/intentLabels'
 import { toggleArrayItem } from '../../utils/arrays'
 
 const store = useStatementStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
+const swipeStart = ref<{ x: number; y: number } | null>(null)
 
 const activeLabels = computed(() => {
   if (!currentRecord.value) return []
   return getActiveLabels(currentRecord.value, intentLabelKeys)
-})
-
-const visibleSubLabels = computed(() => getVisibleSubLabels(activeLabels.value))
-
-const annotations = computed(() => {
-  if (!currentRecord.value) return []
-
-  return collectIntentAnnotations(currentRecord.value, activeLabels.value)
 })
 
 function toggleSector(sector: string) {
@@ -40,13 +29,41 @@ function toggleOverLabel(label: IntentLabelKey) {
   store.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
 }
 
+function startStatementSwipe(event: TouchEvent) {
+  const touch = event.touches[0]
+  if (!touch) return
+
+  swipeStart.value = {
+    x: touch.clientX,
+    y: touch.clientY,
+  }
+}
+
+function finishStatementSwipe(event: TouchEvent) {
+  if (!swipeStart.value) return
+
+  const touch = event.changedTouches[0]
+  if (!touch) return
+
+  const deltaX = touch.clientX - swipeStart.value.x
+  const deltaY = touch.clientY - swipeStart.value.y
+  swipeStart.value = null
+
+  if (Math.abs(deltaX) < 56 || Math.abs(deltaY) > 72) return
+
+  if (deltaX < 0) {
+    store.nextRecord()
+    return
+  }
+
+  store.previousRecord()
+}
 </script>
 
 <template>
   <section class="read-view">
     <header class="read-toolbar">
       <div>
-        <p class="eyebrow">Read View</p>
         <h2>Statements</h2>
       </div>
     </header>
@@ -54,12 +71,14 @@ function toggleOverLabel(label: IntentLabelKey) {
     <section class="read-controls" aria-label="Statement Filter">
       <div class="read-search">
         <small>Search</small>
-        <input
-          :value="filters.query"
-          type="search"
-          placeholder="Autor, Kontext oder Statement"
-          @input="store.setQuery(($event.target as HTMLInputElement).value)"
-        />
+        <div class="read-search__panel">
+          <input
+            :value="filters.query"
+            type="search"
+            placeholder="Autor, Kontext oder Statement"
+            @input="store.setQuery(($event.target as HTMLInputElement).value)"
+          />
+        </div>
       </div>
 
       <div class="filter-column">
@@ -97,11 +116,11 @@ function toggleOverLabel(label: IntentLabelKey) {
       </div>
     </section>
 
-    <ReadStatementCard
+    <StatementCard
       v-if="currentRecord"
       :record="currentRecord"
-      @previous="store.previousRecord"
-      @next="store.nextRecord"
+      @touchstart.passive="startStatementSwipe"
+      @touchend.passive="finishStatementSwipe"
     />
 
     <div v-else class="empty-state">
@@ -117,31 +136,6 @@ function toggleOverLabel(label: IntentLabelKey) {
         <span>/ {{ currentRecordPosition.total }}</span>
       </div>
     </div>
-
-    <section v-if="visibleSubLabels.length > 0" class="label-strip" aria-label="Aktive Sublabels">
-      <span
-        v-for="label in visibleSubLabels"
-        :key="label"
-        :style="{ '--label-color': subLabelColors.get(label) ?? '#858b94' }"
-      >
-        {{ intentLabelNames[label] }}
-      </span>
-    </section>
-
-    <section v-if="annotations.length > 0" class="annotation-list" aria-label="Kommentare und Anker">
-      <article
-        v-for="annotation in annotations"
-        :key="`${annotation.label}-${annotation.type}-${annotation.text}`"
-        :style="{ '--annotation-color': annotation.color }"
-        :tabindex="annotation.briefJustification ? 0 : undefined"
-      >
-        <small>{{ annotation.label }} · {{ annotation.type }}</small>
-        <p>{{ annotation.text }}</p>
-        <span v-if="annotation.briefJustification" class="annotation-tooltip" role="tooltip">
-          {{ annotation.briefJustification }}
-        </span>
-      </article>
-    </section>
   </section>
 </template>
 
