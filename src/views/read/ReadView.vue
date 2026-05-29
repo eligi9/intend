@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import FilterButton from '../../components/filter-button/FilterButton.vue'
 import StatementCard from '../../components/statement-card/StatementCard.vue'
@@ -15,6 +15,12 @@ import { toggleArrayItem } from '../../utils/arrays'
 const store = useStatementStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
 const swipeStart = ref<{ x: number; y: number } | null>(null)
+const animatedTotal = ref(currentRecordPosition.value.total)
+const countFeedbackKey = ref(0)
+const countFeedbackTone = ref<'neutral' | 'increase' | 'decrease'>('neutral')
+
+let countAnimationFrame = 0
+let countFeedbackTimeout = 0
 
 const activeLabels = computed(() => {
   if (!currentRecord.value) return []
@@ -28,6 +34,57 @@ function toggleSector(sector: string) {
 function toggleOverLabel(label: IntentLabelKey) {
   store.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
 }
+
+function animateTotalCount(from: number, to: number) {
+  cancelAnimationFrame(countAnimationFrame)
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    animatedTotal.value = to
+    return
+  }
+
+  const startedAt = performance.now()
+  const duration = 360
+
+  function tick(now: number) {
+    const progress = Math.min((now - startedAt) / duration, 1)
+    const easedProgress = 1 - Math.pow(1 - progress, 3)
+
+    animatedTotal.value = Math.round(from + (to - from) * easedProgress)
+
+    if (progress < 1) {
+      countAnimationFrame = requestAnimationFrame(tick)
+    }
+  }
+
+  countAnimationFrame = requestAnimationFrame(tick)
+}
+
+watch(
+  () => currentRecordPosition.value.total,
+  (total, previousTotal) => {
+    if (previousTotal === undefined) {
+      animatedTotal.value = total
+      return
+    }
+
+    countFeedbackTone.value =
+      total > previousTotal ? 'increase' : total < previousTotal ? 'decrease' : 'neutral'
+    countFeedbackKey.value += 1
+
+    animateTotalCount(animatedTotal.value, total)
+
+    window.clearTimeout(countFeedbackTimeout)
+    countFeedbackTimeout = window.setTimeout(() => {
+      countFeedbackTone.value = 'neutral'
+    }, 420)
+  },
+)
+
+onBeforeUnmount(() => {
+  cancelAnimationFrame(countAnimationFrame)
+  window.clearTimeout(countFeedbackTimeout)
+})
 
 function startStatementSwipe(event: TouchEvent) {
   const touch = event.touches[0]
@@ -133,7 +190,14 @@ function finishStatementSwipe(event: TouchEvent) {
       <button type="button" @click="store.nextRecord">Nächstes Statement</button>
       <div class="read-count">
         <strong>{{ currentRecordPosition.current }}</strong>
-        <span>/ {{ currentRecordPosition.total }}</span>
+        <span
+          :key="countFeedbackKey"
+          class="read-count__total"
+          :class="`read-count__total--${countFeedbackTone}`"
+          aria-live="polite"
+        >
+          / {{ animatedTotal }}
+        </span>
       </div>
     </div>
   </section>
