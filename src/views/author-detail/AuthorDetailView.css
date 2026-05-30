@@ -164,6 +164,11 @@
   max-width: 100%;
 }
 
+.author-detail__statements-empty {
+  color: rgba(245, 243, 238, 0.64);
+  font-weight: 700;
+}
+
 .author-detail-view__empty {
   display: grid;
   justify-items: start;

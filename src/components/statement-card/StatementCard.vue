@@ -15,13 +15,26 @@ interface StrategyBadge {
   color: string
 }
 
+type StatementCardMetaVariant = 'full' | 'date' | 'none'
+
 const props = defineProps<{
   record: IntentRecord
+  metaVariant?: StatementCardMetaVariant
+  authorLink?: boolean
   showHeading?: boolean
   compactHeading?: boolean
 }>()
 
+const emit = defineEmits<{
+  selectAuthor: [authorName: string]
+}>()
+
 const hoveredLabel = ref<IntentLabelKey | null>(null)
+const resolvedMetaVariant = computed<StatementCardMetaVariant>(() => {
+  if (props.metaVariant) return props.metaVariant
+  if (props.showHeading === false) return props.compactHeading ? 'date' : 'none'
+  return 'full'
+})
 const visibleLabels = computed(() => getVisibleSubLabels(getActiveLabels(props.record, intentLabelKeys)))
 const strategyBadges = computed<StrategyBadge[]>(() =>
   visibleLabels.value.map((label) => ({
@@ -62,13 +75,22 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
     </Transition>
 
     <div class="statement-card__contents">
-      <span v-if="showHeading !== false" class="statement-card__heading">
-        <strong>{{ record.author }}</strong>
-        <span class="statement-card__meta">{{ record.sector }} · {{ record.date }}</span>
-
-        <span class="statement-card__position">{{ record.position }}</span>
-      </span>
-      <span v-else-if="compactHeading" class="statement-card__compact-heading">
+      <div v-if="resolvedMetaVariant === 'full'" class="statement-card__heading">
+        <div class="statement-card__identity">
+          <button
+            v-if="authorLink"
+            type="button"
+            class="statement-card__author-button"
+            @click="emit('selectAuthor', record.author)"
+          >
+            {{ record.author }}
+          </button>
+          <strong v-else>{{ record.author }}</strong>
+          <span>{{ record.position ?? record.sector }}</span>
+        </div>
+        <span class="statement-card__meta">{{ record.date }}</span>
+      </div>
+      <span v-else-if="resolvedMetaVariant === 'date'" class="statement-card__compact-heading">
         {{ record.date }}
       </span>
 

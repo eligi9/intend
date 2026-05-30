@@ -7,7 +7,6 @@ import FilterButton from '../../components/filter-button/FilterButton.vue'
 import StatementCard from '../../components/statement-card/StatementCard.vue'
 import { useAuthorStore } from '../../stores/authorStore'
 import type { IntentLabelKey } from '../../types/intentData'
-import { toggleArrayItem } from '../../utils/arrays'
 import { taxonomyButtonColors } from '../../utils/intentLabels'
 
 const props = defineProps<{
@@ -44,9 +43,17 @@ const sexLabel = computed(() => {
   if (author.value?.gender === 'male') return 'male'
   return 'unknown'
 })
+const visibleStatements = computed(() => {
+  if (!author.value) return []
+  const selectedLabel = selectedTimelineLabels.value[0]
+
+  if (!selectedLabel) return author.value.statements
+
+  return author.value.statements.filter((statement) => statement[selectedLabel] === 'yes')
+})
 
 function toggleTimelineLabel(label: IntentLabelKey) {
-  selectedTimelineLabels.value = toggleArrayItem(selectedTimelineLabels.value, label)
+  selectedTimelineLabels.value = selectedTimelineLabels.value.includes(label) ? [] : [label]
 }
 
 function updateCanvasOffset() {
@@ -157,12 +164,15 @@ onBeforeUnmount(() => {
 
       <section class="author-detail__statements" aria-label="Statements">
         <StatementCard
-          v-for="statement in author.statements"
+          v-for="statement in visibleStatements"
           :key="statement.id"
           :record="statement"
-          :show-heading="false"
-          compact-heading
+          meta-variant="date"
         />
+
+        <span v-if="visibleStatements.length === 0" class="author-detail__statements-empty">
+          Keine Statements für diesen Filter
+        </span>
       </section>
     </article>
 

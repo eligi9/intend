@@ -3,6 +3,7 @@ import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import FilterButton from '../../components/filter-button/FilterButton.vue'
 import StatementCard from '../../components/statement-card/StatementCard.vue'
+import { useAuthorStore } from '../../stores/authorStore'
 import { intentLabelKeys, useStatementStore } from '../../stores/statementStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
@@ -13,6 +14,7 @@ import {
 import { toggleArrayItem } from '../../utils/arrays'
 
 const store = useStatementStore()
+const authorStore = useAuthorStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
 const swipeStart = ref<{ x: number; y: number } | null>(null)
 const animatedTotal = ref(currentRecordPosition.value.total)
@@ -21,6 +23,10 @@ const countFeedbackTone = ref<'neutral' | 'increase' | 'decrease'>('neutral')
 
 let countAnimationFrame = 0
 let countFeedbackTimeout = 0
+
+const emit = defineEmits<{
+  selectAuthor: [authorId: string]
+}>()
 
 const activeLabels = computed(() => {
   if (!currentRecord.value) return []
@@ -115,6 +121,13 @@ function finishStatementSwipe(event: TouchEvent) {
 
   store.previousRecord()
 }
+
+function selectAuthor(authorName: string) {
+  const author = authorStore.getAuthorInstance(authorName)
+  if (!author) return
+
+  emit('selectAuthor', author.id)
+}
 </script>
 
 <template>
@@ -176,8 +189,11 @@ function finishStatementSwipe(event: TouchEvent) {
     <StatementCard
       v-if="currentRecord"
       :record="currentRecord"
+      meta-variant="full"
+      author-link
       @touchstart.passive="startStatementSwipe"
       @touchend.passive="finishStatementSwipe"
+      @select-author="selectAuthor"
     />
 
     <div v-else class="empty-state">
