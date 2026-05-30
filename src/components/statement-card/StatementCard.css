@@ -189,8 +189,13 @@
   opacity: 0.5;
 }
 
+.statement-card__quote-highlight.statement-card__quote-muted {
+  opacity: 0.5;
+}
+
 .statement-card__quote-highlight {
   display: inline;
+  border: 1px solid var(--statement-card-highlight-color);
   border-radius: 4px;
   box-decoration-break: slice;
   -webkit-box-decoration-break: slice;
@@ -200,7 +205,18 @@
     var(--statement-card-highlight-color) 16%,
     transparent
   );
-  box-shadow: 0 0 0 1px var(--statement-card-highlight-color);
+}
+
+.statement-card__quote-highlight--continues-after {
+  border-right-color: transparent;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.statement-card__quote-highlight--continues-before {
+  border-left-color: transparent;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .statement-card__context {

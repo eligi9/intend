@@ -102,6 +102,8 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
             'statement-card__quote-part': true,
             'statement-card__quote-muted': segment.muted,
             'statement-card__quote-highlight': segment.color,
+            'statement-card__quote-highlight--continues-after': segment.highlightContinuesAfter,
+            'statement-card__quote-highlight--continues-before': segment.highlightContinuesBefore,
           }"
           :style="{ '--statement-card-highlight-color': segment.color ?? '#858b94' }"
         >

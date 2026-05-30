@@ -10,9 +10,17 @@ export interface StatementSegment {
   text: string
   muted: boolean
   color: string | null
+  highlightContinuesAfter?: boolean
+  highlightContinuesBefore?: boolean
 }
 
 type BaseStatementSegment = Omit<StatementSegment, 'color'>
+
+interface StatementRange {
+  color: string | null
+  end: number
+  start: number
+}
 
 export function splitBracketedText(text: string) {
   const segments: BaseStatementSegment[] = []
@@ -37,16 +45,56 @@ export function splitBracketedText(text: string) {
 }
 
 export function splitStatementText(text: string, anchors: AnchorHighlight[]) {
-  const baseSegments = splitBracketedText(text)
   const normalizedAnchors = anchors
     .filter((anchor) => anchor.text.length > 0)
     .sort((first, second) => second.text.length - first.text.length)
 
   if (!normalizedAnchors.length) {
-    return baseSegments.map((segment) => ({ ...segment, color: null }))
+    return splitBracketedText(text).map((segment) => ({ ...segment, color: null }))
   }
 
-  return baseSegments.flatMap((segment) => splitSegmentByAnchors(segment, normalizedAnchors))
+  return splitTextByAnchorRanges(text, normalizedAnchors).flatMap((range) =>
+    splitRangeByBrackets(text, range),
+  )
+}
+
+export function splitTextByAnchorRanges(text: string, anchors: AnchorHighlight[]) {
+  const ranges: StatementRange[] = []
+  const lowerText = text.toLowerCase()
+  let cursor = 0
+
+  while (cursor < text.length) {
+    const match = findNextAnchorMatch(lowerText, anchors, cursor)
+
+    if (!match) {
+      ranges.push({ color: null, end: text.length, start: cursor })
+      break
+    }
+
+    if (match.index > cursor) {
+      ranges.push({ color: null, end: match.index, start: cursor })
+    }
+
+    ranges.push({
+      color: match.color,
+      end: match.index + match.length,
+      start: match.index,
+    })
+    cursor = match.index + match.length
+  }
+
+  return ranges
+}
+
+export function splitRangeByBrackets(text: string, range: StatementRange) {
+  const segments = splitBracketedText(text.slice(range.start, range.end))
+
+  return segments.map((segment, index) => ({
+    ...segment,
+    color: range.color,
+    highlightContinuesAfter: Boolean(range.color && index < segments.length - 1),
+    highlightContinuesBefore: Boolean(range.color && index > 0),
+  }))
 }
 
 export function splitSegmentByAnchors(
