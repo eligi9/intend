@@ -8,7 +8,6 @@
   align-content: start;
   gap: 16px;
   padding: 20px 28px 28px;
-  overflow: auto;
   min-height: 100%;
   color: #f5f3ee;
   background: var(--read-view-background);
