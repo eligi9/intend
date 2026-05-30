@@ -3,8 +3,9 @@ import { onBeforeUnmount, ref, watch } from 'vue'
 import AuthorDetailView from './views/author-detail/AuthorDetailView.vue'
 import AuthorView from './views/authors/AuthorView.vue'
 import ReadView from './views/read/ReadView.vue'
+import StrategyView from './views/strategies/StrategyView.vue'
 
-const activeView = ref<'read' | 'authors'>('read')
+const activeView = ref<'read' | 'authors' | 'strategies'>('read')
 const selectedAuthorId = ref<string | null>(null)
 const bodyOverlayClass = 'author-detail-overlay-open'
 
@@ -27,7 +28,11 @@ function showAuthors() {
 
 function showAuthorDetail(authorId: string) {
   selectedAuthorId.value = authorId
-  activeView.value = 'authors'
+}
+
+function showStrategies() {
+  selectedAuthorId.value = null
+  activeView.value = 'strategies'
 }
 
 function closeAuthorDetail() {
@@ -49,10 +54,18 @@ function closeAuthorDetail() {
         >
           Authors
         </button>
+        <button
+          type="button"
+          :class="{ active: activeView === 'strategies' }"
+          @click="showStrategies"
+        >
+          Strategies
+        </button>
       </nav>
 
-      <ReadView v-if="activeView === 'read'" />
-      <AuthorView v-else @select-author="showAuthorDetail" />
+      <ReadView v-if="activeView === 'read'" @select-author="showAuthorDetail" />
+      <AuthorView v-else-if="activeView === 'authors'" @select-author="showAuthorDetail" />
+      <StrategyView v-else />
     </section>
 
     <AuthorDetailView

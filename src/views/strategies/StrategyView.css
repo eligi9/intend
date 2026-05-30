@@ -1,0 +1,22 @@
+.strategy-view {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 100%;
+  padding: 14px 20px 18px;
+  color: #f5f3ee;
+  background: #303030;
+}
+
+.strategy-view__header h2 {
+  margin: 0;
+  color: white;
+  font-size: 32px;
+  line-height: 1;
+}
+
+@media (max-width: 780px) {
+  .strategy-view {
+    padding: 16px 20px 20px;
+  }
+}
