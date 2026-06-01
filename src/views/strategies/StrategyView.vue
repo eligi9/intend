@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
-import FilterButton from '../../components/filter-button/FilterButton.vue'
 import StrategyBeeswarmPlotP5 from '../../components/strategy-beeswarm-plot/StrategyBeeswarmPlotP5.vue'
 import StrategyBadge from '../../components/strategy-badge/StrategyBadge.vue'
 import StrategyCorrelationHeatmap from '../../components/strategy-correlation-heatmap/StrategyCorrelationHeatmap.vue'
@@ -15,7 +14,6 @@ import type { TimelineEvent } from '../../sketches/authorTimelineSketch'
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
 const activeView = ref<'structure' | 'timeline' | 'matrix'>('structure')
-const selectedTimelineLabels = ref<IntentLabelKey[]>([])
 const strategyTimelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 
 const strategyViews = [
@@ -58,14 +56,10 @@ function countLabel(label: IntentLabelKey) {
 function setActiveView(view: (typeof strategyViews)[number]['id']) {
   activeView.value = view
 }
-
-function toggleTimelineLabel(label: IntentLabelKey) {
-  selectedTimelineLabels.value = selectedTimelineLabels.value.includes(label) ? [] : [label]
-}
 </script>
 
 <template>
-  <section class="strategy-view">
+  <section class="strategy-view" :class="{ 'strategy-view--timeline': activeView === 'timeline' }">
     <header class="strategy-view__header">
       <h2>Strategies</h2>
       <p>{{ activeDescription }}</p>
@@ -120,18 +114,7 @@ function toggleTimelineLabel(label: IntentLabelKey) {
             :min-padding-x="18"
             :padding-x-ratio="0.02"
             :statements="records"
-            :selected-labels="selectedTimelineLabels"
-          />
-        </div>
-
-        <div class="strategy-view__timeline-filters" aria-label="Timeline strategy filters">
-          <FilterButton
-            v-for="group in strategyGroups"
-            :key="group.id"
-            :label="group.label"
-            :color="group.color"
-            :active="group.parentLabel ? selectedTimelineLabels.includes(group.parentLabel) : false"
-            @click="group.parentLabel && toggleTimelineLabel(group.parentLabel)"
+            :selected-labels="[]"
           />
         </div>
       </section>

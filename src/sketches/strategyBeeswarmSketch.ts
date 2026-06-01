@@ -45,6 +45,7 @@ interface BeeswarmNode extends SimulationNodeDatum {
 export interface HoveredBeeswarmStatement {
   anchorText: string | null
   author: string
+  color: string
   date: string
   id: string
   statement: string
@@ -69,6 +70,7 @@ export type PositionedBeeswarmEvent = HoveredBeeswarmEvent
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000
 const TIMELINE_START_DATE = new Date(2023, 9, 1)
+const EVENT_LABEL_HEIGHT = 34
 
 const strategyLineColors: Partial<Record<IntentLabelKey, [number, number, number]>> = {
   enemy_image: [255, 92, 120],
@@ -165,7 +167,7 @@ export function createStrategyBeeswarmSketch(container: HTMLElement, state: Stra
 
       if (nextBeeswarmLayoutKey !== beeswarmLayoutKey) {
         beeswarmLayoutKey = nextBeeswarmLayoutKey
-        const layout = createBeeswarmLayout(rawPoints, swarmCenterY, swarmTop, swarmBottom, axisY)
+        const layout = createBeeswarmLayout(rawPoints, swarmCenterY, swarmTop, swarmBottom)
         beeswarmNodes = layout.nodes
         beeswarmSimulation = layout.simulation
       }
@@ -196,7 +198,7 @@ export function createStrategyBeeswarmSketch(container: HTMLElement, state: Stra
         date,
         event,
         x: paddingX + ((date.getTime() - model.startDate.getTime()) / range) * drawableWidth,
-        y: axisY + 42,
+        y: axisY + 18,
       }))
       const hoveredPoint =
         points.find((point) => p.dist(p.mouseX, p.mouseY, point.x, point.y) <= 11) ?? null
@@ -207,6 +209,7 @@ export function createStrategyBeeswarmSketch(container: HTMLElement, state: Stra
           ? {
               anchorText: getAnchorText(hoveredPoint.record, hoveredPoint.subLabel),
               author: hoveredPoint.record.author,
+              color: formatRgbColor(getPointColor(hoveredPoint.strategyLabel)),
               date: hoveredPoint.label,
               id: hoveredPoint.id,
               statement: hoveredPoint.record.statement,
@@ -220,10 +223,10 @@ export function createStrategyBeeswarmSketch(container: HTMLElement, state: Stra
       p.clear()
       p.background(48, 48, 48)
 
-      drawAxis(p, model.ticks, paddingX, drawableWidth, axisY, swarmTop)
+      drawAxis(p, model.ticks, paddingX, drawableWidth, axisY, 0)
 
       events.forEach((event) => {
-        drawEventAnchor(p, event.x, axisY, event.y)
+        drawEventAnchor(p, event.x, Math.min(p.height, event.y + EVENT_LABEL_HEIGHT))
       })
 
       if (state.setPositionedEvents) {
@@ -273,7 +276,6 @@ function createBeeswarmLayout(
   centerY: number,
   minY: number,
   maxY: number,
-  startY: number,
 ) {
   const radius = 6.4
   const nodes: BeeswarmNode[] = rawPoints.map((point) => ({
@@ -286,7 +288,7 @@ function createBeeswarmLayout(
     strategyName: point.strategyName,
     targetX: point.x,
     x: point.x + getDeterministicOffset(point.id, 18),
-    y: startY - 12 + getDeterministicOffset(point.id, 24),
+    y: centerY + getDeterministicOffset(point.id, 42),
   }))
   const simulation = forceSimulation<BeeswarmNode>(nodes)
     .alpha(1)
@@ -334,46 +336,43 @@ function getActiveStrategyPoints(record: IntentRecord) {
 
 function drawAxis(
   p: p5,
-  ticks: Array<{ label: string; ratio: number }>,
+  ticks: Array<{ date: Date; label: string; ratio: number }>,
   paddingX: number,
   drawableWidth: number,
   axisY: number,
   gridTop: number,
 ) {
-  p.stroke(245, 243, 238, 112)
-  p.strokeWeight(2)
-  p.line(paddingX, axisY, p.width - paddingX, axisY)
-
-  p.textAlign(p.CENTER, p.TOP)
-  p.textSize(Math.max(10, p.width * 0.011))
+  p.textAlign(p.LEFT, p.TOP)
+  p.textSize(12)
   ticks.forEach((tick) => {
     const x = paddingX + tick.ratio * drawableWidth
     p.stroke(245, 243, 238, 38)
     p.strokeWeight(1)
     p.line(x, gridTop, x, axisY)
-    p.stroke(245, 243, 238, 102)
-    p.strokeWeight(2)
-    p.line(x, axisY - 8, x, axisY + 8)
     p.noStroke()
     p.fill(245, 243, 238, 150)
-    p.text(tick.label, x, axisY + 18)
+    p.push()
+    p.translate(x - 8, axisY)
+    p.rotate(-p.HALF_PI)
+    p.text(formatAxisMonthLabel(tick.date), 0, 0)
+    p.pop()
   })
 }
 
-function drawEventAnchor(p: p5, x: number, axisY: number, iconY: number) {
-  const color: [number, number, number] = [75, 224, 240]
-  const iconTop = iconY - 15
+function drawEventAnchor(p: p5, x: number, lineEndY: number) {
+  const color: [number, number, number] = [245, 243, 238]
 
-  p.stroke(color[0], color[1], color[2], 210)
+  p.stroke(color[0], color[1], color[2], 76)
   p.strokeWeight(2)
-  p.line(x, axisY, x, iconTop - 3)
-  p.noStroke()
-  p.fill(color[0], color[1], color[2], 235)
-  p.circle(x, axisY, 10)
+  p.line(x, 0, x, lineEndY)
 }
 
 function getPointColor(label: IntentLabelKey) {
   return strategyLineColors[label] ?? [245, 243, 238]
+}
+
+function formatRgbColor(color: [number, number, number]) {
+  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`
 }
 
 function parseEventDate(value: string) {
@@ -391,6 +390,13 @@ function formatIsoDate(date: string, endDate?: string) {
   return endDate ? `${start} - ${formatEventDate(endDate)}` : start
 }
 
+function formatAxisMonthLabel(date: Date) {
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = String(date.getFullYear()).slice(-2)
+
+  return `${month}/${year}`
+}
+
 function formatEventDate(date: string) {
   const parsed = parseEventDate(date)
 
@@ -398,7 +404,7 @@ function formatEventDate(date: string) {
 
   return new Intl.DateTimeFormat('en-GB', {
     day: '2-digit',
-    month: 'short',
-    year: 'numeric',
+    month: '2-digit',
+    year: '2-digit',
   }).format(parsed)
 }

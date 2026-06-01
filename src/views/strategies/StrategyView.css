@@ -1,11 +1,23 @@
 .strategy-view {
+  position: relative;
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr);
   gap: 14px;
   min-height: 100%;
+  overflow: hidden;
   padding: 14px 20px 18px;
   color: #f5f3ee;
   background: #303030;
+}
+
+.strategy-view--timeline {
+  isolation: isolate;
+}
+
+.strategy-view__header,
+.strategy-view__tabs {
+  position: relative;
+  z-index: 2;
 }
 
 .strategy-view__header h2 {
@@ -49,8 +61,15 @@
 }
 
 .strategy-view__content {
+  position: relative;
+  z-index: 1;
   display: grid;
   min-height: 0;
+}
+
+.strategy-view--timeline .strategy-view__content {
+  position: static;
+  z-index: auto;
 }
 
 .strategy-view__structure {
@@ -108,28 +127,33 @@
 }
 
 .strategy-view__timeline-view {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
   display: grid;
-  gap: 12px;
-  align-self: center;
+  align-items: stretch;
+  align-self: stretch;
   justify-self: stretch;
   min-height: 0;
-  width: min(100%, 96rem);
+  width: 100%;
+  pointer-events: none;
 }
 
 .strategy-view__timeline {
+  position: absolute;
+  inset: 0;
   width: 100%;
+  height: 100%;
   min-width: 0;
+  pointer-events: auto;
+}
+
+.strategy-view__timeline :deep(.strategy-beeswarm) {
+  height: 100%;
 }
 
 .strategy-view__timeline :deep(.strategy-beeswarm__canvas) {
-  height: clamp(22rem, 48vh, 36rem);
-}
-
-.strategy-view__timeline-filters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
+  height: 100%;
 }
 
 .strategy-view__matrix {
@@ -150,11 +174,11 @@
   }
 
   .strategy-view__timeline-view {
-    align-self: start;
+    align-self: stretch;
   }
 
   .strategy-view__timeline :deep(.strategy-beeswarm__canvas) {
-    height: 22rem;
+    height: 100%;
   }
 
   .strategy-view__matrix {
