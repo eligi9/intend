@@ -20,6 +20,7 @@ const emit = defineEmits<{
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
 const selectedTimelineLabels = ref<IntentLabelKey[]>([])
+const previewTimelineLabel = ref<IntentLabelKey | null>(null)
 const stageRef = ref<HTMLElement | null>(null)
 const portraitRef = ref<HTMLElement | null>(null)
 const canvasOffset = ref('calc(var(--author-detail-portrait-size) / 2)')
@@ -51,9 +52,20 @@ const visibleStatements = computed(() => {
 
   return author.value.statements.filter((statement) => statement[selectedLabel] === 'yes')
 })
+const timelineFeedbackLabels = computed(() =>
+  previewTimelineLabel.value ? [previewTimelineLabel.value] : selectedTimelineLabels.value,
+)
 
 function toggleTimelineLabel(label: IntentLabelKey) {
   selectedTimelineLabels.value = selectedTimelineLabels.value.includes(label) ? [] : [label]
+}
+
+function previewTimelineFeedback(label: IntentLabelKey) {
+  previewTimelineLabel.value = label
+}
+
+function clearTimelinePreview() {
+  previewTimelineLabel.value = null
 }
 
 function updateCanvasOffset() {
@@ -119,8 +131,10 @@ onBeforeUnmount(() => {
           </span>
 
           <div class="author-detail__intro">
-            <h2>{{ author.name }}</h2>
-            <p>{{ author.position ?? 'Position unbekannt' }}</p>
+            <div class="author-detail__headline">
+              <h2 class="author-detail__headline-h2">{{ author.name }}</h2>
+              <p>{{ author.position ?? 'Position unbekannt' }}</p>
+            </div>
 
             <dl class="author-detail__profile" aria-label="Autor Steckbrief">
               <div>
@@ -146,7 +160,7 @@ onBeforeUnmount(() => {
         <section class="author-detail__timeline" aria-label="Interaktive Timeline">
           <AuthorTimelineP5
             :statements="author.statements"
-            :selected-labels="selectedTimelineLabels"
+            :selected-labels="timelineFeedbackLabels"
           />
         </section>
 
@@ -157,6 +171,10 @@ onBeforeUnmount(() => {
             :label="strategy.label"
             :color="strategy.color"
             :active="selectedTimelineLabels.includes(strategy.labelKey)"
+            @mouseenter="previewTimelineFeedback(strategy.labelKey)"
+            @focusin="previewTimelineFeedback(strategy.labelKey)"
+            @mouseleave="clearTimelinePreview"
+            @focusout="clearTimelinePreview"
             @click="toggleTimelineLabel(strategy.labelKey)"
           />
         </section>

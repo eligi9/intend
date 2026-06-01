@@ -15,6 +15,7 @@
   overflow-y: auto;
   color: #f5f3ee;
   background: var(--author-detail-background);
+  padding: 2rem 5rem;
 }
 
 .author-detail-view__close {
@@ -59,19 +60,36 @@
   inset-inline: 0;
   z-index: 4;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  justify-items: center;
+  justify-items: end;
   align-items: start;
-  gap: clamp(1rem, 3vw, 2rem);
+  gap: 2rem;
   text-align: right;
 }
 
 .author-detail__intro {
   display: grid;
   grid-column: 1;
+  grid-template-rows: var(--author-detail-portrait-size) auto;
   justify-items: end;
   align-self: start;
   gap: 0.55rem;
-  max-width: min(32rem, 100%);
+  max-width: min(42rem, 100%);
+  width: 100%;
+}
+
+.author-detail__headline {
+  display: grid;
+  align-self: center;
+  justify-items: end;
+  justify-self: end;
+  width: max-content;
+  max-width: min(42rem, 100%);
+  margin-inline-end: 0;
+  text-align: right;
+}
+
+.author-detail__headline-h2 {
+  max-width: 10ch;
 }
 
 .author-detail__portrait-anchor {
@@ -82,18 +100,23 @@
   z-index: 3;
 }
 
-.author-detail__intro h2 {
+.author-detail__headline h2 {
+  justify-self: end;
+  max-width: 100%;
   margin: 0;
   color: white;
-  font-size: clamp(2.375rem, 6vw, 4rem);
+  font-size: clamp(2rem, 4.8vw, 3.5rem);
   line-height: 1;
+  white-space: nowrap;
 }
 
-.author-detail__intro p {
+.author-detail__headline p {
+  justify-self: end;
   margin: 0;
   color: rgba(245, 243, 238, 0.74);
   font-size: clamp(1rem, 2.2vw, 1.125rem);
   line-height: 1.35;
+  text-align: right;
 }
 
 .author-detail__profile {
@@ -110,6 +133,7 @@
   display: grid;
   grid-template-columns: minmax(7rem, auto) minmax(0, 1fr);
   align-items: baseline;
+  justify-self: start;
   gap: 0.75rem;
 }
 
@@ -142,7 +166,8 @@
 }
 
 .author-detail__timeline :deep(.author-timeline__canvas) {
-  block-size: var(--author-detail-canvas-height, clamp(18rem, 38vw, 28rem));
+    block-size: var(--author-detail-canvas-height, clamp(18rem, 38vw, 28rem));
+
 }
 
 .author-detail__timeline-filters {
@@ -198,7 +223,18 @@
 
   .author-detail__intro {
     justify-items: center;
+    grid-template-rows: auto;
     grid-row: 1;
+    text-align: center;
+  }
+
+  .author-detail__headline {
+    justify-items: center;
+    margin-inline-end: 0;
+    text-align: center;
+  }
+
+  .author-detail__headline p {
     text-align: center;
   }
 
