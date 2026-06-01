@@ -10,10 +10,13 @@ const { records } = storeToRefs(statementStore)
 <template>
   <section class="strategy-view">
     <header class="strategy-view__header">
-      <h2>Strategien</h2>
+      <h2>Strategies</h2>
+      <p>See how strategies appear together across the coded statements.</p>
     </header>
 
-    <StrategyCorrelationHeatmap :records="records" />
+    <div class="strategy-view__matrix">
+      <StrategyCorrelationHeatmap :records="records" />
+    </div>
   </section>
 </template>
 

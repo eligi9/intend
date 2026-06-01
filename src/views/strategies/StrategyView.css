@@ -1,6 +1,6 @@
 .strategy-view {
   display: grid;
-  align-content: start;
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 10px;
   min-height: 100%;
   padding: 14px 20px 18px;
@@ -15,8 +15,28 @@
   line-height: 1;
 }
 
+.strategy-view__header p {
+  max-width: 44rem;
+  margin: 6px 0 0;
+  color: rgba(245, 243, 238, 0.68);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.strategy-view__matrix {
+  display: grid;
+  align-items: center;
+  min-height: 0;
+}
+
 @media (max-width: 780px) {
   .strategy-view {
+    grid-template-rows: auto auto;
     padding: 16px 20px 20px;
+  }
+
+  .strategy-view__matrix {
+    align-items: start;
   }
 }
