@@ -1,0 +1,61 @@
+{
+  "name": "strategy-timeline-events",
+  "generatedAt": "2026-06-01T00:00:00.000Z",
+  "events": [
+    {
+      "id": "hamas-led-attack-israel",
+      "date": "2023-10-07",
+      "label": "Hamas-led attack",
+      "description": "Hamas-led attack on Israel, also known as Operation Al-Aqsa Flood; beginning of the war in Israel and Gaza.",
+      "category": "attack",
+      "sourceName": "United Nations",
+      "sourceUrl": "https://press.un.org/en/2023/sgsm21981.doc.htm"
+    },
+    {
+      "id": "icj-advisory-opinion-occupation",
+      "date": "2024-07-19",
+      "label": "ICJ advisory opinion",
+      "description": "The International Court of Justice delivered its advisory opinion on the legal consequences of Israeli policies and practices in the Occupied Palestinian Territory.",
+      "category": "court",
+      "sourceName": "International Court of Justice",
+      "sourceUrl": "https://www.icj-cij.org/node/204176"
+    },
+    {
+      "id": "un-general-assembly-es-10-24",
+      "date": "2024-09-18",
+      "label": "UNGA resolution ES-10/24",
+      "description": "The UN General Assembly adopted resolution ES-10/24, demanding that Israel end its unlawful presence in the Occupied Palestinian Territory within 12 months.",
+      "category": "resolution",
+      "sourceName": "United Nations Digital Library",
+      "sourceUrl": "https://digitallibrary.un.org/record/4064541"
+    },
+    {
+      "id": "icc-arrest-warrants-netanyahu-gallant",
+      "date": "2024-11-21",
+      "label": "ICC arrest warrants",
+      "description": "The International Criminal Court issued arrest warrants for Benjamin Netanyahu, Yoav Gallant, and Hamas leader Mohammed Diab Ibrahim Al-Masri.",
+      "category": "court",
+      "sourceName": "International Criminal Court",
+      "sourceUrl": "https://www.icc-cpi.int/news/situation-state-palestine-icc-pre-trial-chamber-i-rejects-state-israels-challenges"
+    },
+    {
+      "id": "israeli-airstrikes-gaza-may-2025",
+      "date": "2025-05-08",
+      "endDate": "2025-05-11",
+      "label": "Israeli airstrikes in Gaza",
+      "description": "Israeli airstrikes across the Gaza Strip in May 2025, amid an intensification of military operations.",
+      "category": "military",
+      "sourceName": "Associated Press",
+      "sourceUrl": "https://apnews.com/article/israel-palestinians-hamas-war-news-ceasefire-hostages-05-08-2025"
+    },
+    {
+      "id": "gaza-city-ground-offensive",
+      "date": "2025-09-17",
+      "label": "Gaza City ground offensive",
+      "description": "Beginning of the Israeli government ground offensive in Gaza City.",
+      "category": "military",
+      "sourceName": "Associated Press",
+      "sourceUrl": "https://apnews.com/article/israel-palestinians-hamas-war-news-gaza-09-17-2025"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+.strategy-beeswarm {
+  position: relative;
+  display: grid;
+  min-inline-size: 0;
+}
+
+.strategy-beeswarm__canvas {
+  inline-size: 100%;
+  block-size: clamp(22rem, 48vh, 36rem);
+  overflow: hidden;
+}
+
+.strategy-beeswarm__event-marker {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  inline-size: 34px;
+  block-size: 34px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #4be0f0;
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(75, 224, 240, 0.36));
+  transform: translate(-50%, -50%);
+}
+
+.strategy-beeswarm__event-marker:hover,
+.strategy-beeswarm__event-marker:focus-visible,
+.strategy-beeswarm__event-marker--active {
+  color: #65f1ff;
+  filter: drop-shadow(0 0 14px rgba(101, 241, 255, 0.52));
+}
+
+.strategy-beeswarm__event-marker:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.strategy-beeswarm__tooltip {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  gap: 4px;
+  width: min(20rem, 68vw);
+  padding: 9px 10px;
+  border-radius: 6px;
+  background: #f5f3ee;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+  color: #20242b;
+  pointer-events: auto;
+}
+
+.strategy-beeswarm__tooltip--event {
+  border: 1px solid rgba(75, 224, 240, 0.55);
+  transform: translate(-50%, calc(-100% - 2.5rem));
+}
+
+.strategy-beeswarm__tooltip--statement {
+  border: 1px solid rgba(245, 243, 238, 0.32);
+  transform: translate(-50%, calc(-100% - 0.8rem));
+}
+
+.strategy-beeswarm__tooltip::after {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: #f5f3ee;
+  content: '';
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.strategy-beeswarm__tooltip strong,
+.strategy-beeswarm__tooltip time,
+.strategy-beeswarm__tooltip p,
+.strategy-beeswarm__tooltip a {
+  position: relative;
+  z-index: 1;
+}
+
+.strategy-beeswarm__tooltip strong {
+  font-size: 12px;
+  line-height: 1.15;
+}
+
+.strategy-beeswarm__tooltip time {
+  color: rgba(32, 36, 43, 0.62);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.strategy-beeswarm__tooltip p {
+  margin: 0;
+  font-size: 10.5px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.strategy-beeswarm__tooltip a {
+  color: #00736f;
+  font-size: 10px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.strategy-beeswarm__tooltip a:hover {
+  text-decoration: underline;
+}
