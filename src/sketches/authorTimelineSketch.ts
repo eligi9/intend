@@ -3,8 +3,12 @@ import type { IntentLabelKey, IntentRecord } from '../types/intentData'
 import { createTimelineModel } from '../utils/timelineScale'
 
 interface AuthorTimelineSketchState {
+  events?: TimelineEvent[]
+  minPaddingX?: number
+  paddingXRatio?: number
   statements: IntentRecord[]
   selectedLabels: IntentLabelKey[]
+  setPositionedEvents?: (payload: PositionedTimelineEvent[]) => void
   setHoveredStatement: (payload: HoveredTimelineStatement | null) => void
 }
 
@@ -13,6 +17,30 @@ export interface HoveredTimelineStatement {
   date: string
   xRatio: number
   yRatio: number
+}
+
+export interface HoveredTimelineEvent {
+  direction: 'down' | 'up'
+  date: string
+  description: string
+  id: string
+  label: string
+  sourceName: string
+  sourceUrl: string
+  xRatio: number
+  yRatio: number
+}
+
+export type PositionedTimelineEvent = HoveredTimelineEvent
+
+export interface TimelineEvent {
+  date: string
+  description: string
+  endDate?: string
+  id: string
+  label: string
+  sourceName: string
+  sourceUrl: string
 }
 
 interface TimelineCurve {
@@ -33,6 +61,7 @@ const strategyLineColors: Partial<Record<IntentLabelKey, [number, number, number
 export function createAuthorTimelineSketch(container: HTMLElement, state: AuthorTimelineSketchState) {
   let resizeObserver: ResizeObserver | null = null
   let hoveredPointId: string | null = null
+  let positionedEventsKey = '__initial__'
 
   const getCanvasSize = () => {
     const bounds = container.getBoundingClientRect()
@@ -66,11 +95,21 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
     })(p.remove.bind(p))
 
     p.draw = () => {
-      const model = createTimelineModel(state.statements)
-      const paddingX = Math.max(42, p.width * 0.07)
-      const axisY = p.height - Math.max(42, p.height * 0.12)
+      const parsedEvents = (state.events ?? [])
+        .map((event) => ({ event, date: parseEventDate(event.date) }))
+        .filter((item): item is { event: TimelineEvent; date: Date } => item.date !== null)
+      const latestEventDate = parsedEvents.reduce<Date | undefined>(
+        (latest, item) => (!latest || item.date > latest ? item.date : latest),
+        undefined,
+      )
+      const model = createTimelineModel(state.statements, undefined, latestEventDate)
+      const paddingX = Math.max(state.minPaddingX ?? 42, p.width * (state.paddingXRatio ?? 0.07))
+      const hasEvents = parsedEvents.length > 0
+      const bottomSpace = hasEvents ? Math.max(106, p.height * 0.24) : Math.max(42, p.height * 0.12)
+      const axisY = p.height - bottomSpace
       const anchor = { x: p.width / 2, y: 0 }
       const drawableWidth = p.width - paddingX * 2
+      const range = Math.max(1, model.endDate.getTime() - model.startDate.getTime())
       const points = model.points.map((point) => ({
         ...point,
         x: paddingX + point.ratio * drawableWidth,
@@ -82,6 +121,12 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
         x: point.x,
         y: point.y,
         lift: p.map(Math.abs(anchor.x - point.x), 0, p.width / 2, p.height * 0.1, p.height * 0.22),
+      }))
+      const events = parsedEvents.map(({ event, date }) => ({
+        date,
+        event,
+        x: paddingX + ((date.getTime() - model.startDate.getTime()) / range) * drawableWidth,
+        y: axisY + 62,
       }))
 
       const hovered =
@@ -129,6 +174,32 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
       p.strokeWeight(2)
       p.line(paddingX, axisY, p.width - paddingX, axisY)
 
+      events.forEach((event) => {
+        drawEventAnchor(p, event.x, axisY, event.y)
+      })
+
+      if (state.setPositionedEvents) {
+        const positionedEvents = events.map((event) => ({
+          date: formatIsoDate(event.event.date, event.event.endDate),
+          description: event.event.description,
+          direction: 'up' as const,
+          id: event.event.id,
+          label: event.event.label,
+          sourceName: event.event.sourceName,
+          sourceUrl: event.event.sourceUrl,
+          xRatio: event.x / p.width,
+          yRatio: event.y / p.height,
+        }))
+        const nextKey = positionedEvents
+          .map((event) => `${event.id}:${event.xRatio.toFixed(4)}:${event.yRatio.toFixed(4)}`)
+          .join('|')
+
+        if (nextKey !== positionedEventsKey) {
+          positionedEventsKey = nextKey
+          state.setPositionedEvents(positionedEvents)
+        }
+      }
+
       p.textAlign(p.CENTER, p.TOP)
       p.textSize(Math.max(10, p.width * 0.011))
       model.ticks.forEach((tick) => {
@@ -143,9 +214,10 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
       points.forEach((point) => {
         const hovered = hoveredPointId === point.id
         const color = getCurveColor(point.record, state.selectedLabels)
-        p.noStroke()
+        p.stroke(48, 48, 48, 220)
+        p.strokeWeight(hovered ? 2.6 : 2)
         p.fill(color?.[0] ?? (hovered ? 255 : 245), color?.[1] ?? (hovered ? 255 : 243), color?.[2] ?? (hovered ? 255 : 238))
-        p.circle(point.x, point.y, hovered ? 17 : 12)
+        p.circle(point.x, point.y, hovered ? 14 : 9)
       })
 
       p.noStroke()
@@ -181,6 +253,45 @@ function isMouseNearCurve(
   }
 
   return false
+}
+
+function drawEventAnchor(p: p5, x: number, axisY: number, iconY: number) {
+  const color: [number, number, number] = [75, 224, 240]
+  const iconTop = iconY - 15
+
+  p.stroke(color[0], color[1], color[2], 220)
+  p.strokeWeight(2.2)
+  p.line(x, axisY, x, iconTop - 3)
+  p.noStroke()
+  p.fill(color[0], color[1], color[2], 235)
+  p.circle(x, axisY, 12)
+}
+
+function parseEventDate(value: string) {
+  const [year, month, day] = value.split('-').map(Number)
+
+  if (!Number.isFinite(day) || !Number.isFinite(month) || !Number.isFinite(year)) {
+    return null
+  }
+
+  return new Date(year, month - 1, day)
+}
+
+function formatIsoDate(date: string, endDate?: string) {
+  const start = formatEventDate(date)
+  return endDate ? `${start} - ${formatEventDate(endDate)}` : start
+}
+
+function formatEventDate(date: string) {
+  const parsed = parseEventDate(date)
+
+  if (!parsed) return date
+
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(parsed)
 }
 
 function formatHoverDate(date: string) {

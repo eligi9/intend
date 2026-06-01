@@ -39,6 +39,7 @@ export function parseStatementDate(value: string) {
 export function createTimelineModel(
   statements: IntentRecord[],
   startDate = new Date(2023, 9, 7),
+  endDateOverride?: Date,
 ): TimelineModel {
   const parsedStatements = statements
     .map((record) => ({ record, date: parseStatementDate(record.date) }))
@@ -47,7 +48,9 @@ export function createTimelineModel(
 
   const latestStatementDate = parsedStatements[parsedStatements.length - 1]?.date
   const endDate =
-    latestStatementDate && latestStatementDate > startDate
+    endDateOverride && endDateOverride > startDate
+      ? endDateOverride
+      : latestStatementDate && latestStatementDate > startDate
       ? latestStatementDate
       : new Date(startDate.getTime() + MS_PER_DAY)
   const range = Math.max(MS_PER_DAY, endDate.getTime() - startDate.getTime())
