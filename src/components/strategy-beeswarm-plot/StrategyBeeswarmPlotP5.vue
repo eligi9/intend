@@ -64,6 +64,10 @@ function trimStatement(value: string) {
   return value.length > 150 ? `${value.slice(0, 147)}...` : value
 }
 
+function tooltipExcerpt(statement: HoveredBeeswarmStatement) {
+  return trimStatement(statement.anchorText ?? statement.statement)
+}
+
 onMounted(async () => {
   if (!plotHost.value) return
 
@@ -121,7 +125,7 @@ onBeforeUnmount(() => {
       v-if="hoveredEvent"
       class="strategy-beeswarm__tooltip strategy-beeswarm__tooltip--event"
       :style="{
-        left: `${hoveredEvent.xRatio * 100}%`,
+        '--strategy-beeswarm-tooltip-x': `${hoveredEvent.xRatio * 100}%`,
         top: `${hoveredEvent.yRatio * 100}%`,
       }"
       @mouseenter="showEvent(hoveredEvent)"
@@ -139,13 +143,13 @@ onBeforeUnmount(() => {
       v-if="hoveredStatement && !hoveredEvent"
       class="strategy-beeswarm__tooltip strategy-beeswarm__tooltip--statement"
       :style="{
-        left: `${hoveredStatement.xRatio * 100}%`,
+        '--strategy-beeswarm-tooltip-x': `${hoveredStatement.xRatio * 100}%`,
         top: `${hoveredStatement.yRatio * 100}%`,
       }"
     >
-      <strong>{{ hoveredStatement.author }}</strong>
-      <time>{{ hoveredStatement.date }}</time>
-      <p>{{ trimStatement(hoveredStatement.statement) }}</p>
+      <strong>{{ hoveredStatement.strategy }}</strong>
+      <time>{{ hoveredStatement.author }} · {{ hoveredStatement.date }}</time>
+      <p class="strategy-beeswarm__tooltip-anchor">{{ tooltipExcerpt(hoveredStatement) }}</p>
     </aside>
   </section>
 </template>
