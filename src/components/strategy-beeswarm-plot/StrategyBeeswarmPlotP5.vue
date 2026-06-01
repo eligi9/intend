@@ -5,11 +5,9 @@ import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
 import type { TimelineEvent } from '../../sketches/authorTimelineSketch'
 import {
   createStrategyBeeswarmSketch,
-  type HoveredBeeswarmEvent,
   type HoveredBeeswarmStatement,
   type PositionedBeeswarmEvent,
 } from '../../sketches/strategyBeeswarmSketch'
-import TimelineEventIcon from '../timeline-event-icon/TimelineEventIcon.vue'
 
 const props = defineProps<{
   events?: TimelineEvent[]
@@ -20,11 +18,9 @@ const props = defineProps<{
 }>()
 
 const plotHost = ref<HTMLElement | null>(null)
-const hoveredEvent = ref<HoveredBeeswarmEvent | null>(null)
 const hoveredStatement = ref<HoveredBeeswarmStatement | null>(null)
 const positionedEvents = ref<PositionedBeeswarmEvent[]>([])
 let sketch: p5 | null = null
-let eventHoverTimeout: number | null = null
 
 function createSketch() {
   if (!plotHost.value) return null
@@ -44,28 +40,18 @@ function createSketch() {
   })
 }
 
-function showEvent(event: HoveredBeeswarmEvent) {
-  if (eventHoverTimeout !== null) {
-    window.clearTimeout(eventHoverTimeout)
-    eventHoverTimeout = null
-  }
-
-  hoveredEvent.value = event
-}
-
-function hideEvent() {
-  eventHoverTimeout = window.setTimeout(() => {
-    hoveredEvent.value = null
-    eventHoverTimeout = null
-  }, 90)
-}
-
 function trimStatement(value: string) {
   return value.length > 150 ? `${value.slice(0, 147)}...` : value
 }
 
-function tooltipExcerpt(statement: HoveredBeeswarmStatement) {
-  return trimStatement(statement.anchorText ?? statement.statement)
+function tooltipAnchors(statement: HoveredBeeswarmStatement) {
+  const source = statement.anchorText ?? statement.statement
+  const anchors = source
+    .split(';')
+    .map((item) => item.trim())
+    .filter(Boolean)
+
+  return (anchors.length > 0 ? anchors : [source]).map(trimStatement)
 }
 
 onMounted(async () => {
@@ -91,10 +77,6 @@ watch(
 )
 
 onBeforeUnmount(() => {
-  if (eventHoverTimeout !== null) {
-    window.clearTimeout(eventHoverTimeout)
-  }
-
   sketch?.remove()
 })
 </script>
@@ -102,54 +84,39 @@ onBeforeUnmount(() => {
 <template>
   <section class="strategy-beeswarm" aria-label="Strategy statements beeswarm plot">
     <div ref="plotHost" class="strategy-beeswarm__canvas" />
-    <button
+    <article
       v-for="event in positionedEvents"
       :key="event.id"
-      type="button"
-      class="strategy-beeswarm__event-marker"
-      :class="{ 'strategy-beeswarm__event-marker--active': hoveredEvent?.id === event.id }"
+      class="strategy-beeswarm__event-label"
       :style="{
-        left: `${event.xRatio * 100}%`,
+        '--strategy-beeswarm-event-x': `${event.xRatio * 100}%`,
         top: `${event.yRatio * 100}%`,
       }"
-      :aria-label="event.label"
-      @mouseenter="showEvent(event)"
-      @mouseleave="hideEvent"
-      @focusin="showEvent(event)"
-      @focusout="hideEvent"
     >
-      <TimelineEventIcon :direction="event.direction" />
-    </button>
+      <time>{{ event.date }}</time>
+      <strong>{{ event.label }}</strong>
+    </article>
 
     <aside
-      v-if="hoveredEvent"
-      class="strategy-beeswarm__tooltip strategy-beeswarm__tooltip--event"
-      :style="{
-        '--strategy-beeswarm-tooltip-x': `${hoveredEvent.xRatio * 100}%`,
-        top: `${hoveredEvent.yRatio * 100}%`,
-      }"
-      @mouseenter="showEvent(hoveredEvent)"
-      @mouseleave="hideEvent"
-    >
-      <strong>{{ hoveredEvent.label }}</strong>
-      <time>{{ hoveredEvent.date }}</time>
-      <p>{{ hoveredEvent.description }}</p>
-      <a :href="hoveredEvent.sourceUrl" target="_blank" rel="noreferrer">
-        Source: {{ hoveredEvent.sourceName }}
-      </a>
-    </aside>
-
-    <aside
-      v-if="hoveredStatement && !hoveredEvent"
+      v-if="hoveredStatement"
       class="strategy-beeswarm__tooltip strategy-beeswarm__tooltip--statement"
       :style="{
         '--strategy-beeswarm-tooltip-x': `${hoveredStatement.xRatio * 100}%`,
+        '--strategy-beeswarm-tooltip-background': hoveredStatement.color,
         top: `${hoveredStatement.yRatio * 100}%`,
       }"
     >
       <strong>{{ hoveredStatement.strategy }}</strong>
       <time>{{ hoveredStatement.author }} · {{ hoveredStatement.date }}</time>
-      <p class="strategy-beeswarm__tooltip-anchor">{{ tooltipExcerpt(hoveredStatement) }}</p>
+      <div class="strategy-beeswarm__tooltip-anchors">
+        <p
+          v-for="(anchor, index) in tooltipAnchors(hoveredStatement)"
+          :key="`${hoveredStatement.id}:${index}`"
+          class="strategy-beeswarm__tooltip-anchor"
+        >
+          {{ anchor }}
+        </p>
+      </div>
     </aside>
   </section>
 </template>

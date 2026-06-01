@@ -2,6 +2,7 @@
   --strategy-beeswarm-tooltip-edge: 12px;
   --strategy-beeswarm-tooltip-gap: 28px;
   --strategy-beeswarm-tooltip-width: min(20rem, calc(100% - var(--strategy-beeswarm-tooltip-edge) * 2));
+  --strategy-beeswarm-tooltip-background: #f5f3ee;
   --strategy-beeswarm-tooltip-x: 50%;
 
   position: relative;
@@ -15,32 +16,34 @@
   overflow: hidden;
 }
 
-.strategy-beeswarm__event-marker {
+.strategy-beeswarm__event-label {
+  --strategy-beeswarm-event-x: 50%;
+
   position: absolute;
   z-index: 2;
   display: grid;
-  place-items: center;
-  inline-size: 34px;
-  block-size: 34px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #4be0f0;
-  cursor: pointer;
-  filter: drop-shadow(0 0 10px rgba(75, 224, 240, 0.36));
-  transform: translate(-50%, -50%);
+  gap: 4px;
+  left: var(--strategy-beeswarm-event-x);
+  width: min(12rem, calc(100% - var(--strategy-beeswarm-event-x) - 8px));
+  min-width: 8rem;
+  color: rgba(245, 243, 238, 0.94);
+  pointer-events: none;
+  text-align: left;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.46);
+  transform: translate(8px, 0);
 }
 
-.strategy-beeswarm__event-marker:hover,
-.strategy-beeswarm__event-marker:focus-visible,
-.strategy-beeswarm__event-marker--active {
-  color: #65f1ff;
-  filter: drop-shadow(0 0 14px rgba(101, 241, 255, 0.52));
+.strategy-beeswarm__event-label time {
+  color: rgba(245, 243, 238, 0.94);
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.05;
 }
 
-.strategy-beeswarm__event-marker:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 3px;
+.strategy-beeswarm__event-label strong {
+  font-size: 10.5px;
+  font-weight: 650;
+  line-height: 1.24;
 }
 
 .strategy-beeswarm__tooltip {
@@ -48,11 +51,11 @@
   z-index: 4;
   left: var(--strategy-beeswarm-tooltip-x);
   display: grid;
-  gap: 4px;
+  gap: 7px;
   width: var(--strategy-beeswarm-tooltip-width);
-  padding: 9px 10px;
+  padding: 12px 13px;
   border-radius: 6px;
-  background: #f5f3ee;
+  background: var(--strategy-beeswarm-tooltip-background);
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
   color: #20242b;
   pointer-events: auto;
@@ -62,12 +65,13 @@
   );
 }
 
-.strategy-beeswarm__tooltip--event {
-  border: 1px solid rgba(75, 224, 240, 0.55);
+.strategy-beeswarm__tooltip--statement {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  color: #ffffff;
 }
 
-.strategy-beeswarm__tooltip--statement {
-  border: 1px solid rgba(245, 243, 238, 0.32);
+.strategy-beeswarm__tooltip--statement time {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .strategy-beeswarm__tooltip strong,
@@ -79,26 +83,35 @@
 }
 
 .strategy-beeswarm__tooltip strong {
-  font-size: 12px;
-  line-height: 1.15;
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1.1;
 }
 
 .strategy-beeswarm__tooltip time {
   color: rgba(32, 36, 43, 0.62);
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 800;
 }
 
 .strategy-beeswarm__tooltip p {
   margin: 0;
-  font-size: 10.5px;
-  font-weight: 650;
-  line-height: 1.25;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.38;
+}
+
+.strategy-beeswarm__tooltip-anchors {
+  display: grid;
+  gap: 7px;
 }
 
 .strategy-beeswarm__tooltip-anchor {
-  padding-inline-start: 7px;
-  border-inline-start: 2px solid rgba(32, 36, 43, 0.24);
+  padding: 7px 8px 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-inline-start: 3px solid rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.11);
 }
 
 .strategy-beeswarm__tooltip a {
