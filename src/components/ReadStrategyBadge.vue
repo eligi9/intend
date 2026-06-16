@@ -25,5 +25,5 @@ const displayLabel = computed(() =>
 </template>
 
 <style scoped>
-@import './ReadStrategyBadge.css';
+@import '../css/components/ReadStrategyBadge.css';
 </style>

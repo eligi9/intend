@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
-import { intentLabelNames, subLabelColors } from '../../utils/intentLabels'
+import type { IntentLabelKey, IntentRecord } from '../types/intentData'
+import { intentLabelNames, subLabelColors } from '../utils/intentLabels'
 
 const props = defineProps<{
   firstLabel: IntentLabelKey
@@ -194,5 +194,5 @@ function formatPercent(value: number) {
 </template>
 
 <style scoped>
-@import './StrategyVennDiagram.css';
+@import '../css/components/StrategyVennDiagram.css';
 </style>

@@ -34,5 +34,5 @@ withDefaults(
 </template>
 
 <style scoped>
-@import './TimelineEventIcon.css';
+@import '../css/components/TimelineEventIcon.css';
 </style>

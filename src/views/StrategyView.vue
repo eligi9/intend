@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
-import StrategyBeeswarmPlotP5 from '../../components/strategy-beeswarm-plot/StrategyBeeswarmPlotP5.vue'
-import StrategyBadge from '../../components/strategy-badge/StrategyBadge.vue'
-import StrategyCorrelationHeatmap from '../../components/strategy-correlation-heatmap/StrategyCorrelationHeatmap.vue'
-import { useStatementStore } from '../../stores/statementStore'
-import type { IntentLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
-import { intentLabelNames, taxonomyButtonColors } from '../../utils/intentLabels'
-import type { TimelineEvent } from '../../sketches/authorTimelineSketch'
+import strategyTimelineEventsDataset from '../../data/strategy-timeline-events.json'
+import StrategyBeeswarmPlotP5 from '../components/StrategyBeeswarmPlotP5.vue'
+import StrategyBadge from '../components/StrategyBadge.vue'
+import StrategyCorrelationHeatmap from '../components/StrategyCorrelationHeatmap.vue'
+import { useStatementStore } from '../stores/statementStore'
+import type { IntentLabelKey } from '../types/intentData'
+import { intentTaxonomy } from '../types/intentTaxonomy'
+import { intentLabelNames, taxonomyButtonColors } from '../utils/intentLabels'
+import type { TimelineEvent } from '../sketches/authorTimelineSketch'
 
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
@@ -131,5 +131,5 @@ function setActiveView(view: (typeof strategyViews)[number]['id']) {
 </template>
 
 <style scoped>
-@import './StrategyView.css';
+@import '../css/views/StrategyView.css';
 </style>

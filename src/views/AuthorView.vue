@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
-import FilterButton from '../../components/filter-button/FilterButton.vue'
-import AuthorPortrait from '../../components/author-portrait/AuthorPortrait.vue'
-import { useAuthorStore } from '../../stores/authorStore'
-import type { IntentLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
-import { toggleArrayItem } from '../../utils/arrays'
-import { taxonomyButtonColors } from '../../utils/intentLabels'
+import FilterButton from '../components/FilterButton.vue'
+import AuthorPortrait from '../components/AuthorPortrait.vue'
+import { useAuthorStore } from '../stores/authorStore'
+import type { IntentLabelKey } from '../types/intentData'
+import { intentTaxonomy } from '../types/intentTaxonomy'
+import { toggleArrayItem } from '../utils/arrays'
+import { taxonomyButtonColors } from '../utils/intentLabels'
 
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
@@ -133,5 +133,5 @@ function matchesAuthorFilters(
 </template>
 
 <style scoped>
-@import './AuthorView.css';
+@import '../css/views/AuthorView.css';
 </style>

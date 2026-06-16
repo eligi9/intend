@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import type { IntentLabelKey, IntentRecord } from '../types/intentData'
 import {
   buildStrategyCooccurrence,
   type StrategyLink,
   type StrategyNode,
-} from '../../utils/strategyCooccurrence'
+} from '../utils/strategyCooccurrence'
 
 interface PositionedNode extends StrategyNode {
   arcPath: string
@@ -378,5 +378,5 @@ function formatPercent(value: number) {
 </template>
 
 <style scoped>
-@import './StrategyChordDiagram.css';
+@import '../css/components/StrategyChordDiagram.css';
 </style>

@@ -4,9 +4,13 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
-import StatementCard from '../../components/statement-card/StatementCard.vue'
-import landingCopy from '../../content/landingCopy.json'
-import { useStatementStore } from '../../stores/statementStore'
+import StatementCard from '../components/StatementCard.vue'
+import landingCopy from '../content/landingCopy.json'
+import { useStatementStore } from '../stores/statementStore'
+
+const emit = defineEmits<{
+  enter: []
+}>()
 
 const statementStore = useStatementStore()
 const viewRoot = ref<HTMLElement | null>(null)
@@ -288,7 +292,16 @@ onBeforeUnmount(() => {
       class="establishment-view__panel establishment-view__statement"
       aria-label="Beispielstatement"
     >
-      <div ref="statementElement" class="establishment-view__statement-inner">
+      <div
+        ref="statementElement"
+        class="establishment-view__statement-inner"
+        role="button"
+        tabindex="0"
+        aria-label="Zur Übersicht wechseln"
+        @click="emit('enter')"
+        @keydown.enter.prevent="emit('enter')"
+        @keydown.space.prevent="emit('enter')"
+      >
         <StatementCard
           v-if="featuredRecord"
           :record="featuredRecord"
@@ -301,5 +314,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import './EstablishmentView.css';
+@import '../css/views/EstablishmentView.css';
 </style>

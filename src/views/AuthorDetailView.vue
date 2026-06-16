@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import AuthorTimelineP5 from '../../components/author-timeline/AuthorTimelineP5.vue'
-import AuthorPortrait from '../../components/author-portrait/AuthorPortrait.vue'
-import FilterButton from '../../components/filter-button/FilterButton.vue'
-import StatementCard from '../../components/statement-card/StatementCard.vue'
-import { useAuthorStore } from '../../stores/authorStore'
-import type { IntentLabelKey } from '../../types/intentData'
-import { taxonomyButtonColors } from '../../utils/intentLabels'
+import AuthorTimelineP5 from '../components/AuthorTimelineP5.vue'
+import AuthorPortrait from '../components/AuthorPortrait.vue'
+import FilterButton from '../components/FilterButton.vue'
+import StatementCard from '../components/StatementCard.vue'
+import { useAuthorStore } from '../stores/authorStore'
+import type { IntentLabelKey } from '../types/intentData'
+import { taxonomyButtonColors } from '../utils/intentLabels'
 
 const props = defineProps<{
   authorId: string
@@ -202,5 +202,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import './AuthorDetailView.css';
+@import '../css/views/AuthorDetailView.css';
 </style>

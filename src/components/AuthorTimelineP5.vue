@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type p5 from 'p5'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import type { IntentLabelKey, IntentRecord } from '../types/intentData'
 import type {
   HoveredTimelineEvent,
   HoveredTimelineStatement,
   PositionedTimelineEvent,
   TimelineEvent,
-} from '../../sketches/authorTimelineSketch'
-import { createAuthorTimelineSketch } from '../../sketches/authorTimelineSketch'
-import TimelineEventIcon from '../timeline-event-icon/TimelineEventIcon.vue'
-import TimelineDatePill from '../timeline-date-pill/TimelineDatePill.vue'
+} from '../sketches/authorTimelineSketch'
+import { createAuthorTimelineSketch } from '../sketches/authorTimelineSketch'
+import TimelineEventIcon from './TimelineEventIcon.vue'
+import TimelineDatePill from './TimelineDatePill.vue'
 
 const props = defineProps<{
   events?: TimelineEvent[]
@@ -148,5 +148,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import './AuthorTimeline.css';
+@import '../css/components/AuthorTimeline.css';
 </style>

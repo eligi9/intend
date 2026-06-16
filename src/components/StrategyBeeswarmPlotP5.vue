@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type p5 from 'p5'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
-import type { TimelineEvent } from '../../sketches/authorTimelineSketch'
+import type { IntentLabelKey, IntentRecord } from '../types/intentData'
+import type { TimelineEvent } from '../sketches/authorTimelineSketch'
 import {
   createStrategyBeeswarmSketch,
   type HoveredBeeswarmStatement,
   type PositionedBeeswarmEvent,
-} from '../../sketches/strategyBeeswarmSketch'
+} from '../sketches/strategyBeeswarmSketch'
 
 const props = defineProps<{
   events?: TimelineEvent[]
@@ -122,5 +122,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import './StrategyBeeswarmPlot.css';
+@import '../css/components/StrategyBeeswarmPlot.css';
 </style>

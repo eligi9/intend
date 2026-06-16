@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
-import StrategyBadge from '../strategy-badge/StrategyBadge.vue'
+import type { IntentLabelKey, IntentRecord } from '../types/intentData'
+import StrategyBadge from './StrategyBadge.vue'
 import {
   buildStrategyCorrelationMatrix,
   type StrategyCorrelationCell,
   type StrategyCorrelationLabel,
-} from '../../utils/strategyCorrelation'
+} from '../utils/strategyCorrelation'
 
 const props = defineProps<{
   records: IntentRecord[]
@@ -462,5 +462,5 @@ function hideTooltip() {
 </template>
 
 <style scoped>
-@import './StrategyCorrelationHeatmap.css';
+@import '../css/components/StrategyCorrelationHeatmap.css';
 </style>

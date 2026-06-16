@@ -297,8 +297,14 @@
   left: 50%;
   width: min(980px, calc(100vw - 48px));
   pointer-events: auto;
+  cursor: pointer;
   transform-origin: center center;
   will-change: opacity, transform;
+}
+
+.establishment-view__statement-inner:focus-visible {
+  outline: 3px solid rgba(95, 135, 255, 0.82);
+  outline-offset: 6px;
 }
 
 .establishment-view__statement :deep(.statement-card) {

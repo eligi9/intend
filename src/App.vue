@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref, watch } from 'vue'
-import AuthorDetailView from './views/author-detail/AuthorDetailView.vue'
-import AuthorView from './views/authors/AuthorView.vue'
-import EstablishmentView from './views/establishment/EstablishmentView.vue'
-import ReadView from './views/read/ReadView.vue'
-import StrategyView from './views/strategies/StrategyView.vue'
+import AuthorDetailView from './views/AuthorDetailView.vue'
+import AuthorView from './views/AuthorView.vue'
+import EstablishmentView from './views/EstablishmentView.vue'
+import ReadView from './views/ReadView.vue'
+import StrategyView from './views/StrategyView.vue'
 
 const showLanding = ref(true)
 const activeView = ref<'read' | 'authors' | 'strategies'>('read')

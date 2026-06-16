@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import FilterButton from '../../components/filter-button/FilterButton.vue'
-import StatementCard from '../../components/statement-card/StatementCard.vue'
-import { useAuthorStore } from '../../stores/authorStore'
-import { intentLabelKeys, useStatementStore } from '../../stores/statementStore'
-import type { IntentLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
+import FilterButton from '../components/FilterButton.vue'
+import StatementCard from '../components/StatementCard.vue'
+import { useAuthorStore } from '../stores/authorStore'
+import { intentLabelKeys, useStatementStore } from '../stores/statementStore'
+import type { IntentLabelKey } from '../types/intentData'
+import { intentTaxonomy } from '../types/intentTaxonomy'
 import {
   getActiveLabels,
   taxonomyButtonColors,
-} from '../../utils/intentLabels'
-import { toggleArrayItem } from '../../utils/arrays'
+} from '../utils/intentLabels'
+import { toggleArrayItem } from '../utils/arrays'
 
 const store = useStatementStore()
 const authorStore = useAuthorStore()
@@ -220,5 +220,5 @@ function selectAuthor(authorName: string) {
 </template>
 
 <style scoped>
-@import './ReadView.css';
+@import '../css/views/ReadView.css';
 </style>
