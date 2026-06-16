@@ -23,6 +23,8 @@ const props = defineProps<{
   authorLink?: boolean
   showHeading?: boolean
   compactHeading?: boolean
+  highlightedLabels?: readonly IntentLabelKey[]
+  highlightProgress?: number
 }>()
 
 const emit = defineEmits<{
@@ -42,9 +44,14 @@ const strategyBadges = computed<StrategyBadge[]>(() =>
     color: subLabelColors.get(label) ?? '#858b94',
   })),
 )
-const anchorHighlights = computed(() =>
-  hoveredLabel.value ? collectAnchorHighlights(props.record, hoveredLabel.value) : [],
-)
+const anchorHighlights = computed(() => {
+  const labels = [
+    ...(props.highlightedLabels ?? []),
+    ...(hoveredLabel.value ? [hoveredLabel.value] : []),
+  ]
+
+  return labels.flatMap((label) => collectAnchorHighlights(props.record, label))
+})
 const hoveredBadge = computed(
   () => strategyBadges.value.find((badge) => badge.label === hoveredLabel.value) ?? null,
 )
@@ -59,7 +66,11 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
 </script>
 
 <template>
-  <article class="statement-card" :class="{ 'statement-card--focused': hoveredLabel }">
+  <article
+    class="statement-card"
+    :class="{ 'statement-card--focused': hoveredLabel }"
+    :style="{ '--statement-card-highlight-progress': highlightProgress ?? 1 }"
+  >
     <Transition name="statement-card-explanation">
       <aside
         v-if="hoveredBadge && hoveredExplanation"

@@ -4,8 +4,11 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
+import AuthorPortrait from '../components/AuthorPortrait.vue'
+import EstablishmentNote from '../components/EstablishmentNote.vue'
 import StatementCard from '../components/StatementCard.vue'
 import landingCopy from '../content/landingCopy.json'
+import { useAuthorStore } from '../stores/authorStore'
 import { useStatementStore } from '../stores/statementStore'
 
 const emit = defineEmits<{
@@ -13,12 +16,22 @@ const emit = defineEmits<{
 }>()
 
 const statementStore = useStatementStore()
+const authorStore = useAuthorStore()
 const viewRoot = ref<HTMLElement | null>(null)
 const headingElement = ref<HTMLElement | null>(null)
 const introCopyElement = ref<HTMLElement | null>(null)
 const introVisualElement = ref<HTMLElement | null>(null)
 const statementElement = ref<HTMLElement | null>(null)
-const featuredRecord = computed(() => statementStore.records.find((record) => record.id === 'legislators-0001') ?? statementStore.records[0])
+const notesElement = ref<HTMLElement | null>(null)
+const authorMarkElement = ref<HTMLElement | null>(null)
+const featuredRecord = computed(() => statementStore.records.find((record) => record.id === 'legislators-0117') ?? statementStore.records[0])
+const featuredAuthor = computed(() => (featuredRecord.value ? authorStore.getAuthorInstance(featuredRecord.value.author) : null))
+const statementNotes = computed(() => landingCopy.statementNotes)
+const statementTarget = ref({ x: 0, y: 0 })
+const noteProgresses = ref([0, 0, 0])
+const statementHighlightProgress = ref(0)
+const noteStartCorners = ['bottom-right', 'bottom-left', 'top-left'] as const
+const mobilizationHighlightLabels = ['no_alternative_framing'] as const
 let locomotiveScroll: LocomotiveScroll | null = null
 let gsapContext: gsap.Context | null = null
 let updateLandingScrollState: (() => void) | null = null
@@ -53,13 +66,28 @@ function getHeadingPositions(heading: HTMLElement) {
   return { initialY, stickY }
 }
 
+function updateStatementTarget(statement: HTMLElement) {
+  const rect = statement.getBoundingClientRect()
+
+  statementTarget.value = {
+    x: rect.left + rect.width / 2,
+    y: rect.top + rect.height / 2,
+  }
+}
+
+function handleNoteAnimationEnd() {
+  // Hook for sequencing later annotation steps from outside the note component.
+}
+
 function createScrollAnimations() {
   if (
     !viewRoot.value ||
     !headingElement.value ||
     !introCopyElement.value ||
     !introVisualElement.value ||
-    !statementElement.value
+    !statementElement.value ||
+    !notesElement.value ||
+    !authorMarkElement.value
   ) {
     return
   }
@@ -69,6 +97,8 @@ function createScrollAnimations() {
   const introCopy = introCopyElement.value
   const introVisual = introVisualElement.value
   const statement = statementElement.value
+  const notes = notesElement.value
+  const authorMark = authorMarkElement.value
 
   gsapContext?.revert()
   gsapContext = gsap.context(() => {
@@ -76,9 +106,13 @@ function createScrollAnimations() {
     const introFadeDistance = window.innerHeight * 0.62
     const headingFadeDistance = window.innerHeight * 0.18
     const statementStartDistance = introFadeDistance * 0.92
+    const notesStartDistance = statementStartDistance + window.innerHeight * 0.38
+    const noteTimelineUnit = window.innerHeight * 0.72
     const clampProgress = (value: number) => Math.min(Math.max(value, 0), 1)
+    const noteProgressAt = (progress: number, start: number, duration: number) => clampProgress((progress - start) / duration)
 
-    gsap.set(statement, { autoAlpha: 0, xPercent: -50, yPercent: -50, scale: 1 })
+    gsap.set(statement, { autoAlpha: 0, pointerEvents: 'none', xPercent: -50, yPercent: -50, scale: 1 })
+    gsap.set(notes, { autoAlpha: 0 })
 
     const showStatement = () => {
       if (statementIsVisible) {
@@ -89,6 +123,7 @@ function createScrollAnimations() {
       statementPopTween?.kill()
       statementPopTween = gsap.fromTo(statement, {
         autoAlpha: 0,
+        pointerEvents: 'auto',
         xPercent: -50,
         yPercent: -50,
         scale: 0.5,
@@ -107,7 +142,7 @@ function createScrollAnimations() {
       statementIsVisible = false
       statementPopTween?.kill()
       statementPopTween = null
-      gsap.set(statement, { autoAlpha: 0, xPercent: -50, yPercent: -50, scale: 1 })
+      gsap.set(statement, { autoAlpha: 0, pointerEvents: 'none', xPercent: -50, yPercent: -50, scale: 1 })
     }
     const updateScrollState = () => {
       const scroll = window.scrollY
@@ -120,11 +155,30 @@ function createScrollAnimations() {
         : Math.max(stickY, initialY - scroll)
       const introProgress = clampProgress(releaseDistance / introFadeDistance)
       const shouldShowStatement = releaseDistance >= statementStartDistance
+      const notesProgress = Math.max(0, (releaseDistance - notesStartDistance) / noteTimelineUnit)
+      const firstNoteProgress = noteProgressAt(notesProgress, 0, 1.6)
+      const authorProgress = noteProgressAt(notesProgress, 2.1, 0.6)
+      const markerProgress = noteProgressAt(notesProgress, 2.8, 0.35)
+      const secondNoteProgress = noteProgressAt(notesProgress, 3.2, 1.6)
+      const thirdNoteProgress = noteProgressAt(notesProgress, 5.3, 1.6)
 
+      updateStatementTarget(statement)
+      noteProgresses.value = [firstNoteProgress, secondNoteProgress, thirdNoteProgress]
+      statementHighlightProgress.value = markerProgress
       gsap.set(heading, { autoAlpha: 1 - headingProgress, y: headingY })
       gsap.set([introCopy, introVisual], {
         autoAlpha: 1 - introProgress,
         y: -52 * introProgress,
+      })
+      gsap.set(authorMark, {
+        autoAlpha: authorProgress,
+        scale: 0.74 + authorProgress * 0.26,
+        xPercent: -50,
+        yPercent: -50,
+        y: (1 - authorProgress) * 18,
+      })
+      gsap.set(notes, {
+        autoAlpha: Math.max(firstNoteProgress, authorProgress, secondNoteProgress, thirdNoteProgress),
       })
       if (shouldShowStatement) {
         showStatement()
@@ -307,6 +361,38 @@ onBeforeUnmount(() => {
           :record="featuredRecord"
           :author-link="false"
           :compact-heading="false"
+          :highlight-progress="statementHighlightProgress"
+          :highlighted-labels="statementHighlightProgress > 0 ? mobilizationHighlightLabels : []"
+          :show-heading="false"
+        />
+      </div>
+      <div
+        ref="notesElement"
+        class="establishment-view__notes"
+        aria-label="Kommentierende Notizen zum Statement"
+      >
+        <EstablishmentNote
+          v-for="(note, index) in statementNotes"
+          :key="note.id"
+          class="establishment-view__note"
+          :class="`establishment-view__note--${index + 1}`"
+          :progress="noteProgresses[index] ?? 0"
+          :start-corner="noteStartCorners[index] ?? 'bottom-right'"
+          :target="statementTarget"
+          :text="note.body"
+          @animation-end="handleNoteAnimationEnd"
+        />
+      </div>
+      <div
+        ref="authorMarkElement"
+        class="establishment-view__author-mark"
+        aria-hidden="true"
+      >
+        <AuthorPortrait
+          v-if="featuredAuthor"
+          :author="featuredAuthor"
+          :show-rings="false"
+          :size="240"
         />
       </div>
     </div>

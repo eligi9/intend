@@ -6,7 +6,7 @@
 
   position: relative;
   grid-column: 1 / -1;
-  min-height: 300vh;
+  min-height: 840vh;
   overflow-x: hidden;
   color: #f2f2f2;
   background: #1f1f1f;
@@ -295,8 +295,7 @@
   z-index: 4;
   top: 50%;
   left: 50%;
-  width: min(980px, calc(100vw - 48px));
-  pointer-events: auto;
+  width: min(820px, calc(100vw - 48px));
   cursor: pointer;
   transform-origin: center center;
   will-change: opacity, transform;
@@ -308,13 +307,82 @@
 }
 
 .establishment-view__statement :deep(.statement-card) {
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
   border-color: rgba(245, 243, 238, 0.22);
   background: #262626;
   box-shadow: 0 34px 110px rgba(0, 0, 0, 0.42);
 }
 
+.establishment-view__statement :deep(.statement-card__quote) {
+  margin-top: 0;
+  max-width: none;
+}
+
+.establishment-view__statement :deep(.statement-card__quote-highlight) {
+  border-color: transparent;
+  border-radius: 2px;
+  color: #f5f3ee;
+  background:
+    linear-gradient(
+      100deg,
+      rgba(142, 201, 255, 0.14) 0%,
+      rgba(142, 201, 255, 0.74) 18%,
+      rgba(142, 201, 255, 0.52) 72%,
+      rgba(142, 201, 255, 0.1) 100%
+    )
+    0 82% / calc(var(--statement-card-highlight-progress, 1) * 100%) 0.72em no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background-size 120ms linear;
+}
+
 .establishment-view__statement :deep(.statement-card__badges) {
   display: none;
+}
+
+.establishment-view__notes {
+  position: fixed;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+}
+
+.establishment-view__author-mark {
+  position: fixed;
+  z-index: 6;
+  top: 66.666vh;
+  left: 20vw;
+  width: 240px;
+  height: 240px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: opacity, transform;
+}
+
+.establishment-view__author-mark :deep(.author-tooltip__panel) {
+  display: none;
+}
+
+.establishment-view__author-mark :deep(.author-portrait) {
+  filter: drop-shadow(0 0 34px rgba(0, 0, 0, 0.78)) drop-shadow(0 0 86px rgba(0, 0, 0, 0.46));
+}
+
+.establishment-view__note--1 {
+  top: 16%;
+  left: 7%;
+}
+
+.establishment-view__note--2 {
+  top: 12%;
+  right: 7%;
+}
+
+.establishment-view__note--3 {
+  right: 9%;
+  bottom: 10%;
 }
 
 @media (max-width: 780px) {
@@ -358,5 +426,9 @@
 
   .establishment-view__statement-inner {
     width: 100%;
+  }
+
+  .establishment-view__notes {
+    display: none;
   }
 }

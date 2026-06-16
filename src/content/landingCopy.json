@@ -6,5 +6,23 @@
       "Die Grundlage der Analyse bilden Labels, die sich an Konzepten der Feindbildkonstruktion orientieren. Untersucht wird, wie Aussagen durch Dehumanisierung, Schuldzuweisung, Sicherheitsargumente oder moralische Abwertung bestimmte Gruppen rhetorisch markieren und abgrenzen.",
       "Die Analyse versteht einzelne Aussagen nicht als abschließenden juristischen Beweis, sondern als sprachliche Hinweise, die im Kontext völkerrechtlicher Bewertung relevant sein können. Durch die visuelle Aufbereitung werden komplexe rhetorische Strukturen sichtbar und vergleichbar gemacht."
     ]
-  }
+  },
+  "statementNotes": [
+    {
+      "id": "source",
+      "sourceUrl": "https://x.com/YehudaShaul/status/1714302002111430835",
+      "title": "Source and context",
+      "body": "Revital Gotliv, a Knesset member for Likud, Israel's leading right-wing party, posted this statement on X on 17/10/2023."
+    },
+    {
+      "id": "enemy-image",
+      "title": "Enemy-image frame",
+      "body": "The statement mobilizes support for extreme violence by framing destruction as necessary for collective survival."
+    },
+    {
+      "id": "foreclosure",
+      "title": "No-alternative frame",
+      "body": "The statement presents \"crushing Hamas and razing Gaza\" as the only condition for collective survival."
+    }
+  ]
 }

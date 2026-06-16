@@ -21,9 +21,11 @@ const strategyDisplayOrder: IntentLabelKey[] = [
 const props = withDefaults(
   defineProps<{
     author: AuthorInstance
+    showRings?: boolean
     size?: number
   }>(),
   {
+    showRings: true,
     size: 148,
   },
 )
@@ -32,7 +34,7 @@ const ringStroke = computed(() => Math.max(2, props.size * 0.03))
 const ringGap = computed(() => ringStroke.value * 0.5)
 const maxRingCount = strategyDisplayOrder.length
 const totalRingSpace = computed(
-  () => maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value,
+  () => props.showRings ? maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value : 0,
 )
 const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
 
@@ -78,7 +80,7 @@ const fallbackLabel = computed(() => {
         '--author-image-shadow-color': 'var(--author-view-background, #303030)',
       }"
     >
-      <span class="author-portrait__rings" aria-hidden="true">
+      <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">
         <span
           v-for="ring in rings"
           :key="ring.label"
