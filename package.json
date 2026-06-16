@@ -11,6 +11,8 @@
   "dependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
     "d3-force": "^3.0.0",
+    "gsap": "^3.15.0",
+    "locomotive-scroll": "^5.0.1",
     "p5": "^1.11.3",
     "pinia": "^2.3.1",
     "vite": "^6.2.0",

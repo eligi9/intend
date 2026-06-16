@@ -1,0 +1,10 @@
+{
+  "intro": {
+    "eyebrow": "Analysis context",
+    "paragraphs": [
+      "Diese Web-App analysiert ausgewählte Intent Statements israelischer Personen des öffentlichen Lebens im Hinblick auf wiederkehrende rhetorische Muster. Im Fokus steht, wie Sprache Gruppen als Bedrohung darstellen, Feindbilder konstruieren und politische Gewalt als notwendig, gerechtfertigt oder alternativlos erscheinen lassen kann.",
+      "Die Grundlage der Analyse bilden Labels, die sich an Konzepten der Feindbildkonstruktion orientieren. Untersucht wird, wie Aussagen durch Dehumanisierung, Schuldzuweisung, Sicherheitsargumente oder moralische Abwertung bestimmte Gruppen rhetorisch markieren und abgrenzen.",
+      "Die Analyse versteht einzelne Aussagen nicht als abschließenden juristischen Beweis, sondern als sprachliche Hinweise, die im Kontext völkerrechtlicher Bewertung relevant sein können. Durch die visuelle Aufbereitung werden komplexe rhetorische Strukturen sichtbar und vergleichbar gemacht."
+    ]
+  }
+}

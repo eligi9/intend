@@ -2,9 +2,11 @@
 import { onBeforeUnmount, ref, watch } from 'vue'
 import AuthorDetailView from './views/author-detail/AuthorDetailView.vue'
 import AuthorView from './views/authors/AuthorView.vue'
+import EstablishmentView from './views/establishment/EstablishmentView.vue'
 import ReadView from './views/read/ReadView.vue'
 import StrategyView from './views/strategies/StrategyView.vue'
 
+const showLanding = ref(true)
 const activeView = ref<'read' | 'authors' | 'strategies'>('read')
 const selectedAuthorId = ref<string | null>(null)
 const bodyOverlayClass = 'author-detail-overlay-open'
@@ -38,11 +40,17 @@ function showStrategies() {
 function closeAuthorDetail() {
   selectedAuthorId.value = null
 }
+
+function enterWorkspace() {
+  showLanding.value = false
+}
 </script>
 
 <template>
   <main class="app-shell">
-    <section class="workspace workspace--full">
+    <EstablishmentView v-if="showLanding" @enter="enterWorkspace" />
+
+    <section v-else class="workspace workspace--full">
       <nav class="view-switch" aria-label="Ansicht wechseln">
         <button type="button" :class="{ active: activeView === 'read' }" @click="activeView = 'read'">
           Read
