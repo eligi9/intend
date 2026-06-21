@@ -1,0 +1,65 @@
+.selfdefence-counterterrorism-view {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-height: 100%;
+  padding: 20px 28px 32px;
+  color: #f5f3ee;
+  background: #303030;
+}
+
+.selfdefence-counterterrorism-view__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.selfdefence-counterterrorism-view__header div {
+  display: grid;
+  gap: 6px;
+}
+
+.selfdefence-counterterrorism-view__header span {
+  color: rgba(245, 243, 238, 0.64);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.selfdefence-counterterrorism-view__header h2 {
+  margin: 0;
+  color: white;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.selfdefence-counterterrorism-view__header strong {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  border: 1px solid rgba(245, 243, 238, 0.16);
+  border-radius: 8px;
+  color: #f5f3ee;
+  background: rgba(245, 243, 238, 0.06);
+}
+
+.selfdefence-counterterrorism-view__list {
+  display: grid;
+  gap: 14px;
+}
+
+@media (max-width: 780px) {
+  .selfdefence-counterterrorism-view {
+    padding: 16px 20px 24px;
+  }
+
+  .selfdefence-counterterrorism-view__header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .selfdefence-counterterrorism-view__header h2 {
+    font-size: 34px;
+  }
+}

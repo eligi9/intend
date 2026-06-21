@@ -87,14 +87,23 @@ button.active {
 .app-shell {
   display: grid;
   grid-template-columns: minmax(280px, 360px) 1fr;
+  height: 100vh;
   min-height: 100vh;
+  overflow: hidden;
+}
+
+.app-shell--landing {
+  height: auto;
+  overflow: visible;
 }
 
 .workspace {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
   min-width: 0;
+  height: 100vh;
   min-height: 100vh;
+  overflow: hidden;
   background: #303030;
 }
 
@@ -102,8 +111,15 @@ button.active {
   grid-column: 1 / -1;
 }
 
+.workspace > :not(.view-switch) {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 .view-switch {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 16px 20px;
   border-bottom: 1px solid rgba(32, 36, 43, 0.12);
@@ -121,6 +137,13 @@ button.active {
   }
 
   .workspace {
+    height: auto;
     min-height: auto;
+    overflow: visible;
+  }
+
+  .workspace > :not(.view-switch) {
+    height: auto;
+    overflow: visible;
   }
 }
