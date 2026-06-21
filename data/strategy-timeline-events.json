@@ -12,6 +12,15 @@
       "sourceUrl": "https://press.un.org/en/2023/sgsm21981.doc.htm"
     },
     {
+      "id": "incitements-since-icj-order",
+      "date": "2024-02-27",
+      "label": "Incitements since ICJ order",
+      "description": "Incitements since the ICJ order to cease genocidal acts and incitement.",
+      "category": "court",
+      "sourceName": "International Court of Justice",
+      "sourceUrl": "https://www.icj-cij.org/node/203447"
+    },
+    {
       "id": "icj-advisory-opinion-occupation",
       "date": "2024-07-19",
       "label": "ICJ advisory opinion",
