@@ -3,7 +3,7 @@ import type { Simulation, SimulationNodeDatum } from 'd3-force'
 import p5 from 'p5'
 import type { IntentLabelKey, IntentRecord } from '../types/intentData'
 import { intentTaxonomy } from '../types/intentTaxonomy'
-import { intentLabelNames } from '../utils/intentLabels'
+import { intentLabelNames, splitAnchors } from '../utils/intentLabels'
 import { createTimelineModel } from '../utils/timelineScale'
 import type { TimelineEvent } from './authorTimelineSketch'
 
@@ -43,7 +43,7 @@ interface BeeswarmNode extends SimulationNodeDatum {
 }
 
 export interface HoveredBeeswarmStatement {
-  anchorText: string | null
+  anchorText: string[] | null
   author: string
   color: string
   date: string
@@ -318,9 +318,9 @@ function getDeterministicOffset(value: string, amplitude: number) {
 
 function getAnchorText(record: IntentRecord, label: IntentLabelKey) {
   const anchorKey = `${label}_anchor` as keyof IntentRecord
-  const anchor = record[anchorKey]
+  const anchors = splitAnchors(record[anchorKey])
 
-  return typeof anchor === 'string' && anchor.trim().length > 0 ? anchor : null
+  return anchors.length > 0 ? anchors : null
 }
 
 function getActiveStrategyPoints(record: IntentRecord) {

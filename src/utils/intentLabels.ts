@@ -15,7 +15,7 @@ export const intentLabelNames: Record<IntentLabelKey, string> = {
   immutability: 'Immutability',
   essentialization: 'Essentialization',
   dehumanization: 'Dehumanization',
-  threat_construction: 'Threat construction',
+  threat_construction: 'Threat Depiction',
   just_cause: 'Just cause',
   security_rationale: 'Security rationale',
   selfdefence_counterterrorism: 'Self-defence / counterterrorism',
@@ -56,6 +56,13 @@ export function getVisibleSubLabels(activeLabels: IntentLabelKey[]) {
 }
 
 export function splitAnchors(anchor: unknown) {
+  if (Array.isArray(anchor)) {
+    return anchor
+      .filter((item): item is string => typeof item === 'string')
+      .map((item) => item.trim())
+      .filter(Boolean)
+  }
+
   return typeof anchor === 'string'
     ? anchor
         .split(';')

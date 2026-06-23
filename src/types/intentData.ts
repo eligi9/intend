@@ -1,4 +1,5 @@
 export type BinaryLabel = 'yes' | 'no' | null
+export type AnchorTexts = string[] | null
 
 export type IntentLabelKey =
   | 'enemy_image'
@@ -28,32 +29,33 @@ export interface IntentRecord extends Record<IntentLabelKey, BinaryLabel> {
   date: string
   context: string | null
   statement: string
+  measures: string[]
   position: string | null
-  homogenization_anchor: string | null
-  immutability_anchor: string | null
-  essentialization_anchor: string | null
-  dehumanization_anchor: string | null
-  threat_construction_anchor: string | null
+  homogenization_anchor: AnchorTexts
+  immutability_anchor: AnchorTexts
+  essentialization_anchor: AnchorTexts
+  dehumanization_anchor: AnchorTexts
+  threat_construction_anchor: AnchorTexts
   homogenization_bj: string | null
   immutability_bj: string | null
   essentialization_bj: string | null
   dehumanization_bj: string | null
   threat_construction_bj: string | null
-  security_rationale_anchor: string | null
-  selfdefence_counterterrorism_anchor: string | null
-  retaliation_anchor: string | null
+  security_rationale_anchor: AnchorTexts
+  selfdefence_counterterrorism_anchor: AnchorTexts
+  retaliation_anchor: AnchorTexts
   security_rationale_bj: string | null
   selfdefence_counterterrorism_bj: string | null
   retaliation_bj: string | null
-  meaning_anchor: string | null
-  status_anchor: string | null
-  hope_for_victory_anchor: string | null
+  meaning_anchor: AnchorTexts
+  status_anchor: AnchorTexts
+  hope_for_victory_anchor: AnchorTexts
   meaning_bj: string | null
   status_bj: string | null
   hope_for_victory_bj: string | null
-  no_alternative_framing_anchor: string | null
-  humanity_as_weakness_anchor: string | null
-  external_criticism_rejection_anchor: string | null
+  no_alternative_framing_anchor: AnchorTexts
+  humanity_as_weakness_anchor: AnchorTexts
+  external_criticism_rejection_anchor: AnchorTexts
   no_alternative_framing_bj: string | null
   humanity_as_weakness_bj: string | null
   external_criticism_rejection_bj: string | null

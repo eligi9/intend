@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { IntentLabelKey } from '../types/intentData'
+import { intentLabelNames } from '../utils/intentLabels'
 
 const props = defineProps<{
-  label: string
+  label: IntentLabelKey
   color: string
 }>()
 
-const displayLabel = computed(() =>
-  props.label
-    .split('_')
-    .filter(Boolean)
-    .map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`)
-    .join(' '),
-)
+const displayLabel = computed(() => intentLabelNames[props.label])
 </script>
 
 <template>

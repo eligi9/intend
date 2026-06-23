@@ -3,6 +3,7 @@ import { onBeforeUnmount, ref, watch } from 'vue'
 import AuthorDetailView from './views/AuthorDetailView.vue'
 import AuthorView from './views/AuthorView.vue'
 import EstablishmentView from './views/EstablishmentView.vue'
+import MeasuresView from './views/MeasuresView.vue'
 import ReadView from './views/ReadView.vue'
 import RetaliationView from './views/RetaliationView.vue'
 import SelfDefenceCounterterrorismView from './views/SelfDefenceCounterterrorismView.vue'
@@ -11,6 +12,7 @@ import StrategyView from './views/StrategyView.vue'
 const showLanding = ref(true)
 const activeView = ref<
   | 'read'
+  | 'measures'
   | 'authors'
   | 'structure'
   | 'timeline'
@@ -36,6 +38,11 @@ onBeforeUnmount(() => {
 function showAuthors() {
   selectedAuthorId.value = null
   activeView.value = 'authors'
+}
+
+function showMeasures() {
+  selectedAuthorId.value = null
+  activeView.value = 'measures'
 }
 
 function showAuthorDetail(authorId: string) {
@@ -74,6 +81,13 @@ function enterWorkspace() {
       <nav class="view-switch" aria-label="Ansicht wechseln">
         <button type="button" :class="{ active: activeView === 'read' }" @click="activeView = 'read'">
           Read
+        </button>
+        <button
+          type="button"
+          :class="{ active: activeView === 'measures' }"
+          @click="showMeasures"
+        >
+          Measures
         </button>
         <button
           type="button"
@@ -120,6 +134,7 @@ function enterWorkspace() {
       </nav>
 
       <ReadView v-if="activeView === 'read'" @select-author="showAuthorDetail" />
+      <MeasuresView v-else-if="activeView === 'measures'" @select-author="showAuthorDetail" />
       <AuthorView v-else-if="activeView === 'authors'" @select-author="showAuthorDetail" />
       <StrategyView
         v-else-if="activeView === 'structure' || activeView === 'timeline' || activeView === 'matrix'"

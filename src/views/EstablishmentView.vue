@@ -4,12 +4,23 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
-import AuthorPortrait from '../components/AuthorPortrait.vue'
-import EstablishmentNote from '../components/EstablishmentNote.vue'
-import StatementCard from '../components/StatementCard.vue'
+import EstablishmentHeroSection from '../components/EstablishmentHeroSection.vue'
+import EstablishmentIntroSection from '../components/EstablishmentIntroSection.vue'
+import EstablishmentStatementSection from '../components/EstablishmentStatementSection.vue'
 import landingCopy from '../content/landingCopy.json'
 import { useAuthorStore } from '../stores/authorStore'
 import { useStatementStore } from '../stores/statementStore'
+
+interface EstablishmentIntroSectionExpose {
+  getIntroCopyElement: () => HTMLElement | null
+  getIntroVisualElement: () => HTMLElement | null
+}
+
+interface EstablishmentStatementSectionExpose {
+  getStatementElement: () => HTMLElement | null
+  getNotesElement: () => HTMLElement | null
+  getAuthorMarkElement: () => HTMLElement | null
+}
 
 const emit = defineEmits<{
   enter: []
@@ -19,11 +30,8 @@ const statementStore = useStatementStore()
 const authorStore = useAuthorStore()
 const viewRoot = ref<HTMLElement | null>(null)
 const headingElement = ref<HTMLElement | null>(null)
-const introCopyElement = ref<HTMLElement | null>(null)
-const introVisualElement = ref<HTMLElement | null>(null)
-const statementElement = ref<HTMLElement | null>(null)
-const notesElement = ref<HTMLElement | null>(null)
-const authorMarkElement = ref<HTMLElement | null>(null)
+const introSection = ref<EstablishmentIntroSectionExpose | null>(null)
+const statementSection = ref<EstablishmentStatementSectionExpose | null>(null)
 const featuredRecord = computed(() => statementStore.records.find((record) => record.id === 'legislators-0117') ?? statementStore.records[0])
 const featuredAuthor = computed(() => (featuredRecord.value ? authorStore.getAuthorInstance(featuredRecord.value.author) : null))
 const statementNotes = computed(() => landingCopy.statementNotes)
@@ -38,6 +46,8 @@ let updateLandingScrollState: (() => void) | null = null
 let scrollAnimationFrame = 0
 let statementPopTween: gsap.core.Tween | null = null
 let statementIsVisible = false
+let authorMarkTween: gsap.core.Tween | null = null
+let authorMarkIsVisible = false
 
 gsap.registerPlugin(ScrollTrigger)
 gsap.ticker.lagSmoothing(0)
@@ -80,25 +90,26 @@ function handleNoteAnimationEnd() {
 }
 
 function createScrollAnimations() {
+  const introCopy = introSection.value?.getIntroCopyElement()
+  const introVisual = introSection.value?.getIntroVisualElement()
+  const statement = statementSection.value?.getStatementElement()
+  const notes = statementSection.value?.getNotesElement()
+  const authorMark = statementSection.value?.getAuthorMarkElement()
+
   if (
     !viewRoot.value ||
     !headingElement.value ||
-    !introCopyElement.value ||
-    !introVisualElement.value ||
-    !statementElement.value ||
-    !notesElement.value ||
-    !authorMarkElement.value
+    !introCopy ||
+    !introVisual ||
+    !statement ||
+    !notes ||
+    !authorMark
   ) {
     return
   }
 
   const root = viewRoot.value
   const heading = headingElement.value
-  const introCopy = introCopyElement.value
-  const introVisual = introVisualElement.value
-  const statement = statementElement.value
-  const notes = notesElement.value
-  const authorMark = authorMarkElement.value
 
   gsapContext?.revert()
   gsapContext = gsap.context(() => {
@@ -113,6 +124,7 @@ function createScrollAnimations() {
 
     gsap.set(statement, { autoAlpha: 0, pointerEvents: 'none', xPercent: -50, yPercent: -50, scale: 1 })
     gsap.set(notes, { autoAlpha: 0 })
+    gsap.set(authorMark, { autoAlpha: 0, xPercent: -170, yPercent: -50, scale: 0.92 })
 
     const showStatement = () => {
       if (statementIsVisible) {
@@ -144,6 +156,38 @@ function createScrollAnimations() {
       statementPopTween = null
       gsap.set(statement, { autoAlpha: 0, pointerEvents: 'none', xPercent: -50, yPercent: -50, scale: 1 })
     }
+    const showAuthorMark = () => {
+      if (authorMarkIsVisible) {
+        return
+      }
+
+      authorMarkIsVisible = true
+      authorMarkTween?.kill()
+      authorMarkTween = gsap.to(authorMark, {
+        autoAlpha: 1,
+        duration: 0.72,
+        ease: 'power3.out',
+        scale: 1,
+        xPercent: -50,
+        yPercent: -50,
+      })
+    }
+    const hideAuthorMark = () => {
+      if (!authorMarkIsVisible) {
+        return
+      }
+
+      authorMarkIsVisible = false
+      authorMarkTween?.kill()
+      authorMarkTween = gsap.to(authorMark, {
+        autoAlpha: 0,
+        duration: 0.2,
+        ease: 'power2.out',
+        scale: 0.92,
+        xPercent: -170,
+        yPercent: -50,
+      })
+    }
     const updateScrollState = () => {
       const scroll = window.scrollY
       const textRect = introCopy.getBoundingClientRect()
@@ -157,7 +201,7 @@ function createScrollAnimations() {
       const shouldShowStatement = releaseDistance >= statementStartDistance
       const notesProgress = Math.max(0, (releaseDistance - notesStartDistance) / noteTimelineUnit)
       const firstNoteProgress = noteProgressAt(notesProgress, 0, 1.6)
-      const authorProgress = noteProgressAt(notesProgress, 2.1, 0.6)
+      const shouldShowAuthorMark = notesProgress >= 2.1
       const markerProgress = noteProgressAt(notesProgress, 2.8, 0.35)
       const secondNoteProgress = noteProgressAt(notesProgress, 3.2, 1.6)
       const thirdNoteProgress = noteProgressAt(notesProgress, 5.3, 1.6)
@@ -170,20 +214,18 @@ function createScrollAnimations() {
         autoAlpha: 1 - introProgress,
         y: -52 * introProgress,
       })
-      gsap.set(authorMark, {
-        autoAlpha: authorProgress,
-        scale: 0.74 + authorProgress * 0.26,
-        xPercent: -50,
-        yPercent: -50,
-        y: (1 - authorProgress) * 18,
-      })
       gsap.set(notes, {
-        autoAlpha: Math.max(firstNoteProgress, authorProgress, secondNoteProgress, thirdNoteProgress),
+        autoAlpha: Math.max(firstNoteProgress, secondNoteProgress, thirdNoteProgress),
       })
       if (shouldShowStatement) {
         showStatement()
       } else {
         hideStatement()
+      }
+      if (shouldShowAuthorMark) {
+        showAuthorMark()
+      } else {
+        hideAuthorMark()
       }
     }
 
@@ -253,6 +295,9 @@ onBeforeUnmount(() => {
   statementPopTween?.kill()
   statementPopTween = null
   statementIsVisible = false
+  authorMarkTween?.kill()
+  authorMarkTween = null
+  authorMarkIsVisible = false
   gsap.ticker.remove(updateLandingScrollFromTicker)
   if (scrollAnimationFrame) {
     window.cancelAnimationFrame(scrollAnimationFrame)
@@ -280,122 +325,26 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div class="establishment-view__panel establishment-view__hero" aria-labelledby="landing-title">
-      <div class="establishment-view__stage">
-        <div
-          class="establishment-view__bars"
-          aria-hidden="true"
-        >
-          <span class="establishment-view__bar establishment-view__bar--one">
-            <i />
-            <b />
-          </span>
-          <span class="establishment-view__bar establishment-view__bar--two">
-            <i />
-            <b />
-          </span>
-          <span class="establishment-view__bar establishment-view__bar--three">
-            <i />
-            <b />
-          </span>
-          <span class="establishment-view__bar establishment-view__bar--four">
-            <i />
-          </span>
-          <span class="establishment-view__bar establishment-view__bar--five">
-            <i />
-            <b />
-          </span>
-          <span class="establishment-view__bar establishment-view__bar--six">
-            <i />
-            <b />
-          </span>
-        </div>
-      </div>
-    </div>
+    <EstablishmentHeroSection />
 
-    <div
-      class="establishment-view__panel establishment-view__intro"
-      aria-label="Einordnung der Analyse"
-    >
-      <div class="establishment-view__intro-inner">
-        <div class="establishment-view__text">
-          <div
-            ref="introCopyElement"
-            class="establishment-view__copy"
-          >
-            <p v-for="paragraph in landingCopy.intro.paragraphs" :key="paragraph">
-              {{ paragraph }}
-            </p>
-          </div>
-        </div>
-        <div
-          class="establishment-view__visual"
-          aria-hidden="true"
-          ref="introVisualElement"
-        >
-          <span class="establishment-view__intro-bar establishment-view__intro-bar--one" />
-          <span class="establishment-view__intro-bar establishment-view__intro-bar--two" />
-          <span class="establishment-view__intro-bar establishment-view__intro-bar--three" />
-          <span class="establishment-view__intro-bar establishment-view__intro-bar--four" />
-          <span class="establishment-view__intro-bar establishment-view__intro-bar--five" />
-        </div>
-      </div>
-    </div>
+    <EstablishmentIntroSection
+      ref="introSection"
+      :paragraphs="landingCopy.intro.paragraphs"
+    />
 
-    <div
-      class="establishment-view__panel establishment-view__statement"
-      aria-label="Beispielstatement"
-    >
-      <div
-        ref="statementElement"
-        class="establishment-view__statement-inner"
-        role="button"
-        tabindex="0"
-        aria-label="Zur Übersicht wechseln"
-        @click="emit('enter')"
-        @keydown.enter.prevent="emit('enter')"
-        @keydown.space.prevent="emit('enter')"
-      >
-        <StatementCard
-          v-if="featuredRecord"
-          :record="featuredRecord"
-          :author-link="false"
-          :compact-heading="false"
-          :highlight-progress="statementHighlightProgress"
-          :highlighted-labels="statementHighlightProgress > 0 ? mobilizationHighlightLabels : []"
-          :show-heading="false"
-        />
-      </div>
-      <div
-        ref="notesElement"
-        class="establishment-view__notes"
-        aria-label="Kommentierende Notizen zum Statement"
-      >
-        <EstablishmentNote
-          v-for="(note, index) in statementNotes"
-          :key="note.id"
-          class="establishment-view__note"
-          :class="`establishment-view__note--${index + 1}`"
-          :progress="noteProgresses[index] ?? 0"
-          :start-corner="noteStartCorners[index] ?? 'bottom-right'"
-          :target="statementTarget"
-          :text="note.body"
-          @animation-end="handleNoteAnimationEnd"
-        />
-      </div>
-      <div
-        ref="authorMarkElement"
-        class="establishment-view__author-mark"
-        aria-hidden="true"
-      >
-        <AuthorPortrait
-          v-if="featuredAuthor"
-          :author="featuredAuthor"
-          :show-rings="false"
-          :size="240"
-        />
-      </div>
-    </div>
+    <EstablishmentStatementSection
+      ref="statementSection"
+      :featured-record="featuredRecord"
+      :featured-author="featuredAuthor"
+      :statement-notes="statementNotes"
+      :statement-target="statementTarget"
+      :note-progresses="noteProgresses"
+      :note-start-corners="noteStartCorners"
+      :statement-highlight-progress="statementHighlightProgress"
+      :mobilization-highlight-labels="mobilizationHighlightLabels"
+      @enter="emit('enter')"
+      @note-animation-end="handleNoteAnimationEnd"
+    />
   </div>
 </template>
 

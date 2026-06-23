@@ -24,6 +24,8 @@ const props = defineProps<{
   showHeading?: boolean
   compactHeading?: boolean
   highlightedLabels?: readonly IntentLabelKey[]
+  highlightedTexts?: readonly string[]
+  highlightedTextColor?: string
   highlightProgress?: number
 }>()
 
@@ -49,8 +51,15 @@ const anchorHighlights = computed(() => {
     ...(props.highlightedLabels ?? []),
     ...(hoveredLabel.value ? [hoveredLabel.value] : []),
   ]
+  const textHighlights = (props.highlightedTexts ?? []).map((text) => ({
+    color: props.highlightedTextColor ?? '#f0c95a',
+    text,
+  }))
 
-  return labels.flatMap((label) => collectAnchorHighlights(props.record, label))
+  return [
+    ...textHighlights,
+    ...labels.flatMap((label) => collectAnchorHighlights(props.record, label)),
+  ]
 })
 const hoveredBadge = computed(
   () => strategyBadges.value.find((badge) => badge.label === hoveredLabel.value) ?? null,

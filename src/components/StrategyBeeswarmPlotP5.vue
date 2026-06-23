@@ -45,13 +45,9 @@ function trimStatement(value: string) {
 }
 
 function tooltipAnchors(statement: HoveredBeeswarmStatement) {
-  const source = statement.anchorText ?? statement.statement
-  const anchors = source
-    .split(';')
-    .map((item) => item.trim())
-    .filter(Boolean)
+  const anchors = statement.anchorText?.filter(Boolean) ?? []
 
-  return (anchors.length > 0 ? anchors : [source]).map(trimStatement)
+  return (anchors.length > 0 ? anchors : [statement.statement]).map(trimStatement)
 }
 
 onMounted(async () => {

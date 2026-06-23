@@ -1,5 +1,5 @@
 import type { IntentLabelKey, IntentRecord } from '../types/intentData'
-import { splitAnchors, subLabelColors } from './intentLabels'
+import { intentLabelNames, splitAnchors, subLabelColors } from './intentLabels'
 
 export interface AnchorHighlight {
   text: string
@@ -20,6 +20,12 @@ interface StatementRange {
   color: string | null
   end: number
   start: number
+}
+
+interface NormalizedTextIndex {
+  normalized: string
+  normalizedEndToOriginal: number[]
+  normalizedStartToOriginal: number[]
 }
 
 export function splitBracketedText(text: string) {
@@ -60,11 +66,10 @@ export function splitStatementText(text: string, anchors: AnchorHighlight[]) {
 
 export function splitTextByAnchorRanges(text: string, anchors: AnchorHighlight[]) {
   const ranges: StatementRange[] = []
-  const lowerText = text.toLowerCase()
   let cursor = 0
 
   while (cursor < text.length) {
-    const match = findNextAnchorMatch(lowerText, anchors, cursor)
+    const match = findNextAnchorMatch(text, anchors, cursor)
 
     if (!match) {
       ranges.push({ color: null, end: text.length, start: cursor })
@@ -103,10 +108,9 @@ export function splitSegmentByAnchors(
 ): StatementSegment[] {
   const parts: StatementSegment[] = []
   let cursor = 0
-  const lowerText = segment.text.toLowerCase()
 
   while (cursor < segment.text.length) {
-    const match = findNextAnchorMatch(lowerText, anchors, cursor)
+    const match = findNextAnchorMatch(segment.text, anchors, cursor)
 
     if (!match) {
       parts.push({
@@ -143,21 +147,76 @@ export function collectAnchorHighlights(record: IntentRecord, label: IntentLabel
   return anchors.map((anchor) => ({ text: anchor.trim(), color }))
 }
 
-export function findNextAnchorMatch(text: string, anchors: AnchorHighlight[], cursor: number) {
-  return anchors.reduce<{ index: number; length: number; color: string } | null>((nearest, anchor) => {
-    const index = text.indexOf(anchor.text.toLowerCase(), cursor)
-    if (index === -1) return nearest
-    if (!nearest || index < nearest.index) {
-      return { index, length: anchor.text.length, color: anchor.color }
+export function buildNormalizedTextIndex(text: string): NormalizedTextIndex {
+  const normalizedStartToOriginal: number[] = []
+  const normalizedEndToOriginal: number[] = []
+  let normalized = ''
+  let previousWasWhitespace = false
+
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index]
+
+    if (/\s/.test(character)) {
+      if (normalized.length > 0 && !previousWasWhitespace) {
+        normalized += ' '
+        normalizedStartToOriginal.push(index)
+        normalizedEndToOriginal.push(index + 1)
+      } else if (previousWasWhitespace && normalizedEndToOriginal.length > 0) {
+        normalizedEndToOriginal[normalizedEndToOriginal.length - 1] = index + 1
+      }
+
+      previousWasWhitespace = true
+      continue
     }
+
+    normalized += character.toLowerCase()
+    normalizedStartToOriginal.push(index)
+    normalizedEndToOriginal.push(index + 1)
+    previousWasWhitespace = false
+  }
+
+  return {
+    normalized,
+    normalizedEndToOriginal,
+    normalizedStartToOriginal,
+  }
+}
+
+export function normalizeAnchorText(text: string) {
+  return text.replace(/\s+/g, ' ').trim().toLowerCase()
+}
+
+export function getNormalizedCursor(index: NormalizedTextIndex, cursor: number) {
+  const normalizedCursor = index.normalizedEndToOriginal.findIndex((originalEnd) => originalEnd > cursor)
+
+  return normalizedCursor === -1 ? index.normalized.length : normalizedCursor
+}
+
+export function findNextAnchorMatch(text: string, anchors: AnchorHighlight[], cursor: number) {
+  const normalizedTextIndex = buildNormalizedTextIndex(text)
+  const normalizedCursor = getNormalizedCursor(normalizedTextIndex, cursor)
+
+  return anchors.reduce<{ index: number; length: number; color: string } | null>((nearest, anchor) => {
+    const normalizedAnchor = normalizeAnchorText(anchor.text)
+    if (!normalizedAnchor) return nearest
+
+    const normalizedMatchIndex = normalizedTextIndex.normalized.indexOf(normalizedAnchor, normalizedCursor)
+    if (normalizedMatchIndex === -1) return nearest
+
+    const normalizedMatchEnd = normalizedMatchIndex + normalizedAnchor.length - 1
+    const originalStart = normalizedTextIndex.normalizedStartToOriginal[normalizedMatchIndex]
+    const originalEnd = normalizedTextIndex.normalizedEndToOriginal[normalizedMatchEnd]
+
+    if (originalStart === undefined || originalEnd === undefined) return nearest
+
+    if (!nearest || originalStart < nearest.index) {
+      return { index: originalStart, length: originalEnd - originalStart, color: anchor.color }
+    }
+
     return nearest
   }, null)
 }
 
 export function getDisplayLabel(label: IntentLabelKey) {
-  return label
-    .split('_')
-    .filter(Boolean)
-    .map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`)
-    .join(' ')
+  return intentLabelNames[label]
 }
