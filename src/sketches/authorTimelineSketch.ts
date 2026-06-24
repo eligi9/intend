@@ -1,47 +1,13 @@
 import p5 from 'p5'
 import type { IntentLabelKey, IntentRecord } from '../types/intentData'
+import type {
+  AuthorTimelineSketchState,
+  HoveredTimelineEvent,
+  HoveredTimelineStatement,
+  PositionedTimelineEvent,
+} from '../types/authorTimeline'
+import type { TimelineEvent } from '../types/timeline'
 import { createTimelineModel } from '../utils/timelineScale'
-
-interface AuthorTimelineSketchState {
-  events?: TimelineEvent[]
-  minPaddingX?: number
-  paddingXRatio?: number
-  statements: IntentRecord[]
-  selectedLabels: IntentLabelKey[]
-  setPositionedEvents?: (payload: PositionedTimelineEvent[]) => void
-  setHoveredStatement: (payload: HoveredTimelineStatement | null) => void
-}
-
-export interface HoveredTimelineStatement {
-  id: string
-  date: string
-  xRatio: number
-  yRatio: number
-}
-
-export interface HoveredTimelineEvent {
-  direction: 'down' | 'up'
-  date: string
-  description: string
-  id: string
-  label: string
-  sourceName: string
-  sourceUrl: string
-  xRatio: number
-  yRatio: number
-}
-
-export type PositionedTimelineEvent = HoveredTimelineEvent
-
-export interface TimelineEvent {
-  date: string
-  description: string
-  endDate?: string
-  id: string
-  label: string
-  sourceName: string
-  sourceUrl: string
-}
 
 interface TimelineCurve {
   id: string

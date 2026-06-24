@@ -15,6 +15,8 @@
 
 .strategy-view--timeline {
   isolation: isolate;
+  height: 100vh;
+  min-height: 100vh;
 }
 
 .strategy-view--structure {
@@ -102,10 +104,13 @@
 }
 
 .strategy-view__timeline :deep(.strategy-beeswarm) {
+  min-height: 100vh;
   height: 100%;
 }
 
+.strategy-view__timeline :deep(.strategy-beeswarm__grid-canvas),
 .strategy-view__timeline :deep(.strategy-beeswarm__canvas) {
+  block-size: 100%;
   height: 100%;
 }
 
@@ -226,7 +231,9 @@
     align-self: stretch;
   }
 
+  .strategy-view__timeline :deep(.strategy-beeswarm__grid-canvas),
   .strategy-view__timeline :deep(.strategy-beeswarm__canvas) {
+    block-size: 100%;
     height: 100%;
   }
 

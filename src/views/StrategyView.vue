@@ -7,7 +7,7 @@ import StrategyCorrelationHeatmap from '../components/StrategyCorrelationHeatmap
 import StrategyIcicleDiagram from '../components/StrategyIcicleDiagram.vue'
 import { useStatementStore } from '../stores/statementStore'
 import type { IntentLabelKey } from '../types/intentData'
-import type { TimelineEvent } from '../sketches/authorTimelineSketch'
+import type { TimelineEvent } from '../types/timeline'
 
 const props = defineProps<{
   mode: 'structure' | 'timeline' | 'matrix'

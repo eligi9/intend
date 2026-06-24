@@ -6,9 +6,9 @@ import type {
   HoveredTimelineEvent,
   HoveredTimelineStatement,
   PositionedTimelineEvent,
-  TimelineEvent,
-} from '../sketches/authorTimelineSketch'
+} from '../types/authorTimeline'
 import { createAuthorTimelineSketch } from '../sketches/authorTimelineSketch'
+import type { TimelineEvent } from '../types/timeline'
 import TimelineEventIcon from './TimelineEventIcon.vue'
 import TimelineDatePill from './TimelineDatePill.vue'
 

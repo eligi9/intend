@@ -2,12 +2,21 @@
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type p5 from 'p5'
 import type { IntentLabelKey, IntentRecord } from '../types/intentData'
-import type { TimelineEvent } from '../sketches/authorTimelineSketch'
 import {
   createStrategyBeeswarmSketch,
-  type HoveredBeeswarmStatement,
-  type PositionedBeeswarmEvent,
 } from '../sketches/strategyBeeswarmSketch'
+import {
+  createStrategyTimelineGridSketch,
+} from '../sketches/strategyTimelineGridSketch'
+import type {
+  HoveredBeeswarmStatement,
+  PositionedStrategyTimelineEvent,
+} from '../types/strategyBeeswarm'
+import type { TimelineEvent } from '../types/timeline'
+import {
+  createStrategyTimelineDomain,
+  getMonthDivisionCount,
+} from '../utils/strategyTimelineDomain'
 
 const props = defineProps<{
   events?: TimelineEvent[]
@@ -17,26 +26,47 @@ const props = defineProps<{
   statements: IntentRecord[]
 }>()
 
+const gridHost = ref<HTMLElement | null>(null)
 const plotHost = ref<HTMLElement | null>(null)
 const hoveredStatement = ref<HoveredBeeswarmStatement | null>(null)
-const positionedEvents = ref<PositionedBeeswarmEvent[]>([])
-let sketch: p5 | null = null
+const positionedEvents = ref<PositionedStrategyTimelineEvent[]>([])
+let gridSketch: p5 | null = null
+let swarmSketch: p5 | null = null
 
-function createSketch() {
+function getTimeDomain() {
+  return createStrategyTimelineDomain(props.statements, props.events ?? [])
+}
+
+function createGridSketch() {
+  if (!gridHost.value) return null
+
+  const domain = getTimeDomain()
+
+  return createStrategyTimelineGridSketch(gridHost.value, {
+    divisions: getMonthDivisionCount(domain),
+    endDate: domain.endDate,
+    events: props.events ?? [],
+    setPositionedEvents: (payload) => {
+      positionedEvents.value = payload
+    },
+    startDate: domain.startDate,
+  })
+}
+
+// Vue owns the DOM overlays; the p5 sketches own the two canvas layers.
+// Grid and swarm get the same time domain, but they do not talk to each other.
+function createSwarmSketch() {
   if (!plotHost.value) return null
 
   return createStrategyBeeswarmSketch(plotHost.value, {
-    events: props.events,
     minPaddingX: props.minPaddingX,
     paddingXRatio: props.paddingXRatio,
     selectedLabels: props.selectedLabels ?? [],
     setHoveredStatement: (payload) => {
       hoveredStatement.value = payload
     },
-    setPositionedEvents: (payload) => {
-      positionedEvents.value = payload
-    },
     statements: props.statements,
+    timeDomain: getTimeDomain(),
   })
 }
 
@@ -51,10 +81,11 @@ function tooltipAnchors(statement: HoveredBeeswarmStatement) {
 }
 
 onMounted(async () => {
-  if (!plotHost.value) return
+  if (!gridHost.value || !plotHost.value) return
 
   await nextTick()
-  sketch = createSketch()
+  gridSketch = createGridSketch()
+  swarmSketch = createSwarmSketch()
 })
 
 watch(
@@ -67,18 +98,24 @@ watch(
       props.statements,
     ] as const,
   () => {
-    sketch?.remove()
-    sketch = createSketch()
+    // Recreate both p5 layers when data or sizing props change.
+    // The grid stays independent from the d3-force swarm simulation.
+    gridSketch?.remove()
+    swarmSketch?.remove()
+    gridSketch = createGridSketch()
+    swarmSketch = createSwarmSketch()
   },
 )
 
 onBeforeUnmount(() => {
-  sketch?.remove()
+  gridSketch?.remove()
+  swarmSketch?.remove()
 })
 </script>
 
 <template>
   <section class="strategy-beeswarm" aria-label="Strategy statements beeswarm plot">
+    <div ref="gridHost" class="strategy-beeswarm__grid-canvas" />
     <div ref="plotHost" class="strategy-beeswarm__canvas" />
     <article
       v-for="event in positionedEvents"

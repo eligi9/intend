@@ -8,12 +8,27 @@
   position: relative;
   display: grid;
   min-inline-size: 0;
+  overflow: hidden;
+  background: #303030;
+}
+
+.strategy-beeswarm__grid-canvas,
+.strategy-beeswarm__canvas {
+  inline-size: 100%;
+  block-size: clamp(34rem, 66vh, 50rem);
+  overflow: hidden;
+}
+
+.strategy-beeswarm__grid-canvas {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
 }
 
 .strategy-beeswarm__canvas {
-  inline-size: 100%;
-  block-size: clamp(22rem, 48vh, 36rem);
-  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .strategy-beeswarm__event-label {
