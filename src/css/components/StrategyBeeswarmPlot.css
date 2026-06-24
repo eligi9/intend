@@ -8,57 +8,28 @@
   position: relative;
   display: grid;
   min-inline-size: 0;
+  block-size: 100%;
   overflow: hidden;
   background: #303030;
-}
-
-.strategy-beeswarm__grid-canvas,
-.strategy-beeswarm__canvas {
-  inline-size: 100%;
-  block-size: clamp(34rem, 66vh, 50rem);
-  overflow: hidden;
 }
 
 .strategy-beeswarm__grid-canvas {
   position: absolute;
   z-index: 0;
   inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: hidden;
   pointer-events: none;
 }
 
 .strategy-beeswarm__canvas {
   position: relative;
   z-index: 1;
-}
-
-.strategy-beeswarm__event-label {
-  --strategy-beeswarm-event-x: 50%;
-
-  position: absolute;
-  z-index: 2;
-  display: grid;
-  gap: 4px;
-  left: var(--strategy-beeswarm-event-x);
-  width: min(12rem, calc(100% - var(--strategy-beeswarm-event-x) - 8px));
-  min-width: 8rem;
-  color: rgba(245, 243, 238, 0.94);
-  pointer-events: none;
-  text-align: left;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.46);
-  transform: translate(8px, 0);
-}
-
-.strategy-beeswarm__event-label time {
-  color: rgba(245, 243, 238, 0.94);
-  font-size: 12px;
-  font-weight: 850;
-  line-height: 1.05;
-}
-
-.strategy-beeswarm__event-label strong {
-  font-size: 10.5px;
-  font-weight: 650;
-  line-height: 1.24;
+  align-self: center;
+  inline-size: 100%;
+  block-size: 60vh;
+  overflow: hidden;
 }
 
 .strategy-beeswarm__tooltip {

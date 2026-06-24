@@ -2,16 +2,9 @@
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type p5 from 'p5'
 import type { IntentLabelKey, IntentRecord } from '../types/intentData'
-import {
-  createStrategyBeeswarmSketch,
-} from '../sketches/strategyBeeswarmSketch'
-import {
-  createStrategyTimelineGridSketch,
-} from '../sketches/strategyTimelineGridSketch'
-import type {
-  HoveredBeeswarmStatement,
-  PositionedStrategyTimelineEvent,
-} from '../types/strategyBeeswarm'
+import { createStrategyBeeswarmSketch } from '../sketches/strategyBeeswarmSketch'
+import { createStrategyTimelineGridSketch } from '../sketches/strategyTimelineGridSketch'
+import type { HoveredBeeswarmStatement } from '../types/strategyBeeswarm'
 import type { TimelineEvent } from '../types/timeline'
 import {
   createStrategyTimelineDomain,
@@ -20,8 +13,6 @@ import {
 
 const props = defineProps<{
   events?: TimelineEvent[]
-  minPaddingX?: number
-  paddingXRatio?: number
   selectedLabels?: IntentLabelKey[]
   statements: IntentRecord[]
 }>()
@@ -29,7 +20,6 @@ const props = defineProps<{
 const gridHost = ref<HTMLElement | null>(null)
 const plotHost = ref<HTMLElement | null>(null)
 const hoveredStatement = ref<HoveredBeeswarmStatement | null>(null)
-const positionedEvents = ref<PositionedStrategyTimelineEvent[]>([])
 let gridSketch: p5 | null = null
 let swarmSketch: p5 | null = null
 
@@ -46,9 +36,6 @@ function createGridSketch() {
     divisions: getMonthDivisionCount(domain),
     endDate: domain.endDate,
     events: props.events ?? [],
-    setPositionedEvents: (payload) => {
-      positionedEvents.value = payload
-    },
     startDate: domain.startDate,
   })
 }
@@ -59,8 +46,6 @@ function createSwarmSketch() {
   if (!plotHost.value) return null
 
   return createStrategyBeeswarmSketch(plotHost.value, {
-    minPaddingX: props.minPaddingX,
-    paddingXRatio: props.paddingXRatio,
     selectedLabels: props.selectedLabels ?? [],
     setHoveredStatement: (payload) => {
       hoveredStatement.value = payload
@@ -92,8 +77,6 @@ watch(
   () =>
     [
       props.events,
-      props.minPaddingX,
-      props.paddingXRatio,
       props.selectedLabels,
       props.statements,
     ] as const,
@@ -117,18 +100,6 @@ onBeforeUnmount(() => {
   <section class="strategy-beeswarm" aria-label="Strategy statements beeswarm plot">
     <div ref="gridHost" class="strategy-beeswarm__grid-canvas" />
     <div ref="plotHost" class="strategy-beeswarm__canvas" />
-    <article
-      v-for="event in positionedEvents"
-      :key="event.id"
-      class="strategy-beeswarm__event-label"
-      :style="{
-        '--strategy-beeswarm-event-x': `${event.xRatio * 100}%`,
-        top: `${event.yRatio * 100}%`,
-      }"
-    >
-      <time>{{ event.date }}</time>
-      <strong>{{ event.label }}</strong>
-    </article>
 
     <aside
       v-if="hoveredStatement"

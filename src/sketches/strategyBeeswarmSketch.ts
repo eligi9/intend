@@ -8,19 +8,8 @@ import type {
 } from '../types/strategyBeeswarm'
 import { intentTaxonomy } from '../types/intentTaxonomy'
 import { intentLabelNames, splitAnchors } from '../utils/intentLabels'
+import { setupResizableP5Canvas } from '../utils/p5Canvas'
 import { createTimelineModel } from '../utils/timelineScale'
-
-interface BeeswarmPoint {
-  date: Date
-  id: string
-  label: string
-  record: IntentRecord
-  subLabel: IntentLabelKey
-  strategyLabel: IntentLabelKey
-  strategyName: string
-  x: number
-  y: number
-}
 
 interface BeeswarmNode extends SimulationNodeDatum {
   bandMaxY: number
@@ -52,173 +41,53 @@ const strategyLineColors: Partial<Record<IntentLabelKey, [number, number, number
   rhetorical_foreclosure: [134, 183, 118],
 }
 
-// Only child labels become dots. Each child label keeps a reference to its
-// parent strategy so dots can be separated vertically by main label.
-const strategyGroups = intentTaxonomy.flatMap((group) =>
-  group.parentLabel
-    ? [
-        {
-          childLabels: group.childLabels,
-          superLabel: group.parentLabel,
-        },
-      ]
-    : [],
-)
+const strategyGroups = intentTaxonomy.map((group) => ({
+  childLabels: group.childLabels,
+  superLabel: group.parentLabel as IntentLabelKey,
+}))
 
 export function createStrategyBeeswarmSketch(container: HTMLElement, state: StrategyBeeswarmSketchState) {
-  let resizeObserver: ResizeObserver | null = null
-  let beeswarmLayoutKey = ''
-  let beeswarmNodes: BeeswarmNode[] = []
-  let beeswarmSimulation: Simulation<BeeswarmNode, undefined> | null = null
-
-  const getCanvasSize = () => {
-    const bounds = container.getBoundingClientRect()
-
-    return {
-      width: Math.max(320, Math.floor(bounds.width || container.clientWidth || window.innerWidth)),
-      height: Math.max(280, Math.floor(bounds.height || container.clientHeight || window.innerHeight * 0.46)),
-    }
-  }
+  let cleanupCanvas: (() => void) | null = null
+  let layoutKey = ''
+  let nodes: BeeswarmNode[] = []
+  let simulation: Simulation<BeeswarmNode, undefined> | null = null
 
   const sketch = (p: p5) => {
-    const resize = () => {
-      const { width, height } = getCanvasSize()
-      p.resizeCanvas(width, height)
-    }
-
-    p.setup = () => {
-      const { width, height } = getCanvasSize()
-      p.createCanvas(width, height)
-      p.pixelDensity(Math.min(window.devicePixelRatio, 2))
-
-      resizeObserver = new ResizeObserver(resize)
-      resizeObserver.observe(container)
-    }
-
-    p.windowResized = resize
+    cleanupCanvas = setupResizableP5Canvas(p, container, {
+      fallbackHeightRatio: 0.46,
+      minHeight: 280,
+    })
 
     p.remove = ((remove) => () => {
-      resizeObserver?.disconnect()
+      cleanupCanvas?.()
       remove()
     })(p.remove.bind(p))
 
     p.draw = () => {
-      const model = createTimelineModel(
+      const timeline = createTimelineModel(
         state.statements,
         state.timeDomain.startDate,
         state.timeDomain.endDate,
       )
+      const bands = createBeeswarmBands(getSwarmTop(p), getSwarmBottom(p))
+      const nextLayoutKey = createLayoutKey(p, timeline.points.length)
 
-      // X is the shared timeline domain. Y is reserved for four invisible
-      // bands, one for each main strategy label.
-      const paddingX = 0
-      const topPadding = Math.max(96, p.height * 0.12)
-      const eventSpace = 124
-      const axisY = p.height - eventSpace
-      const swarmTop = topPadding
-      const swarmBottom = axisY - Math.max(28, p.height * 0.08)
-      const bands = createBeeswarmBands(swarmTop, swarmBottom)
-      const drawableWidth = p.width
-
-      // One statement can produce multiple dots when it has multiple active
-      // strategy sublabels. The dot is colored and grouped by the parent label.
-      const rawPoints = model.points.flatMap((point) =>
-        getActiveStrategyPoints(point.record).map((strategy) => ({
-          date: point.date,
-          id: `${point.record.id}:${strategy.label}`,
-          label: point.label,
-          record: point.record,
-          strategyLabel: strategy.superLabel,
-          strategyName: intentLabelNames[strategy.label],
-          subLabel: strategy.label,
-          x: paddingX + point.ratio * drawableWidth,
-        })),
-      )
-      const nextBeeswarmLayoutKey = [
-        p.width,
-        p.height,
-        model.startDate.getTime(),
-        model.endDate.getTime(),
-        bands
-          .map(
-            (band) =>
-              `${band.id}:${Math.round(band.y)}:${Math.round(band.minY)}:${Math.round(band.maxY)}`,
-          )
-          .join('|'),
-        rawPoints.map((point) => `${point.id}:${Math.round(point.x)}`).join('|'),
-      ].join(':')
-
-      // d3-force is relatively expensive, so rebuild it only when the input
-      // layout has actually changed.
-      if (nextBeeswarmLayoutKey !== beeswarmLayoutKey) {
-        beeswarmLayoutKey = nextBeeswarmLayoutKey
-        const layout = createBeeswarmLayout(rawPoints, bands, swarmTop, swarmBottom)
-        beeswarmNodes = layout.nodes
-        beeswarmSimulation = layout.simulation
+      if (nextLayoutKey !== layoutKey) {
+        layoutKey = nextLayoutKey
+        nodes = createBeeswarmNodes(timeline.points, bands, p.width)
+        simulation = createBeeswarmSimulation(nodes)
       }
 
-      if (beeswarmSimulation && beeswarmSimulation.alpha() > 0.012) {
-        for (let tick = 0; tick < 2; tick += 1) {
-          beeswarmSimulation.tick()
-        }
+      tickSimulation(simulation, nodes, p.width)
 
-        // Keep nodes inside their own main-label band after every simulation tick.
-        beeswarmNodes.forEach((node) => {
-          node.x = Math.min(p.width - paddingX, Math.max(paddingX, node.x))
-          node.y = Math.min(node.bandMaxY, Math.max(node.bandMinY, node.y))
-        })
-      }
-
-      const points = beeswarmNodes.map((node) => ({
-        date: node.date,
-        id: node.id,
-        label: node.label,
-        record: node.record,
-        subLabel: node.subLabel,
-        strategyLabel: node.strategyLabel,
-        strategyName: node.strategyName,
-        x: node.x,
-        y: node.y,
-      }))
       const hoveredPoint =
-        points.find((point) => p.dist(p.mouseX, p.mouseY, point.x, point.y) <= 11) ?? null
+        nodes.find((node) => p.dist(p.mouseX, p.mouseY, node.x, node.y) <= 11) ?? null
 
-      // Hover data is passed back to Vue so the tooltip can be real HTML
-      // instead of text painted into the canvas.
       p.cursor(hoveredPoint ? p.HAND : p.ARROW)
-      state.setHoveredStatement(
-        hoveredPoint
-          ? {
-              anchorText: getAnchorText(hoveredPoint.record, hoveredPoint.subLabel),
-              author: hoveredPoint.record.author,
-              color: formatRgbColor(getPointColor(hoveredPoint.strategyLabel)),
-              date: hoveredPoint.label,
-              id: hoveredPoint.id,
-              statement: hoveredPoint.record.statement,
-              strategy: hoveredPoint.strategyName,
-              xRatio: hoveredPoint.x / p.width,
-              yRatio: hoveredPoint.y / p.height,
-          }
-          : null,
-      )
+      state.setHoveredStatement(createHoverPayload(hoveredPoint, p))
 
       p.clear()
-
-      points.forEach((point) => {
-        // Filtering and hover do not remove dots; they change emphasis.
-        const hovered = hoveredPoint?.id === point.id
-        const matchesHoveredLabel = !hoveredPoint || point.subLabel === hoveredPoint.subLabel
-        const color = getPointColor(point.strategyLabel)
-        const hasActiveFilters = state.selectedLabels.length > 0
-        const visible = !hasActiveFilters || state.selectedLabels.includes(point.strategyLabel)
-        const highlighted = visible && matchesHoveredLabel
-        const fillColor = highlighted ? color ?? [245, 243, 238] : [245, 243, 238]
-
-        p.stroke(48, 48, 48, highlighted ? 230 : 105)
-        p.strokeWeight(hovered ? 2.5 : 1.8)
-        p.fill(fillColor[0], fillColor[1], fillColor[2], highlighted ? 235 : 42)
-        p.circle(point.x, point.y, hovered ? 15 : 11)
-      })
+      nodes.forEach((node) => drawNode(p, node, hoveredPoint, state.selectedLabels))
     }
   }
 
@@ -228,7 +97,7 @@ export function createStrategyBeeswarmSketch(container: HTMLElement, state: Stra
 // Splits the vertical drawing area into one invisible lane per main label.
 function createBeeswarmBands(minY: number, maxY: number) {
   const bandGap = 18
-  const usableHeight = Math.max(1, maxY - minY - bandGap * (strategyGroups.length - 1))
+  const usableHeight = maxY - minY - bandGap * (strategyGroups.length - 1)
   const bandHeight = usableHeight / strategyGroups.length
 
   return strategyGroups.map((group, index) => {
@@ -244,41 +113,41 @@ function createBeeswarmBands(minY: number, maxY: number) {
   })
 }
 
-function createBeeswarmLayout(
-  rawPoints: Array<Omit<BeeswarmPoint, 'y'>>,
+function createBeeswarmNodes(
+  timelinePoints: ReturnType<typeof createTimelineModel>['points'],
   bands: BeeswarmBand[],
-  minY: number,
-  maxY: number,
+  width: number,
 ) {
-  const radius = 6.4
-  // The fallback keeps the sketch robust if data arrives with an unknown label.
-  const fallbackBand = {
-    maxY,
-    minY,
-    y: minY + (maxY - minY) / 2,
-  }
   const bandByLabel = new Map(bands.map((band) => [band.id, band]))
-  const nodes: BeeswarmNode[] = rawPoints.map((point) => {
-    const band = bandByLabel.get(point.strategyLabel) ?? fallbackBand
 
-    // targetX is the date on the timeline. targetY is the center of the
-    // point's main-label lane.
-    return {
-      bandMaxY: band.maxY,
-      bandMinY: band.minY,
-      date: point.date,
-      id: point.id,
-      label: point.label,
-      record: point.record,
-      subLabel: point.subLabel,
-      strategyLabel: point.strategyLabel,
-      strategyName: point.strategyName,
-      targetX: point.x,
-      targetY: band.y,
-      x: point.x + getDeterministicOffset(point.id, 18),
-      y: band.y + getDeterministicOffset(point.id, 42),
-    }
-  })
+  return timelinePoints.flatMap((point) =>
+    getActiveStrategyPoints(point.record).map((strategy) => {
+      const band = bandByLabel.get(strategy.superLabel) as BeeswarmBand
+      const id = `${point.record.id}:${strategy.label}`
+      const targetX = point.ratio * width
+
+      return {
+        bandMaxY: band.maxY,
+        bandMinY: band.minY,
+        date: point.date,
+        id,
+        label: point.label,
+        record: point.record,
+        subLabel: strategy.label,
+        strategyLabel: strategy.superLabel,
+        strategyName: intentLabelNames[strategy.label],
+        targetX,
+        targetY: band.y,
+        x: targetX + getDeterministicOffset(id, 18),
+        y: band.y + getDeterministicOffset(id, 42),
+      }
+    }),
+  )
+}
+
+function createBeeswarmSimulation(nodes: BeeswarmNode[]) {
+  const radius = 6.4
+
   const simulation = forceSimulation<BeeswarmNode>(nodes)
     .alpha(1)
     .alphaDecay(0.018)
@@ -288,16 +157,75 @@ function createBeeswarmLayout(
     .force('collide', forceCollide<BeeswarmNode>(radius + 1.2).strength(1).iterations(5))
     .stop()
 
-  // Clamp the initial positions too, before the first draw tick happens.
-  nodes.forEach((node) => {
-    node.x = Math.min(rawPoints[rawPoints.length - 1]?.x ?? node.x, Math.max(rawPoints[0]?.x ?? node.x, node.x))
-    node.y = Math.min(node.bandMaxY, Math.max(node.bandMinY, node.y))
-  })
+  return simulation
+}
+
+function tickSimulation(
+  simulation: Simulation<BeeswarmNode, undefined> | null,
+  nodes: BeeswarmNode[],
+  maxX: number,
+) {
+  if (!simulation || simulation.alpha() <= 0.012) return
+
+  for (let tick = 0; tick < 2; tick += 1) {
+    simulation.tick()
+  }
+
+  nodes.forEach((node) => clampNode(node, maxX))
+}
+
+function clampNode(node: BeeswarmNode, maxX: number) {
+  node.x = Math.min(maxX, Math.max(0, node.x))
+  node.y = Math.min(node.bandMaxY, Math.max(node.bandMinY, node.y))
+}
+
+function createLayoutKey(p: p5, pointCount: number) {
+  return `${p.width}:${p.height}:${pointCount}`
+}
+
+function getSwarmTop(p: p5) {
+  return 16
+}
+
+function getSwarmBottom(p: p5) {
+  return p.height - 16
+}
+
+function createHoverPayload(
+  node: BeeswarmNode | null,
+  p: p5,
+): HoveredBeeswarmStatement | null {
+  if (!node) return null
 
   return {
-    nodes,
-    simulation,
+    anchorText: getAnchorText(node.record, node.subLabel),
+    author: node.record.author,
+    color: formatRgbColor(getPointColor(node.strategyLabel)),
+    date: node.label,
+    id: node.id,
+    statement: node.record.statement,
+    strategy: node.strategyName,
+    xRatio: node.x / p.width,
+    yRatio: node.y / p.height,
   }
+}
+
+function drawNode(
+  p: p5,
+  node: BeeswarmNode,
+  hoveredNode: BeeswarmNode | null,
+  selectedLabels: IntentLabelKey[],
+) {
+  const hovered = hoveredNode?.id === node.id
+  const sameSubLabel = !hoveredNode || node.subLabel === hoveredNode.subLabel
+  const selected = selectedLabels.length === 0 || selectedLabels.includes(node.strategyLabel)
+  const highlighted = selected && sameSubLabel
+  const color = highlighted ? getPointColor(node.strategyLabel) : [245, 243, 238]
+
+  p.stroke(48, 48, 48, highlighted ? 230 : 105)
+  p.strokeWeight(hovered ? 2.5 : 1.8)
+  p.fill(color[0], color[1], color[2], highlighted ? 235 : 42)
+  p.circle(node.x, node.y, hovered ? 15 : 11)
 }
 
 function getDeterministicOffset(value: string, amplitude: number) {

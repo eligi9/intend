@@ -7,6 +7,7 @@ import type {
   PositionedTimelineEvent,
 } from '../types/authorTimeline'
 import type { TimelineEvent } from '../types/timeline'
+import { setupResizableP5Canvas } from '../utils/p5Canvas'
 import { createTimelineModel } from '../utils/timelineScale'
 
 interface TimelineCurve {
@@ -25,38 +26,18 @@ const strategyLineColors: Partial<Record<IntentLabelKey, [number, number, number
 }
 
 export function createAuthorTimelineSketch(container: HTMLElement, state: AuthorTimelineSketchState) {
-  let resizeObserver: ResizeObserver | null = null
+  let cleanupCanvas: (() => void) | null = null
   let hoveredPointId: string | null = null
   let positionedEventsKey = '__initial__'
 
-  const getCanvasSize = () => {
-    const bounds = container.getBoundingClientRect()
-
-    return {
-      width: Math.max(320, Math.floor(bounds.width || container.clientWidth || window.innerWidth)),
-      height: Math.max(260, Math.floor(bounds.height || container.clientHeight || window.innerHeight * 0.38)),
-    }
-  }
-
   const sketch = (p: p5) => {
-    const resize = () => {
-      const { width, height } = getCanvasSize()
-      p.resizeCanvas(width, height)
-    }
-
-    p.setup = () => {
-      const { width, height } = getCanvasSize()
-      p.createCanvas(width, height)
-      p.pixelDensity(Math.min(window.devicePixelRatio, 2))
-
-      resizeObserver = new ResizeObserver(resize)
-      resizeObserver.observe(container)
-    }
-
-    p.windowResized = resize
+    cleanupCanvas = setupResizableP5Canvas(p, container, {
+      fallbackHeightRatio: 0.38,
+      minHeight: 260,
+    })
 
     p.remove = ((remove) => () => {
-      resizeObserver?.disconnect()
+      cleanupCanvas?.()
       remove()
     })(p.remove.bind(p))
 

@@ -1,84 +1,60 @@
 import p5 from 'p5'
-import type {
-  PositionedStrategyTimelineEvent,
-  StrategyTimelineGridSketchState,
-} from '../types/strategyBeeswarm'
-import type { TimelineDomain, TimelineEvent } from '../types/timeline'
+import type { StrategyTimelineGridSketchState } from '../types/strategyBeeswarm'
+import { setupResizableP5Canvas } from '../utils/p5Canvas'
 
 const EVENT_LABEL_HEIGHT = 34
+const EVENT_LABEL_LINE_HEIGHT = 13
+const EVENT_LABEL_WIDTH = 156
+
+interface PositionedGridEvent {
+  date: string
+  label: string
+  x: number
+  y: number
+}
 
 export function createStrategyTimelineGridSketch(
   container: HTMLElement,
   state: StrategyTimelineGridSketchState,
 ) {
-  let resizeObserver: ResizeObserver | null = null
-  let positionedEventsKey = '__initial__'
-
-  const getCanvasSize = () => {
-    const bounds = container.getBoundingClientRect()
-
-    return {
-      width: Math.max(320, Math.floor(bounds.width || container.clientWidth || window.innerWidth)),
-      height: Math.max(280, Math.floor(bounds.height || container.clientHeight || window.innerHeight * 0.46)),
-    }
-  }
+  let cleanupCanvas: (() => void) | null = null
 
   const sketch = (p: p5) => {
-    const resize = () => {
-      const { width, height } = getCanvasSize()
-      p.resizeCanvas(width, height)
-    }
-
-    p.setup = () => {
-      const { width, height } = getCanvasSize()
-      p.createCanvas(width, height)
-      p.pixelDensity(Math.min(window.devicePixelRatio, 2))
-
-      resizeObserver = new ResizeObserver(resize)
-      resizeObserver.observe(container)
-    }
-
-    p.windowResized = resize
+    cleanupCanvas = setupResizableP5Canvas(p, container, {
+      fallbackHeightRatio: 0.46,
+      minHeight: 280,
+    })
 
     p.remove = ((remove) => () => {
-      resizeObserver?.disconnect()
+      cleanupCanvas?.()
       remove()
     })(p.remove.bind(p))
 
     p.draw = () => {
-      const domain = getTimelineDomain(state.startDate, state.endDate)
-      const range = getTimeRange(domain)
+      const range = state.endDate.getTime() - state.startDate.getTime()
       const eventY = p.height - 60
-      const events = getPositionedEvents(state.events, domain, p.width, eventY)
+      const events = getPositionedEvents(state, range, p.width, eventY)
 
       p.clear()
       p.background(48, 48, 48)
-      drawDivisions(p, domain, range, state.divisions)
+      drawDivisions(p, state, range)
       drawEventAnchors(p, events)
-      syncPositionedEvents(p, events, state.setPositionedEvents, (nextKey) => {
-        positionedEventsKey = nextKey
-      }, positionedEventsKey)
+      drawEvents(p, events)
     }
   }
 
   return new p5(sketch, container)
 }
 
-function drawDivisions(p: p5, domain: TimelineDomain, range: number, divisions: number) {
-  const divisionCount = Math.max(1, Math.floor(divisions))
-  const divisionWidth = p.width / divisionCount
+function drawDivisions(p: p5, state: StrategyTimelineGridSketchState, range: number) {
+  const divisionWidth = p.width / state.divisions
 
   p.textAlign(p.LEFT, p.TOP)
   p.textSize(12)
 
-  for (let index = 0; index < divisionCount; index += 1) {
+  for (let index = 0; index < state.divisions; index += 1) {
     const x = index * divisionWidth
-    const nextX = index === divisionCount - 1 ? p.width : x + divisionWidth
-    const labelDate = getDateAtRatio(index / divisionCount, domain, range)
-
-    p.noStroke()
-    p.fill(245, 243, 238, index % 2 === 0 ? 9 : 4)
-    p.rect(x, 0, nextX - x, p.height)
+    const labelDate = new Date(state.startDate.getTime() + (index / state.divisions) * range)
 
     p.stroke(245, 243, 238, 36)
     p.strokeWeight(1)
@@ -96,7 +72,7 @@ function drawDivisions(p: p5, domain: TimelineDomain, range: number, divisions: 
 
 function drawEventAnchors(
   p: p5,
-  events: Array<{ x: number; y: number }>,
+  events: PositionedGridEvent[],
 ) {
   events.forEach((event) => {
     p.stroke(245, 243, 238, 76)
@@ -105,75 +81,48 @@ function drawEventAnchors(
   })
 }
 
-function syncPositionedEvents(
-  p: p5,
-  events: Array<PositionedStrategyTimelineEvent & { x: number; y: number }>,
-  setPositionedEvents: (payload: PositionedStrategyTimelineEvent[]) => void,
-  setKey: (key: string) => void,
-  currentKey: string,
-) {
-  const positionedEvents = events.map(({ x, y, ...event }) => ({
-    ...event,
-    xRatio: x / p.width,
-    yRatio: y / p.height,
-  }))
-  const nextKey = positionedEvents
-    .map((event) => `${event.id}:${event.xRatio.toFixed(4)}:${event.yRatio.toFixed(4)}`)
-    .join('|')
+function drawEvents(p: p5, events: PositionedGridEvent[]) {
+  p.textSize(12)
+  p.textStyle(p.BOLD)
 
-  if (nextKey !== currentKey) {
-    setKey(nextKey)
-    setPositionedEvents(positionedEvents)
-  }
+  events.forEach((event) => {
+    const alignRight = event.x > p.width * 0.86
+    const textX = alignRight ? event.x - 8 : event.x + 8
+    const textWidth = alignRight ? Math.min(EVENT_LABEL_WIDTH, Math.max(72, event.x - 16)) : EVENT_LABEL_WIDTH
+
+    p.noStroke()
+    p.fill(245, 243, 238, 240)
+    p.textAlign(alignRight ? p.RIGHT : p.LEFT, p.TOP)
+    p.text(event.date, textX, event.y, textWidth)
+
+    p.textStyle(p.NORMAL)
+    p.fill(245, 243, 238, 220)
+    p.text(event.label, textX, event.y + EVENT_LABEL_LINE_HEIGHT, textWidth)
+    p.textStyle(p.BOLD)
+  })
+
+  p.textStyle(p.NORMAL)
 }
 
 function getPositionedEvents(
-  events: TimelineEvent[],
-  domain: TimelineDomain,
+  state: StrategyTimelineGridSketchState,
+  range: number,
   width: number,
   y: number,
 ) {
-  const range = getTimeRange(domain)
-
-  return events
+  return state.events
     .map((event) => {
       const date = parseEventDate(event.date)
-
       if (!date) return null
-
-      const xRatio = getDateRatio(date, domain, range)
 
       return {
         date: formatIsoDate(event.date, event.endDate),
-        description: event.description,
-        direction: 'up' as const,
-        id: event.id,
         label: event.label,
-        sourceName: event.sourceName,
-        sourceUrl: event.sourceUrl,
-        x: xRatio * width,
-        xRatio,
+        x: ((date.getTime() - state.startDate.getTime()) / range) * width,
         y,
-        yRatio: 0,
       }
     })
     .filter((event): event is NonNullable<typeof event> => event !== null)
-}
-
-function getDateRatio(date: Date, domain: TimelineDomain, range = getTimeRange(domain)) {
-  return Math.min(1, Math.max(0, (date.getTime() - domain.startDate.getTime()) / range))
-}
-
-function getDateAtRatio(ratio: number, domain: TimelineDomain, range = getTimeRange(domain)) {
-  return new Date(domain.startDate.getTime() + ratio * range)
-}
-
-function getTimelineDomain(startDate: Date, endDate: Date): TimelineDomain {
-  return { startDate, endDate }
-}
-
-function getTimeRange(domain: TimelineDomain) {
-  return Math.max(1, domain.endDate.getTime() - domain.startDate.getTime())
 }
 
 function parseEventDate(value: string) {

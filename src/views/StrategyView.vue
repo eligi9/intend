@@ -118,8 +118,6 @@ function closeMainLabelOverlay() {
         <div class="strategy-view__timeline">
           <StrategyBeeswarmPlotP5
             :events="strategyTimelineEvents"
-            :min-padding-x="18"
-            :padding-x-ratio="0.02"
             :statements="records"
             :selected-labels="[]"
           />

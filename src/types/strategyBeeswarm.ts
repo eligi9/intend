@@ -1,5 +1,5 @@
 import type { IntentLabelKey, IntentRecord } from './intentData'
-import type { PositionedTimelineEventBase, TimelineDomain, TimelineEvent } from './timeline'
+import type { TimelineDomain, TimelineEvent } from './timeline'
 
 export interface HoveredBeeswarmStatement {
   anchorText: string[] | null
@@ -13,13 +13,7 @@ export interface HoveredBeeswarmStatement {
   yRatio: number
 }
 
-export interface PositionedStrategyTimelineEvent extends PositionedTimelineEventBase {
-  direction: 'up'
-}
-
 export interface StrategyBeeswarmSketchState {
-  minPaddingX?: number
-  paddingXRatio?: number
   selectedLabels: IntentLabelKey[]
   setHoveredStatement: (payload: HoveredBeeswarmStatement | null) => void
   statements: IntentRecord[]
@@ -30,6 +24,5 @@ export interface StrategyTimelineGridSketchState {
   divisions: number
   endDate: Date
   events: TimelineEvent[]
-  setPositionedEvents: (payload: PositionedStrategyTimelineEvent[]) => void
   startDate: Date
 }
