@@ -5,9 +5,13 @@ import strategyTimelineEventsDataset from '../../data/strategy-timeline-events.j
 import StrategyBeeswarmPlotP5 from '../components/StrategyBeeswarmPlotP5.vue'
 import StrategyCorrelationHeatmap from '../components/StrategyCorrelationHeatmap.vue'
 import StrategyIcicleDiagram from '../components/StrategyIcicleDiagram.vue'
+import StrategySubLabelAnchorSketch from '../components/StrategySubLabelAnchorSketch.vue'
 import { useStatementStore } from '../stores/statementStore'
 import type { IntentLabelKey } from '../types/intentData'
-import type { TimelineEvent } from '../types/timeline'
+import { intentSubLabelDescriptions, intentTaxonomy } from '../types/intentTaxonomy'
+import type { BeeswarmDisplayMode, HoveredTimelineStatement } from '../types/strategyBeeswarm'
+import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
+import { splitAnchors } from '../utils/intentLabels'
 
 const props = defineProps<{
   mode: 'structure' | 'timeline' | 'matrix'
@@ -17,6 +21,9 @@ const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
 const strategyTimelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const icicleDiagram = ref<{ clearSelection: () => void } | null>(null)
+const beeswarmMode = ref<BeeswarmDisplayMode>('strategies')
+const hoveredTimelineEvent = ref<HoveredTimelineEvent | null>(null)
+const hoveredTimelineStatement = ref<HoveredTimelineStatement | null>(null)
 
 interface MainLabelOverlayChild {
   color: string
@@ -39,9 +46,23 @@ interface MainLabelOverlaySelection {
 
 interface StrategySegmentClick {
   depth: 'main' | 'sub'
+  color: string
+  count: number
+  groupId: string
+  id: IntentLabelKey
+  label: string
+}
+
+interface SubLabelOverlaySelection {
+  color: string
+  count: number
+  groupLabel: string
+  id: IntentLabelKey
+  label: string
 }
 
 const selectedMainLabel = ref<MainLabelOverlaySelection | null>(null)
+const selectedSubLabel = ref<SubLabelOverlaySelection | null>(null)
 
 const strategyViews = [
   {
@@ -63,27 +84,85 @@ const strategyViews = [
 const activeDescription = computed(
   () => strategyViews.find((view) => view.id === props.mode)?.description ?? '',
 )
+const selectedSubLabelAnchors = computed(() => {
+  const label = selectedSubLabel.value?.id
+  if (!label) return []
+
+  return records.value.flatMap((record) =>
+    record[label] === 'yes'
+      ? splitAnchors(record[`${label}_anchor` as keyof typeof record])
+      : [],
+  )
+})
+const selectedSubLabelDescription = computed(() => {
+  const selection = selectedSubLabel.value
+  if (!selection) return ''
+
+  return (
+    intentSubLabelDescriptions[selection.id] ??
+    `${selection.label} describes statements where this pattern appears inside ${selection.groupLabel}.`
+  )
+})
 
 watch(
   () => props.mode,
   () => {
     closeMainLabelOverlay()
+    selectedSubLabel.value = null
+    hoveredTimelineEvent.value = null
+    hoveredTimelineStatement.value = null
   },
 )
 
+watch(beeswarmMode, () => {
+  hoveredTimelineStatement.value = null
+})
+
 function handleMainLabelClick(selection: MainLabelOverlaySelection) {
+  selectedSubLabel.value = null
   selectedMainLabel.value = selection.selected ? selection : null
 }
 
 function handleSegmentClick(segment: StrategySegmentClick) {
   if (segment.depth === 'sub') {
     selectedMainLabel.value = null
+    selectedSubLabel.value =
+      selectedSubLabel.value?.id === segment.id
+        ? null
+        : {
+            color: segment.color,
+            count: segment.count,
+            groupLabel: getGroupLabel(segment.groupId),
+            id: segment.id,
+            label: segment.label,
+          }
+    return
   }
+
+  selectedSubLabel.value = null
 }
 
 function closeMainLabelOverlay() {
   selectedMainLabel.value = null
+  selectedSubLabel.value = null
   icicleDiagram.value?.clearSelection()
+}
+
+function closeSubLabelOverlay() {
+  selectedSubLabel.value = null
+  icicleDiagram.value?.clearSelection()
+}
+
+function showHoveredTimelineStatement(statement: HoveredTimelineStatement | null) {
+  hoveredTimelineStatement.value = statement
+}
+
+function showHoveredTimelineEvent(event: HoveredTimelineEvent | null) {
+  hoveredTimelineEvent.value = event
+}
+
+function getGroupLabel(groupId: string) {
+  return intentTaxonomy.find((group) => group.parentLabel === groupId)?.label ?? 'Strategy'
 }
 </script>
 
@@ -118,9 +197,45 @@ function closeMainLabelOverlay() {
         <div class="strategy-view__timeline">
           <StrategyBeeswarmPlotP5
             :events="strategyTimelineEvents"
+            :mode="beeswarmMode"
             :statements="records"
             :selected-labels="[]"
+            @event-hover="showHoveredTimelineEvent"
+            @statement-hover="showHoveredTimelineStatement"
           />
+        </div>
+
+        <Transition name="strategy-view-statement-hover">
+          <aside
+            v-if="beeswarmMode === 'statements' && hoveredTimelineStatement"
+            class="strategy-view__statement-hover"
+            aria-label="Hovered statement"
+          >
+            <p>{{ hoveredTimelineStatement.statement }}</p>
+            <span>
+              {{ hoveredTimelineStatement.author }} · {{ hoveredTimelineStatement.date }}
+              <template v-if="hoveredTimelineStatement.source">
+                · {{ hoveredTimelineStatement.source }}
+              </template>
+            </span>
+          </aside>
+        </Transition>
+
+        <div class="strategy-view__timeline-switch" aria-label="Timeline display">
+          <button
+            type="button"
+            :class="{ 'strategy-view__timeline-switch-button--active': beeswarmMode === 'strategies' }"
+            @click="beeswarmMode = 'strategies'"
+          >
+            Strategys
+          </button>
+          <button
+            type="button"
+            :class="{ 'strategy-view__timeline-switch-button--active': beeswarmMode === 'statements' }"
+            @click="beeswarmMode = 'statements'"
+          >
+            Statements
+          </button>
         </div>
       </section>
 
@@ -151,6 +266,52 @@ function closeMainLabelOverlay() {
           <span>Statements in this category</span>
           <strong>{{ selectedMainLabel.count }}</strong>
         </div>
+      </aside>
+    </Transition>
+
+    <Transition name="strategy-sub-label-overlay">
+      <aside
+        v-if="props.mode === 'structure' && selectedSubLabel"
+        class="strategy-view__sub-label-overlay"
+        :style="{ '--strategy-sub-label-overlay-color': selectedSubLabel.color }"
+        aria-label="Sublabel details"
+      >
+        <div class="strategy-view__sub-label-overlay-columns">
+          <section class="strategy-view__sub-label-overlay-copy">
+            <p>{{ selectedSubLabelDescription }}</p>
+            <dl>
+              <div>
+                <dt>Statements</dt>
+                <dd>{{ selectedSubLabel.count }}</dd>
+              </div>
+              <div>
+                <dt>Anchor texts</dt>
+                <dd>{{ selectedSubLabelAnchors.length }}</dd>
+              </div>
+              <div>
+                <dt>Main label</dt>
+                <dd>{{ selectedSubLabel.groupLabel }}</dd>
+              </div>
+            </dl>
+          </section>
+
+          <header class="strategy-view__sub-label-overlay-header">
+            <h3>{{ selectedSubLabel.label }}</h3>
+            <button
+              type="button"
+              class="strategy-view__sub-label-overlay-close"
+              aria-label="Close sublabel overlay"
+              @click="closeSubLabelOverlay"
+            >
+              ←
+            </button>
+          </header>
+        </div>
+
+        <section class="strategy-view__sub-label-overlay-anchors" aria-label="Anchor texts">
+          <h4>Anchortexts:</h4>
+          <StrategySubLabelAnchorSketch :anchors="selectedSubLabelAnchors" />
+        </section>
       </aside>
     </Transition>
   </section>
