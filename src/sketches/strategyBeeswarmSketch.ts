@@ -40,6 +40,9 @@ const strategyLineColors: Partial<Record<IntentLabelKey, [number, number, number
   individual_needs: [99, 136, 255],
   rhetorical_foreclosure: [134, 183, 118],
 }
+const DOT_RADIUS = 6
+const HOVERED_DOT_RADIUS = 7.5
+const DOT_EDGE_PADDING = HOVERED_DOT_RADIUS + 2
 
 const strategyGroups = intentTaxonomy.map((group) => ({
   childLabels: group.childLabels,
@@ -80,8 +83,7 @@ export function createStrategyBeeswarmSketch(container: HTMLElement, state: Stra
 
       tickSimulation(simulation, nodes, p.width)
 
-      const hoveredPoint =
-        nodes.find((node) => p.dist(p.mouseX, p.mouseY, node.x, node.y) <= 11) ?? null
+      const hoveredPoint = checkHover(p, nodes)
 
       p.cursor(hoveredPoint ? p.HAND : p.ARROW)
       state.setHoveredStatement(createHoverPayload(hoveredPoint, p))
@@ -175,8 +177,12 @@ function tickSimulation(
 }
 
 function clampNode(node: BeeswarmNode, maxX: number) {
-  node.x = Math.min(maxX, Math.max(0, node.x))
+  node.x = Math.min(maxX - DOT_EDGE_PADDING, Math.max(DOT_EDGE_PADDING, node.x))
   node.y = Math.min(node.bandMaxY, Math.max(node.bandMinY, node.y))
+}
+
+function checkHover(p: p5, nodes: BeeswarmNode[]) {
+  return nodes.find((node) => p.dist(p.mouseX, p.mouseY, node.x, node.y) <= HOVERED_DOT_RADIUS + 3.5) ?? null
 }
 
 function createLayoutKey(p: p5, pointCount: number) {
@@ -225,7 +231,7 @@ function drawNode(
   p.stroke(48, 48, 48, highlighted ? 230 : 105)
   p.strokeWeight(hovered ? 2.5 : 1.8)
   p.fill(color[0], color[1], color[2], highlighted ? 235 : 42)
-  p.circle(node.x, node.y, hovered ? 15 : 11)
+  p.circle(node.x, node.y, hovered ? HOVERED_DOT_RADIUS * 2 : DOT_RADIUS * 2)
 }
 
 function getDeterministicOffset(value: string, amplitude: number) {

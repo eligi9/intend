@@ -2,10 +2,15 @@
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type p5 from 'p5'
 import type { IntentLabelKey, IntentRecord } from '../types/intentData'
+import { createStatementBeeswarmSketch } from '../sketches/statementBeeswarmSketch'
 import { createStrategyBeeswarmSketch } from '../sketches/strategyBeeswarmSketch'
 import { createStrategyTimelineGridSketch } from '../sketches/strategyTimelineGridSketch'
-import type { HoveredBeeswarmStatement } from '../types/strategyBeeswarm'
-import type { TimelineEvent } from '../types/timeline'
+import type {
+  BeeswarmDisplayMode,
+  HoveredBeeswarmStatement,
+  HoveredTimelineStatement,
+} from '../types/strategyBeeswarm'
+import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
 import {
   createStrategyTimelineDomain,
   getMonthDivisionCount,
@@ -13,13 +18,21 @@ import {
 
 const props = defineProps<{
   events?: TimelineEvent[]
+  mode: BeeswarmDisplayMode
   selectedLabels?: IntentLabelKey[]
   statements: IntentRecord[]
+}>()
+
+const emit = defineEmits<{
+  'event-hover': [event: HoveredTimelineEvent | null]
+  'statement-hover': [statement: HoveredTimelineStatement | null]
 }>()
 
 const gridHost = ref<HTMLElement | null>(null)
 const plotHost = ref<HTMLElement | null>(null)
 const hoveredStatement = ref<HoveredBeeswarmStatement | null>(null)
+const hoveredTimelineEvent = ref<HoveredTimelineEvent | null>(null)
+const hoveredTimelineStatement = ref<HoveredTimelineStatement | null>(null)
 let gridSketch: p5 | null = null
 let swarmSketch: p5 | null = null
 
@@ -36,6 +49,10 @@ function createGridSketch() {
     divisions: getMonthDivisionCount(domain),
     endDate: domain.endDate,
     events: props.events ?? [],
+    setHoveredEvent: (payload) => {
+      hoveredTimelineEvent.value = payload
+      emit('event-hover', payload)
+    },
     startDate: domain.startDate,
   })
 }
@@ -45,6 +62,22 @@ function createGridSketch() {
 function createSwarmSketch() {
   if (!plotHost.value) return null
 
+  if (props.mode === 'statements') {
+    hoveredStatement.value = null
+
+    return createStatementBeeswarmSketch(plotHost.value, {
+      setHoveredStatement: (payload) => {
+        hoveredTimelineStatement.value = payload
+        emit('statement-hover', payload)
+      },
+      statements: props.statements,
+      timeDomain: getTimeDomain(),
+    })
+  }
+
+  hoveredTimelineStatement.value = null
+  emit('statement-hover', null)
+
   return createStrategyBeeswarmSketch(plotHost.value, {
     selectedLabels: props.selectedLabels ?? [],
     setHoveredStatement: (payload) => {
@@ -53,16 +86,6 @@ function createSwarmSketch() {
     statements: props.statements,
     timeDomain: getTimeDomain(),
   })
-}
-
-function trimStatement(value: string) {
-  return value.length > 150 ? `${value.slice(0, 147)}...` : value
-}
-
-function tooltipAnchors(statement: HoveredBeeswarmStatement) {
-  const anchors = statement.anchorText?.filter(Boolean) ?? []
-
-  return (anchors.length > 0 ? anchors : [statement.statement]).map(trimStatement)
 }
 
 onMounted(async () => {
@@ -77,20 +100,35 @@ watch(
   () =>
     [
       props.events,
+      props.statements,
+    ] as const,
+  () => {
+    hoveredTimelineEvent.value = null
+    emit('event-hover', null)
+    gridSketch?.remove()
+    gridSketch = createGridSketch()
+  },
+)
+
+watch(
+  () =>
+    [
+      props.events,
+      props.mode,
       props.selectedLabels,
       props.statements,
     ] as const,
   () => {
-    // Recreate both p5 layers when data or sizing props change.
-    // The grid stays independent from the d3-force swarm simulation.
-    gridSketch?.remove()
     swarmSketch?.remove()
-    gridSketch = createGridSketch()
     swarmSketch = createSwarmSketch()
   },
 )
 
 onBeforeUnmount(() => {
+  hoveredTimelineEvent.value = null
+  hoveredTimelineStatement.value = null
+  emit('event-hover', null)
+  emit('statement-hover', null)
   gridSketch?.remove()
   swarmSketch?.remove()
 })
@@ -99,29 +137,45 @@ onBeforeUnmount(() => {
 <template>
   <section class="strategy-beeswarm" aria-label="Strategy statements beeswarm plot">
     <div ref="gridHost" class="strategy-beeswarm__grid-canvas" />
-    <div ref="plotHost" class="strategy-beeswarm__canvas" />
+    <div
+      ref="plotHost"
+      class="strategy-beeswarm__canvas"
+      :class="`strategy-beeswarm__canvas--${mode}`"
+    />
 
-    <aside
-      v-if="hoveredStatement"
-      class="strategy-beeswarm__tooltip strategy-beeswarm__tooltip--statement"
-      :style="{
-        '--strategy-beeswarm-tooltip-x': `${hoveredStatement.xRatio * 100}%`,
-        '--strategy-beeswarm-tooltip-background': hoveredStatement.color,
-        top: `${hoveredStatement.yRatio * 100}%`,
-      }"
-    >
-      <strong>{{ hoveredStatement.strategy }}</strong>
-      <time>{{ hoveredStatement.author }} · {{ hoveredStatement.date }}</time>
-      <div class="strategy-beeswarm__tooltip-anchors">
-        <p
-          v-for="(anchor, index) in tooltipAnchors(hoveredStatement)"
-          :key="`${hoveredStatement.id}:${index}`"
-          class="strategy-beeswarm__tooltip-anchor"
+    <Teleport to="body">
+      <Transition name="strategy-beeswarm-hover-layer">
+        <aside
+          v-if="hoveredTimelineEvent"
+          class="strategy-beeswarm__hover-layer strategy-beeswarm__hover-layer--event"
         >
-          {{ anchor }}
-        </p>
-      </div>
-    </aside>
+          <div class="strategy-beeswarm__hover-layer-inner">
+            <h3>{{ hoveredTimelineEvent.label }}</h3>
+            <p>{{ hoveredTimelineEvent.description }}</p>
+            <span>
+              {{ hoveredTimelineEvent.date }} · {{ hoveredTimelineEvent.sourceName }}
+            </span>
+          </div>
+        </aside>
+        <aside
+          v-else-if="mode === 'strategies' && hoveredStatement"
+          class="strategy-beeswarm__hover-layer"
+          :style="{ '--strategy-beeswarm-hover-color': hoveredStatement.color }"
+        >
+          <div class="strategy-beeswarm__hover-layer-inner">
+            <h3>{{ hoveredStatement.strategy }}</h3>
+          </div>
+        </aside>
+        <aside
+          v-else-if="mode === 'statements' && hoveredTimelineStatement"
+          class="strategy-beeswarm__hover-layer strategy-beeswarm__hover-layer--statement"
+        >
+          <div class="strategy-beeswarm__hover-layer-inner">
+            <h3>{{ hoveredTimelineStatement.author }}</h3>
+          </div>
+        </aside>
+      </Transition>
+    </Teleport>
   </section>
 </template>
 

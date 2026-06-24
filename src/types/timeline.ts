@@ -13,6 +13,11 @@ export interface TimelineEvent {
   sourceUrl: string
 }
 
+export interface HoveredTimelineEvent extends TimelineEvent {
+  xRatio: number
+  yRatio: number
+}
+
 export type TimelineEventDirection = 'down' | 'up'
 
 export interface PositionedTimelineEventBase {
