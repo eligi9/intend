@@ -1,0 +1,104 @@
+{
+  "name": "strategy-labels",
+  "generatedAt": "2026-06-25T00:00:00.000Z",
+  "mainLabels": [
+    {
+      "label": "Enemy Image",
+      "labelKey": "enemy_image",
+      "description": "Frames a target as a hostile or dangerous enemy by collapsing differences, attributing fixed traits, or placing people outside the bounds of ordinary moral concern.",
+      "subLabels": [
+        {
+          "labelKey": "homogenization",
+          "label": "Homogenization",
+          "description": "Homogenization describes statements in which an outgroup is presented as one uniform mass and individual differences disappear."
+        },
+        {
+          "labelKey": "immutability",
+          "label": "Immutability",
+          "description": "Immutability describes statements in which a group is presented as unchangeable, permanently hostile, or unable to reform."
+        },
+        {
+          "labelKey": "essentialization",
+          "label": "Essentialization",
+          "description": "Essentialization describes statements that attribute fixed, supposedly essential traits to a group."
+        },
+        {
+          "labelKey": "dehumanization",
+          "label": "Dehumanization",
+          "description": "Dehumanization describes statements in which people are linguistically removed from the sphere of human dignity and protection."
+        },
+        {
+          "labelKey": "threat_construction",
+          "label": "Threat Depiction",
+          "description": "Threat depiction describes statements that mark a group, person, or situation as an acute threat."
+        }
+      ]
+    },
+    {
+      "label": "Just Cause",
+      "labelKey": "just_cause",
+      "description": "Presents coercive, violent, or restrictive action as justified by security, self-defence, counterterrorism, or retaliation.",
+      "subLabels": [
+        {
+          "labelKey": "security_rationale",
+          "label": "Security rationale",
+          "description": "Security rationale describes statements that legitimize measures through security, protection, or risk prevention."
+        },
+        {
+          "labelKey": "selfdefence_counterterrorism",
+          "label": "Self-defence / counterterrorism",
+          "description": "Self-defence / counterterrorism describes statements that frame actions as self-defence or counterterrorism."
+        },
+        {
+          "labelKey": "retaliation",
+          "label": "Retaliation",
+          "description": "Retaliation describes statements in which violence or coercion is justified as an answer, reprisal, or necessary response."
+        }
+      ]
+    },
+    {
+      "label": "Individual Needs",
+      "labelKey": "individual_needs",
+      "description": "Links support for action to psychological needs such as meaning, status, belonging, confidence, or the promise of victory.",
+      "subLabels": [
+        {
+          "labelKey": "meaning",
+          "label": "Meaning",
+          "description": "Meaning describes statements that charge actions with purpose, mission, or historical significance."
+        },
+        {
+          "labelKey": "status",
+          "label": "Status",
+          "description": "Status describes statements that emphasize strength, rank, recognition, or national self-assertion."
+        },
+        {
+          "labelKey": "hope_for_victory",
+          "label": "Hope for victory",
+          "description": "Hope for victory describes statements that mobilize support through the prospect of victory, strength, or successful enforcement."
+        }
+      ]
+    },
+    {
+      "label": "Rhetorical Foreclosure",
+      "labelKey": "rhetorical_foreclosure",
+      "description": "Closes down alternatives by portraying restraint, compromise, humanitarian concern, or external criticism as weakness, betrayal, or impossibility.",
+      "subLabels": [
+        {
+          "labelKey": "no_alternative_framing",
+          "label": "No alternative framing",
+          "description": "No alternative framing describes statements in which alternatives are excluded or presented as impossible."
+        },
+        {
+          "labelKey": "humanity_as_weakness",
+          "label": "Humanity as weakness",
+          "description": "Humanity as weakness describes statements in which humanitarian restraint is framed as weakness or danger."
+        },
+        {
+          "labelKey": "external_criticism_rejection",
+          "label": "External criticism rejection",
+          "description": "External criticism rejection describes statements that reject external criticism as illegitimate, hostile, or fundamentally irrelevant."
+        }
+      ]
+    }
+  ]
+}

@@ -50,7 +50,7 @@ interface StrategyIcicleGroup {
   children: StrategyIcicleSegment[]
   color: string
   heightPercent: number
-  id: string
+  labelKey: IntentLabelKey
   main: StrategyIcicleSegment
 }
 
@@ -92,12 +92,12 @@ const groups = computed<StrategyIcicleGroup[]>(() => {
   let mainStartPercent = 0
 
   return mainCounts.map(({ group, count }) => {
-    const color = taxonomyButtonColors[group.id] ?? '#858b94'
+    const color = taxonomyButtonColors[group.parentLabel] ?? '#858b94'
     const childCounts = group.childLabels.map((label) => ({
       count: countLabel(label),
       label,
     }))
-    const groupId = group.id
+    const groupId = group.parentLabel
     const groupHeightPercent = getPercent(count, mainTotal)
     const groupStartPercent = mainStartPercent
     mainStartPercent += groupHeightPercent
@@ -122,7 +122,7 @@ const groups = computed<StrategyIcicleGroup[]>(() => {
       }),
       color,
       heightPercent: groupHeightPercent,
-      id: groupId,
+      labelKey: groupId,
       main: {
         color,
         count,
@@ -130,7 +130,7 @@ const groups = computed<StrategyIcicleGroup[]>(() => {
         depth: 'main' as const,
         groupId,
         heightPercent: 100,
-        id: group.parentLabel as IntentLabelKey,
+        id: group.parentLabel,
         label: group.label,
         startPercent: groupStartPercent,
         widthPercent: getPercent(count, maxStatementsPerSide),
@@ -192,7 +192,7 @@ function handleClick(segment: StrategyIcicleSegment) {
   emit('segmentClick', segment)
 
   if (segment.depth === 'main') {
-    const group = groups.value.find((item) => item.id === segment.groupId)
+    const group = groups.value.find((item) => item.labelKey === segment.groupId)
     emit('mainLabelClick', {
       children:
         group?.children.map((child) => ({
@@ -310,7 +310,7 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
       <div class="strategy-icicle__side strategy-icicle__side--left" aria-label="Main label counts">
         <div
           v-for="group in groups"
-          :key="group.id"
+          :key="group.labelKey"
           class="strategy-icicle__main-row"
           :style="{ '--row-height': `${group.heightPercent}%` }"
         >

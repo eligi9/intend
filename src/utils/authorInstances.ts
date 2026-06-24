@@ -35,14 +35,11 @@ export function groupStatementsByAuthor(records: IntentRecord[]) {
 
 export function getUsedTopLevelStrategies(records: IntentRecord[]): AuthorTopLevelStrategyUsage[] {
   return intentTaxonomy.flatMap((group) => {
-    if (!group.parentLabel) return []
-
-    const matchingRecords = records.filter((record) => record[group.parentLabel!] === 'yes')
+    const matchingRecords = records.filter((record) => record[group.parentLabel] === 'yes')
 
     if (matchingRecords.length === 0) return []
 
     return {
-      id: group.id,
       label: group.label,
       labelKey: group.parentLabel,
       statementCount: matchingRecords.length,
@@ -57,7 +54,7 @@ export function createAuthorInstance(
   referenceDate = new Date(),
 ): AuthorInstance {
   const usedTopLevelStrategies = getUsedTopLevelStrategies(statements)
-  const topLevelStrategyCount = intentTaxonomy.filter((group) => group.parentLabel).length
+  const topLevelStrategyCount = intentTaxonomy.length
 
   return {
     ...author,

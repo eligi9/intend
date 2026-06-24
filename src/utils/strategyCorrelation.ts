@@ -28,7 +28,7 @@ export interface StrategyCorrelationMatrix {
 const correlationLabels = intentTaxonomy.flatMap((group) =>
   group.childLabels.map((label) => ({
     color: subLabelColors.get(label) ?? '#858b94',
-    groupId: group.id,
+    groupId: group.parentLabel,
     groupName: group.label,
     label,
     name: intentLabelNames[label],

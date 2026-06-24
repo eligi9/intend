@@ -42,7 +42,6 @@ export interface AuthorDataset {
 }
 
 export interface AuthorTopLevelStrategyUsage {
-  id: string
   label: string
   labelKey: IntentLabelKey
   statementCount: number

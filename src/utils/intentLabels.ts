@@ -9,41 +9,27 @@ export interface IntentAnnotation {
   briefJustification: string | null
 }
 
-export const intentLabelNames: Record<IntentLabelKey, string> = {
-  enemy_image: 'Enemy image',
-  homogenization: 'Homogenization',
-  immutability: 'Immutability',
-  essentialization: 'Essentialization',
-  dehumanization: 'Dehumanization',
-  threat_construction: 'Threat Depiction',
-  just_cause: 'Just cause',
-  security_rationale: 'Security rationale',
-  selfdefence_counterterrorism: 'Self-defence / counterterrorism',
-  retaliation: 'Retaliation',
-  individual_needs: 'Individual needs',
-  meaning: 'Meaning',
-  status: 'Status',
-  hope_for_victory: 'Hope for victory',
-  rhetorical_foreclosure: 'Rhetorical foreclosure',
-  no_alternative_framing: 'No alternative framing',
-  humanity_as_weakness: 'Humanity as weakness',
-  external_criticism_rejection: 'External criticism rejection',
+export const taxonomyButtonColors: Partial<Record<IntentLabelKey, string>> = {
+  enemy_image: 'var(--intent-color-enemy-image)',
+  just_cause: 'var(--intent-color-just-cause)',
+  individual_needs: 'var(--intent-color-individual-needs)',
+  rhetorical_foreclosure: 'var(--intent-color-rhetorical-foreclosure)',
 }
 
-export const taxonomyButtonColors: Record<string, string> = {
-  'enemy-image': 'var(--intent-color-enemy-image)',
-  'just-cause': 'var(--intent-color-just-cause)',
-  'individual-needs': 'var(--intent-color-individual-needs)',
-  'rhetorical-foreclosure': 'var(--intent-color-rhetorical-foreclosure)',
-}
+export const intentLabelNames = Object.fromEntries(
+  intentTaxonomy.flatMap((group) => [
+    [group.parentLabel, group.label],
+    ...group.subLabels.map((label) => [label.labelKey, label.label] as const),
+  ]),
+) as Record<IntentLabelKey, string>
 
 export const parentLabels = new Set<IntentLabelKey>(
-  intentTaxonomy.flatMap((group) => (group.parentLabel ? [group.parentLabel] : [])),
+  intentTaxonomy.map((group) => group.parentLabel),
 )
 
 export const subLabelColors = new Map<IntentLabelKey, string>(
   intentTaxonomy.flatMap((group) =>
-    group.childLabels.map((label) => [label, taxonomyButtonColors[group.id]] as const),
+    group.childLabels.map((label) => [label, taxonomyButtonColors[group.parentLabel] ?? '#858b94'] as const),
   ),
 )
 

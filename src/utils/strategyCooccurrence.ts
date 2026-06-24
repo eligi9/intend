@@ -31,12 +31,11 @@ export interface StrategyCooccurrence {
 }
 
 const superLabels = intentTaxonomy
-  .filter((group) => group.parentLabel)
   .map((group) => ({
-    color: taxonomyButtonColors[group.id] ?? '#858b94',
-    groupId: group.id,
+    color: taxonomyButtonColors[group.parentLabel] ?? '#858b94',
+    groupId: group.parentLabel,
     groupName: group.label,
-    label: group.parentLabel as IntentLabelKey,
+    label: group.parentLabel,
     name: group.label,
   }))
 

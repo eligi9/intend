@@ -100,9 +100,9 @@ function matchesAuthorFilters(
         <div class="author-filter-row">
           <FilterButton
             v-for="group in intentTaxonomy"
-            :key="group.id"
+            :key="group.parentLabel"
             :label="group.label"
-            :color="taxonomyButtonColors[group.id]"
+            :color="taxonomyButtonColors[group.parentLabel]"
             :active="group.parentLabel ? selectedLabels.includes(group.parentLabel) : false"
             @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
           />

@@ -21,7 +21,7 @@ const genderLabel = computed(() => {
 const strategyBadges = computed(() =>
   props.author.usedTopLevelStrategies.map((strategy) => ({
     ...strategy,
-    color: taxonomyButtonColors[strategy.id] ?? '#858b94',
+    color: taxonomyButtonColors[strategy.labelKey] ?? '#858b94',
   })),
 )
 </script>
@@ -63,7 +63,7 @@ const strategyBadges = computed(() =>
       >
         <StrategyBadge
           v-for="strategy in strategyBadges"
-          :key="strategy.id"
+          :key="strategy.labelKey"
           :label="strategy.label"
           :color="strategy.color"
           :count="strategy.statementCount"

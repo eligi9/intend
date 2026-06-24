@@ -174,9 +174,9 @@ function selectAuthor(authorName: string) {
             <div class="filter-row">
               <FilterButton
                 v-for="group in intentTaxonomy"
-                :key="group.id"
+                :key="group.parentLabel"
                 :label="group.label"
-                :color="taxonomyButtonColors[group.id]"
+                :color="taxonomyButtonColors[group.parentLabel]"
                 :active="group.parentLabel ? filters.labelsAll.includes(group.parentLabel) : false"
                 @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
               />

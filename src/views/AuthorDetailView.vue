@@ -34,7 +34,7 @@ const strategyBadges = computed(() =>
   author.value
     ? author.value.usedTopLevelStrategies.map((strategy) => ({
         ...strategy,
-        color: taxonomyButtonColors[strategy.id] ?? '#858b94',
+        color: taxonomyButtonColors[strategy.labelKey] ?? '#858b94',
       }))
     : [],
 )
@@ -167,7 +167,7 @@ onBeforeUnmount(() => {
         <section class="author-detail__timeline-filters" aria-label="Timeline Strategie Filter">
           <FilterButton
             v-for="strategy in strategyBadges"
-            :key="strategy.id"
+            :key="strategy.labelKey"
             :label="strategy.label"
             :color="strategy.color"
             :active="selectedTimelineLabels.includes(strategy.labelKey)"
