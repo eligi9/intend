@@ -19,6 +19,7 @@ export function matchesIntentFilters(record: IntentRecord, filters: IntentFilter
     includesText(record.author, query) ||
     includesText(record.position, query) ||
     includesText(record.context, query) ||
+    includesText(record.source, query) ||
     includesText(record.statement, query)
 
   const matchesSector =

@@ -28,6 +28,7 @@ export interface IntentRecord extends Record<IntentLabelKey, BinaryLabel> {
   sector: 'Legislators' | 'Decision Makers' | string
   date: string
   context: string | null
+  source: string | null
   statement: string
   measures: string[]
   position: string | null

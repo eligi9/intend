@@ -12,59 +12,22 @@
       "sourceUrl": "https://press.un.org/en/2023/sgsm21981.doc.htm"
     },
     {
-      "id": "incitements-since-icj-order",
-      "date": "2024-02-27",
-      "label": "Incitements since ICJ order",
-      "description": "Incitements since the ICJ order to cease genocidal acts and incitement.",
+      "id": "world-court-orders-israel-prevent-genocide",
+      "date": "2024-01-26",
+      "label": "World Court order",
+      "description": "The International Court of Justice ordered Israel to take measures to prevent genocide in Gaza.",
       "category": "court",
-      "sourceName": "International Court of Justice",
-      "sourceUrl": "https://www.icj-cij.org/node/203447"
+      "sourceName": "Human Rights Watch",
+      "sourceUrl": "https://www.hrw.org/news/2024/01/26/gaza-world-court-orders-israel-prevent-genocide"
     },
     {
-      "id": "icj-advisory-opinion-occupation",
-      "date": "2024-07-19",
-      "label": "ICJ advisory opinion",
-      "description": "The International Court of Justice delivered its advisory opinion on the legal consequences of Israeli policies and practices in the Occupied Palestinian Territory.",
-      "category": "court",
-      "sourceName": "International Court of Justice",
-      "sourceUrl": "https://www.icj-cij.org/node/204176"
-    },
-    {
-      "id": "un-general-assembly-es-10-24",
-      "date": "2024-09-18",
-      "label": "UNGA resolution ES-10/24",
-      "description": "The UN General Assembly adopted resolution ES-10/24, demanding that Israel end its unlawful presence in the Occupied Palestinian Territory within 12 months.",
-      "category": "resolution",
-      "sourceName": "United Nations Digital Library",
-      "sourceUrl": "https://digitallibrary.un.org/record/4064541"
-    },
-    {
-      "id": "icc-arrest-warrants-netanyahu-gallant",
-      "date": "2024-11-21",
-      "label": "ICC arrest warrants",
-      "description": "The International Criminal Court issued arrest warrants for Benjamin Netanyahu, Yoav Gallant, and Hamas leader Mohammed Diab Ibrahim Al-Masri.",
-      "category": "court",
-      "sourceName": "International Criminal Court",
-      "sourceUrl": "https://www.icc-cpi.int/news/situation-state-palestine-icc-pre-trial-chamber-i-rejects-state-israels-challenges"
-    },
-    {
-      "id": "israeli-airstrikes-gaza-may-2025",
-      "date": "2025-05-08",
-      "endDate": "2025-05-11",
-      "label": "Israeli airstrikes in Gaza",
-      "description": "Israeli airstrikes across the Gaza Strip in May 2025, amid an intensification of military operations.",
-      "category": "military",
-      "sourceName": "Associated Press",
-      "sourceUrl": "https://apnews.com/article/israel-palestinians-hamas-war-news-ceasefire-hostages-05-08-2025"
-    },
-    {
-      "id": "gaza-city-ground-offensive",
-      "date": "2025-09-17",
-      "label": "Gaza City ground offensive",
-      "description": "Beginning of the Israeli government ground offensive in Gaza City.",
-      "category": "military",
-      "sourceName": "Associated Press",
-      "sourceUrl": "https://apnews.com/article/israel-palestinians-hamas-war-news-gaza-09-17-2025"
+      "id": "gaza-occupation-plan-announced",
+      "date": "2025-05-05",
+      "label": "Gaza occupation plan",
+      "description": "The Guardian reported on the announcement of Israel's plan to expand military operations in Gaza and establish a sustained presence.",
+      "category": "occupation-plan",
+      "sourceName": "The Guardian",
+      "sourceUrl": "https://www.theguardian.com/world/2025/may/05/netanyahu-announces-gaza-occupation-plan-with-close-attention-to-timing"
     }
   ]
 }
