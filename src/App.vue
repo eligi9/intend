@@ -84,13 +84,6 @@ function enterWorkspace() {
         </button>
         <button
           type="button"
-          :class="{ active: activeView === 'measures' }"
-          @click="showMeasures"
-        >
-          Measures
-        </button>
-        <button
-          type="button"
           :class="{ active: activeView === 'authors' }"
           @click="showAuthors"
         >
@@ -98,10 +91,16 @@ function enterWorkspace() {
         </button>
         <button
           type="button"
-          :class="{ active: activeView === 'structure' }"
+          :class="{
+            active:
+              activeView === 'structure' ||
+              activeView === 'matrix' ||
+              activeView === 'selfdefence-counterterrorism' ||
+              activeView === 'retaliation',
+          }"
           @click="showStrategyView('structure')"
         >
-          Category
+          Strategies
         </button>
         <button
           type="button"
@@ -109,27 +108,6 @@ function enterWorkspace() {
           @click="showStrategyView('timeline')"
         >
           Timeline
-        </button>
-        <button
-          type="button"
-          :class="{ active: activeView === 'matrix' }"
-          @click="showStrategyView('matrix')"
-        >
-          Matrix
-        </button>
-        <button
-          type="button"
-          :class="{ active: activeView === 'selfdefence-counterterrorism' }"
-          @click="showSelfDefenceCounterterrorism"
-        >
-          Self-defence / Counterterrorism
-        </button>
-        <button
-          type="button"
-          :class="{ active: activeView === 'retaliation' }"
-          @click="showRetaliation"
-        >
-          Retaliation
         </button>
       </nav>
 

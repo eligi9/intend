@@ -9,13 +9,34 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
+  mainLabelClick: [selection: StrategyMainLabelSelection]
   segmentClick: [segment: StrategyIcicleSegment]
   segmentHover: [segment: StrategyIcicleSegment | null]
 }>()
 
+interface StrategyMainLabelChild {
+  color: string
+  count: number
+  id: IntentLabelKey
+  label: string
+  sharePercent: number
+}
+
+interface StrategyMainLabelSelection {
+  children: StrategyMainLabelChild[]
+  color: string
+  count: number
+  description: string
+  groupId: string
+  id: IntentLabelKey
+  label: string
+  selected: boolean
+}
+
 interface StrategyIcicleSegment {
   color: string
   count: number
+  description?: string
   depth: 'main' | 'sub'
   groupId: string
   heightPercent: number
@@ -105,6 +126,7 @@ const groups = computed<StrategyIcicleGroup[]>(() => {
       main: {
         color,
         count,
+        description: group.description,
         depth: 'main' as const,
         groupId,
         heightPercent: 100,
@@ -165,9 +187,40 @@ function handleLeave() {
 }
 
 function handleClick(segment: StrategyIcicleSegment) {
-  selectedSegmentId.value = selectedSegmentId.value === segment.id ? null : segment.id
+  const nextSelectedId = selectedSegmentId.value === segment.id ? null : segment.id
+  selectedSegmentId.value = nextSelectedId
   emit('segmentClick', segment)
+
+  if (segment.depth === 'main') {
+    const group = groups.value.find((item) => item.id === segment.groupId)
+    emit('mainLabelClick', {
+      children:
+        group?.children.map((child) => ({
+          color: child.color,
+          count: child.count,
+          id: child.id,
+          label: child.label,
+          sharePercent: getPercent(child.count, Math.max(segment.count, 1)),
+        })) ?? [],
+      color: segment.color,
+      count: segment.count,
+      description: segment.description ?? '',
+      groupId: segment.groupId,
+      id: segment.id,
+      label: segment.label,
+      selected: nextSelectedId === segment.id,
+    })
+  }
 }
+
+function clearSelection() {
+  selectedSegmentId.value = null
+  hoveredSegment.value = null
+}
+
+defineExpose({
+  clearSelection,
+})
 
 function getSegmentTone(segment: StrategyIcicleSegment): SegmentTone {
   const active = activeSegment.value
