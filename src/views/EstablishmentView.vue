@@ -114,8 +114,8 @@ function createScrollAnimations() {
   gsapContext?.revert()
   gsapContext = gsap.context(() => {
     const { initialY, stickY } = getHeadingPositions(heading)
-    const introFadeDistance = window.innerHeight * 0.62
-    const headingFadeDistance = window.innerHeight * 0.18
+    const introFadeDistance = window.innerHeight * 0.95
+    const headingFadeDistance = window.innerHeight * 0.34
     const statementStartDistance = introFadeDistance * 0.92
     const notesStartDistance = statementStartDistance + window.innerHeight * 0.38
     const noteTimelineUnit = window.innerHeight * 0.72
@@ -195,7 +195,7 @@ function createScrollAnimations() {
       const releaseDistance = Math.max(0, releaseLine - textRect.top)
       const headingProgress = clampProgress(releaseDistance / headingFadeDistance)
       const headingY = releaseDistance > 0
-        ? stickY - releaseDistance * 2.2
+        ? stickY - releaseDistance * 1.2
         : Math.max(stickY, initialY - scroll)
       const introProgress = clampProgress(releaseDistance / introFadeDistance)
       const shouldShowStatement = releaseDistance >= statementStartDistance
@@ -316,11 +316,10 @@ onBeforeUnmount(() => {
     >
       <div class="establishment-view__sticky-heading-inner">
         <div class="establishment-view__content">
-          <h1 id="landing-title">
-            Rhetorical<br />
-            Mobilization Strategies
-          </h1>
-          <p>based on LAW FOR PALESTINES - INTENT</p>
+          <h1 id="landing-title">Incitement to Genocide</h1>
+          <p class="establishment-view__subtitle">
+            How can language make violence seem justified?
+          </p>
         </div>
       </div>
     </div>

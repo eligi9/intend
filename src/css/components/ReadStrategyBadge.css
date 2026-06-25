@@ -21,7 +21,7 @@
 .read-strategy-badge:focus-visible,
 :global(.statement-card__badge-target:hover) .read-strategy-badge,
 :global(.statement-card__badge-target:focus-visible) .read-strategy-badge {
-  color: white;
+  color: var(--color-white);
   background: var(--read-strategy-badge-color);
 }
 

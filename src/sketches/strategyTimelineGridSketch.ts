@@ -1,4 +1,5 @@
 import p5 from 'p5'
+import { baseColorRgb } from '../types/designTokens'
 import type { StrategyTimelineGridSketchState } from '../types/strategyBeeswarm'
 import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
@@ -46,7 +47,7 @@ export function createStrategyTimelineGridSketch(
       p.cursor(hoveredEvent ? p.HAND : p.ARROW)
       state.setHoveredEvent(createHoverPayload(hoveredEvent, p.width, p.height))
       p.clear()
-      p.background(48, 48, 48)
+      p.background(...baseColorRgb.background)
       drawDivisions(p, state)
       drawEventAnchors(p, events, hoveredEvent)
       drawEvents(p, events, hoveredEvent)
@@ -70,12 +71,12 @@ function drawDivisions(p: p5, state: StrategyTimelineGridSketchState) {
       1,
     )
 
-    p.stroke(245, 243, 238, 36)
+    p.stroke(...baseColorRgb.text, 36)
     p.strokeWeight(1)
     p.line(x, 0, x, p.height)
 
     p.noStroke()
-    p.fill(245, 243, 238, 150)
+    p.fill(...baseColorRgb.text, 150)
     p.push()
     p.translate(x + 4, p.height - 18)
     p.rotate(-p.HALF_PI)
@@ -83,7 +84,7 @@ function drawDivisions(p: p5, state: StrategyTimelineGridSketchState) {
     p.pop()
   }
 
-  p.stroke(245, 243, 238, 36)
+  p.stroke(...baseColorRgb.text, 36)
   p.strokeWeight(1)
   p.line(p.width, 0, p.width, p.height)
 }
@@ -96,7 +97,7 @@ function drawEventAnchors(
   events.forEach((event) => {
     const hovered = hoveredEvent?.event.id === event.event.id
 
-    p.stroke(245, 243, 238, hovered ? 170 : 76)
+    p.stroke(...baseColorRgb.text, hovered ? 170 : 76)
     p.strokeWeight(2)
     p.line(event.x, 0, event.x, p.height)
   })
@@ -117,7 +118,7 @@ function drawEvents(
     if (hovered) {
       const fillWidth = getEventLabelWidth(p, event)
 
-      p.fill(245, 243, 238, 255)
+      p.fill(...baseColorRgb.text, 255)
       p.rect(
         event.x,
         event.y - EVENT_LABEL_PADDING_Y,
@@ -130,13 +131,15 @@ function drawEvents(
       )
     }
 
-    p.fill(hovered ? 48 : 245, hovered ? 48 : 243, hovered ? 48 : 238, hovered ? 255 : 240)
+    const textColor = hovered ? baseColorRgb.ink : baseColorRgb.text
+
+    p.fill(textColor[0], textColor[1], textColor[2], hovered ? 255 : 240)
     p.textSize(EVENT_DATE_FONT_SIZE)
     p.textAlign(p.LEFT, p.TOP)
     p.text(event.date, textX, event.y, EVENT_LABEL_WIDTH)
 
     p.textStyle(p.NORMAL)
-    p.fill(hovered ? 48 : 245, hovered ? 48 : 243, hovered ? 48 : 238, hovered ? 255 : 220)
+    p.fill(textColor[0], textColor[1], textColor[2], hovered ? 255 : 220)
     p.textSize(EVENT_LABEL_FONT_SIZE)
     p.text(event.label, textX, event.y + EVENT_LABEL_LINE_HEIGHT, EVENT_LABEL_WIDTH)
     p.textStyle(p.BOLD)

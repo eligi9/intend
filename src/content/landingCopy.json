@@ -2,9 +2,10 @@
   "intro": {
     "eyebrow": "Analysis context",
     "paragraphs": [
-      "Diese Web-App analysiert ausgewählte Intent Statements israelischer Personen des öffentlichen Lebens im Hinblick auf wiederkehrende rhetorische Muster. Im Fokus steht, wie Sprache Gruppen als Bedrohung darstellen, Feindbilder konstruieren und politische Gewalt als notwendig, gerechtfertigt oder alternativlos erscheinen lassen kann.",
-      "Die Grundlage der Analyse bilden Labels, die sich an Konzepten der Feindbildkonstruktion orientieren. Untersucht wird, wie Aussagen durch Dehumanisierung, Schuldzuweisung, Sicherheitsargumente oder moralische Abwertung bestimmte Gruppen rhetorisch markieren und abgrenzen.",
-      "Die Analyse versteht einzelne Aussagen nicht als abschließenden juristischen Beweis, sondern als sprachliche Hinweise, die im Kontext völkerrechtlicher Bewertung relevant sein können. Durch die visuelle Aufbereitung werden komplexe rhetorische Strukturen sichtbar und vergleichbar gemacht."
+      "Language can influence how people think about other groups. It can help make violence appear necessary, justified, or unavoidable, and can therefore be used as a tool to move people toward acts of violence.",
+      "A particularly serious form of such linguistic mobilization is direct and public incitement to genocide. This is punishable under the 1948 UN Genocide Convention. On January 26, 2024, the International Court of Justice ordered Israel to take measures to prevent genocide against Palestinians in the Gaza Strip. This includes preventing and punishing public and direct incitement to genocide.",
+      "This visualization shows recurring linguistic patterns that can legitimize violence or mobilize people for violence. It does not provide a legal classification of the statements, but aims to improve awareness of how language is used.",
+      "The statements analyzed come from the [Intent](https://intent.law4palestine.org/) dataset by the Palestinian NGO Law for Palestine. The patterns were developed from the statements through qualitative content analysis."
     ]
   },
   "statementNotes": [

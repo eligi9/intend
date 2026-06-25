@@ -21,7 +21,7 @@ const genderLabel = computed(() => {
 const strategyBadges = computed(() =>
   props.author.usedTopLevelStrategies.map((strategy) => ({
     ...strategy,
-    color: taxonomyButtonColors[strategy.labelKey] ?? '#858b94',
+    color: taxonomyButtonColors[strategy.labelKey] ?? 'var(--color-neutral)',
   })),
 )
 </script>
@@ -72,7 +72,7 @@ const strategyBadges = computed(() =>
       </span>
 
       <span v-else class="author-tooltip__strategies author-tooltip__strategies--empty">
-        Keine Strategie
+        No pattern
       </span>
     </span>
   </span>

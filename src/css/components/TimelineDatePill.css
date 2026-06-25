@@ -9,9 +9,9 @@
   min-block-size: 1.25rem;
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
-  color: rgba(48, 48, 48, 0.42);
-  background: #fffdfa;
-  box-shadow: 0 0.28rem 0.75rem rgba(0, 0, 0, 0.16);
+  color: rgba(var(--color-background-rgb), 0.42);
+  background: var(--color-paper);
+  box-shadow: 0 0.28rem 0.75rem rgba(var(--color-shadow-rgb), 0.16);
   font-size: clamp(0.72rem, 2vw, 0.92rem);
   font-weight: 400;
   letter-spacing: 0;

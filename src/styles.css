@@ -3,10 +3,12 @@
   --font-source-sans: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --view-title-size: 34px;
+  --view-title-mobile-size: 30px;
 
-  color: #20242b;
-  background: #303030;
-  scrollbar-color: #747474 #1f1f1f;
+  color: var(--color-ink);
+  background: var(--app-background);
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-background);
   font-family: var(--font-sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,7 +18,7 @@
 
 * {
   box-sizing: border-box;
-  scrollbar-color: #747474 #1f1f1f;
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-background);
   scrollbar-width: auto;
 }
 
@@ -27,12 +29,12 @@ body {
   width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  background: #303030;
+  background: var(--app-background);
 }
 
 #app {
   min-height: 100vh;
-  background: #303030;
+  background: var(--app-background);
 }
 
 body.author-detail-overlay-open {
@@ -45,17 +47,17 @@ body.author-detail-overlay-open {
 }
 
 *::-webkit-scrollbar-track {
-  background: #1f1f1f;
+  background: var(--color-background);
 }
 
 *::-webkit-scrollbar-thumb {
-  border: 3px solid #1f1f1f;
+  border: 3px solid var(--color-background);
   border-radius: 999px;
-  background: #747474;
+  background: var(--color-scrollbar-thumb);
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #8a8a8a;
+  background: var(--color-scrollbar-thumb-hover);
 }
 
 button,
@@ -65,27 +67,27 @@ input {
 
 input {
   min-height: 42px;
-  border: 1px solid rgba(32, 36, 43, 0.18);
+  border: 1px solid rgba(var(--color-ink-rgb), 0.18);
   border-radius: 8px;
-  color: #20242b;
-  background: #fffdfa;
+  color: var(--color-ink);
+  background: var(--color-paper);
 }
 
 button {
   min-height: 42px;
   border: 0;
   border-radius: 8px;
-  color: white;
-  background: #20242b;
+  color: var(--color-white);
+  background: var(--color-ink);
   cursor: pointer;
 }
 
 button:hover {
-  background: #00736f;
+  background: var(--color-accent);
 }
 
 button.active {
-  background: #00736f;
+  background: var(--color-accent);
 }
 
 .app-shell {
@@ -109,7 +111,7 @@ button.active {
   height: 100vh;
   min-height: 100vh;
   overflow: hidden;
-  background: #303030;
+  background: var(--app-background);
 }
 
 .workspace--full {
@@ -143,7 +145,7 @@ button.active {
   padding: 0 0 5px;
   border: 0;
   border-radius: 0;
-  color: rgba(245, 243, 238, 0.82);
+  color: rgba(var(--color-text-rgb), 0.82);
   background: transparent;
   font-size: clamp(21px, 2vw, 30px);
   font-weight: 400;
@@ -171,7 +173,7 @@ button.active {
 .view-switch button:hover,
 .view-switch button:focus-visible,
 .view-switch button.active {
-  color: #ffffff;
+  color: var(--color-white);
   background: transparent;
 }
 
@@ -183,7 +185,7 @@ button.active {
 }
 
 .view-switch button:focus-visible {
-  outline: 2px solid rgba(245, 243, 238, 0.82);
+  outline: 2px solid rgba(var(--color-text-rgb), 0.82);
   outline-offset: 6px;
 }
 

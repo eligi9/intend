@@ -1,4 +1,55 @@
 :root {
+  --color-background: #1f1f1f;
+  --color-background-rgb: 31, 31, 31;
+  --color-background-soft: #262626;
+  --color-background-elevated: #202020;
+  --color-background-elevated-rgb: 32, 32, 32;
+  --color-surface-raised: #3a3a3a;
+  --color-surface-raised-rgb: 58, 58, 58;
+  --color-tooltip-background: #161616;
+  --color-tooltip-background-rgb: 22, 22, 22;
+
+  --color-text: #f5f3ee;
+  --color-text-rgb: 245, 243, 238;
+  --color-text-soft: #f2f2f2;
+  --color-text-soft-rgb: 242, 242, 242;
+  --color-white: #ffffff;
+  --color-white-rgb: 255, 255, 255;
+
+  --color-ink: #20242b;
+  --color-ink-rgb: 32, 36, 43;
+  --color-paper: #fffdfa;
+
+  --color-accent: #00736f;
+  --color-accent-rgb: 0, 115, 111;
+  --color-link: #9dd9d4;
+  --color-highlight: #f0c95a;
+
+  --color-neutral: #858b94;
+  --color-neutral-rgb: 133, 139, 148;
+  --color-neutral-light: #d8d8d8;
+  --color-neutral-light-rgb: 216, 216, 216;
+  --color-neutral-muted: #6f7278;
+
+  --color-scrollbar-thumb: #747474;
+  --color-scrollbar-thumb-hover: #8a8a8a;
+  --color-shadow-rgb: 0, 0, 0;
+
+  --color-landing-blue: #5f87ff;
+  --color-landing-blue-rgb: 95, 135, 255;
+  --color-landing-red: #ff5d78;
+  --color-measure-highlight: #c4cbc8;
+
+  --color-author-timeline: #4be0f0;
+  --color-author-timeline-rgb: 75, 224, 240;
+  --color-author-timeline-strong: #65f1ff;
+  --color-author-timeline-strong-rgb: 101, 241, 255;
+  --color-portrait-surface: #f0efeb;
+  --color-tooltip-muted: rgb(170, 167, 161);
+
+  --app-background: var(--color-background);
+  --app-background-rgb: var(--color-background-rgb);
+
   /* Figma source: Just Cause */
   --intent-color-just-cause: #d772ff;
 

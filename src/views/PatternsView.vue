@@ -3,7 +3,6 @@ import { computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../data/strategy-timeline-events.json'
 import StrategyBeeswarmPlotP5 from '../components/StrategyBeeswarmPlotP5.vue'
-import StrategyCorrelationHeatmap from '../components/StrategyCorrelationHeatmap.vue'
 import StrategyIcicleDiagram from '../components/StrategyIcicleDiagram.vue'
 import StrategySubLabelAnchorSketch from '../components/StrategySubLabelAnchorSketch.vue'
 import { useStatementStore } from '../stores/statementStore'
@@ -14,12 +13,12 @@ import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
 import { splitAnchors } from '../utils/intentLabels'
 
 const props = defineProps<{
-  mode: 'structure' | 'timeline' | 'matrix'
+  mode: 'structure' | 'timeline'
 }>()
 
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
-const strategyTimelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
+const patternTimelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const icicleDiagram = ref<{ clearSelection: () => void } | null>(null)
 const beeswarmMode = ref<BeeswarmDisplayMode>('strategies')
 const hoveredTimelineEvent = ref<HoveredTimelineEvent | null>(null)
@@ -44,7 +43,7 @@ interface MainLabelOverlaySelection {
   selected: boolean
 }
 
-interface StrategySegmentClick {
+interface PatternSegmentClick {
   depth: 'main' | 'sub'
   color: string
   count: number
@@ -64,25 +63,20 @@ interface SubLabelOverlaySelection {
 const selectedMainLabel = ref<MainLabelOverlaySelection | null>(null)
 const selectedSubLabel = ref<SubLabelOverlaySelection | null>(null)
 
-const strategyViews = [
+const patternViews = [
   {
     id: 'structure',
-    label: 'Category',
-    description: 'How are the labels distributed?',
+    label: 'Patterns',
+    description: 'How are the pattern labels distributed?',
   },
   {
     id: 'timeline',
-    label: 'Timeline',
-    description: 'All coded statements over time, filterable by top-level strategy.',
-  },
-  {
-    id: 'matrix',
-    label: 'Matrix',
-    description: 'How often strategy labels appear together across statements.',
+    label: 'Pattern Timeline',
+    description: 'All coded statements over time, filterable by top-level pattern.',
   },
 ] as const
 const activeDescription = computed(
-  () => strategyViews.find((view) => view.id === props.mode)?.description ?? '',
+  () => patternViews.find((view) => view.id === props.mode)?.description ?? '',
 )
 const selectedSubLabelAnchors = computed(() => {
   const label = selectedSubLabel.value?.id
@@ -123,7 +117,7 @@ function handleMainLabelClick(selection: MainLabelOverlaySelection) {
   selectedMainLabel.value = selection.selected ? selection : null
 }
 
-function handleSegmentClick(segment: StrategySegmentClick) {
+function handleSegmentClick(segment: PatternSegmentClick) {
   if (segment.depth === 'sub') {
     selectedMainLabel.value = null
     selectedSubLabel.value =
@@ -162,7 +156,7 @@ function showHoveredTimelineEvent(event: HoveredTimelineEvent | null) {
 }
 
 function getGroupLabel(groupId: string) {
-  return intentTaxonomy.find((group) => group.parentLabel === groupId)?.label ?? 'Strategy'
+  return intentTaxonomy.find((group) => group.parentLabel === groupId)?.label ?? 'Pattern'
 }
 </script>
 
@@ -170,7 +164,7 @@ function getGroupLabel(groupId: string) {
   <section class="strategy-view" :class="`strategy-view--${props.mode}`">
     <header class="strategy-view__header">
       <div class="strategy-view__header-copy">
-        <h2>{{ strategyViews.find((view) => view.id === props.mode)?.label }}</h2>
+        <h2>{{ patternViews.find((view) => view.id === props.mode)?.label }}</h2>
         <p>{{ activeDescription }}</p>
       </div>
     </header>
@@ -179,7 +173,7 @@ function getGroupLabel(groupId: string) {
       <section
         v-if="props.mode === 'structure'"
         class="strategy-view__structure"
-        aria-label="Strategy label structure"
+        aria-label="Pattern label structure"
       >
         <StrategyIcicleDiagram
           ref="icicleDiagram"
@@ -196,7 +190,7 @@ function getGroupLabel(groupId: string) {
       >
         <div class="strategy-view__timeline">
           <StrategyBeeswarmPlotP5
-            :events="strategyTimelineEvents"
+            :events="patternTimelineEvents"
             :mode="beeswarmMode"
             :statements="records"
             :selected-labels="[]"
@@ -227,7 +221,7 @@ function getGroupLabel(groupId: string) {
             :class="{ 'strategy-view__timeline-switch-button--active': beeswarmMode === 'strategies' }"
             @click="beeswarmMode = 'strategies'"
           >
-            Strategys
+            Patterns
           </button>
           <button
             type="button"
@@ -239,13 +233,6 @@ function getGroupLabel(groupId: string) {
         </div>
       </section>
 
-      <section
-        v-else
-        class="strategy-view__matrix"
-        aria-label="Strategy co-occurrence matrix"
-      >
-        <StrategyCorrelationHeatmap :records="records" />
-      </section>
     </div>
 
     <Transition name="strategy-main-overlay">
@@ -279,20 +266,6 @@ function getGroupLabel(groupId: string) {
         <div class="strategy-view__sub-label-overlay-columns">
           <section class="strategy-view__sub-label-overlay-copy">
             <p>{{ selectedSubLabelDescription }}</p>
-            <dl>
-              <div>
-                <dt>Statements</dt>
-                <dd>{{ selectedSubLabel.count }}</dd>
-              </div>
-              <div>
-                <dt>Anchor texts</dt>
-                <dd>{{ selectedSubLabelAnchors.length }}</dd>
-              </div>
-              <div>
-                <dt>Main label</dt>
-                <dd>{{ selectedSubLabel.groupLabel }}</dd>
-              </div>
-            </dl>
           </section>
 
           <header class="strategy-view__sub-label-overlay-header">
@@ -309,7 +282,6 @@ function getGroupLabel(groupId: string) {
         </div>
 
         <section class="strategy-view__sub-label-overlay-anchors" aria-label="Anchor texts">
-          <h4>Anchortexts:</h4>
           <StrategySubLabelAnchorSketch :anchors="selectedSubLabelAnchors" />
         </section>
       </aside>
@@ -318,5 +290,5 @@ function getGroupLabel(groupId: string) {
 </template>
 
 <style scoped>
-@import '../css/views/StrategyView.css';
+@import '../css/views/PatternsView.css';
 </style>

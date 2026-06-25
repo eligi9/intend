@@ -141,7 +141,7 @@ export function splitSegmentByAnchors(
 }
 
 export function collectAnchorHighlights(record: IntentRecord, label: IntentLabelKey): AnchorHighlight[] {
-  const color = subLabelColors.get(label) ?? '#858b94'
+  const color = subLabelColors.get(label) ?? 'var(--color-neutral)'
   const anchors = splitAnchors(record[`${label}_anchor` as keyof IntentRecord])
 
   return anchors.map((anchor) => ({ text: anchor.trim(), color }))

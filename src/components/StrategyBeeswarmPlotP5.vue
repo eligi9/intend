@@ -135,7 +135,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section class="strategy-beeswarm" aria-label="Strategy statements beeswarm plot">
+  <section class="strategy-beeswarm" aria-label="Pattern statements beeswarm plot">
     <div ref="gridHost" class="strategy-beeswarm__grid-canvas" />
     <div
       ref="plotHost"

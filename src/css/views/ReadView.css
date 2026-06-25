@@ -1,7 +1,7 @@
 .read-view {
-  --read-view-background: #303030;
-  --read-view-surface: rgba(245, 243, 238, 0.06);
-  --read-view-border: rgba(245, 243, 238, 0.14);
+  --read-view-background: var(--app-background);
+  --read-view-surface: rgba(var(--color-text-rgb), 0.06);
+  --read-view-border: rgba(var(--color-text-rgb), 0.14);
   --read-control-panel-min-height: 66px;
 
   display: grid;
@@ -9,7 +9,7 @@
   gap: 16px;
   padding: 20px 28px 28px;
   min-height: 100%;
-  color: #f5f3ee;
+  color: var(--color-text);
   background: var(--read-view-background);
 }
 
@@ -19,20 +19,24 @@
 
 .read-toolbar h2 {
   margin: 0;
-  color: white;
-  font-size: 40px;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: var(--view-title-size);
+  font-weight: 850;
+  letter-spacing: 0;
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .read-count {
   display: flex;
   align-items: baseline;
   gap: 4px;
-  color: rgba(245, 243, 238, 0.62);
+  color: rgba(var(--color-text-rgb), 0.62);
 }
 
 .read-count strong {
-  color: #f5f3ee;
+  color: var(--color-text);
   font-size: 28px;
 }
 
@@ -91,7 +95,7 @@
 .read-search small,
 .filter-column > small,
 .filter-group small {
-  color: rgba(245, 243, 238, 0.74);
+  color: rgba(var(--color-text-rgb), 0.74);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -99,13 +103,13 @@
 .read-search input {
   width: 100%;
   padding: 0 12px;
-  border-color: rgba(245, 243, 238, 0.22);
-  color: #f5f3ee;
-  background: rgba(245, 243, 238, 0.06);
+  border-color: rgba(var(--color-text-rgb), 0.22);
+  color: var(--color-text);
+  background: rgba(var(--color-text-rgb), 0.06);
 }
 
 .read-search input::placeholder {
-  color: rgba(245, 243, 238, 0.42);
+  color: rgba(var(--color-text-rgb), 0.42);
 }
 
 .filter-panel {
@@ -146,7 +150,7 @@
   padding: 16px;
   border: 1px solid var(--read-view-border);
   border-radius: 8px;
-  color: #f5f3ee;
+  color: var(--color-text);
   background: var(--read-view-surface);
 }
 
@@ -170,6 +174,10 @@
 
   .read-toolbar {
     display: grid;
+  }
+
+  .read-toolbar h2 {
+    font-size: var(--view-title-mobile-size);
   }
 
   .read-actions {

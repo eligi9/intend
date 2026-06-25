@@ -36,11 +36,11 @@
 }
 
 .establishment-view__bar i {
-  background: #d8d8d8;
+  background: var(--color-neutral-light);
 }
 
 .establishment-view__bar b {
-  background: #5f87ff;
+  background: var(--color-landing-blue);
 }
 
 .establishment-view__bar--one {
@@ -61,12 +61,12 @@
 
 .establishment-view__bar--two i {
   flex: 0 0 43.7%;
-  background: #5f87ff;
+  background: var(--color-landing-blue);
 }
 
 .establishment-view__bar--two b {
   flex: 1;
-  background: #d8d8d8;
+  background: var(--color-neutral-light);
 }
 
 .establishment-view__bar--three {
@@ -80,7 +80,7 @@
 .establishment-view__bar--three b,
 .establishment-view__bar--four i,
 .establishment-view__bar--five i {
-  background: #ff5d78;
+  background: var(--color-landing-red);
 }
 
 .establishment-view__bar--three b {
@@ -105,7 +105,7 @@
 
 .establishment-view__bar--five b {
   flex: 1;
-  background: #d8d8d8;
+  background: var(--color-neutral-light);
 }
 
 .establishment-view__bar--six {
@@ -118,5 +118,5 @@
 
 .establishment-view__bar--six b {
   flex: 1;
-  background: #93ba79;
+  background: var(--intent-color-rhetorical-foreclosure);
 }

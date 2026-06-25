@@ -12,12 +12,12 @@
 }
 
 .filter-button:hover {
-  color: white;
+  color: var(--color-white);
   background: var(--filter-button-color);
 }
 
 .filter-button--active {
-  color: white;
+  color: var(--color-white);
   background: var(--filter-button-color);
 }
 

@@ -5,7 +5,7 @@
     {
       "label": "Enemy Image",
       "labelKey": "enemy_image",
-      "description": "Frames a target as a hostile or dangerous enemy by collapsing differences, attributing fixed traits, or placing people outside the bounds of ordinary moral concern.",
+      "description": "Enemy Image describes how language can portray an outgroup as an enemy. The group appears dangerous, immoral, or fundamentally different. This can make violence against them seem more acceptable, reduce moral hesitation, and mobilize the ingroup.",
       "subLabels": [
         {
           "labelKey": "homogenization",
@@ -20,7 +20,7 @@
         {
           "labelKey": "essentialization",
           "label": "Essentialization",
-          "description": "Essentialization describes statements that attribute fixed, supposedly essential traits to a group."
+          "description": "Essentialization means that an outgroup is presented as having a negative nature. It is not only about individual actions, but about how the whole group is described. The group is linked to certain traits, behaviors, or values. This makes it appear fundamentally different from the ingroup. Essentialization can also be indirect. For example, cruel or abusive treatment of children can create a very negative image of the whole group, because children stand for innocence and vulnerability. Such portrayals can make violence against the outgroup seem more acceptable or necessary."
         },
         {
           "labelKey": "dehumanization",

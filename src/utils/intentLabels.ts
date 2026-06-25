@@ -29,7 +29,7 @@ export const parentLabels = new Set<IntentLabelKey>(
 
 export const subLabelColors = new Map<IntentLabelKey, string>(
   intentTaxonomy.flatMap((group) =>
-    group.childLabels.map((label) => [label, taxonomyButtonColors[group.parentLabel] ?? '#858b94'] as const),
+    group.childLabels.map((label) => [label, taxonomyButtonColors[group.parentLabel] ?? 'var(--color-neutral)'] as const),
   ),
 )
 
@@ -61,7 +61,7 @@ export function collectIntentAnnotations(record: IntentRecord, activeLabels: Int
   return activeLabels.flatMap((label) => {
     const anchor = record[`${label}_anchor` as keyof IntentRecord]
     const judgement = record[`${label}_bj` as keyof IntentRecord]
-    const color = subLabelColors.get(label) ?? '#858b94'
+    const color = subLabelColors.get(label) ?? 'var(--color-neutral)'
     const briefJustification =
       typeof judgement === 'string' && judgement.length > 0 ? judgement : null
 

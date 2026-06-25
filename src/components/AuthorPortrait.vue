@@ -39,7 +39,7 @@ const totalRingSpace = computed(
 const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
 
 const outerRingColor = computed(() =>
-  rings.value.length ? rings.value[rings.value.length - 1].color : '#858b94',
+  rings.value.length ? rings.value[rings.value.length - 1].color : 'var(--color-neutral)',
 )
 
 const rings = computed(() => {
@@ -49,7 +49,7 @@ const rings = computed(() => {
     .filter((label) => usedLabels.has(label))
     .map((label, index) => ({
       label,
-      color: strategyColors[label] ?? '#858b94',
+      color: strategyColors[label] ?? 'var(--color-neutral)',
       index,
     }))
 })
@@ -77,7 +77,7 @@ const fallbackLabel = computed(() => {
         '--author-ring-gap': `${ringGap}px`,
         '--author-ring-stroke': `${ringStroke}px`,
         '--author-shadow-color': `${outerRingColor}`,
-        '--author-image-shadow-color': 'var(--author-view-background, #303030)',
+        '--author-image-shadow-color': 'var(--author-view-background, var(--color-background))',
       }"
     >
       <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">

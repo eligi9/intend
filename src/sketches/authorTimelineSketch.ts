@@ -1,4 +1,5 @@
 import p5 from 'p5'
+import { baseColorRgb } from '../types/designTokens'
 import type { IntentLabelKey, IntentRecord } from '../types/intentData'
 import type {
   AuthorTimelineSketchState,
@@ -95,7 +96,7 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
       )
 
       p.clear()
-      p.background(48, 48, 48)
+      p.background(...baseColorRgb.background)
 
       p.noFill()
       curves.forEach((curve) => {
@@ -103,7 +104,9 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
         const color = getCurveColor(curve.record, state.selectedLabels)
         const hasActiveFilters = state.selectedLabels.length > 0
         const alpha = hovered ? 190 : color ? 150 : hasActiveFilters ? 28 : 52
-        p.stroke(color?.[0] ?? 245, color?.[1] ?? 243, color?.[2] ?? 238, alpha)
+        const lineColor = color ?? baseColorRgb.text
+
+        p.stroke(lineColor[0], lineColor[1], lineColor[2], alpha)
         p.strokeWeight(hovered ? 2.4 : 1.4)
         p.bezier(
           anchor.x,
@@ -117,7 +120,7 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
         )
       })
 
-      p.stroke(245, 243, 238, 112)
+      p.stroke(...baseColorRgb.text, 112)
       p.strokeWeight(2)
       p.line(paddingX, axisY, p.width - paddingX, axisY)
 
@@ -151,24 +154,26 @@ export function createAuthorTimelineSketch(container: HTMLElement, state: Author
       p.textSize(Math.max(10, p.width * 0.011))
       model.ticks.forEach((tick) => {
         const x = paddingX + tick.ratio * drawableWidth
-        p.stroke(245, 243, 238, 102)
+        p.stroke(...baseColorRgb.text, 102)
         p.line(x, axisY - 8, x, axisY + 8)
         p.noStroke()
-        p.fill(245, 243, 238, 150)
+        p.fill(...baseColorRgb.text, 150)
         p.text(tick.label, x, axisY + 18)
       })
 
       points.forEach((point) => {
         const hovered = hoveredPointId === point.id
         const color = getCurveColor(point.record, state.selectedLabels)
-        p.stroke(48, 48, 48, 220)
+        const pointColor = color ?? (hovered ? baseColorRgb.white : baseColorRgb.text)
+
+        p.stroke(...baseColorRgb.background, 220)
         p.strokeWeight(hovered ? 2.6 : 2)
-        p.fill(color?.[0] ?? (hovered ? 255 : 245), color?.[1] ?? (hovered ? 255 : 243), color?.[2] ?? (hovered ? 255 : 238))
+        p.fill(pointColor[0], pointColor[1], pointColor[2])
         p.circle(point.x, point.y, hovered ? 14 : 9)
       })
 
       p.noStroke()
-      p.fill(245, 243, 238, 210)
+      p.fill(...baseColorRgb.text, 210)
       p.circle(anchor.x, anchor.y, 8)
     }
   }
@@ -203,7 +208,7 @@ function isMouseNearCurve(
 }
 
 function drawEventAnchor(p: p5, x: number, axisY: number, iconY: number) {
-  const color: [number, number, number] = [75, 224, 240]
+  const color = baseColorRgb.authorTimeline
   const iconTop = iconY - 15
 
   p.stroke(color[0], color[1], color[2], 220)

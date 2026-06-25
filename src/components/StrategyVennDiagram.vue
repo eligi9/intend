@@ -53,8 +53,8 @@ const geometry = computed(() => {
 
 const firstLabelName = computed(() => intentLabelNames[props.firstLabel])
 const secondLabelName = computed(() => intentLabelNames[props.secondLabel])
-const firstColor = computed(() => subLabelColors.get(props.firstLabel) ?? '#858b94')
-const secondColor = computed(() => subLabelColors.get(props.secondLabel) ?? '#858b94')
+const firstColor = computed(() => subLabelColors.get(props.firstLabel) ?? 'var(--color-neutral)')
+const secondColor = computed(() => subLabelColors.get(props.secondLabel) ?? 'var(--color-neutral)')
 const overlapShare = computed(() =>
   counts.value.totalStatements === 0 ? 0 : counts.value.bothCount / counts.value.totalStatements,
 )
@@ -126,7 +126,7 @@ function formatPercent(value: number) {
 </script>
 
 <template>
-  <article class="strategy-venn" aria-label="Venn diagram for two strategies">
+  <article class="strategy-venn" aria-label="Venn diagram for two patterns">
     <svg
       class="strategy-venn__figure"
       :viewBox="`0 0 ${svgWidth} ${svgHeight}`"

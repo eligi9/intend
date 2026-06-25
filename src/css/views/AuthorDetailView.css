@@ -1,5 +1,5 @@
 .author-detail-view {
-  --author-detail-background: #303030;
+  --author-detail-background: var(--app-background);
   --author-detail-portrait-size: 168px;
 
   position: fixed;
@@ -13,7 +13,7 @@
   padding: 20px 24px;
   overflow-x: hidden;
   overflow-y: auto;
-  color: #f5f3ee;
+  color: var(--color-text);
   background: var(--author-detail-background);
   padding: 2rem 5rem;
 }
@@ -30,16 +30,16 @@
   aspect-ratio: 1;
   padding: 0;
   border-radius: 999px;
-  color: #f5f3ee;
-  background: rgba(32, 36, 43, 0.72);
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.38);
+  color: var(--color-text);
+  background: rgba(var(--color-ink-rgb), 0.72);
+  box-shadow: 0 0 2rem rgba(var(--color-shadow-rgb), 0.38);
   font-weight: 800;
   line-height: 1;
 }
 
 .author-detail-view__close:hover,
 .author-detail-view__close:focus-visible {
-  background: #00736f;
+  background: var(--color-accent);
 }
 
 .author-detail {
@@ -104,7 +104,7 @@
   justify-self: end;
   max-width: 100%;
   margin: 0;
-  color: white;
+  color: var(--color-white);
   font-size: clamp(2rem, 4.8vw, 3.5rem);
   line-height: 1;
   white-space: nowrap;
@@ -113,7 +113,7 @@
 .author-detail__headline p {
   justify-self: end;
   margin: 0;
-  color: rgba(245, 243, 238, 0.74);
+  color: rgba(var(--color-text-rgb), 0.74);
   font-size: clamp(1rem, 2.2vw, 1.125rem);
   line-height: 1.35;
   text-align: right;
@@ -140,7 +140,7 @@
 .author-detail__profile dt,
 .author-detail__profile dd {
   margin: 0;
-  color: rgba(245, 243, 238, 0.72);
+  color: rgba(var(--color-text-rgb), 0.72);
   font-size: clamp(0.82rem, 1.5vw, 0.95rem);
   line-height: 1.2;
 }
@@ -190,7 +190,7 @@
 }
 
 .author-detail__statements-empty {
-  color: rgba(245, 243, 238, 0.64);
+  color: rgba(var(--color-text-rgb), 0.64);
   font-weight: 700;
 }
 

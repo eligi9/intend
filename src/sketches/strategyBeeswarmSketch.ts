@@ -1,6 +1,7 @@
 import { forceCollide, forceSimulation, forceX, forceY } from 'd3-force'
 import type { Simulation, SimulationNodeDatum } from 'd3-force'
 import p5 from 'p5'
+import { baseColorRgb, type RgbColor } from '../types/designTokens'
 import type { IntentLabelKey, IntentRecord } from '../types/intentData'
 import type {
   HoveredBeeswarmStatement,
@@ -226,9 +227,9 @@ function drawNode(
   const sameSubLabel = !hoveredNode || node.subLabel === hoveredNode.subLabel
   const selected = selectedLabels.length === 0 || selectedLabels.includes(node.strategyLabel)
   const highlighted = selected && sameSubLabel
-  const color = highlighted ? getPointColor(node.strategyLabel) : [245, 243, 238]
+  const color = highlighted ? getPointColor(node.strategyLabel) : baseColorRgb.text
 
-  p.stroke(48, 48, 48, highlighted ? 230 : 105)
+  p.stroke(...baseColorRgb.background, highlighted ? 230 : 105)
   p.strokeWeight(hovered ? 2.5 : 1.8)
   p.fill(color[0], color[1], color[2], highlighted ? 235 : 42)
   p.circle(node.x, node.y, hovered ? HOVERED_DOT_RADIUS * 2 : DOT_RADIUS * 2)
@@ -260,9 +261,9 @@ function getActiveStrategyPoints(record: IntentRecord) {
 }
 
 function getPointColor(label: IntentLabelKey) {
-  return strategyLineColors[label] ?? [245, 243, 238]
+  return strategyLineColors[label] ?? baseColorRgb.text
 }
 
-function formatRgbColor(color: [number, number, number]) {
+function formatRgbColor(color: RgbColor) {
   return `rgb(${color[0]}, ${color[1]}, ${color[2]})`
 }

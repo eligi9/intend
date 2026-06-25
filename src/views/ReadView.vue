@@ -162,7 +162,7 @@ function selectAuthor(authorName: string) {
                 v-for="sector in sectors"
                 :key="sector"
                 :label="sector"
-                color="#858b94"
+                color="var(--color-neutral)"
                 :active="filters.sectors.includes(sector)"
                 @click="toggleSector(sector)"
               />
@@ -170,7 +170,7 @@ function selectAuthor(authorName: string) {
           </section>
 
           <section class="filter-group" aria-label="Überlabel Filter">
-            <small>Mobilisierung Strategie</small>
+            <small>Mobilization Pattern</small>
             <div class="filter-row">
               <FilterButton
                 v-for="group in intentTaxonomy"

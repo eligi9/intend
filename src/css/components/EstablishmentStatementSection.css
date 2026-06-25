@@ -15,16 +15,16 @@
 }
 
 .establishment-view__statement-inner:focus-visible {
-  outline: 3px solid rgba(95, 135, 255, 0.82);
+  outline: 3px solid rgba(var(--color-landing-blue-rgb), 0.82);
   outline-offset: 6px;
 }
 
 .establishment-view__statement :deep(.statement-card) {
   grid-template-columns: minmax(0, 1fr);
   width: 100%;
-  border-color: rgba(245, 243, 238, 0.22);
-  background: #262626;
-  box-shadow: 0 34px 110px rgba(0, 0, 0, 0.42);
+  border-color: rgba(var(--color-text-rgb), 0.22);
+  background: var(--color-background-soft);
+  box-shadow: 0 34px 110px rgba(var(--color-shadow-rgb), 0.42);
 }
 
 .establishment-view__statement :deep(.statement-card__quote) {
@@ -71,7 +71,7 @@
 }
 
 .establishment-view__author-mark :deep(.author-portrait) {
-  filter: drop-shadow(0 0 34px rgba(0, 0, 0, 0.78)) drop-shadow(0 0 86px rgba(0, 0, 0, 0.46));
+  filter: drop-shadow(0 0 34px rgba(var(--color-shadow-rgb), 0.78)) drop-shadow(0 0 86px rgba(var(--color-shadow-rgb), 0.46));
 }
 
 .establishment-view__note--1 {

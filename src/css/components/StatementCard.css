@@ -5,10 +5,10 @@
   align-items: stretch;
   width: 100%;
   padding: 30px;
-  border: 1px solid rgba(245, 243, 238, 0.14);
+  border: 1px solid rgba(var(--color-text-rgb), 0.14);
   border-radius: 8px;
-  color: #f5f3ee;
-  background: rgba(245, 243, 238, 0.06);
+  color: var(--color-text);
+  background: rgba(var(--color-text-rgb), 0.06);
   text-align: left;
   cursor: default;
   touch-action: pan-y;
@@ -16,9 +16,9 @@
 }
 
 .statement-card:hover {
-  color: #f5f3ee;
-  background: rgba(245, 243, 238, 0.08);
-  border-color: rgba(0, 115, 111, 0.45);
+  color: var(--color-text);
+  background: rgba(var(--color-text-rgb), 0.08);
+  border-color: rgba(var(--color-accent-rgb), 0.45);
 }
 
 .statement-card__explanation {
@@ -30,9 +30,9 @@
   align-items: center;
   min-height: 33vh;
   padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
-  color: #f5f3ee;
-  background: color-mix(in srgb, var(--statement-card-explanation-color) 72%, #303030);
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.34);
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--statement-card-explanation-color) 72%, var(--app-background));
+  box-shadow: 0 1rem 3rem rgba(var(--color-shadow-rgb), 0.34);
 }
 
 .statement-card__explanation-inner {
@@ -47,14 +47,14 @@
 }
 
 .statement-card__explanation h3 {
-  color: white;
+  color: var(--color-white);
   font-size: clamp(2rem, 4vw, 3.75rem);
   line-height: 1;
 }
 
 .statement-card__explanation p {
   max-width: 68rem;
-  color: rgba(245, 243, 238, 0.9);
+  color: rgba(var(--color-text-rgb), 0.9);
   font-family: var(--font-serif);
   font-size: clamp(1rem, 1.7vw, 1.35rem);
   font-weight: 500;
@@ -124,7 +124,7 @@
 .statement-card__identity strong,
 .statement-card__author-button {
   flex: 0 0 auto;
-  color: #f5f3ee;
+  color: var(--color-text);
   font-size: 18px;
   font-weight: 800;
   line-height: 22px;
@@ -142,7 +142,7 @@
 
 .statement-card__author-button:hover,
 .statement-card__author-button:focus-visible {
-  color: #9dd9d4;
+  color: var(--color-link);
   background: transparent;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -151,7 +151,7 @@
 .statement-card__identity span {
   min-width: 0;
   overflow: hidden;
-  color: rgba(245, 243, 238, 0.62);
+  color: rgba(var(--color-text-rgb), 0.62);
   font-weight: 500;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -163,7 +163,7 @@
 }
 
 .statement-card__compact-heading {
-  color: rgba(245, 243, 238, 0.62);
+  color: rgba(var(--color-text-rgb), 0.62);
   font-size: 13px;
   font-weight: 800;
   line-height: 1.2;
@@ -172,7 +172,7 @@
 .statement-card__meta,
 .statement-card__context,
 .statement-card__position {
-  color: rgba(245, 243, 238, 0.62);
+  color: rgba(var(--color-text-rgb), 0.62);
 }
 
 .statement-card__position {
@@ -204,7 +204,7 @@
   border-radius: 4px;
   box-decoration-break: slice;
   -webkit-box-decoration-break: slice;
-  color: #f5f3ee;
+  color: var(--color-text);
   background: color-mix(
     in srgb,
     var(--statement-card-highlight-color) 16%,
@@ -249,7 +249,7 @@
 }
 
 .statement-card__badge-target:focus-visible {
-  box-shadow: 0 0 0 3px rgba(32, 36, 43, 0.14);
+  box-shadow: 0 0 0 3px rgba(var(--color-ink-rgb), 0.14);
 }
 
 @media (max-width: 780px) {

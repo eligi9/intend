@@ -1,6 +1,7 @@
 import { forceCollide, forceSimulation, forceX, forceY } from 'd3-force'
 import type { Simulation, SimulationNodeDatum } from 'd3-force'
 import p5 from 'p5'
+import { baseColorRgb } from '../types/designTokens'
 import type { IntentRecord } from '../types/intentData'
 import type {
   HoveredTimelineStatement,
@@ -148,9 +149,9 @@ function drawNode(p: p5, node: StatementNode, hoveredNode: StatementNode | null)
   const sameAuthor = hoveredNode?.record.author === node.record.author
   const highlighted = !hoveredNode || sameAuthor
 
-  p.stroke(48, 48, 48, highlighted ? 230 : 70)
+  p.stroke(...baseColorRgb.background, highlighted ? 230 : 70)
   p.strokeWeight(hovered ? 2.5 : 1.8)
-  p.fill(245, 243, 238, highlighted ? 235 : 36)
+  p.fill(...baseColorRgb.text, highlighted ? 235 : 36)
   p.circle(node.x, node.y, hovered ? HOVERED_DOT_RADIUS * 2 : DOT_RADIUS * 2)
 }
 

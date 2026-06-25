@@ -5,6 +5,16 @@ export const intentColors = {
   rhetoricalForeclosure: '#93ba79',
 } as const
 
+export const baseColorRgb = {
+  background: [31, 31, 31],
+  text: [245, 243, 238],
+  ink: [32, 36, 43],
+  white: [255, 255, 255],
+  authorTimeline: [75, 224, 240],
+} as const satisfies Record<string, readonly [number, number, number]>
+
+export type RgbColor = readonly [number, number, number]
+
 export type IntentColorToken = keyof typeof intentColors
 
 export const intentColorCssVars = {

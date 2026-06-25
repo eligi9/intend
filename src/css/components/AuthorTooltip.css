@@ -14,13 +14,13 @@
   inline-size: clamp(19rem, 30vw, 24rem);
   max-inline-size: calc(100vw - 3rem);
   padding: 0.875rem 1rem;
-  color: #f5f3ee;
+  color: var(--color-text);
   font-size: 0.8125rem;
   line-height: 1.25;
   text-align: left;
-  background: rgba(22, 22, 22, 0.96);
+  background: rgba(var(--color-tooltip-background-rgb), 0.96);
   border-radius: 0.5rem;
-  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 1);
+  box-shadow: 0 1rem 2.5rem rgba(var(--color-shadow-rgb), 1);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%) scale(0.98);
@@ -43,7 +43,7 @@
   top: 50%;
   width: 0.625rem;
   height: 0.625rem;
-  background: rgba(22, 22, 22, 0.96);
+  background: rgba(var(--color-tooltip-background-rgb), 0.96);
   transform: translateY(-50%) rotate(45deg);
 }
 
@@ -69,7 +69,7 @@
 }
 
 .author-tooltip__name {
-  color: white;
+  color: var(--color-white);
   font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1;
@@ -77,7 +77,7 @@
 
 .author-tooltip__position {
   min-width: 0;
-  color: rgba(245, 243, 238, 0.78);
+  color: rgba(var(--color-text-rgb), 0.78);
   font-size: 0.8125rem;
   font-weight: 200;
   line-height: 1;
@@ -89,7 +89,7 @@
 .author-tooltip__facts {
   display: flex;
   gap: 0.4375rem;
-  color: rgb(170, 167, 161);
+  color: var(--color-tooltip-muted);
 }
 
 .author-tooltip__fact-labels,
@@ -127,7 +127,7 @@
 }
 
 .author-tooltip__strategies--empty {
-  color: rgba(245, 243, 238, 0.68);
+  color: rgba(var(--color-text-rgb), 0.68);
 }
 
 .author-tooltip__badge {

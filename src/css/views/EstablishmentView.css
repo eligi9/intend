@@ -3,14 +3,14 @@
   --establishment-stage-height: min(100vh, calc(100vw * 982 / 1512));
   --establishment-heading-start: calc(645 / 982 * var(--establishment-stage-height));
   --establishment-heading-stick-top: clamp(42px, 9vh, 88px);
-  --establishment-measure-highlight-color: #c4cbc8;
+  --establishment-measure-highlight-color: var(--color-measure-highlight);
 
   position: relative;
   grid-column: 1 / -1;
   min-height: 840vh;
   overflow-x: hidden;
-  color: #f2f2f2;
-  background: #1f1f1f;
+  color: var(--color-text-soft);
+  background: var(--color-background);
 }
 
 .establishment-view::before {
@@ -18,11 +18,11 @@
   z-index: 0;
   inset: 0;
   background:
-    linear-gradient(90deg, transparent 0, transparent 14.22%, rgba(242, 242, 242, 0.13) 14.22%, rgba(242, 242, 242, 0.13) calc(14.22% + 1px), transparent calc(14.22% + 1px)),
-    linear-gradient(90deg, transparent 0, transparent 31.88%, rgba(242, 242, 242, 0.13) 31.88%, rgba(242, 242, 242, 0.13) calc(31.88% + 1px), transparent calc(31.88% + 1px)),
-    linear-gradient(90deg, transparent 0, transparent 49.54%, rgba(242, 242, 242, 0.13) 49.54%, rgba(242, 242, 242, 0.13) calc(49.54% + 1px), transparent calc(49.54% + 1px)),
-    linear-gradient(90deg, transparent 0, transparent 67.2%, rgba(242, 242, 242, 0.13) 67.2%, rgba(242, 242, 242, 0.13) calc(67.2% + 1px), transparent calc(67.2% + 1px)),
-    linear-gradient(90deg, transparent 0, transparent 84.85%, rgba(242, 242, 242, 0.13) 84.85%, rgba(242, 242, 242, 0.13) calc(84.85% + 1px), transparent calc(84.85% + 1px));
+    linear-gradient(90deg, transparent 0, transparent 14.22%, rgba(var(--color-text-soft-rgb), 0.13) 14.22%, rgba(var(--color-text-soft-rgb), 0.13) calc(14.22% + 1px), transparent calc(14.22% + 1px)),
+    linear-gradient(90deg, transparent 0, transparent 31.88%, rgba(var(--color-text-soft-rgb), 0.13) 31.88%, rgba(var(--color-text-soft-rgb), 0.13) calc(31.88% + 1px), transparent calc(31.88% + 1px)),
+    linear-gradient(90deg, transparent 0, transparent 49.54%, rgba(var(--color-text-soft-rgb), 0.13) 49.54%, rgba(var(--color-text-soft-rgb), 0.13) calc(49.54% + 1px), transparent calc(49.54% + 1px)),
+    linear-gradient(90deg, transparent 0, transparent 67.2%, rgba(var(--color-text-soft-rgb), 0.13) 67.2%, rgba(var(--color-text-soft-rgb), 0.13) calc(67.2% + 1px), transparent calc(67.2% + 1px)),
+    linear-gradient(90deg, transparent 0, transparent 84.85%, rgba(var(--color-text-soft-rgb), 0.13) 84.85%, rgba(var(--color-text-soft-rgb), 0.13) calc(84.85% + 1px), transparent calc(84.85% + 1px));
   content: '';
   pointer-events: none;
 }
@@ -62,22 +62,27 @@
   margin-left: 9.52%;
 }
 
-.establishment-view__content p {
+.establishment-view__subtitle {
   margin: 0;
-  color: rgba(242, 242, 242, 0.82);
-  font-size: calc(20 / 1512 * var(--establishment-stage-width));
-  font-weight: 500;
+  color: rgba(var(--color-text-soft-rgb), 0.82);
   letter-spacing: 0;
   line-height: 1.2;
 }
 
+.establishment-view__subtitle {
+  max-width: 31rem;
+  font-size: calc(26 / 1512 * var(--establishment-stage-width));
+  font-weight: 500;
+}
+
 .establishment-view__content h1 {
   margin: 0;
-  color: #f7f7f7;
-  font-size: calc(64 / 1512 * var(--establishment-stage-width));
+  color: var(--color-white);
+  font-size: calc(54 / 1512 * var(--establishment-stage-width));
   font-weight: 800;
   letter-spacing: 0;
   line-height: 0.94;
+  white-space: nowrap;
 }
 
 @media (max-width: 780px) {
@@ -90,10 +95,11 @@
   }
 
   .establishment-view__content h1 {
-    font-size: clamp(48px, 15vw, 76px);
+    font-size: clamp(26px, 7vw, 44px);
   }
 
-  .establishment-view__content p {
-    font-size: clamp(14px, 4vw, 18px);
+  .establishment-view__subtitle {
+    font-size: clamp(18px, 5vw, 26px);
   }
+
 }

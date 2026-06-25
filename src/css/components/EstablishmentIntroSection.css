@@ -29,10 +29,22 @@
 
 .establishment-view__copy p {
   margin: 0;
-  color: rgba(242, 242, 242, 0.84);
+  color: rgba(var(--color-text-soft-rgb), 0.84);
   font-size: clamp(14px, 1.18vw, 18px);
-  font-weight: 560;
+  font-weight: 430;
   line-height: 1.42;
+}
+
+.establishment-view__copy a {
+  color: var(--color-white);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.establishment-view__copy a:hover,
+.establishment-view__copy a:focus-visible {
+  color: var(--color-text);
 }
 
 .establishment-view__visual {
@@ -50,35 +62,35 @@
 .establishment-view__intro-bar {
   display: block;
   height: clamp(24px, 3vw, 38px);
-  background: #d8d8d8;
+  background: var(--color-neutral-light);
 }
 
 .establishment-view__intro-bar--one {
   width: 118%;
-  background: #5f87ff;
+  background: var(--color-landing-blue);
 }
 
 .establishment-view__intro-bar--two {
   width: 92%;
   margin-left: 18%;
-  background: #ff657c;
+  background: var(--intent-color-enemy-image);
 }
 
 .establishment-view__intro-bar--three {
   width: 132%;
-  background: #d8d8d8;
+  background: var(--color-neutral-light);
 }
 
 .establishment-view__intro-bar--four {
   width: 104%;
   margin-left: 10%;
-  background: #93ba79;
+  background: var(--intent-color-rhetorical-foreclosure);
 }
 
 .establishment-view__intro-bar--five {
   width: 126%;
   margin-left: 26%;
-  background: #ff657c;
+  background: var(--intent-color-enemy-image);
 }
 
 @media (max-width: 780px) {

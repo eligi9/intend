@@ -43,7 +43,7 @@ const visibleLabels = computed(() => getVisibleSubLabels(getActiveLabels(props.r
 const strategyBadges = computed<StrategyBadge[]>(() =>
   visibleLabels.value.map((label) => ({
     label,
-    color: subLabelColors.get(label) ?? '#858b94',
+    color: subLabelColors.get(label) ?? 'var(--color-neutral)',
   })),
 )
 const anchorHighlights = computed(() => {
@@ -52,7 +52,7 @@ const anchorHighlights = computed(() => {
     ...(hoveredLabel.value ? [hoveredLabel.value] : []),
   ]
   const textHighlights = (props.highlightedTexts ?? []).map((text) => ({
-    color: props.highlightedTextColor ?? '#f0c95a',
+    color: props.highlightedTextColor ?? 'var(--color-highlight)',
     text,
   }))
 
@@ -125,7 +125,7 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
             'statement-card__quote-highlight--continues-after': segment.highlightContinuesAfter,
             'statement-card__quote-highlight--continues-before': segment.highlightContinuesBefore,
           }"
-          :style="{ '--statement-card-highlight-color': segment.color ?? '#858b94' }"
+          :style="{ '--statement-card-highlight-color': segment.color ?? 'var(--color-neutral)' }"
         >
           {{ segment.text }}
         </span>
@@ -137,7 +137,7 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
     <span
       v-if="strategyBadges?.length"
       class="statement-card__badges"
-      aria-label="Aktive Strategien"
+      aria-label="Active patterns"
     >
       <span
         v-for="badge in strategyBadges"

@@ -92,7 +92,7 @@ const groups = computed<StrategyIcicleGroup[]>(() => {
   let mainStartPercent = 0
 
   return mainCounts.map(({ group, count }) => {
-    const color = taxonomyButtonColors[group.parentLabel] ?? '#858b94'
+    const color = taxonomyButtonColors[group.parentLabel] ?? 'var(--color-neutral)'
     const childCounts = group.childLabels.map((label) => ({
       count: countLabel(label),
       label,
@@ -256,7 +256,7 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
 </script>
 
 <template>
-  <article class="strategy-icicle" aria-label="Strategy label distribution">
+  <article class="strategy-icicle" aria-label="Pattern label distribution">
     <div class="strategy-icicle__background" aria-hidden="true">
       <div
         v-for="area in horizontalScaleAreas"

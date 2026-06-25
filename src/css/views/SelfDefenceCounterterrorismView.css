@@ -4,8 +4,8 @@
   gap: 18px;
   min-height: 100%;
   padding: 20px 28px 32px;
-  color: #f5f3ee;
-  background: #303030;
+  color: var(--color-text);
+  background: var(--app-background);
 }
 
 .selfdefence-counterterrorism-view__header {
@@ -21,7 +21,7 @@
 }
 
 .selfdefence-counterterrorism-view__header span {
-  color: rgba(245, 243, 238, 0.64);
+  color: rgba(var(--color-text-rgb), 0.64);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0;
@@ -30,18 +30,22 @@
 
 .selfdefence-counterterrorism-view__header h2 {
   margin: 0;
-  color: white;
-  font-size: 40px;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: var(--view-title-size);
+  font-weight: 850;
+  letter-spacing: 0;
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .selfdefence-counterterrorism-view__header strong {
   flex: 0 0 auto;
   padding: 8px 12px;
-  border: 1px solid rgba(245, 243, 238, 0.16);
+  border: 1px solid rgba(var(--color-text-rgb), 0.16);
   border-radius: 8px;
-  color: #f5f3ee;
-  background: rgba(245, 243, 238, 0.06);
+  color: var(--color-text);
+  background: rgba(var(--color-text-rgb), 0.06);
 }
 
 .selfdefence-counterterrorism-view__list {
@@ -60,6 +64,6 @@
   }
 
   .selfdefence-counterterrorism-view__header h2 {
-    font-size: 34px;
+    font-size: var(--view-title-mobile-size);
   }
 }

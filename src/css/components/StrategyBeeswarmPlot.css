@@ -4,7 +4,7 @@
   min-inline-size: 0;
   block-size: 100%;
   overflow: hidden;
-  background: #303030;
+  background: var(--app-background);
 }
 
 .strategy-beeswarm__grid-canvas {
@@ -42,16 +42,16 @@
   align-items: center;
   min-height: 20vh;
   padding: clamp(0.8rem, 1.7vw, 1.35rem) clamp(1.5rem, 5vw, 4rem);
-  color: #f5f3ee;
-  background: color-mix(in srgb, var(--strategy-beeswarm-hover-color) 72%, #303030);
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.34);
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--strategy-beeswarm-hover-color) 72%, var(--app-background));
+  box-shadow: 0 1rem 3rem rgba(var(--color-shadow-rgb), 0.34);
   pointer-events: none;
 }
 
 .strategy-beeswarm__hover-layer--statement,
 .strategy-beeswarm__hover-layer--event {
-  color: #303030;
-  background: #f5f3ee;
+  color: var(--app-background);
+  background: var(--color-text);
 }
 
 .strategy-beeswarm__hover-layer-inner {
@@ -67,7 +67,7 @@
 }
 
 .strategy-beeswarm__hover-layer h3 {
-  color: white;
+  color: var(--color-white);
   font-family: var(--font-sans);
   font-size: clamp(2rem, 4vw, 3.75rem);
   font-weight: 950;
@@ -76,7 +76,7 @@
 
 .strategy-beeswarm__hover-layer p {
   max-width: 68rem;
-  color: rgba(245, 243, 238, 0.9);
+  color: rgba(var(--color-text-rgb), 0.9);
   font-family: var(--font-serif);
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   font-weight: 500;
@@ -84,14 +84,14 @@
 }
 
 .strategy-beeswarm__hover-layer span {
-  color: rgba(245, 243, 238, 0.76);
+  color: rgba(var(--color-text-rgb), 0.76);
   font-size: 0.85rem;
   font-weight: 850;
 }
 
 .strategy-beeswarm__hover-layer--statement h3,
 .strategy-beeswarm__hover-layer--event h3 {
-  color: #303030;
+  color: var(--app-background);
 }
 
 .strategy-beeswarm__hover-layer--event h3 {
@@ -105,7 +105,7 @@
 
 .strategy-beeswarm__hover-layer--event p,
 .strategy-beeswarm__hover-layer--event span {
-  color: rgba(48, 48, 48, 0.74);
+  color: rgba(var(--color-background-rgb), 0.74);
 }
 
 .strategy-beeswarm-hover-layer-enter-active,

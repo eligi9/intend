@@ -4,10 +4,10 @@ import AuthorDetailView from './views/AuthorDetailView.vue'
 import AuthorView from './views/AuthorView.vue'
 import EstablishmentView from './views/EstablishmentView.vue'
 import MeasuresView from './views/MeasuresView.vue'
+import PatternsView from './views/PatternsView.vue'
 import ReadView from './views/ReadView.vue'
 import RetaliationView from './views/RetaliationView.vue'
 import SelfDefenceCounterterrorismView from './views/SelfDefenceCounterterrorismView.vue'
-import StrategyView from './views/StrategyView.vue'
 
 const showLanding = ref(true)
 const activeView = ref<
@@ -16,7 +16,6 @@ const activeView = ref<
   | 'authors'
   | 'structure'
   | 'timeline'
-  | 'matrix'
   | 'selfdefence-counterterrorism'
   | 'retaliation'
 >('read')
@@ -49,7 +48,7 @@ function showAuthorDetail(authorId: string) {
   selectedAuthorId.value = authorId
 }
 
-function showStrategyView(view: 'structure' | 'timeline' | 'matrix') {
+function showPatternsView(view: 'structure' | 'timeline') {
   selectedAuthorId.value = null
   activeView.value = view
 }
@@ -94,18 +93,17 @@ function enterWorkspace() {
           :class="{
             active:
               activeView === 'structure' ||
-              activeView === 'matrix' ||
               activeView === 'selfdefence-counterterrorism' ||
               activeView === 'retaliation',
           }"
-          @click="showStrategyView('structure')"
+          @click="showPatternsView('structure')"
         >
-          Strategies
+          Patterns
         </button>
         <button
           type="button"
           :class="{ active: activeView === 'timeline' }"
-          @click="showStrategyView('timeline')"
+          @click="showPatternsView('timeline')"
         >
           Timeline
         </button>
@@ -114,8 +112,8 @@ function enterWorkspace() {
       <ReadView v-if="activeView === 'read'" @select-author="showAuthorDetail" />
       <MeasuresView v-else-if="activeView === 'measures'" @select-author="showAuthorDetail" />
       <AuthorView v-else-if="activeView === 'authors'" @select-author="showAuthorDetail" />
-      <StrategyView
-        v-else-if="activeView === 'structure' || activeView === 'timeline' || activeView === 'matrix'"
+      <PatternsView
+        v-else-if="activeView === 'structure' || activeView === 'timeline'"
         :mode="activeView"
       />
       <SelfDefenceCounterterrorismView

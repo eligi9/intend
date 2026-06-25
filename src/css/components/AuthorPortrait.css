@@ -45,7 +45,7 @@
   height: var(--author-image-size);
   overflow: hidden;
   border-radius: 50%;
-  background: #f0efeb;
+  background: var(--color-portrait-surface);
   transform: translate(-50%, -50%);
 }
 
@@ -77,11 +77,11 @@
   place-items: center;
   width: 100%;
   height: 100%;
-  color: #6f7278;
+  color: var(--color-neutral-muted);
   font-size: calc(var(--author-image-size) * 0.48);
   font-weight: 800;
   line-height: 1;
-  background: #f0efeb;
+  background: var(--color-portrait-surface);
 }
 
 .author-portrait__fallback-icon {

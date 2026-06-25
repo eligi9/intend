@@ -52,7 +52,7 @@ function selectAuthor(authorName: string) {
         :key="record.id"
         :record="record"
         :highlighted-texts="record.measures"
-        highlighted-text-color="#f0c95a"
+        highlighted-text-color="var(--color-highlight)"
         meta-variant="full"
         author-link
         @select-author="selectAuthor"
