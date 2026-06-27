@@ -42,16 +42,9 @@ export function getVisibleSubLabels(activeLabels: IntentLabelKey[]) {
 }
 
 export function splitAnchors(anchor: unknown) {
-  if (Array.isArray(anchor)) {
-    return anchor
-      .filter((item): item is string => typeof item === 'string')
-      .map((item) => item.trim())
-      .filter(Boolean)
-  }
-
-  return typeof anchor === 'string'
+  return Array.isArray(anchor)
     ? anchor
-        .split(';')
+        .filter((item): item is string => typeof item === 'string')
         .map((item) => item.trim())
         .filter(Boolean)
     : []

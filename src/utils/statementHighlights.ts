@@ -156,6 +156,10 @@ export function buildNormalizedTextIndex(text: string): NormalizedTextIndex {
   for (let index = 0; index < text.length; index += 1) {
     const character = text[index]
 
+    if (/["“”„‘’]/.test(character)) {
+      continue
+    }
+
     if (/\s/.test(character)) {
       if (normalized.length > 0 && !previousWasWhitespace) {
         normalized += ' '
@@ -183,7 +187,11 @@ export function buildNormalizedTextIndex(text: string): NormalizedTextIndex {
 }
 
 export function normalizeAnchorText(text: string) {
-  return text.replace(/\s+/g, ' ').trim().toLowerCase()
+  return text
+    .replace(/["“”„‘’]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase()
 }
 
 export function getNormalizedCursor(index: NormalizedTextIndex, cursor: number) {

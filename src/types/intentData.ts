@@ -1,5 +1,5 @@
 export type BinaryLabel = 'yes' | 'no' | null
-export type AnchorTexts = string[] | null
+export type AnchorTexts = string[]
 
 export type IntentLabelKey =
   | 'enemy_image'
