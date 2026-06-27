@@ -14,6 +14,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
 }
 
 * {
@@ -29,11 +30,13 @@ body {
   width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: none;
   background: var(--app-background);
 }
 
 #app {
   min-height: 100vh;
+  overscroll-behavior: none;
   background: var(--app-background);
 }
 
