@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import { intentLabelNames, taxonomyButtonColors } from '../../utils/intentLabels'
@@ -10,7 +11,6 @@ import {
   isMainStrategyIcicleSegment,
 } from '../../utils/strategyIcicle'
 import StrategyIcicleButton from './StrategyIcicleButton.vue'
-import MirroredLineGrid from '../common/MirroredLineGrid.vue'
 import VerticalScale from '../common/VerticalScale.vue'
 
 const props = defineProps<{
@@ -18,11 +18,11 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
+  gridMarkerChange: [marker: MirroredLineGridMarker | null]
   segmentClick: [segment: StrategyIcicleSegment]
 }>()
 
 const maxStatementsPerSide = 160
-const countStep = 20
 const verticalScaleSteps = 5
 const hoveredSegment = ref<StrategyIcicleSegment | null>(null)
 const selectedSegmentId = ref<IntentLabelKey | null>(null)
@@ -42,19 +42,13 @@ const activeSegment = computed(
     null,
 )
 
-const hoveredGridMarker = computed(() => {
-  const segment = hoveredSegment.value
-
-  if (!segment) {
-    return null
-  }
-
+function createGridMarker(segment: StrategyIcicleSegment): MirroredLineGridMarker {
   return {
     label: `${segment.occurrences}`,
     side: isMainStrategyIcicleSegment(segment) ? 'left' : 'right',
     value: segment.occurrences,
-  } as const
-})
+  }
+}
 
 function createMainSegments() {
   const countedGroups = countTaxonomyGroups()
@@ -113,11 +107,13 @@ function countLabelOccurrences(label: IntentLabelKey) {
 
 function handleHover(segment: StrategyIcicleSegment) {
   hoveredSegment.value = segment
+  emit('gridMarkerChange', createGridMarker(segment))
 }
 
 function handleLeave(segment: StrategyIcicleSegment) {
   if (hoveredSegment.value?.id === segment.id) {
     hoveredSegment.value = null
+    emit('gridMarkerChange', null)
   }
 }
 
@@ -130,6 +126,7 @@ function handleClick(segment: StrategyIcicleSegment) {
 function clearSelection() {
   selectedSegmentId.value = null
   hoveredSegment.value = null
+  emit('gridMarkerChange', null)
 }
 
 defineExpose({
@@ -148,13 +145,6 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
 
 <template>
   <article class="strategy-icicle" aria-label="Pattern label distribution">
-    <MirroredLineGrid
-      :max-value="maxStatementsPerSide"
-      :marker="hoveredGridMarker"
-      scale-label="Number of Statements"
-      :step-size="countStep"
-    />
-
     <div class="strategy-icicle__diagram">
       <VerticalScale
         label="Percentage Distribution Across Patterns"

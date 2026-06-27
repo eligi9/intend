@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-
-interface MirroredLineGridMarker {
-  label?: string
-  side: 'left' | 'right'
-  value: number
-}
+import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
+import VerticalLineGrid from './VerticalLineGrid.vue'
 
 const props = defineProps<{
   maxValue: number
@@ -14,20 +10,16 @@ const props = defineProps<{
   stepSize: number
 }>()
 
-const gridLines = computed(() => {
-  const lineCount = Math.round((props.maxValue * 2) / props.stepSize) + 1
+const areaCount = computed(() => Math.round((props.maxValue * 2) / props.stepSize))
 
-  return Array.from({ length: lineCount }, (_, index) => {
+const gridLabels = computed(() =>
+  Array.from({ length: areaCount.value + 1 }, (_, index) => {
     const value = -props.maxValue + index * props.stepSize
     const labelValue = Math.abs(value)
 
-    return {
-      id: value,
-      label: labelValue === 0 || labelValue === props.maxValue ? '' : `${labelValue}`,
-      xPercent: getXPercent(value),
-    }
-  })
-})
+    return labelValue === 0 || labelValue === props.maxValue ? '' : `${labelValue}`
+  }),
+)
 
 const markerPosition = computed(() => {
   if (!props.marker) {
@@ -50,33 +42,21 @@ function getXPercent(value: number) {
 
 <template>
   <div class="mirrored-line-grid" aria-hidden="true">
+    <VerticalLineGrid
+      :area-count="areaCount"
+      :labels="gridLabels"
+      :scale-label="props.scaleLabel"
+    />
+
     <div
-      v-for="line in gridLines"
-      :key="line.id"
-      class="mirrored-line-grid__line"
-      :class="{
-        'mirrored-line-grid__line--center': line.id === 0,
-      }"
-      :style="{ '--line-x': `${line.xPercent}%` }"
+      v-if="markerPosition"
+      class="mirrored-line-grid__marker"
+      :style="{ '--marker-x': `${markerPosition.xPercent}%` }"
     >
-      <span v-if="line.label" class="mirrored-line-grid__value">
-        {{ line.label }}
+      <span class="mirrored-line-grid__marker-value">
+        {{ markerPosition.label }}
       </span>
     </div>
-
-    <span class="mirrored-line-grid__label">{{ props.scaleLabel }}</span>
-
-    <Teleport to="body">
-      <div
-        v-if="markerPosition"
-        class="mirrored-line-grid__marker"
-        :style="{ '--marker-x': `${markerPosition.xPercent}%` }"
-      >
-        <span class="mirrored-line-grid__marker-value">
-          {{ markerPosition.label }}
-        </span>
-      </div>
-    </Teleport>
   </div>
 </template>
 
