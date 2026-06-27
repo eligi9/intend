@@ -1,0 +1,58 @@
+.strategy-icicle-button {
+  appearance: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: var(--strategy-icicle-button-width);
+  height: 100%;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--color-white);
+  background: var(--strategy-icicle-button-color);
+  box-sizing: border-box;
+  cursor: pointer;
+  opacity: 1;
+  overflow: hidden;
+  transition: opacity 160ms ease;
+}
+
+.strategy-icicle-button:hover,
+.strategy-icicle-button:focus-visible,
+.strategy-icicle-button--selected {
+  z-index: 2;
+}
+
+.strategy-icicle-button:focus-visible {
+  outline: 2px solid rgba(var(--color-text-rgb), 0.92);
+  outline-offset: 2px;
+}
+
+.strategy-icicle-button--left {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.strategy-icicle-button--right {
+  flex: 0 0 auto;
+  padding: 0;
+}
+
+.strategy-icicle-button--dimmed {
+  opacity: 0.33;
+}
+
+.strategy-icicle-button--related {
+  opacity: 0.66;
+}
+
+.strategy-icicle-button span {
+  min-width: 0;
+  overflow: hidden;
+  font-size: clamp(10px, 0.9vw, 13px);
+  font-weight: 900;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
