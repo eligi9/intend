@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import AuthorTimelineP5 from '../components/author/AuthorTimelineP5.vue'
-import AuthorPortrait from '../components/author/AuthorPortrait.vue'
-import FilterButton from '../components/common/FilterButton.vue'
-import StatementCard from '../components/common/StatementCard.vue'
-import { useAuthorStore } from '../stores/authorStore'
-import type { IntentLabelKey } from '../types/intentData'
-import { taxonomyButtonColors } from '../utils/intentLabels'
+import AuthorTimelineP5 from '../../components/author/AuthorTimelineP5.vue'
+import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
+import FilterButton from '../../components/common/FilterButton.vue'
+import StatementCard from '../../components/common/StatementCard.vue'
+import { useAuthorStore } from '../../stores/authorStore'
+import type { IntentLabelKey } from '../../types/intentData'
+import { taxonomyButtonColors } from '../../utils/intentLabels'
 
 const props = defineProps<{
   authorId: string
@@ -202,5 +202,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import '../css/views/AuthorDetailView.css';
+@import '../../css/views/explore/AuthorDetailView.css';
 </style>

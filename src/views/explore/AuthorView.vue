@@ -1,26 +1,37 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { computed, ref } from 'vue'
-import AuthorPortrait from '../components/author/AuthorPortrait.vue'
-import FilterButtonContainer from '../components/common/FilterButtonContainer.vue'
-import { useAuthorStore } from '../stores/authorStore'
-import type { AuthorInstance } from '../types/authorData'
-import type { IntentLabelKey } from '../types/intentData'
-import { intentTaxonomy } from '../types/intentTaxonomy'
-import { toggleArrayItem } from '../utils/arrays'
-import { taxonomyButtonColors } from '../utils/intentLabels'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
+import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
+import { useAuthorStore } from '../../stores/authorStore'
+import type { AuthorInstance } from '../../types/authorData'
+import type { IntentLabelKey } from '../../types/intentData'
+import { intentTaxonomy } from '../../types/intentTaxonomy'
+import { toggleArrayItem } from '../../utils/arrays'
+import { taxonomyButtonColors } from '../../utils/intentLabels'
+import AuthorDetailView from './AuthorDetailView.vue'
 
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
 
-const emit = defineEmits<{
-  selectAuthor: [authorId: string]
-}>()
-
 const selectedSector = ref<string | null>(null)
 const selectedGender = ref<string | null>(null)
 const selectedPatternLabels = ref<IntentLabelKey[]>([])
+const selectedAuthorId = ref<string | null>(null)
 const authorPortraitSize = 92
+const bodyOverlayClass = 'author-detail-overlay-open'
+
+watch(
+  selectedAuthorId,
+  (authorId) => {
+    document.body.classList.toggle(bodyOverlayClass, authorId !== null)
+  },
+  { immediate: true },
+)
+
+onBeforeUnmount(() => {
+  document.body.classList.remove(bodyOverlayClass)
+})
 
 const sectors = computed(() =>
   [...new Set(authorInstances.value.map((author) => author.sector).filter(Boolean))] as string[],
@@ -85,6 +96,14 @@ function isAuthorVisible(author: AuthorInstance) {
 
   return matchesSector && matchesGender && matchesPatterns
 }
+
+function showAuthorDetail(authorId: string) {
+  selectedAuthorId.value = authorId
+}
+
+function closeAuthorDetail() {
+  selectedAuthorId.value = null
+}
 </script>
 
 <template>
@@ -121,14 +140,20 @@ function isAuthorVisible(author: AuthorInstance) {
         class="author-view__item"
         :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
         :aria-label="`${author.name} Details anzeigen`"
-        @click="emit('selectAuthor', author.id)"
+        @click="showAuthorDetail(author.id)"
       >
         <AuthorPortrait :author="author" :size="authorPortraitSize" />
       </button>
     </section>
+
+    <AuthorDetailView
+      v-if="selectedAuthorId"
+      :author-id="selectedAuthorId"
+      @close="closeAuthorDetail"
+    />
   </section>
 </template>
 
 <style scoped>
-@import '../css/views/AuthorView.css';
+@import '../../css/views/explore/AuthorView.css';
 </style>

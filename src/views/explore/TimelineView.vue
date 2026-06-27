@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import strategyTimelineEventsDataset from '../../data/strategy-timeline-events.json'
-import StrategyBeeswarmPlotP5 from '../components/strategy/StrategyBeeswarmPlotP5.vue'
-import { useStatementStore } from '../stores/statementStore'
-import type { BeeswarmDisplayMode, HoveredTimelineStatement } from '../types/strategyBeeswarm'
-import type { TimelineEvent } from '../types/timeline'
+import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
+import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
+import { useStatementStore } from '../../stores/statementStore'
+import type { BeeswarmDisplayMode, HoveredTimelineStatement } from '../../types/strategyBeeswarm'
+import type { TimelineEvent } from '../../types/timeline'
 
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
 const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
-const beeswarmMode = ref<BeeswarmDisplayMode>('strategies')
+const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
 const hoveredStatement = ref<HoveredTimelineStatement | null>(null)
 
 watch(beeswarmMode, () => {
@@ -61,17 +61,17 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
       <div class="timeline-view__switch" aria-label="Timeline display">
         <button
           type="button"
-          :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'strategies' }"
-          @click="beeswarmMode = 'strategies'"
-        >
-          Patterns
-        </button>
-        <button
-          type="button"
           :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'statements' }"
           @click="beeswarmMode = 'statements'"
         >
           Statements
+        </button>
+        <button
+          type="button"
+          :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'strategies' }"
+          @click="beeswarmMode = 'strategies'"
+        >
+          Patterns
         </button>
       </div>
     </section>
@@ -79,5 +79,5 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
 </template>
 
 <style scoped>
-@import '../css/views/TimelineView.css';
+@import '../../css/views/explore/TimelineView.css';
 </style>

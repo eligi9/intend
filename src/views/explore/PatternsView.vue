@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import StrategyIcicleDiagram from '../components/strategy/StrategyIcicleDiagram.vue'
-import StrategySubLabelOverlay from '../components/strategy/StrategySubLabelOverlay.vue'
-import { useStatementStore } from '../stores/statementStore'
-import type { StrategyIcicleSegment } from '../types/strategyIcicle'
+import StrategyIcicleDiagram from '../../components/strategy/StrategyIcicleDiagram.vue'
+import StrategySubLabelOverlay from '../../components/strategy/StrategySubLabelOverlay.vue'
+import { useStatementStore } from '../../stores/statementStore'
+import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
 
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
 const icicleDiagram = ref<{ clearSelection: () => void } | null>(null)
-
 const selectedSegment = ref<StrategyIcicleSegment | null>(null)
 
 function handleSegmentClick(segment: StrategyIcicleSegment) {
@@ -68,5 +67,5 @@ function closeOverlay() {
 </template>
 
 <style scoped>
-@import '../css/views/PatternsView.css';
+@import '../../css/views/explore/PatternsView.css';
 </style>

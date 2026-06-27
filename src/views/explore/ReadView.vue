@@ -1,20 +1,18 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import FilterButton from '../components/common/FilterButton.vue'
-import StatementCard from '../components/common/StatementCard.vue'
-import { useAuthorStore } from '../stores/authorStore'
-import { intentLabelKeys, useStatementStore } from '../stores/statementStore'
-import type { IntentLabelKey } from '../types/intentData'
-import { intentTaxonomy } from '../types/intentTaxonomy'
+import FilterButton from '../../components/common/FilterButton.vue'
+import StatementCard from '../../components/common/StatementCard.vue'
+import { intentLabelKeys, useStatementStore } from '../../stores/statementStore'
+import type { IntentLabelKey } from '../../types/intentData'
+import { intentTaxonomy } from '../../types/intentTaxonomy'
 import {
   getActiveLabels,
   taxonomyButtonColors,
-} from '../utils/intentLabels'
-import { toggleArrayItem } from '../utils/arrays'
+} from '../../utils/intentLabels'
+import { toggleArrayItem } from '../../utils/arrays'
 
 const store = useStatementStore()
-const authorStore = useAuthorStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
 const swipeStart = ref<{ x: number; y: number } | null>(null)
 const animatedTotal = ref(currentRecordPosition.value.total)
@@ -23,10 +21,6 @@ const countFeedbackTone = ref<'neutral' | 'increase' | 'decrease'>('neutral')
 
 let countAnimationFrame = 0
 let countFeedbackTimeout = 0
-
-const emit = defineEmits<{
-  selectAuthor: [authorId: string]
-}>()
 
 const activeLabels = computed(() => {
   if (!currentRecord.value) return []
@@ -122,12 +116,6 @@ function finishStatementSwipe(event: TouchEvent) {
   store.previousRecord()
 }
 
-function selectAuthor(authorName: string) {
-  const author = authorStore.getAuthorInstance(authorName)
-  if (!author) return
-
-  emit('selectAuthor', author.id)
-}
 </script>
 
 <template>
@@ -190,10 +178,8 @@ function selectAuthor(authorName: string) {
       v-if="currentRecord"
       :record="currentRecord"
       meta-variant="full"
-      author-link
       @touchstart.passive="startStatementSwipe"
       @touchend.passive="finishStatementSwipe"
-      @select-author="selectAuthor"
     />
 
     <div v-else class="empty-state">
@@ -220,5 +206,5 @@ function selectAuthor(authorName: string) {
 </template>
 
 <style scoped>
-@import '../css/views/ReadView.css';
+@import '../../css/views/explore/ReadView.css';
 </style>
