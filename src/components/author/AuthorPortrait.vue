@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { AuthorInstance } from '../types/authorData'
-import type { IntentLabelKey } from '../types/intentData'
+import type { AuthorInstance } from '../../types/authorData'
+import type { IntentLabelKey } from '../../types/intentData'
 import AuthorTooltip from './AuthorTooltip.vue'
 
 const strategyColors: Partial<Record<IntentLabelKey, string>> = {
@@ -124,5 +124,5 @@ const fallbackLabel = computed(() => {
 </template>
 
 <style scoped>
-@import '../css/components/AuthorPortrait.css';
+@import '../../css/components/author/AuthorPortrait.css';
 </style>

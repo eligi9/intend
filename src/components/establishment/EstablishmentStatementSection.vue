@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { AuthorInstance } from '../types/authorData'
-import type { IntentLabelKey, IntentRecord } from '../types/intentData'
-import AuthorPortrait from './AuthorPortrait.vue'
+import type { AuthorInstance } from '../../types/authorData'
+import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import AuthorPortrait from '../author/AuthorPortrait.vue'
 import EstablishmentNote from './EstablishmentNote.vue'
-import StatementCard from './StatementCard.vue'
+import StatementCard from '../common/StatementCard.vue'
 
 type NoteStartCorner = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
@@ -115,5 +115,5 @@ defineExpose({
 </template>
 
 <style scoped>
-@import '../css/components/EstablishmentStatementSection.css';
+@import '../../css/components/establishment/EstablishmentStatementSection.css';
 </style>

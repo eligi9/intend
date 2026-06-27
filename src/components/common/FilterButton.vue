@@ -32,5 +32,5 @@ defineEmits<{
 </template>
 
 <style scoped>
-@import '../css/components/FilterButton.css';
+@import '../../css/components/common/FilterButton.css';
 </style>

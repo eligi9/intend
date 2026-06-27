@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
-import AuthorPortrait from '../components/AuthorPortrait.vue'
-import FilterButtonContainer from '../components/FilterButtonContainer.vue'
+import AuthorPortrait from '../components/author/AuthorPortrait.vue'
+import FilterButtonContainer from '../components/common/FilterButtonContainer.vue'
 import { useAuthorStore } from '../stores/authorStore'
 import type { AuthorInstance } from '../types/authorData'
 import type { IntentLabelKey } from '../types/intentData'

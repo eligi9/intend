@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useFloatingPlacement } from '../composables/useFloatingPlacement'
-import type { AuthorInstance } from '../types/authorData'
-import { taxonomyButtonColors } from '../utils/intentLabels'
-import StrategyBadge from './strategy/StrategyBadge.vue'
+import { useFloatingPlacement } from '../../composables/useFloatingPlacement'
+import type { AuthorInstance } from '../../types/authorData'
+import { taxonomyButtonColors } from '../../utils/intentLabels'
+import StrategyBadge from '../strategy/StrategyBadge.vue'
 
 const props = defineProps<{
   author: AuthorInstance
@@ -79,5 +79,5 @@ const strategyBadges = computed(() =>
 </template>
 
 <style scoped>
-@import '../css/components/AuthorTooltip.css';
+@import '../../css/components/author/AuthorTooltip.css';
 </style>

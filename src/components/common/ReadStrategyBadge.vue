@@ -21,5 +21,5 @@ const displayLabel = computed(() => intentLabelNames[props.label])
 </template>
 
 <style scoped>
-@import '../../css/components/strategy/ReadStrategyBadge.css';
+@import '../../css/components/common/ReadStrategyBadge.css';
 </style>

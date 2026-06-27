@@ -81,5 +81,5 @@ function getXPercent(value: number) {
 </template>
 
 <style scoped>
-@import '../../css/components/strategy/MirroredLineGrid.css';
+@import '../../css/components/common/MirroredLineGrid.css';
 </style>

@@ -222,5 +222,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import '../css/components/EstablishmentNote.css';
+@import '../../css/components/establishment/EstablishmentNote.css';
 </style>

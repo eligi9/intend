@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../types/intentData'
-import { intentLabelKeys } from '../stores/statementStore'
-import { getActiveLabels, getVisibleSubLabels, subLabelColors } from '../utils/intentLabels'
+import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import { intentLabelKeys } from '../../stores/statementStore'
+import { getActiveLabels, getVisibleSubLabels, subLabelColors } from '../../utils/intentLabels'
 import {
   collectAnchorHighlights,
   getDisplayLabel,
   splitStatementText,
-} from '../utils/statementHighlights'
-import ReadStrategyBadge from './strategy/ReadStrategyBadge.vue'
+} from '../../utils/statementHighlights'
+import ReadStrategyBadge from './ReadStrategyBadge.vue'
 
 interface StrategyBadge {
   label: IntentLabelKey
@@ -159,5 +159,5 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
 </template>
 
 <style scoped>
-@import '../css/components/StatementCard.css';
+@import '../../css/components/common/StatementCard.css';
 </style>

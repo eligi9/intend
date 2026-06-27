@@ -19,5 +19,5 @@ const props = defineProps<{
 </template>
 
 <style scoped>
-@import '../css/components/TimelineDatePill.css';
+@import '../../css/components/timeline/TimelineDatePill.css';
 </style>

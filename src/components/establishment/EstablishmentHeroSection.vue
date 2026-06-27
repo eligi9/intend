@@ -34,5 +34,5 @@
 </template>
 
 <style scoped>
-@import '../css/components/EstablishmentHeroSection.css';
+@import '../../css/components/establishment/EstablishmentHeroSection.css';
 </style>

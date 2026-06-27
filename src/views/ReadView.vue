@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import FilterButton from '../components/FilterButton.vue'
-import StatementCard from '../components/StatementCard.vue'
+import FilterButton from '../components/common/FilterButton.vue'
+import StatementCard from '../components/common/StatementCard.vue'
 import { useAuthorStore } from '../stores/authorStore'
 import { intentLabelKeys, useStatementStore } from '../stores/statementStore'
 import type { IntentLabelKey } from '../types/intentData'

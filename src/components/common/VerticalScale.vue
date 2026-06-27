@@ -37,5 +37,5 @@ const ticks = computed(() =>
 </template>
 
 <style scoped>
-@import '../../css/components/strategy/VerticalScale.css';
+@import '../../css/components/common/VerticalScale.css';
 </style>

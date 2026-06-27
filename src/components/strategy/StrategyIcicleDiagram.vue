@@ -10,8 +10,8 @@ import {
   isMainStrategyIcicleSegment,
 } from '../../utils/strategyIcicle'
 import StrategyIcicleButton from './StrategyIcicleButton.vue'
-import MirroredLineGrid from './MirroredLineGrid.vue'
-import VerticalScale from './VerticalScale.vue'
+import MirroredLineGrid from '../common/MirroredLineGrid.vue'
+import VerticalScale from '../common/VerticalScale.vue'
 
 const props = defineProps<{
   records: IntentRecord[]

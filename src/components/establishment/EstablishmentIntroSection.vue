@@ -88,5 +88,5 @@ defineExpose({
 </template>
 
 <style scoped>
-@import '../css/components/EstablishmentIntroSection.css';
+@import '../../css/components/establishment/EstablishmentIntroSection.css';
 </style>

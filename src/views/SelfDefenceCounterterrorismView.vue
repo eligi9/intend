@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import StatementCard from '../components/StatementCard.vue'
+import StatementCard from '../components/common/StatementCard.vue'
 import { useAuthorStore } from '../stores/authorStore'
 import { useStatementStore } from '../stores/statementStore'
 import type { IntentRecord } from '../types/intentData'
