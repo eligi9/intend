@@ -304,7 +304,9 @@
   display: grid;
   min-width: 0;
   min-height: 0;
-  padding: 0 0 clamp(28px, 5vh, 58px);
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
 }
 
 .strategy-sub-label-overlay-enter-active,
@@ -363,33 +365,6 @@
   font-size: clamp(19px, 1.7vw, 28px);
   font-weight: 500;
   line-height: 1.28;
-}
-
-.strategy-view__main-overlay-meta {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: auto;
-  padding-top: 24px;
-  border-top: 1px solid rgba(var(--color-white-rgb), 0.26);
-}
-
-.strategy-view__main-overlay-meta span {
-  max-width: 12rem;
-  color: rgba(var(--color-white-rgb), 0.78);
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1.1;
-  text-transform: uppercase;
-}
-
-.strategy-view__main-overlay-meta strong {
-  color: var(--color-white);
-  font-size: clamp(46px, 4vw, 72px);
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
-  line-height: 0.84;
 }
 
 .strategy-main-overlay-enter-active,

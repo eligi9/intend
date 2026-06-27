@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../types/intentData'
-import { intentTaxonomy } from '../types/intentTaxonomy'
-import { intentLabelNames, taxonomyButtonColors } from '../utils/intentLabels'
+import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import { intentTaxonomy } from '../../types/intentTaxonomy'
+import { intentLabelNames, taxonomyButtonColors } from '../../utils/intentLabels'
 
 const props = defineProps<{
   records: IntentRecord[]
@@ -14,18 +14,8 @@ const emit = defineEmits<{
   segmentHover: [segment: StrategyIcicleSegment | null]
 }>()
 
-interface StrategyMainLabelChild {
-  color: string
-  count: number
-  id: IntentLabelKey
-  label: string
-  sharePercent: number
-}
-
 interface StrategyMainLabelSelection {
-  children: StrategyMainLabelChild[]
   color: string
-  count: number
   description: string
   groupId: string
   id: IntentLabelKey
@@ -54,7 +44,7 @@ interface StrategyIcicleGroup {
   main: StrategyIcicleSegment
 }
 
-type SegmentTone = 'active' | 'dimmed' | 'neutral' | 'related'
+type SegmentState = 'active' | 'dimmed' | 'neutral' | 'related'
 
 const maxStatementsPerSide = 160
 const countStep = 20
@@ -65,7 +55,6 @@ const verticalScaleSegments = Array.from({ length: 5 }, (_, index) => ({
 }))
 const hoveredSegment = ref<StrategyIcicleSegment | null>(null)
 const selectedSegmentId = ref<IntentLabelKey | null>(null)
-const diagramElement = ref<HTMLElement | null>(null)
 
 const horizontalScaleAreas = computed(() =>
   Array.from({ length: (maxStatementsPerSide * 2) / countStep }, (_, index) => {
@@ -150,24 +139,6 @@ const activeSegment = computed(
     null,
 )
 
-const hoverIndicator = computed(() => {
-  const segment = hoveredSegment.value
-  const diagram = diagramElement.value
-
-  if (segment === null || diagram === null) {
-    return null
-  }
-
-  const rect = diagram.getBoundingClientRect()
-  const xPercent =
-    segment.depth === 'main' ? 50 - segment.widthPercent / 2 : 50 + segment.widthPercent / 2
-
-  return {
-    count: segment.count,
-    leftPx: rect.left + (rect.width * xPercent) / 100,
-  }
-})
-
 function countLabel(label: IntentLabelKey) {
   return props.records.filter((record) => record[label] === 'yes').length
 }
@@ -192,18 +163,8 @@ function handleClick(segment: StrategyIcicleSegment) {
   emit('segmentClick', segment)
 
   if (segment.depth === 'main') {
-    const group = groups.value.find((item) => item.labelKey === segment.groupId)
     emit('mainLabelClick', {
-      children:
-        group?.children.map((child) => ({
-          color: child.color,
-          count: child.count,
-          id: child.id,
-          label: child.label,
-          sharePercent: getPercent(child.count, Math.max(segment.count, 1)),
-        })) ?? [],
       color: segment.color,
-      count: segment.count,
       description: segment.description ?? '',
       groupId: segment.groupId,
       id: segment.id,
@@ -222,7 +183,7 @@ defineExpose({
   clearSelection,
 })
 
-function getSegmentTone(segment: StrategyIcicleSegment): SegmentTone {
+function getSegmentState(segment: StrategyIcicleSegment): SegmentState {
   const active = activeSegment.value
 
   if (active === null) {
@@ -240,8 +201,8 @@ function getSegmentTone(segment: StrategyIcicleSegment): SegmentTone {
   return active.groupId === segment.groupId ? 'related' : 'dimmed'
 }
 
-function getSegmentToneClass(segment: StrategyIcicleSegment) {
-  return `strategy-icicle__tone--${getSegmentTone(segment)}`
+function getSegmentStateClass(segment: StrategyIcicleSegment) {
+  return `strategy-icicle__state--${getSegmentState(segment)}`
 }
 
 function shouldShowSubLabel(segment: StrategyIcicleSegment) {
@@ -283,7 +244,7 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
       </div>
     </div>
 
-    <div ref="diagramElement" class="strategy-icicle__diagram">
+    <div class="strategy-icicle__diagram">
       <div class="strategy-icicle__vertical-scale" aria-hidden="true">
         <span class="strategy-icicle__vertical-scale-title">
           Percentage<br />
@@ -318,7 +279,7 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
             type="button"
             class="strategy-icicle__bar strategy-icicle__bar--main"
             :class="[
-              getSegmentToneClass(group.main),
+              getSegmentStateClass(group.main),
               { 'strategy-icicle__bar--selected': selectedSegmentId === group.main.id },
             ]"
             :style="{
@@ -342,14 +303,14 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
           v-for="child in subSegments"
           :key="child.id"
           class="strategy-icicle__sub-row"
-          :class="getSegmentToneClass(child)"
+          :class="getSegmentStateClass(child)"
           :style="{ '--row-height': `${child.heightPercent}%` }"
         >
           <button
             type="button"
             class="strategy-icicle__bar strategy-icicle__bar--sub"
             :class="[
-              getSegmentToneClass(child),
+              getSegmentStateClass(child),
               { 'strategy-icicle__bar--selected': selectedSegmentId === child.id },
             ]"
             :style="{
@@ -372,20 +333,9 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
         </div>
       </div>
     </div>
-
-    <div
-      v-if="hoverIndicator"
-      class="strategy-icicle__hover-indicator"
-      :style="{
-        '--hover-indicator-left': `${hoverIndicator.leftPx}px`,
-      }"
-      aria-hidden="true"
-    >
-      <span class="strategy-icicle__hover-pill">{{ hoverIndicator.count }}</span>
-    </div>
   </article>
 </template>
 
 <style scoped>
-@import '../css/components/StrategyIcicleDiagram.css';
+@import '../../css/components/strategy/StrategyIcicleDiagram.css';
 </style>

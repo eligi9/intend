@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { useFloatingPlacement } from '../composables/useFloatingPlacement'
 import type { AuthorInstance } from '../types/authorData'
 import { taxonomyButtonColors } from '../utils/intentLabels'
-import StrategyBadge from './StrategyBadge.vue'
+import StrategyBadge from './strategy/StrategyBadge.vue'
 
 const props = defineProps<{
   author: AuthorInstance

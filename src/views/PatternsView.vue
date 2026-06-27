@@ -2,15 +2,15 @@
 import { computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../data/strategy-timeline-events.json'
-import StrategyBeeswarmPlotP5 from '../components/StrategyBeeswarmPlotP5.vue'
-import StrategyIcicleDiagram from '../components/StrategyIcicleDiagram.vue'
-import StrategySubLabelAnchorSketch from '../components/StrategySubLabelAnchorSketch.vue'
+import StrategyAnchorTextScroller from '../components/strategy/StrategyAnchorTextScroller.vue'
+import StrategyAnchorTextStatementOverlay from '../components/strategy/StrategyAnchorTextStatementOverlay.vue'
+import StrategyBeeswarmPlotP5 from '../components/strategy/StrategyBeeswarmPlotP5.vue'
+import StrategyIcicleDiagram from '../components/strategy/StrategyIcicleDiagram.vue'
 import { useStatementStore } from '../stores/statementStore'
-import type { IntentLabelKey } from '../types/intentData'
+import type { IntentLabelKey, IntentRecord } from '../types/intentData'
 import { intentSubLabelDescriptions, intentTaxonomy } from '../types/intentTaxonomy'
 import type { BeeswarmDisplayMode, HoveredTimelineStatement } from '../types/strategyBeeswarm'
 import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
-import { splitAnchors } from '../utils/intentLabels'
 
 const props = defineProps<{
   mode: 'structure' | 'timeline'
@@ -24,18 +24,8 @@ const beeswarmMode = ref<BeeswarmDisplayMode>('strategies')
 const hoveredTimelineEvent = ref<HoveredTimelineEvent | null>(null)
 const hoveredTimelineStatement = ref<HoveredTimelineStatement | null>(null)
 
-interface MainLabelOverlayChild {
-  color: string
-  count: number
-  id: IntentLabelKey
-  label: string
-  sharePercent: number
-}
-
 interface MainLabelOverlaySelection {
-  children: MainLabelOverlayChild[]
   color: string
-  count: number
   description: string
   groupId: string
   id: IntentLabelKey
@@ -46,7 +36,6 @@ interface MainLabelOverlaySelection {
 interface PatternSegmentClick {
   depth: 'main' | 'sub'
   color: string
-  count: number
   groupId: string
   id: IntentLabelKey
   label: string
@@ -54,14 +43,19 @@ interface PatternSegmentClick {
 
 interface SubLabelOverlaySelection {
   color: string
-  count: number
   groupLabel: string
   id: IntentLabelKey
   label: string
 }
 
+interface SelectedAnchorStatement {
+  statement: IntentRecord
+  text: string
+}
+
 const selectedMainLabel = ref<MainLabelOverlaySelection | null>(null)
 const selectedSubLabel = ref<SubLabelOverlaySelection | null>(null)
+const selectedAnchorStatement = ref<SelectedAnchorStatement | null>(null)
 
 const patternViews = [
   {
@@ -78,15 +72,11 @@ const patternViews = [
 const activeDescription = computed(
   () => patternViews.find((view) => view.id === props.mode)?.description ?? '',
 )
-const selectedSubLabelAnchors = computed(() => {
+const selectedSubLabelStatements = computed(() => {
   const label = selectedSubLabel.value?.id
   if (!label) return []
 
-  return records.value.flatMap((record) =>
-    record[label] === 'yes'
-      ? splitAnchors(record[`${label}_anchor` as keyof typeof record])
-      : [],
-  )
+  return records.value.filter((record) => record[label] === 'yes')
 })
 const selectedSubLabelDescription = computed(() => {
   const selection = selectedSubLabel.value
@@ -103,6 +93,7 @@ watch(
   () => {
     closeMainLabelOverlay()
     selectedSubLabel.value = null
+    selectedAnchorStatement.value = null
     hoveredTimelineEvent.value = null
     hoveredTimelineStatement.value = null
   },
@@ -114,10 +105,13 @@ watch(beeswarmMode, () => {
 
 function handleMainLabelClick(selection: MainLabelOverlaySelection) {
   selectedSubLabel.value = null
+  selectedAnchorStatement.value = null
   selectedMainLabel.value = selection.selected ? selection : null
 }
 
 function handleSegmentClick(segment: PatternSegmentClick) {
+  selectedAnchorStatement.value = null
+
   if (segment.depth === 'sub') {
     selectedMainLabel.value = null
     selectedSubLabel.value =
@@ -125,7 +119,6 @@ function handleSegmentClick(segment: PatternSegmentClick) {
         ? null
         : {
             color: segment.color,
-            count: segment.count,
             groupLabel: getGroupLabel(segment.groupId),
             id: segment.id,
             label: segment.label,
@@ -139,12 +132,22 @@ function handleSegmentClick(segment: PatternSegmentClick) {
 function closeMainLabelOverlay() {
   selectedMainLabel.value = null
   selectedSubLabel.value = null
+  selectedAnchorStatement.value = null
   icicleDiagram.value?.clearSelection()
 }
 
 function closeSubLabelOverlay() {
   selectedSubLabel.value = null
+  selectedAnchorStatement.value = null
   icicleDiagram.value?.clearSelection()
+}
+
+function showAnchorStatement(anchor: SelectedAnchorStatement) {
+  selectedAnchorStatement.value = anchor
+}
+
+function closeAnchorStatementOverlay() {
+  selectedAnchorStatement.value = null
 }
 
 function showHoveredTimelineStatement(statement: HoveredTimelineStatement | null) {
@@ -248,11 +251,6 @@ function getGroupLabel(groupId: string) {
             {{ selectedMainLabel.description }}
           </p>
         </header>
-
-        <div class="strategy-view__main-overlay-meta">
-          <span>Statements in this category</span>
-          <strong>{{ selectedMainLabel.count }}</strong>
-        </div>
       </aside>
     </Transition>
 
@@ -282,10 +280,25 @@ function getGroupLabel(groupId: string) {
         </div>
 
         <section class="strategy-view__sub-label-overlay-anchors" aria-label="Anchor texts">
-          <StrategySubLabelAnchorSketch :anchors="selectedSubLabelAnchors" />
+          <StrategyAnchorTextScroller
+            :highlight-color="selectedSubLabel.color"
+            :label="selectedSubLabel.id"
+            :statements="selectedSubLabelStatements"
+            @anchor-press-end="closeAnchorStatementOverlay"
+            @anchor-press-start="showAnchorStatement"
+          />
         </section>
       </aside>
     </Transition>
+
+    <StrategyAnchorTextStatementOverlay
+      v-if="props.mode === 'structure' && selectedSubLabel && selectedAnchorStatement"
+      :anchor-text="selectedAnchorStatement.text"
+      :highlight-color="selectedSubLabel.color"
+      :label="selectedSubLabel.id"
+      :statement="selectedAnchorStatement.statement"
+      @close="closeAnchorStatementOverlay"
+    />
   </section>
 </template>
 

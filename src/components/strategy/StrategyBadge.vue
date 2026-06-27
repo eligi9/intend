@@ -18,5 +18,5 @@ defineProps<{
 </template>
 
 <style scoped>
-@import '../css/components/StrategyBadge.css';
+@import '../../css/components/strategy/StrategyBadge.css';
 </style>

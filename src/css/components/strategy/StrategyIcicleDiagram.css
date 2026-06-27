@@ -180,44 +180,6 @@
   bottom: 0;
 }
 
-.strategy-icicle__hover-indicator {
-  position: fixed;
-  z-index: 20;
-  top: 0;
-  bottom: 1rem;
-  left: var(--hover-indicator-left);
-  width: 0;
-  pointer-events: none;
-}
-
-.strategy-icicle__hover-indicator::before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -0.5px;
-  width: 1px;
-  border-radius: 999px;
-  background: rgba(var(--color-white-rgb), 0.96);
-  content: '';
-}
-
-.strategy-icicle__hover-pill {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  min-width: 2rem;
-  padding: 0.22rem 0.48rem;
-  border-radius: 999px;
-  color: var(--color-ink);
-  background: var(--color-white);
-  font-size: 11px;
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-  text-align: center;
-  transform: translateX(-50%);
-}
-
 .strategy-icicle__side {
   display: flex;
   flex: 0 0 50%;
@@ -310,16 +272,16 @@
   padding: 0;
 }
 
-.strategy-icicle__bar.strategy-icicle__tone--dimmed {
+.strategy-icicle__bar.strategy-icicle__state--dimmed {
   opacity: 0.33;
 }
 
-.strategy-icicle__bar.strategy-icicle__tone--related {
+.strategy-icicle__bar.strategy-icicle__state--related {
   opacity: 0.66;
 }
 
-.strategy-icicle__bar.strategy-icicle__tone--active,
-.strategy-icicle__bar.strategy-icicle__tone--neutral {
+.strategy-icicle__bar.strategy-icicle__state--active,
+.strategy-icicle__bar.strategy-icicle__state--neutral {
   opacity: 1;
 }
 
@@ -348,16 +310,16 @@
   transition: opacity 160ms ease;
 }
 
-.strategy-icicle__sub-row.strategy-icicle__tone--dimmed .strategy-icicle__sub-label {
+.strategy-icicle__sub-row.strategy-icicle__state--dimmed .strategy-icicle__sub-label {
   opacity: 0.33;
 }
 
-.strategy-icicle__sub-row.strategy-icicle__tone--related .strategy-icicle__sub-label {
+.strategy-icicle__sub-row.strategy-icicle__state--related .strategy-icicle__sub-label {
   opacity: 0.66;
 }
 
-.strategy-icicle__sub-row.strategy-icicle__tone--active .strategy-icicle__sub-label,
-.strategy-icicle__sub-row.strategy-icicle__tone--neutral .strategy-icicle__sub-label {
+.strategy-icicle__sub-row.strategy-icicle__state--active .strategy-icicle__sub-label,
+.strategy-icicle__sub-row.strategy-icicle__state--neutral .strategy-icicle__sub-label {
   opacity: 1;
 }
 

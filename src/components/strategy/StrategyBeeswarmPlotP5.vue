@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type p5 from 'p5'
-import type { IntentLabelKey, IntentRecord } from '../types/intentData'
-import { createStatementBeeswarmSketch } from '../sketches/statementBeeswarmSketch'
-import { createStrategyBeeswarmSketch } from '../sketches/strategyBeeswarmSketch'
-import { createStrategyTimelineGridSketch } from '../sketches/strategyTimelineGridSketch'
+import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import { createStatementBeeswarmSketch } from '../../sketches/statementBeeswarmSketch'
+import { createStrategyBeeswarmSketch } from '../../sketches/strategyBeeswarmSketch'
+import { createStrategyTimelineGridSketch } from '../../sketches/strategyTimelineGridSketch'
 import type {
   BeeswarmDisplayMode,
   HoveredBeeswarmStatement,
   HoveredTimelineStatement,
-} from '../types/strategyBeeswarm'
-import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
+} from '../../types/strategyBeeswarm'
+import type { HoveredTimelineEvent, TimelineEvent } from '../../types/timeline'
 import {
   createStrategyTimelineDomain,
   getMonthDivisionCount,
-} from '../utils/strategyTimelineDomain'
+} from '../../utils/strategyTimelineDomain'
 
 const props = defineProps<{
   events?: TimelineEvent[]
@@ -180,5 +180,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import '../css/components/StrategyBeeswarmPlot.css';
+@import '../../css/components/strategy/StrategyBeeswarmPlot.css';
 </style>

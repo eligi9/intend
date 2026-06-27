@@ -8,7 +8,7 @@ import {
   getDisplayLabel,
   splitStatementText,
 } from '../utils/statementHighlights'
-import ReadStrategyBadge from './ReadStrategyBadge.vue'
+import ReadStrategyBadge from './strategy/ReadStrategyBadge.vue'
 
 interface StrategyBadge {
   label: IntentLabelKey

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IntentLabelKey } from '../types/intentData'
-import { intentLabelNames } from '../utils/intentLabels'
+import type { IntentLabelKey } from '../../types/intentData'
+import { intentLabelNames } from '../../utils/intentLabels'
 
 const props = defineProps<{
   label: IntentLabelKey
@@ -21,5 +21,5 @@ const displayLabel = computed(() => intentLabelNames[props.label])
 </template>
 
 <style scoped>
-@import '../css/components/ReadStrategyBadge.css';
+@import '../../css/components/strategy/ReadStrategyBadge.css';
 </style>

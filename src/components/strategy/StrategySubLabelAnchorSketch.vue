@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type p5 from 'p5'
-import { createStrategyAnchorTextSketch } from '../sketches/strategyAnchorTextSketch'
+import { createStrategyAnchorTextSketch } from '../../sketches/strategyAnchorTextSketch'
 
 const props = defineProps<{
   anchors: string[]
