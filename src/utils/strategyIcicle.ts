@@ -9,14 +9,23 @@ export function getStrategyIcicleSegmentState(
   }
 
   if (
-    activeSegment.id === segment.id ||
-    (activeSegment.depth === 'sub' &&
-      segment.depth === 'main' &&
-      activeSegment.groupId === segment.groupId) ||
-    (activeSegment.depth === 'main' && activeSegment.groupId === segment.groupId)
+    segment.id === activeSegment.id ||
+    (isMainStrategyIcicleSegment(segment) && activeSegment.parent?.id === segment.id) ||
+    (isMainStrategyIcicleSegment(activeSegment) &&
+      getStrategyIcicleRootId(segment) === activeSegment.id)
   ) {
     return 'active'
   }
 
-  return activeSegment.groupId === segment.groupId ? 'related' : 'dimmed'
+  return getStrategyIcicleRootId(activeSegment) === getStrategyIcicleRootId(segment)
+    ? 'related'
+    : 'dimmed'
+}
+
+export function isMainStrategyIcicleSegment(segment: StrategyIcicleSegment) {
+  return segment.parent === null
+}
+
+export function getStrategyIcicleRootId(segment: StrategyIcicleSegment) {
+  return segment.parent?.id ?? segment.id
 }

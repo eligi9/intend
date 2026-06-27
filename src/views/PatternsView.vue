@@ -7,8 +7,9 @@ import StrategyAnchorTextStatementOverlay from '../components/strategy/StrategyA
 import StrategyBeeswarmPlotP5 from '../components/strategy/StrategyBeeswarmPlotP5.vue'
 import StrategyIcicleDiagram from '../components/strategy/StrategyIcicleDiagram.vue'
 import { useStatementStore } from '../stores/statementStore'
-import type { IntentLabelKey, IntentRecord } from '../types/intentData'
-import { intentSubLabelDescriptions, intentTaxonomy } from '../types/intentTaxonomy'
+import type { IntentRecord } from '../types/intentData'
+import { intentSubLabelDescriptions } from '../types/intentTaxonomy'
+import type { StrategyIcicleSegment } from '../types/strategyIcicle'
 import type { BeeswarmDisplayMode, HoveredTimelineStatement } from '../types/strategyBeeswarm'
 import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
 
@@ -24,37 +25,13 @@ const beeswarmMode = ref<BeeswarmDisplayMode>('strategies')
 const hoveredTimelineEvent = ref<HoveredTimelineEvent | null>(null)
 const hoveredTimelineStatement = ref<HoveredTimelineStatement | null>(null)
 
-interface MainLabelOverlaySelection {
-  color: string
-  description: string
-  groupId: string
-  id: IntentLabelKey
-  label: string
-  selected: boolean
-}
-
-interface PatternSegmentClick {
-  depth: 'main' | 'sub'
-  color: string
-  groupId: string
-  id: IntentLabelKey
-  label: string
-}
-
-interface SubLabelOverlaySelection {
-  color: string
-  groupLabel: string
-  id: IntentLabelKey
-  label: string
-}
-
 interface SelectedAnchorStatement {
   statement: IntentRecord
   text: string
 }
 
-const selectedMainLabel = ref<MainLabelOverlaySelection | null>(null)
-const selectedSubLabel = ref<SubLabelOverlaySelection | null>(null)
+const selectedMainSegment = ref<StrategyIcicleSegment | null>(null)
+const selectedSubSegment = ref<StrategyIcicleSegment | null>(null)
 const selectedAnchorStatement = ref<SelectedAnchorStatement | null>(null)
 
 const patternViews = [
@@ -72,19 +49,19 @@ const patternViews = [
 const activeDescription = computed(
   () => patternViews.find((view) => view.id === props.mode)?.description ?? '',
 )
-const selectedSubLabelStatements = computed(() => {
-  const label = selectedSubLabel.value?.id
+const selectedSubSegmentStatements = computed(() => {
+  const label = selectedSubSegment.value?.id
   if (!label) return []
 
   return records.value.filter((record) => record[label] === 'yes')
 })
-const selectedSubLabelDescription = computed(() => {
-  const selection = selectedSubLabel.value
-  if (!selection) return ''
+const selectedSubSegmentDescription = computed(() => {
+  const segment = selectedSubSegment.value
+  if (!segment) return ''
 
   return (
-    intentSubLabelDescriptions[selection.id] ??
-    `${selection.label} describes statements where this pattern appears inside ${selection.groupLabel}.`
+    intentSubLabelDescriptions[segment.id] ??
+    `${segment.label} describes statements where this pattern appears inside ${segment.parent?.label ?? 'this pattern'}.`
   )
 })
 
@@ -92,7 +69,7 @@ watch(
   () => props.mode,
   () => {
     closeMainLabelOverlay()
-    selectedSubLabel.value = null
+    selectedSubSegment.value = null
     selectedAnchorStatement.value = null
     hoveredTimelineEvent.value = null
     hoveredTimelineStatement.value = null
@@ -103,41 +80,28 @@ watch(beeswarmMode, () => {
   hoveredTimelineStatement.value = null
 })
 
-function handleMainLabelClick(selection: MainLabelOverlaySelection) {
-  selectedSubLabel.value = null
-  selectedAnchorStatement.value = null
-  selectedMainLabel.value = selection.selected ? selection : null
-}
-
-function handleSegmentClick(segment: PatternSegmentClick) {
+function handleSegmentClick(segment: StrategyIcicleSegment) {
   selectedAnchorStatement.value = null
 
-  if (segment.depth === 'sub') {
-    selectedMainLabel.value = null
-    selectedSubLabel.value =
-      selectedSubLabel.value?.id === segment.id
-        ? null
-        : {
-            color: segment.color,
-            groupLabel: getGroupLabel(segment.groupId),
-            id: segment.id,
-            label: segment.label,
-          }
+  if (segment.parent) {
+    selectedMainSegment.value = null
+    selectedSubSegment.value = selectedSubSegment.value?.id === segment.id ? null : segment
     return
   }
 
-  selectedSubLabel.value = null
+  selectedSubSegment.value = null
+  selectedMainSegment.value = selectedMainSegment.value?.id === segment.id ? null : segment
 }
 
 function closeMainLabelOverlay() {
-  selectedMainLabel.value = null
-  selectedSubLabel.value = null
+  selectedMainSegment.value = null
+  selectedSubSegment.value = null
   selectedAnchorStatement.value = null
   icicleDiagram.value?.clearSelection()
 }
 
 function closeSubLabelOverlay() {
-  selectedSubLabel.value = null
+  selectedSubSegment.value = null
   selectedAnchorStatement.value = null
   icicleDiagram.value?.clearSelection()
 }
@@ -156,10 +120,6 @@ function showHoveredTimelineStatement(statement: HoveredTimelineStatement | null
 
 function showHoveredTimelineEvent(event: HoveredTimelineEvent | null) {
   hoveredTimelineEvent.value = event
-}
-
-function getGroupLabel(groupId: string) {
-  return intentTaxonomy.find((group) => group.parentLabel === groupId)?.label ?? 'Pattern'
 }
 </script>
 
@@ -181,7 +141,6 @@ function getGroupLabel(groupId: string) {
         <StrategyIcicleDiagram
           ref="icicleDiagram"
           :records="records"
-          @main-label-click="handleMainLabelClick"
           @segment-click="handleSegmentClick"
         />
       </section>
@@ -240,15 +199,15 @@ function getGroupLabel(groupId: string) {
 
     <Transition name="strategy-main-overlay">
       <aside
-        v-if="props.mode === 'structure' && selectedMainLabel"
+        v-if="props.mode === 'structure' && selectedMainSegment"
         class="strategy-view__main-overlay"
-        :style="{ '--strategy-main-overlay-accent': selectedMainLabel.color }"
+        :style="{ '--strategy-main-overlay-accent': selectedMainSegment.color }"
         aria-label="Main label details"
       >
         <header class="strategy-view__main-overlay-header">
-          <h3>{{ selectedMainLabel.label }}</h3>
+          <h3>{{ selectedMainSegment.label }}</h3>
           <p class="strategy-view__main-overlay-description">
-            {{ selectedMainLabel.description }}
+            {{ selectedMainSegment.description }}
           </p>
         </header>
       </aside>
@@ -256,18 +215,18 @@ function getGroupLabel(groupId: string) {
 
     <Transition name="strategy-sub-label-overlay">
       <aside
-        v-if="props.mode === 'structure' && selectedSubLabel"
+        v-if="props.mode === 'structure' && selectedSubSegment"
         class="strategy-view__sub-label-overlay"
-        :style="{ '--strategy-sub-label-overlay-color': selectedSubLabel.color }"
+        :style="{ '--strategy-sub-label-overlay-color': selectedSubSegment.color }"
         aria-label="Sublabel details"
       >
         <div class="strategy-view__sub-label-overlay-columns">
           <section class="strategy-view__sub-label-overlay-copy">
-            <p>{{ selectedSubLabelDescription }}</p>
+            <p>{{ selectedSubSegmentDescription }}</p>
           </section>
 
           <header class="strategy-view__sub-label-overlay-header">
-            <h3>{{ selectedSubLabel.label }}</h3>
+            <h3>{{ selectedSubSegment.label }}</h3>
             <button
               type="button"
               class="strategy-view__sub-label-overlay-close"
@@ -281,9 +240,9 @@ function getGroupLabel(groupId: string) {
 
         <section class="strategy-view__sub-label-overlay-anchors" aria-label="Anchor texts">
           <StrategyAnchorTextScroller
-            :highlight-color="selectedSubLabel.color"
-            :label="selectedSubLabel.id"
-            :statements="selectedSubLabelStatements"
+            :highlight-color="selectedSubSegment.color"
+            :label="selectedSubSegment.id"
+            :statements="selectedSubSegmentStatements"
             @anchor-press-end="closeAnchorStatementOverlay"
             @anchor-press-start="showAnchorStatement"
           />
@@ -292,10 +251,10 @@ function getGroupLabel(groupId: string) {
     </Transition>
 
     <StrategyAnchorTextStatementOverlay
-      v-if="props.mode === 'structure' && selectedSubLabel && selectedAnchorStatement"
+      v-if="props.mode === 'structure' && selectedSubSegment && selectedAnchorStatement"
       :anchor-text="selectedAnchorStatement.text"
-      :highlight-color="selectedSubLabel.color"
-      :label="selectedSubLabel.id"
+      :highlight-color="selectedSubSegment.color"
+      :label="selectedSubSegment.id"
       :statement="selectedAnchorStatement.statement"
       @close="closeAnchorStatementOverlay"
     />

@@ -3,58 +3,59 @@ import { computed } from 'vue'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
 import { getStrategyIcicleSegmentState } from '../../utils/strategyIcicle'
 
-const hoveredSegment = defineModel<StrategyIcicleSegment | null>('hoveredSegment', {
-  required: true,
-})
-
 const props = defineProps<{
   activeSegment: StrategyIcicleSegment | null
   align: 'left' | 'right'
+  accessibilityLabel: string
   label?: string
   segment: StrategyIcicleSegment
   selected: boolean
 }>()
 
 const emit = defineEmits<{
-  select: []
+  hover: [segment: StrategyIcicleSegment]
+  leave: [segment: StrategyIcicleSegment]
+  select: [segment: StrategyIcicleSegment]
 }>()
 
 const segmentState = computed(() =>
   getStrategyIcicleSegmentState(props.segment, props.activeSegment),
 )
-
-function setHoveredSegment() {
-  hoveredSegment.value = props.segment
-}
-
-function clearHoveredSegment() {
-  if (hoveredSegment.value?.id === props.segment.id) {
-    hoveredSegment.value = null
-  }
-}
 </script>
 
 <template>
-  <button
-    type="button"
-    class="strategy-icicle-button"
+  <div
+    class="strategy-icicle-button-row"
     :class="[
-      `strategy-icicle-button--${align}`,
-      `strategy-icicle-button--${segmentState}`,
-      { 'strategy-icicle-button--selected': selected },
+      `strategy-icicle-button-row--${align}`,
+      `strategy-icicle-button-row--${segmentState}`,
     ]"
     :style="{
       '--strategy-icicle-button-color': segment.color,
+      '--strategy-icicle-button-height': `${segment.heightPercent}%`,
       '--strategy-icicle-button-width': `${segment.widthPercent}%`,
     }"
-    @blur="clearHoveredSegment"
-    @click="emit('select')"
-    @focus="setHoveredSegment"
-    @mouseenter="setHoveredSegment"
-    @mouseleave="clearHoveredSegment"
+    @mouseenter="emit('hover', segment)"
+    @mouseleave="emit('leave', segment)"
   >
-    <span v-if="label">{{ label }}</span>
-  </button>
+    <button
+      type="button"
+      class="strategy-icicle-button"
+      :class="[
+        `strategy-icicle-button--${align}`,
+        `strategy-icicle-button--${segmentState}`,
+        { 'strategy-icicle-button--selected': selected },
+      ]"
+      :aria-label="accessibilityLabel"
+      @blur="emit('leave', segment)"
+      @click="emit('select', segment)"
+      @focus="emit('hover', segment)"
+    >
+      <span v-if="label">{{ label }}</span>
+    </button>
+
+    <slot />
+  </div>
 </template>
 
 <style scoped>

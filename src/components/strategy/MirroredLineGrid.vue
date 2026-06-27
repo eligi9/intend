@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+interface MirroredLineGridMarker {
+  label?: string
+  side: 'left' | 'right'
+  value: number
+}
+
 const props = defineProps<{
   maxValue: number
+  marker?: MirroredLineGridMarker | null
   scaleLabel: string
   stepSize: number
 }>()
@@ -17,10 +24,28 @@ const gridLines = computed(() => {
     return {
       id: value,
       label: labelValue === 0 || labelValue === props.maxValue ? '' : `${labelValue}`,
-      xPercent: ((value + props.maxValue) / (props.maxValue * 2)) * 100,
+      xPercent: getXPercent(value),
     }
   })
 })
+
+const markerPosition = computed(() => {
+  if (!props.marker) {
+    return null
+  }
+
+  const value = Math.min(props.marker.value, props.maxValue)
+  const signedValue = props.marker.side === 'left' ? value * -1 : value
+
+  return {
+    label: props.marker.label ?? `${props.marker.value}`,
+    xPercent: getXPercent(signedValue),
+  }
+})
+
+function getXPercent(value: number) {
+  return ((value + props.maxValue) / (props.maxValue * 2)) * 100
+}
 </script>
 
 <template>
@@ -40,6 +65,18 @@ const gridLines = computed(() => {
     </div>
 
     <span class="mirrored-line-grid__label">{{ props.scaleLabel }}</span>
+
+    <Teleport to="body">
+      <div
+        v-if="markerPosition"
+        class="mirrored-line-grid__marker"
+        :style="{ '--marker-x': `${markerPosition.xPercent}%` }"
+      >
+        <span class="mirrored-line-grid__marker-value">
+          {{ markerPosition.label }}
+        </span>
+      </div>
+    </Teleport>
   </div>
 </template>
 
