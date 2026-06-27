@@ -8,13 +8,14 @@ import PatternsView from './views/PatternsView.vue'
 import ReadView from './views/ReadView.vue'
 import RetaliationView from './views/RetaliationView.vue'
 import SelfDefenceCounterterrorismView from './views/SelfDefenceCounterterrorismView.vue'
+import TimelineView from './views/TimelineView.vue'
 
 const showLanding = ref(true)
 const activeView = ref<
   | 'read'
   | 'measures'
   | 'authors'
-  | 'structure'
+  | 'patterns'
   | 'timeline'
   | 'selfdefence-counterterrorism'
   | 'retaliation'
@@ -48,9 +49,14 @@ function showAuthorDetail(authorId: string) {
   selectedAuthorId.value = authorId
 }
 
-function showPatternsView(view: 'structure' | 'timeline') {
+function showPatternsView() {
   selectedAuthorId.value = null
-  activeView.value = view
+  activeView.value = 'patterns'
+}
+
+function showTimeline() {
+  selectedAuthorId.value = null
+  activeView.value = 'timeline'
 }
 
 function showSelfDefenceCounterterrorism() {
@@ -92,18 +98,18 @@ function enterWorkspace() {
           type="button"
           :class="{
             active:
-              activeView === 'structure' ||
+              activeView === 'patterns' ||
               activeView === 'selfdefence-counterterrorism' ||
               activeView === 'retaliation',
           }"
-          @click="showPatternsView('structure')"
+          @click="showPatternsView"
         >
           Patterns
         </button>
         <button
           type="button"
           :class="{ active: activeView === 'timeline' }"
-          @click="showPatternsView('timeline')"
+          @click="showTimeline"
         >
           Timeline
         </button>
@@ -112,10 +118,8 @@ function enterWorkspace() {
       <ReadView v-if="activeView === 'read'" @select-author="showAuthorDetail" />
       <MeasuresView v-else-if="activeView === 'measures'" @select-author="showAuthorDetail" />
       <AuthorView v-else-if="activeView === 'authors'" @select-author="showAuthorDetail" />
-      <PatternsView
-        v-else-if="activeView === 'structure' || activeView === 'timeline'"
-        :mode="activeView"
-      />
+      <PatternsView v-else-if="activeView === 'patterns'" />
+      <TimelineView v-else-if="activeView === 'timeline'" />
       <SelfDefenceCounterterrorismView
         v-else-if="activeView === 'selfdefence-counterterrorism'"
         @select-author="showAuthorDetail"
