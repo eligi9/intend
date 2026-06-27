@@ -1,0 +1,43 @@
+.mirrored-line-grid {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mirrored-line-grid__line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--line-x);
+  width: 1px;
+  background: rgba(var(--color-text-rgb), 0.1);
+}
+
+.mirrored-line-grid__line--center {
+  background: rgba(var(--color-text-rgb), 0.22);
+}
+
+.mirrored-line-grid__value {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  color: rgba(var(--color-text-rgb), 0.62);
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.mirrored-line-grid__label {
+  position: absolute;
+  right: 1rem;
+  bottom: 2.6rem;
+  color: rgba(var(--color-text-rgb), 0.74);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
