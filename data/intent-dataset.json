@@ -270,14 +270,13 @@
       "statement": "“The spirit of Oslo is still here. And if we don't get rid of it … we will lose again. With Nazis & their assistants, you don't talk. You eradicate evil from the world. Do you want your pop. [in Gaza] to drink? Release the hostages. Now”",
       "position": "Minister of Heritage",
       "enemy_image": "yes",
-      "homogenization": "yes",
+      "homogenization": "no",
       "immutability": "yes",
       "essentialization": "yes",
       "dehumanization": "no",
       "threat_construction": "no",
       "homogenization_anchor": [
-        "With Nazis & their assistants, you don't talk",
-        "Do you want your pop. [in Gaza] to drink? Release the hostages. Now”"
+
       ],
       "immutability_anchor": [
         "With Nazis & their assistants, you don't talk"
@@ -288,7 +287,7 @@
       ],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [],
-      "homogenization_bj": "The statement homogenizes the targeted population by extending the enemy category to Nazis and their assistants and by addressing Gaza’s population as collectively responsible for releasing the hostages.",
+      "homogenization_bj": null,
       "immutability_bj": "The statement suggests immutability by saying “you don’t talk” with them and must “eradicate evil,” implying that the enemy cannot be changed or negotiated with.",
       "essentialization_bj": "The statement essentializes the enemy by calling them “Nazis” and “evil,” making evil appear as their defining characteristic.",
       "dehumanization_bj": null,
@@ -467,21 +466,19 @@
       "statement": "“There should be 2 goals for this victory: 1. There is no more Muslim land in the Land of Israel… After we make it the land of IL, Gaza should be left as a monument, like Sodom…”",
       "position": "Member of the Israeli Knesset (Likud)",
       "enemy_image": "yes",
-      "homogenization": "yes",
+      "homogenization": "no",
       "immutability": "no",
       "essentialization": "yes",
       "dehumanization": "no",
       "threat_construction": "no",
-      "homogenization_anchor": [
-        "There is no more Muslim land in the Land of Israel"
-      ],
+      "homogenization_anchor": [],
       "immutability_anchor": [],
       "essentialization_anchor": [
         "Gaza should be left as a monument, like Sodom"
       ],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [],
-      "homogenization_bj": "The statement homogenizes “Muslim land” by linking it to Gaza as “Sodom,” implying that the territory and its inhabitants share the same moral guilt.",
+      "homogenization_bj": null,
       "immutability_bj": null,
       "essentialization_bj": "The statement essentializes Gaza by comparing it to “Sodom,” making moral corruption or evil appear as a defining characteristic of the place and its population.",
       "dehumanization_bj": null,
@@ -1301,8 +1298,7 @@
       "dehumanization": "no",
       "threat_construction": "no",
       "homogenization_anchor": [
-        "wipe out the memory of Amalek",
-        "Rafah, Dir al-Balah Nusseirat absolute destruction"
+        "We must destroy Rafah, Nusseirat, & Dir al-Balah 'wipe out the memory of Amalek!"
       ],
       "immutability_anchor": [],
       "essentialization_anchor": [
@@ -1499,21 +1495,19 @@
       "statement": "“We’ll turn you into ruins like we’re doing in the Gaza Strip if the terror you inflict on the settlements continues.”",
       "position": "Minister of Finance",
       "enemy_image": "yes",
-      "homogenization": "yes",
+      "homogenization": "no",
       "immutability": "no",
       "essentialization": "no",
       "dehumanization": "no",
       "threat_construction": "yes",
-      "homogenization_anchor": [
-        "the terror you inflict on the settlements"
-      ],
+      "homogenization_anchor": [],
       "immutability_anchor": [],
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [
         "the terror you inflict on the settlements continues."
       ],
-      "homogenization_bj": "The statement portrays West Bank citizens as collective sources of “terror,” making their destruction “into ruins”",
+      "homogenization_bj": null,
       "immutability_bj": null,
       "essentialization_bj": null,
       "dehumanization_bj": null,
@@ -3989,7 +3983,7 @@
       "dehumanization": "no",
       "threat_construction": "yes",
       "homogenization_anchor": [
-        "Now in Judea and Samaria, I'll say it in the simplest way: No more relying rely on the PA, the same PA of terrorists, haven't we seen what's happening?",
+        "No more relying rely on the PA, the same PA of terrorists, haven't we seen what's happening?",
         "It's the same old concept, after all 82% of them support the massacre"
       ],
       "immutability_anchor": [
@@ -4006,7 +4000,7 @@
       "threat_construction_anchor": [
         "It's the same old concept, after all 82% of them support the massacre"
       ],
-      "homogenization_bj": "The statement homogenizes Palestinians in Judea and Samaria by merging the PA as a “PA of terrorists” with the 82% figure, making government and population appear as one collective supporter of terror.",
+      "homogenization_bj": "The statement homogenizes Palestinians in Judea and Samaria by collapsing distinctions between the Palestinian Authority, Hamas supporters, and the broader population. By referring to the PA as a “PA of terrorists” and invoking the 82% figure, it frames governmental actors and civilians as part of one collective body aligned with terror, rather than as differentiated groups with different positions.",
       "immutability_bj": "The statement suggests immutability by portraying the PA’s education system as broadcasting “murder and massacre,” making the threat appear institutionally reproduced across generations. By using the term \"same old concept\" it implies that this is persistent reality",
       "essentialization_bj": "The statement essentializes the PA by defining it as a terrorist entity and portraying its institutions as inherently tied to murder, massacre, and support for anti-Jewish violence.",
       "dehumanization_bj": null,
@@ -4061,7 +4055,7 @@
       "date": "11/02/2024",
       "context": "Minister on National Security calling to shoot any Palestinian, including women or children, that come close to the fence in the North of Gaza.",
       "source": null,
-      "statement": "\"Obviously, we need to pay attention to incidents of our forces shooting at our forces, but on the other hand, we need clear instructions. There is no way that children and women are approaching the fence. Anyone who comes close to harm security should be shot.\"",
+      "statement": "\"Obviously, we need to pay attention to incidents of our forces shooting at our forces, but on the other hand, we need clear instructions. There is no way that children and women are approaching the fence.Anyone who comes close to harm security should be shot.\"",
       "position": "Minister of National Security",
       "enemy_image": "yes",
       "homogenization": "yes",
@@ -4070,15 +4064,13 @@
       "dehumanization": "no",
       "threat_construction": "yes",
       "homogenization_anchor": [
-        "There is no way that children and women are approaching the fence.",
-        "Anyone who comes close to harm security should be shot."
+        "There is no way that children and women are approaching the fence. Anyone who comes close to harm security should be shot."
       ],
       "immutability_anchor": [],
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [
-        "There is no way that children and women are approaching the fence.",
-        "Anyone who comes close to harm security should be shot."
+        "There is no way that children and women are approaching the fence. Anyone who comes close to harm security should be shot."
       ],
       "homogenization_bj": "The statement homogenizes people near the fence by collapsing women, children, and other civilians into one collective security-threat category.",
       "immutability_bj": null,
@@ -5026,20 +5018,18 @@
       "source": "Video address to Palestinians in Gaza",
       "statement": "\"No electricity, no water, just damage. You wanted hell, you will get hell\"",
       "position": "Coordinator of Government Activities in the Territories",
-      "enemy_image": "yes",
-      "homogenization": "yes",
+      "enemy_image": "no",
+      "homogenization": "no",
       "immutability": "no",
       "essentialization": "no",
       "dehumanization": "no",
       "threat_construction": "no",
-      "homogenization_anchor": [
-        "You wanted hell, you will get hell"
-      ],
+      "homogenization_anchor": [],
       "immutability_anchor": [],
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [],
-      "homogenization_bj": "The statement homogenizes the targeted group by addressing them collectively as “you” and attributing shared responsibility for having “wanted hell.”",
+      "homogenization_bj": null,
       "immutability_bj": null,
       "essentialization_bj": null,
       "dehumanization_bj": null,
@@ -5469,7 +5459,7 @@
       "date": "13/05/2025",
       "context": "This was said in the Kenesset as a response to MK Ahmad Tibi who condemned the killing of children in Gaza.",
       "source": "Knesset speech",
-      "statement": "\"What was done in Gaza, it's shame worse wasn't done. There are no uninvolved. [...] I hope my [soldier] son will kill anyone who will stand infront of him who will want to harm the state of Israel, including children. \"",
+      "statement": "\"What was done in Gaza, it's shame worse wasn't done. There are no uninvolved. [...] I hope my [soldier] son will kill anyone who will stand infront of him who will want to harm the state of Israel, including children.\"",
       "position": "Member of the Israeli Knesset - Religious Zionism",
       "enemy_image": "yes",
       "homogenization": "yes",
@@ -5479,7 +5469,7 @@
       "threat_construction": "yes",
       "homogenization_anchor": [
         "There are no uninvolved.",
-        "including children"
+        "I hope my [soldier] son will killanyone who will stand infront of him who will want to harm the state of Israel, including children."
       ],
       "immutability_anchor": [],
       "essentialization_anchor": [],
@@ -5738,9 +5728,9 @@
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [
-        "Given the current situation, it was agreed to immediately advance legislation that would view carrying out the above activities at a time of war as sufficient grounds to rescind citizenship or residency.\""
+        "carrying out the above activities at a time of war as sufficient grounds to rescind citizenship or residency.\""
       ],
-      "homogenization_bj": "The statement homogenizes Hamas supporters by treating all forms of support as one hostile category that is “not one of us.”",
+      "homogenization_bj": "The statement homogenizes Hamas supporters by treating all forms of support as one hostile category that is “not one of us.” Its not clear what “support” means in this context but the consequences are severe.",
       "immutability_bj": null,
       "essentialization_bj": null,
       "dehumanization_bj": null,
@@ -5799,7 +5789,7 @@
       "dehumanization": "no",
       "threat_construction": "no",
       "homogenization_anchor": [
-        "all the Gazans need to be destroyed"
+        "it is clear that all the Gazans need to be destroyed"
       ],
       "immutability_anchor": [],
       "essentialization_anchor": [],
@@ -5862,14 +5852,12 @@
       "dehumanization": "no",
       "threat_construction": "yes",
       "homogenization_anchor": [
-        "Erase Gaza",
         "Do not leave a child there expel all the remaining ones at the end",
         "Don't leave a child there expel everyone.",
         "Do not leave a child there expel all the ones who will remain"
       ],
       "immutability_anchor": [
-        "so that they will not have a resurrection",
-        "so that they will not have a resurrection."
+        "so that they will not have a resurrection"
       ],
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
@@ -6962,9 +6950,9 @@
       "author": "Nissim Vaturi",
       "sector": "Legislators",
       "date": "23/02/2025",
-      "context": "Said in Radio interview to Kol Berama on Sunday February 23 2025.  He also called to the flattening of Jenin in that same interview.",
+      "context": "Said in Radio interview to Kol Berama on Sunday February 23 2025. He also called to the flattening of Jenin in that same interview.",
       "source": "Kol Berama radio interview",
-      "statement": "\"No one in the world wants the civilians in Gaza, everyone is pushing them into Israel, they know that these are scum and subhumans [...] The children and women need to be separated and the adult [men]  in Gaza eliminated. We are being too considerate.\"",
+      "statement": "\"No one in the world wants the civilians in Gaza, everyone is pushing them into Israel, they know that these are scum and subhumans [...] The children and women need to be separated and the adult [men] in Gaza eliminated. We are being too considerate.\"",
       "position": "Deputy Speaker of Knesset (Likud)",
       "enemy_image": "yes",
       "homogenization": "yes",
@@ -6973,8 +6961,8 @@
       "dehumanization": "yes",
       "threat_construction": "no",
       "homogenization_anchor": [
-        "the adult [men]  in Gaza eliminated.",
-        "No one in the world wants the civilians in Gaza, everyone is pushing them into Israel, they know that these are scum and subhumans"
+        "The children and women need to be separated and the adult [men] in Gaza eliminated.",
+        "they know that these are scum and subhumans"
       ],
       "immutability_anchor": [
         "We are being too considerate."
@@ -7684,8 +7672,7 @@
       "dehumanization": "no",
       "threat_construction": "no",
       "homogenization_anchor": [
-        "it’s not about just eliminating Hamas",
-        "the termination of Gaza as a whole"
+        "it’s not about just eliminating Hamas […] it’s the termination of Gaza as a whole […]"
       ],
       "immutability_anchor": [
         "You can’t eliminate an ideal, so there is not choice but to eliminate everything close to it"
@@ -7813,7 +7800,7 @@
       "dehumanization": "no",
       "threat_construction": "yes",
       "homogenization_anchor": [
-        "open fire in the north of the Gaza Strip against all incoming Gazans"
+        "Return instructions to open fire in the north of the Gaza Strip against all incoming Gazans."
       ],
       "immutability_anchor": [],
       "essentialization_anchor": [],
