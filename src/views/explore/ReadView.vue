@@ -3,6 +3,8 @@ import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import FilterButton from '../../components/common/FilterButton.vue'
 import StatementCard from '../../components/common/StatementCard.vue'
+import SquareArrowButton from '../../components/common/SquareArrowButton.vue'
+import { useHorizontalTrackpadSwipe } from '../../composables/useHorizontalTrackpadSwipe'
 import { intentLabelKeys, useStatementStore } from '../../stores/statementStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
@@ -14,6 +16,7 @@ import { toggleArrayItem } from '../../utils/arrays'
 
 const store = useStatementStore()
 const { currentRecord, currentRecordPosition, filters, sectors } = storeToRefs(store)
+const readView = ref<HTMLElement | null>(null)
 const swipeStart = ref<{ x: number; y: number } | null>(null)
 const animatedTotal = ref(currentRecordPosition.value.total)
 const countFeedbackKey = ref(0)
@@ -25,6 +28,15 @@ let countFeedbackTimeout = 0
 const activeLabels = computed(() => {
   if (!currentRecord.value) return []
   return getActiveLabels(currentRecord.value, intentLabelKeys)
+})
+
+useHorizontalTrackpadSwipe(readView, (direction) => {
+  if (direction === 'left') {
+    store.nextRecord()
+    return
+  }
+
+  store.previousRecord()
 })
 
 function toggleSector(sector: string) {
@@ -119,17 +131,41 @@ function finishStatementSwipe(event: TouchEvent) {
 </script>
 
 <template>
-  <section class="read-view">
-    <header class="read-toolbar">
-      <div>
+  <section ref="readView" class="read-view">
+    <div class="read-top-area">
+      <header class="read-toolbar">
         <h2>Statements</h2>
-      </div>
-    </header>
+      </header>
 
-    <section class="read-controls" aria-label="Statement Filter">
-      <div class="read-search">
-        <small>Search</small>
-        <div class="read-search__panel">
+      <div v-if="currentRecord" class="read-actions">
+        <SquareArrowButton
+          direction="left"
+          aria-label="Vorheriges Statement"
+          @click="store.previousRecord"
+        />
+        <div class="read-count">
+          <strong>{{ currentRecordPosition.current }}</strong>
+          <span
+            :key="countFeedbackKey"
+            class="read-count__total"
+            :class="`read-count__total--${countFeedbackTone}`"
+            aria-live="polite"
+          >
+            / {{ animatedTotal }}
+          </span>
+        </div>
+        <SquareArrowButton
+          direction="right"
+          aria-label="Nächstes Statement"
+          @click="store.nextRecord"
+        />
+      </div>
+    </div>
+
+    <section class="read-filter-overlay" aria-label="Statement Filter">
+      <section class="read-filters">
+        <div class="read-filter-group read-filter-group--search">
+          <small>Search</small>
           <input
             :value="filters.query"
             type="search"
@@ -137,69 +173,49 @@ function finishStatementSwipe(event: TouchEvent) {
             @input="store.setQuery(($event.target as HTMLInputElement).value)"
           />
         </div>
-      </div>
 
-      <div class="filter-column">
-        <small>Filter</small>
+        <section class="read-filter-group" aria-label="Sector Filter">
+          <small>Sector</small>
+          <div class="read-filter-row">
+            <FilterButton
+              v-for="sector in sectors"
+              :key="sector"
+              :label="sector"
+              color="var(--color-neutral)"
+              :active="filters.sectors.includes(sector)"
+              @click="toggleSector(sector)"
+            />
+          </div>
+        </section>
 
-        <div class="filter-panel">
-          <section class="filter-group" aria-label="Sector Filter">
-            <small>Sector</small>
-            <div class="filter-row">
-              <FilterButton
-                v-for="sector in sectors"
-                :key="sector"
-                :label="sector"
-                color="var(--color-neutral)"
-                :active="filters.sectors.includes(sector)"
-                @click="toggleSector(sector)"
-              />
-            </div>
-          </section>
-
-          <section class="filter-group" aria-label="Überlabel Filter">
-            <small>Mobilization Pattern</small>
-            <div class="filter-row">
-              <FilterButton
-                v-for="group in intentTaxonomy"
-                :key="group.parentLabel"
-                :label="group.label"
-                :color="taxonomyButtonColors[group.parentLabel]"
-                :active="group.parentLabel ? filters.labelsAll.includes(group.parentLabel) : false"
-                @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
-              />
-            </div>
-          </section>
-        </div>
-      </div>
+        <section class="read-filter-group" aria-label="Überlabel Filter">
+          <small>Mobilization Pattern</small>
+          <div class="read-filter-row">
+            <FilterButton
+              v-for="group in intentTaxonomy"
+              :key="group.parentLabel"
+              :label="group.label"
+              :color="taxonomyButtonColors[group.parentLabel]"
+              :active="group.parentLabel ? filters.labelsAll.includes(group.parentLabel) : false"
+              @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
+            />
+          </div>
+        </section>
+      </section>
     </section>
 
-    <StatementCard
-      v-if="currentRecord"
-      :record="currentRecord"
-      meta-variant="full"
-      @touchstart.passive="startStatementSwipe"
-      @touchend.passive="finishStatementSwipe"
-    />
+    <div class="read-bottom-area">
+      <StatementCard
+        v-if="currentRecord"
+        :record="currentRecord"
+        meta-variant="full"
+        @touchstart.passive="startStatementSwipe"
+        @touchend.passive="finishStatementSwipe"
+      />
 
-    <div v-else class="empty-state">
-      <strong>Keine Statements gefunden</strong>
-      <span>Filter zurücksetzen oder Suchbegriff ändern.</span>
-    </div>
-
-    <div v-if="currentRecord" class="read-actions">
-      <button type="button" @click="store.previousRecord">Zurück</button>
-      <button type="button" @click="store.nextRecord">Nächstes Statement</button>
-      <div class="read-count">
-        <strong>{{ currentRecordPosition.current }}</strong>
-        <span
-          :key="countFeedbackKey"
-          class="read-count__total"
-          :class="`read-count__total--${countFeedbackTone}`"
-          aria-live="polite"
-        >
-          / {{ animatedTotal }}
-        </span>
+      <div v-else class="empty-state">
+        <strong>Keine Statements gefunden</strong>
+        <span>Filter zurücksetzen oder Suchbegriff ändern.</span>
       </div>
     </div>
   </section>

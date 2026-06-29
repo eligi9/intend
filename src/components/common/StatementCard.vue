@@ -9,6 +9,7 @@ import {
   splitStatementText,
 } from '../../utils/statementHighlights'
 import ReadStrategyBadge from './ReadStrategyBadge.vue'
+import SideOverlay from './SideOverlay.vue'
 
 interface StrategyBadge {
   label: IntentLabelKey
@@ -34,6 +35,7 @@ const emit = defineEmits<{
 }>()
 
 const hoveredLabel = ref<IntentLabelKey | null>(null)
+const showContext = ref(false)
 const resolvedMetaVariant = computed<StatementCardMetaVariant>(() => {
   if (props.metaVariant) return props.metaVariant
   if (props.showHeading === false) return props.compactHeading ? 'date' : 'none'
@@ -131,8 +133,24 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
         </span>
       </span>
 
-      <span v-if="record.context" class="statement-card__context">{{ record.context }}</span>
+      <button
+        v-if="record.context"
+        type="button"
+        class="statement-card__context-button"
+        @mouseenter="showContext = true"
+        @mouseleave="showContext = false"
+        @focusin="showContext = true"
+        @focusout="showContext = false"
+      >
+        seeContext
+      </button>
     </div>
+
+    <SideOverlay
+      :visible="Boolean(record.context && showContext)"
+      title="Context"
+      :text="record.context ?? ''"
+    />
 
     <span
       v-if="strategyBadges?.length"
