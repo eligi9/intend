@@ -1567,8 +1567,7 @@
       "dehumanization": "no",
       "threat_construction": null,
       "homogenization_anchor": [
-        "Nazis living in Gaza",
-        "two million Nazis"
+        "it is clear that there are Nazis living in Gaza, two million Nazis"
       ],
       "immutability_anchor": [
         "Whoever thinks that it is possible to go back to what it was and engineer some kind of local civilian government,"
@@ -2472,17 +2471,15 @@
       "dehumanization_bj": "The statement dehumanizes the targeted group by calling them “animals” and “monsters,” denying their human status and making their destruction appear more acceptable.",
       "threat_construction_bj": "The statement frames the targeted group as an immediate danger by describing Israel as surrounded by enemies and linking that threat to the need to teach them a lesson and destroy them.",
       "just_cause": "yes",
-      "security_rationale": "yes",
+      "security_rationale": "no",
       "selfdefence_counterterrorism": "no",
       "retaliation": "yes",
-      "security_rationale_anchor": [
-        "we live in the State of Israel which is surrounded by enemies"
-      ],
+      "security_rationale_anchor": [],
       "selfdefence_counterterrorism_anchor": [],
       "retaliation_anchor": [
         "we need to teach them a lesson"
       ],
-      "security_rationale_bj": "The statement uses a security rationale by making destruction appear justified through the claim that Israel is “surrounded by enemies.”",
+      "security_rationale_bj": null,
       "selfdefence_counterterrorism_bj": null,
       "retaliation_bj": "The statement makes destruction appear justified as punishment by saying the enemies need to be “taught a lesson.”",
       "individual_needs": "no",
@@ -3799,7 +3796,7 @@
       "selfdefence_counterterrorism": "no",
       "retaliation": "no",
       "security_rationale_anchor": [
-        "to allow the IDF forces to shoot anyone who enters the area of ​​the security strip, Anyone who enters there is a son of death!"
+        "to allow the IDF forces to shoot anyone who enters the area of ​​the security strip"
       ],
       "selfdefence_counterterrorism_anchor": [],
       "retaliation_anchor": [],
@@ -3862,7 +3859,7 @@
       "selfdefence_counterterrorism": "yes",
       "retaliation": "no",
       "security_rationale_anchor": [
-        "by all means to protect and preserve Citizens of the State of Israel"
+        "our forces will operate everywhere and by all means to protect and preserve Citizens of the State of Israel."
       ],
       "selfdefence_counterterrorism_anchor": [
         "which led to the elimination of three terrorists"
@@ -4144,7 +4141,7 @@
       "selfdefence_counterterrorism": "no",
       "retaliation": "yes",
       "security_rationale_anchor": [
-        "In order for the problem not to recur, two things must be done: return to the Gaza Strip and encourage the voluntary emigration of Gaza residents"
+        "In order for the problem not to recur, two things must be done: return to the Gaza Strip and encourage the voluntary emigration of Gaza residents."
       ],
       "selfdefence_counterterrorism_anchor": [],
       "retaliation_anchor": [
@@ -6203,10 +6200,11 @@
       "selfdefence_counterterrorism": "yes",
       "retaliation": "no",
       "security_rationale_anchor": [
-        "The settlement will help restore security"
+        "The settlement will help restore security",
+        "Jewish settlement is the answer that makes most sense"
       ],
       "selfdefence_counterterrorism_anchor": [
-        "murderous terrorist attack by Hamas",
+        "A return to Jewish settlement in the northern Gaza Strip is a correct and logical answer to the murderous terrorist attack by Hamas!",
         "even a 10 year old [Gazan] boy is a terrorist in 7 years"
       ],
       "retaliation_anchor": [],
@@ -6683,7 +6681,7 @@
       "date": "10/1/2024",
       "context": "Likud's Nissim Vaturi again called for the escalation in the Gaza Strip and referred to his past statements according to which Israel should \"burn Gaza\". In an interview with \"Kol Brama\" radio, MK Vaturi said that he does not see anything wrong with his statements in the past and that he \"stands behind his words\".",
       "source": "Kol Berama radio interview",
-      "statement": "\"Better to burn and take down buildings than for soldiers to get hurt\", \"I have no pity for such people, certainly not in a war when soldiers die to defend the homeland. It is impossible for us to be 'do gooders' and say, 'Oh, there are innocent people there.' If there is an innocent there we know about him. Whoever remains there should be eliminated, Period. I don't even have a doubt.\"",
+      "statement": "“Better to burn and take down buildings than for soldiers to get hurt“, “I have no pity for such people, certainly not in a war when soldiers die to defend the homeland. It is impossible for us to be 'do gooders' and say, 'Oh, there are innocent people there.' If there is an innocent there we know about him. Whoever remains there should be eliminated, Period. I don't even have a doubt.\"",
       "position": "Deputy Speaker of Knesset (Likud)",
       "enemy_image": "yes",
       "homogenization": "yes",
@@ -6702,7 +6700,7 @@
       ],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [
-        "Better to burn and take down buildings than for soldiers to get hurt\", \"I have no pity for such people, certainly not in a war when soldiers die to defend the homeland"
+        "Better to burn and take down buildings than for soldiers to get hurt"
       ],
       "homogenization_bj": "The statement homogenizes those remaining in Gaza by denying ordinary innocence and treating “whoever remains there” as a collective to be eliminated.",
       "immutability_bj": null,
