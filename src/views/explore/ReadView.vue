@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import FilterButton from '../../components/common/FilterButton.vue'
+import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import StatementCard from '../../components/common/StatementCard.vue'
 import SquareArrowButton from '../../components/common/SquareArrowButton.vue'
+import ViewHeadline from '../../components/common/ViewHeadline.vue'
 import { useHorizontalTrackpadSwipe } from '../../composables/useHorizontalTrackpadSwipe'
-import { intentLabelKeys, useStatementStore } from '../../stores/statementStore'
+import { usePageScrollLock } from '../../composables/usePageScrollLock'
+import { useStatementStore } from '../../stores/statementStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
-import {
-  getActiveLabels,
-  taxonomyButtonColors,
-} from '../../utils/intentLabels'
+import { taxonomyButtonColors } from '../../utils/intentLabels'
 import { toggleArrayItem } from '../../utils/arrays'
 
 const store = useStatementStore()
@@ -25,10 +24,24 @@ const countFeedbackTone = ref<'neutral' | 'increase' | 'decrease'>('neutral')
 let countAnimationFrame = 0
 let countFeedbackTimeout = 0
 
-const activeLabels = computed(() => {
-  if (!currentRecord.value) return []
-  return getActiveLabels(currentRecord.value, intentLabelKeys)
-})
+usePageScrollLock()
+
+const sectorFilterLabels = computed(() =>
+  sectors.value.map((sector) => ({
+    active: filters.value.sectors.includes(sector),
+    color: 'var(--color-neutral)',
+    key: sector,
+    label: sector,
+  })),
+)
+const patternFilterLabels = computed(() =>
+  intentTaxonomy.map((group) => ({
+    active: filters.value.labelsAll.includes(group.parentLabel),
+    color: taxonomyButtonColors[group.parentLabel] ?? 'var(--color-neutral)',
+    key: group.parentLabel,
+    label: group.label,
+  })),
+)
 
 useHorizontalTrackpadSwipe(readView, (direction) => {
   if (direction === 'left') {
@@ -45,6 +58,10 @@ function toggleSector(sector: string) {
 
 function toggleOverLabel(label: IntentLabelKey) {
   store.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
+}
+
+function toggleOverLabelByKey(label: string) {
+  toggleOverLabel(label as IntentLabelKey)
 }
 
 function animateTotalCount(from: number, to: number) {
@@ -134,7 +151,7 @@ function finishStatementSwipe(event: TouchEvent) {
   <section ref="readView" class="read-view">
     <div class="read-top-area">
       <header class="read-toolbar">
-        <h2>Statements</h2>
+        <ViewHeadline title="Statements" />
       </header>
 
       <div v-if="currentRecord" class="read-actions">
@@ -164,7 +181,7 @@ function finishStatementSwipe(event: TouchEvent) {
 
     <section class="read-filter-overlay" aria-label="Statement Filter">
       <section class="read-filters">
-        <div class="read-filter-group read-filter-group--search">
+        <div class="read-search-filter">
           <small>Search</small>
           <input
             :value="filters.query"
@@ -174,33 +191,17 @@ function finishStatementSwipe(event: TouchEvent) {
           />
         </div>
 
-        <section class="read-filter-group" aria-label="Sector Filter">
-          <small>Sector</small>
-          <div class="read-filter-row">
-            <FilterButton
-              v-for="sector in sectors"
-              :key="sector"
-              :label="sector"
-              color="var(--color-neutral)"
-              :active="filters.sectors.includes(sector)"
-              @click="toggleSector(sector)"
-            />
-          </div>
-        </section>
+        <FilterButtonContainer
+          title="Sector"
+          :labels="sectorFilterLabels"
+          @select="toggleSector"
+        />
 
-        <section class="read-filter-group" aria-label="Überlabel Filter">
-          <small>Mobilization Pattern</small>
-          <div class="read-filter-row">
-            <FilterButton
-              v-for="group in intentTaxonomy"
-              :key="group.parentLabel"
-              :label="group.label"
-              :color="taxonomyButtonColors[group.parentLabel]"
-              :active="group.parentLabel ? filters.labelsAll.includes(group.parentLabel) : false"
-              @click="group.parentLabel && toggleOverLabel(group.parentLabel)"
-            />
-          </div>
-        </section>
+        <FilterButtonContainer
+          title="Mobilization Pattern"
+          :labels="patternFilterLabels"
+          @select="toggleOverLabelByKey"
+        />
       </section>
     </section>
 

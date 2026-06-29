@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
+import ViewHeadline from '../../components/common/ViewHeadline.vue'
 import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
 import { useStatementStore } from '../../stores/statementStore'
 import type {
@@ -35,10 +36,11 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
 <template>
   <section class="timeline-view" aria-label="Pattern timeline">
     <header class="timeline-view__header">
-      <div class="timeline-view__header-copy">
-        <h2>Timeline</h2>
-        <p>All coded statements over time, filterable by top-level pattern.</p>
-      </div>
+      <ViewHeadline
+        class="timeline-view__header-copy"
+        title="Timeline"
+        subline="All coded statements over time, filterable by top-level pattern."
+      />
     </header>
 
     <section class="timeline-view__content" aria-label="All statements timeline">

@@ -25,26 +25,6 @@
   min-width: 0;
 }
 
-.timeline-view__header h2 {
-  margin: 0;
-  color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: var(--view-title-size);
-  font-weight: 850;
-  letter-spacing: 0;
-  line-height: 1;
-  overflow-wrap: anywhere;
-}
-
-.timeline-view__header p {
-  max-width: 44rem;
-  margin: 6px 0 0;
-  color: rgba(var(--color-text-rgb), 0.68);
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.3;
-}
-
 .timeline-view__content {
   position: absolute;
   z-index: 0;
@@ -215,10 +195,6 @@
     height: auto;
     min-height: 100vh;
     padding: 16px 20px 20px;
-  }
-
-  .timeline-view__header h2 {
-    font-size: var(--view-title-mobile-size);
   }
 
   .timeline-view__content {

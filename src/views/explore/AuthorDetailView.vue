@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import AuthorTimelineP5 from '../../components/author/AuthorTimelineP5.vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
-import FilterButton from '../../components/common/FilterButton.vue'
+import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import StatementCard from '../../components/common/StatementCard.vue'
+import ViewHeadline from '../../components/common/ViewHeadline.vue'
+import { usePageScrollLock } from '../../composables/usePageScrollLock'
 import { useAuthorStore } from '../../stores/authorStore'
 import type { IntentLabelKey } from '../../types/intentData'
 import { taxonomyButtonColors } from '../../utils/intentLabels'
@@ -19,178 +20,138 @@ const emit = defineEmits<{
 
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
-const selectedTimelineLabels = ref<IntentLabelKey[]>([])
-const previewTimelineLabel = ref<IntentLabelKey | null>(null)
-const stageRef = ref<HTMLElement | null>(null)
-const portraitRef = ref<HTMLElement | null>(null)
-const canvasOffset = ref('calc(var(--author-detail-portrait-size) / 2)')
-const canvasHeight = ref('clamp(18rem, 38vw, 28rem)')
-let stageResizeObserver: ResizeObserver | null = null
+const activePattern = ref<IntentLabelKey | null>(null)
+
+usePageScrollLock()
 
 const author = computed(
-  () => authorInstances.value.find((authorInstance) => authorInstance.id === props.authorId) ?? null,
+  () => authorInstances.value.find((item) => item.id === props.authorId) ?? null,
 )
-const strategyBadges = computed(() =>
+const patternFilters = computed(() =>
   author.value
     ? author.value.usedTopLevelStrategies.map((strategy) => ({
-        ...strategy,
+        active: activePattern.value === strategy.labelKey,
         color: taxonomyButtonColors[strategy.labelKey] ?? 'var(--color-neutral)',
+        key: strategy.labelKey,
+        label: strategy.label,
+        minWidth: '112px',
       }))
     : [],
 )
-const ageLabel = computed(() => (author.value?.age === null ? 'unknown' : author.value?.age ?? 'unknown'))
-const sexLabel = computed(() => {
-  if (author.value?.gender === 'female') return 'female'
-  if (author.value?.gender === 'male') return 'male'
-  return 'unknown'
+const profileRows = computed(() => {
+  if (!author.value) return []
+
+  return [
+    ['Age', author.value.age ?? 'unknown'],
+    ['Sex', author.value.gender ?? 'unknown'],
+    ['Party', author.value.party ?? 'unknown'],
+    ['Statements', author.value.statementCount],
+  ]
+})
+const imageCredit = computed(() => {
+  const image = author.value?.image
+
+  if (!image) return ''
+
+  const creator = image.creator?.trim() || image.credit?.trim() || image.title.trim()
+  const credit = image.credit?.trim()
+  const parts = [creator]
+
+  if (credit && credit !== creator && credit !== 'Own work') {
+    parts.push(credit)
+  }
+
+  parts.push('Wikimedia Commons')
+
+  if (image.license) {
+    parts.push(image.license)
+  }
+
+  return parts.join(' / ')
 })
 const visibleStatements = computed(() => {
   if (!author.value) return []
-  const selectedLabel = selectedTimelineLabels.value[0]
+  const pattern = activePattern.value
 
-  if (!selectedLabel) return author.value.statements
+  if (!pattern) return author.value.statements
 
-  return author.value.statements.filter((statement) => statement[selectedLabel] === 'yes')
-})
-const timelineFeedbackLabels = computed(() =>
-  previewTimelineLabel.value ? [previewTimelineLabel.value] : selectedTimelineLabels.value,
-)
-
-function toggleTimelineLabel(label: IntentLabelKey) {
-  selectedTimelineLabels.value = selectedTimelineLabels.value.includes(label) ? [] : [label]
-}
-
-function previewTimelineFeedback(label: IntentLabelKey) {
-  previewTimelineLabel.value = label
-}
-
-function clearTimelinePreview() {
-  previewTimelineLabel.value = null
-}
-
-function updateCanvasOffset() {
-  if (!stageRef.value || !portraitRef.value) return
-
-  const stageBounds = stageRef.value.getBoundingClientRect()
-  const portraitBounds = portraitRef.value.getBoundingClientRect()
-  const portraitCenter = portraitBounds.top - stageBounds.top + portraitBounds.height / 2
-  const sketchBottom = window.innerHeight * 0.58
-  const sketchHeight = sketchBottom - (stageBounds.top + portraitCenter)
-
-  canvasOffset.value = `${Math.max(0, Math.round(portraitCenter))}px`
-  canvasHeight.value = `${Math.max(260, Math.round(sketchHeight))}px`
-}
-
-onMounted(async () => {
-  await nextTick()
-  updateCanvasOffset()
-
-  stageResizeObserver = new ResizeObserver(updateCanvasOffset)
-
-  if (stageRef.value) stageResizeObserver.observe(stageRef.value)
-  if (portraitRef.value) stageResizeObserver.observe(portraitRef.value)
-
-  window.addEventListener('resize', updateCanvasOffset)
+  return author.value.statements.filter((statement) => statement[pattern] === 'yes')
 })
 
-watch(author, async () => {
-  await nextTick()
-  updateCanvasOffset()
-})
+function toggleFilter(label: IntentLabelKey) {
+  activePattern.value = activePattern.value === label ? null : label
+}
 
-onBeforeUnmount(() => {
-  stageResizeObserver?.disconnect()
-  window.removeEventListener('resize', updateCanvasOffset)
-})
+function toggleFilterByKey(label: string) {
+  toggleFilter(label as IntentLabelKey)
+}
 </script>
 
 <template>
-  <section class="author-detail-view">
-    <button
-      type="button"
-      class="author-detail-view__close"
-      aria-label="Autor Detailansicht schliessen"
-      @click="emit('close')"
-    >
-      X
-    </button>
-
+  <section
+    class="author-detail-view"
+    @click="emit('close')"
+    @scroll.stop
+    @touchmove.stop
+    @wheel.stop
+  >
     <article v-if="author" class="author-detail">
-      <section
-        ref="stageRef"
-        class="author-detail__stage"
-        :style="{
-          '--author-detail-canvas-offset': canvasOffset,
-          '--author-detail-canvas-height': canvasHeight,
-        }"
-        aria-label="Autor Timeline Uebersicht"
-      >
-        <header class="author-detail__hero">
-          <span ref="portraitRef" class="author-detail__portrait-anchor">
-            <AuthorPortrait :author="author" :size="168" />
-          </span>
-
-          <div class="author-detail__intro">
-            <div class="author-detail__headline">
-              <h2 class="author-detail__headline-h2">{{ author.name }}</h2>
-              <p>{{ author.position ?? 'Position unbekannt' }}</p>
-            </div>
-
-            <dl class="author-detail__profile" aria-label="Autor Steckbrief">
-              <div>
-                <dt>Age</dt>
-                <dd>{{ ageLabel }}</dd>
-              </div>
-              <div>
-                <dt>Sex</dt>
-                <dd>{{ sexLabel }}</dd>
-              </div>
-              <div>
-                <dt>Party</dt>
-                <dd>{{ author.party ?? 'unknown' }}</dd>
-              </div>
-              <div>
-                <dt>Statements</dt>
-                <dd>{{ author.statementCount }}</dd>
-              </div>
-            </dl>
-          </div>
-        </header>
-
-        <section class="author-detail__timeline" aria-label="Interaktive Timeline">
-          <AuthorTimelineP5
-            :statements="author.statements"
-            :selected-labels="timelineFeedbackLabels"
-          />
-        </section>
-
-        <section class="author-detail__timeline-filters" aria-label="Timeline pattern filter">
-          <FilterButton
-            v-for="strategy in strategyBadges"
-            :key="strategy.labelKey"
-            :label="strategy.label"
-            :color="strategy.color"
-            :active="selectedTimelineLabels.includes(strategy.labelKey)"
-            @mouseenter="previewTimelineFeedback(strategy.labelKey)"
-            @focusin="previewTimelineFeedback(strategy.labelKey)"
-            @mouseleave="clearTimelinePreview"
-            @focusout="clearTimelinePreview"
-            @click="toggleTimelineLabel(strategy.labelKey)"
-          />
-        </section>
-      </section>
-
-      <section class="author-detail__statements" aria-label="Statements">
-        <StatementCard
-          v-for="statement in visibleStatements"
-          :key="statement.id"
-          :record="statement"
-          meta-variant="date"
+      <section class="author-detail__top" aria-label="Autor Uebersicht">
+        <ViewHeadline
+          class="author-detail__headline"
+          :title="author.name"
+          :subline="author.position ?? 'Position unbekannt'"
         />
 
-        <span v-if="visibleStatements.length === 0" class="author-detail__statements-empty">
-          Keine Statements für diesen Filter
-        </span>
+        <div class="author-detail__summary">
+          <figure class="author-detail__portrait-block">
+            <AuthorPortrait :author="author" :show-tooltip="false" :size="168" />
+
+            <figcaption v-if="author.image" class="author-detail__image-source">
+              <a
+                :href="author.image.sourceUrl"
+                target="_blank"
+                rel="noreferrer"
+                :title="author.image.attribution"
+              >
+                Foto: {{ imageCredit }}
+              </a>
+            </figcaption>
+          </figure>
+
+          <dl class="author-detail__profile" aria-label="Autor Steckbrief">
+            <div
+              v-for="[label, value] in profileRows"
+              :key="label"
+            >
+              <dt>{{ label }}</dt>
+              <dd>{{ value }}</dd>
+            </div>
+          </dl>
+        </div>
+
+      </section>
+
+      <section class="author-detail__comments" aria-label="Statements">
+        <div class="author-detail__filters" @click.stop>
+          <FilterButtonContainer
+            :labels="patternFilters"
+            @select="toggleFilterByKey"
+          />
+        </div>
+
+        <div class="author-detail__statements">
+          <StatementCard
+            v-for="statement in visibleStatements"
+            :key="statement.id"
+            :record="statement"
+            meta-variant="date"
+          />
+
+          <span v-if="visibleStatements.length === 0" class="author-detail__statements-empty">
+            Keine Statements vorhanden
+          </span>
+        </div>
       </section>
     </article>
 

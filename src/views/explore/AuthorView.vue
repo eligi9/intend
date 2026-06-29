@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
+import ViewHeadline from '../../components/common/ViewHeadline.vue'
 import { useAuthorStore } from '../../stores/authorStore'
 import type { AuthorInstance } from '../../types/authorData'
 import type { IntentLabelKey } from '../../types/intentData'
@@ -96,7 +97,7 @@ function closeAuthorDetail() {
 <template>
   <section class="author-view">
     <header class="author-view__header">
-      <h2>Authors</h2>
+      <ViewHeadline title="Authors" />
     </header>
 
     <section class="author-filter-overlay" aria-label="Autoren Filter">
@@ -133,11 +134,23 @@ function closeAuthorDetail() {
       </button>
     </section>
 
-    <AuthorDetailView
+    <button
       v-if="selectedAuthorId"
-      :author-id="selectedAuthorId"
-      @close="closeAuthorDetail"
+      type="button"
+      class="author-view__scrim"
+      aria-label="Autor Detailansicht schliessen"
+      @click="closeAuthorDetail"
     />
+
+    <Teleport to="body">
+      <Transition name="author-detail-overlay">
+        <AuthorDetailView
+          v-if="selectedAuthorId"
+          :author-id="selectedAuthorId"
+          @close="closeAuthorDetail"
+        />
+      </Transition>
+    </Teleport>
   </section>
 </template>
 

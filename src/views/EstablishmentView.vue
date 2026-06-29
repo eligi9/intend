@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
 import EstablishmentStatementSection from '../components/establishment/EstablishmentStatementSection.vue'
+import { pageScrollLockEventName } from '../composables/usePageScrollLock'
 import landingCopy from '../content/landingCopy.json'
 import ExploreView from './explore/ExploreView.vue'
 import EstablishmentIntroView from './establishment/EstablishmentIntroView.vue'
@@ -22,6 +23,7 @@ const statementSection = ref<EstablishmentStatementSectionExpose | null>(null)
 const showStatementSection = false
 let locomotiveScroll: LocomotiveScroll | null = null
 let scrollAnimationFrame = 0
+let overlayScrollLocked = false
 
 gsap.ticker.lagSmoothing(0)
 
@@ -52,7 +54,19 @@ function scrollToExplore() {
   })
 }
 
+function handleOverlayScrollLock(event: Event) {
+  overlayScrollLocked = Boolean((event as CustomEvent<{ locked: boolean }>).detail?.locked)
+
+  if (overlayScrollLocked) {
+    locomotiveScroll?.stop()
+    return
+  }
+
+  locomotiveScroll?.start()
+}
+
 onMounted(() => {
+  window.addEventListener(pageScrollLockEventName, handleOverlayScrollLock)
   window.addEventListener('scroll', requestLandingScrollUpdate, { passive: true })
   window.addEventListener('resize', requestLandingScrollUpdate)
   window.visualViewport?.addEventListener('resize', requestLandingScrollUpdate)
@@ -77,6 +91,10 @@ onMounted(() => {
       scrollCallback: updateScrollSections,
     })
 
+    if (overlayScrollLocked) {
+      locomotiveScroll.stop()
+    }
+
     updateScrollSections()
     gsap.ticker.add(updateLandingScrollFromTicker)
 
@@ -88,6 +106,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener(pageScrollLockEventName, handleOverlayScrollLock)
   window.removeEventListener('scroll', requestLandingScrollUpdate)
   window.removeEventListener('resize', requestLandingScrollUpdate)
   window.visualViewport?.removeEventListener('resize', requestLandingScrollUpdate)

@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import MirroredLineGrid from '../../components/common/MirroredLineGrid.vue'
+import SideOverlay from '../../components/common/SideOverlay.vue'
+import ViewHeadline from '../../components/common/ViewHeadline.vue'
 import StrategyIcicleDiagram from '../../components/strategy/StrategyIcicleDiagram.vue'
 import StrategySubLabelOverlay from '../../components/strategy/StrategySubLabelOverlay.vue'
 import { useStatementStore } from '../../stores/statementStore'
@@ -37,10 +39,11 @@ function closeOverlay() {
     />
 
     <header class="strategy-view__header">
-      <div class="strategy-view__header-copy">
-        <h2>Patterns</h2>
-        <p>How are the pattern labels distributed?</p>
-      </div>
+      <ViewHeadline
+        class="strategy-view__header-copy"
+        title="Patterns"
+        subline="How are the pattern labels distributed?"
+      />
     </header>
 
     <div class="strategy-view__content">
@@ -57,21 +60,12 @@ function closeOverlay() {
       </section>
     </div>
 
-    <Transition name="strategy-main-overlay">
-      <aside
-        v-if="selectedSegment && selectedSegment.parent === null"
-        class="strategy-view__main-overlay"
-        :style="{ '--strategy-main-overlay-accent': selectedSegment.color }"
-        aria-label="Main label details"
-      >
-        <header class="strategy-view__main-overlay-header">
-          <h3>{{ selectedSegment.label }}</h3>
-          <p class="strategy-view__main-overlay-description">
-            {{ selectedSegment.description }}
-          </p>
-        </header>
-      </aside>
-    </Transition>
+    <SideOverlay
+      :visible="Boolean(selectedSegment && selectedSegment.parent === null)"
+      :title="selectedSegment?.label ?? ''"
+      :text="selectedSegment?.description ?? ''"
+      :color="selectedSegment?.color"
+    />
 
     <StrategySubLabelOverlay
       :segment="selectedSegment?.parent ? selectedSegment : null"

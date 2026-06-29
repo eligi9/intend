@@ -34,6 +34,15 @@ body {
   background: var(--app-background);
 }
 
+html.app-scroll-locked,
+body.app-scroll-locked {
+  overflow: hidden;
+}
+
+body.app-scroll-locked {
+  padding-inline-end: var(--app-scroll-lock-gutter, 0px);
+}
+
 #app {
   min-height: 100vh;
   overscroll-behavior: none;

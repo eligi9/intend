@@ -15,22 +15,25 @@
   color: var(--color-white);
 }
 
+.author-view__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 80;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: rgba(var(--color-shadow-rgb), 0.22);
+  backdrop-filter: blur(3px);
+  cursor: default;
+}
+
 .author-view__header {
   position: absolute;
   z-index: 2;
   top: 20px;
   right: 24px;
   left: 24px;
-}
-
-.author-view__header h2 {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--view-title-size);
-  font-weight: 850;
-  letter-spacing: 0;
-  line-height: 1;
-  overflow-wrap: anywhere;
 }
 
 .author-filter-overlay {
@@ -121,10 +124,6 @@
     top: 18px;
     right: 18px;
     left: 18px;
-  }
-
-  .author-view__header h2 {
-    font-size: var(--view-title-mobile-size);
   }
 
   .author-filter-overlay {
