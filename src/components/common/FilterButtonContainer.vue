@@ -6,6 +6,7 @@ interface FilterButtonContainerItem {
   color: string
   key: string
   label: string
+  minWidth?: string
 }
 
 withDefaults(
@@ -34,6 +35,7 @@ defineEmits<{
         :label="item.label"
         :color="item.color"
         :active="item.active"
+        :min-width="item.minWidth"
         @click="$emit('select', item.key)"
       />
     </div>

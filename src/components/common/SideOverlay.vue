@@ -31,6 +31,7 @@ const overlayStyle = computed(() => {
       class="side-overlay"
       :style="overlayStyle"
       aria-live="polite"
+      @click.stop
     >
       <h3>{{ title }}</h3>
       <p>{{ text }}</p>
