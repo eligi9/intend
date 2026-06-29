@@ -59,30 +59,13 @@
 }
 
 .strategy-sub-label-overlay__close {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: clamp(56px, 4.6vw, 72px);
-  height: clamp(56px, 4.6vw, 72px);
-  min-height: 0;
-  padding: 0;
-  border: 2px solid rgba(var(--color-white-rgb), 0.86);
-  border-radius: 0;
-  color: var(--color-white);
-  background: transparent;
-  font-size: clamp(44px, 4vw, 62px);
-  font-weight: 400;
-  line-height: 1;
-}
-
-.strategy-sub-label-overlay__close:hover,
-.strategy-sub-label-overlay__close:focus-visible {
-  color: var(--strategy-sub-label-overlay-color);
-  background: var(--color-white);
+  --square-arrow-button-color: var(--color-white);
+  --square-arrow-button-hover-color: var(--strategy-sub-label-overlay-color);
 }
 
 .strategy-sub-label-overlay__anchors {
-  display: grid;
+  --strategy-anchor-text-scroller-note-inline: clamp(32px, 9vw, 144px);
+
   min-width: 0;
   min-height: 0;
   height: 100%;

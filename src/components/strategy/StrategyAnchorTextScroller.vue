@@ -211,6 +211,9 @@ onBeforeUnmount(() => {
 
     <p v-else class="strategy-anchor-text-scroller__empty">No anchor texts available.</p>
 
+    <p class="strategy-anchor-text-scroller__note">
+      Note: These are shortened excerpts. Press and hold an example to view the full statement.
+    </p>
   </section>
 </template>
 

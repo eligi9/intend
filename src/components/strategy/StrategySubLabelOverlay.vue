@@ -5,6 +5,7 @@ import type { IntentRecord } from '../../types/intentData'
 import { intentSubLabelDescriptions } from '../../types/intentTaxonomy'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
 import { useStatementStore } from '../../stores/statementStore'
+import SquareArrowButton from '../common/SquareArrowButton.vue'
 import StrategyAnchorTextScroller from './StrategyAnchorTextScroller.vue'
 import StrategyAnchorTextStatementOverlay from './StrategyAnchorTextStatementOverlay.vue'
 
@@ -73,14 +74,12 @@ function closeAnchorStatementOverlay() {
 
         <header class="strategy-sub-label-overlay__header">
           <h3>{{ segment.label }}</h3>
-          <button
-            type="button"
+          <SquareArrowButton
             class="strategy-sub-label-overlay__close"
+            direction="left"
             aria-label="Close sublabel overlay"
             @click="emit('close')"
-          >
-            ←
-          </button>
+          />
         </header>
       </div>
 
@@ -102,7 +101,6 @@ function closeAnchorStatementOverlay() {
     :highlight-color="segment.color"
     :label="segment.id"
     :statement="selectedAnchorStatement.statement"
-    @close="closeAnchorStatementOverlay"
   />
 </template>
 

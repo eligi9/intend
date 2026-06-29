@@ -1,6 +1,6 @@
 .strategy-anchor-text-overlay {
   position: fixed;
-  z-index: 420;
+  z-index: 12000;
   inset: 0;
   display: grid;
   align-items: start;
@@ -11,8 +11,14 @@
   cursor: default;
 }
 
+.strategy-anchor-text-overlay__body {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  width: min(68rem, 100%);
+}
+
 .strategy-anchor-text-overlay__statement {
-  max-width: 68rem;
   margin: 0;
   text-align: center;
   font-family: var(--font-serif);
@@ -32,33 +38,29 @@
   -webkit-box-decoration-break: clone;
 }
 
-.strategy-anchor-text-overlay__close {
-  position: fixed;
-  z-index: 480;
-  top: clamp(24px, 4vw, 48px);
-  right: clamp(24px, 4vw, 48px);
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  padding: 0;
-  border: 1px solid rgba(var(--color-white-rgb), 0.72);
-  border-radius: 0;
-  color: var(--color-white);
-  background: transparent;
-  font-size: 36px;
-  line-height: 1;
-  cursor: pointer;
+.strategy-anchor-text-overlay__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.75rem;
+  max-width: 54rem;
+  margin: 0;
+  color: rgba(var(--color-white-rgb), 0.72);
+  font-family: var(--font-sans);
+  font-size: clamp(12px, 1.1vw, 15px);
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
 }
 
-.strategy-anchor-text-overlay__close:hover {
-  color: var(--color-ink);
-  background: var(--color-white);
+.strategy-anchor-text-overlay__meta span + span::before {
+  content: "·";
+  margin-right: 0.75rem;
 }
 
 .strategy-anchor-text-overlay__explanation {
   position: fixed;
-  z-index: 460;
+  z-index: 12020;
   top: 0;
   right: 0;
   left: 0;

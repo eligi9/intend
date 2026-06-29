@@ -4,29 +4,39 @@ import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
 import { getDisplayLabel, splitStatementText } from '../../utils/statementHighlights'
 
 const props = defineProps<{
-  anchorText: string
+  anchorText?: string
+  anchorTexts?: string[]
   highlightColor: string
   label: IntentLabelKey
   statement: IntentRecord
 }>()
 
-const emit = defineEmits<{
-  close: []
-}>()
+const anchorTexts = computed(() =>
+  props.anchorTexts?.length ? props.anchorTexts : props.anchorText ? [props.anchorText] : [],
+)
 
 const statementSegments = computed(() =>
-  splitStatementText(props.statement.statement, [
-    {
+  splitStatementText(
+    props.statement.statement,
+    anchorTexts.value.map((text) => ({
       color: props.highlightColor,
-      text: props.anchorText,
-    },
-  ]),
+      text,
+    })),
+  ),
 )
 
 const explanation = computed(() => {
   const value = props.statement[`${props.label}_bj` as keyof IntentRecord]
   return typeof value === 'string' && value.length > 0 ? value : null
 })
+
+const statementMeta = computed(() =>
+  [
+    props.statement.author,
+    props.statement.date,
+    props.statement.source,
+  ].filter((item): item is string => Boolean(item)),
+)
 </script>
 
 <template>
@@ -34,22 +44,11 @@ const explanation = computed(() => {
     class="strategy-anchor-text-overlay"
     :style="{ '--strategy-anchor-text-overlay-highlight': props.highlightColor }"
     aria-label="Selected statement"
-    @click="emit('close')"
   >
-    <button
-      type="button"
-      class="strategy-anchor-text-overlay__close"
-      aria-label="Close selected statement"
-      @click.stop="emit('close')"
-    >
-      ×
-    </button>
-
     <Transition name="strategy-anchor-text-overlay-explanation">
       <section
         v-if="explanation"
         class="strategy-anchor-text-overlay__explanation"
-        @click.stop
       >
         <div class="strategy-anchor-text-overlay__explanation-inner">
           <h3>Why {{ getDisplayLabel(props.label) }}?</h3>
@@ -58,22 +57,36 @@ const explanation = computed(() => {
       </section>
     </Transition>
 
-    <p class="strategy-anchor-text-overlay__statement" @click.stop>
-      <span
-        v-for="(segment, index) in statementSegments"
-        :key="`${segment.text}-${index}`"
-        :class="{
-          'strategy-anchor-text-overlay__part': true,
-          'strategy-anchor-text-overlay__part--muted': segment.muted,
-          'strategy-anchor-text-overlay__part--highlight': segment.color,
-        }"
-        :style="{
-          backgroundColor: segment.color ?? undefined,
-        }"
+    <div class="strategy-anchor-text-overlay__body">
+      <p class="strategy-anchor-text-overlay__statement">
+        <span
+          v-for="(segment, index) in statementSegments"
+          :key="`${segment.text}-${index}`"
+          :class="{
+            'strategy-anchor-text-overlay__part': true,
+            'strategy-anchor-text-overlay__part--muted': segment.muted,
+            'strategy-anchor-text-overlay__part--highlight': segment.color,
+          }"
+          :style="{
+            backgroundColor: segment.color ?? undefined,
+          }"
+        >
+          {{ segment.text }}
+        </span>
+      </p>
+
+      <p
+        v-if="statementMeta.length"
+        class="strategy-anchor-text-overlay__meta"
       >
-        {{ segment.text }}
-      </span>
-    </p>
+        <span
+          v-for="(item, index) in statementMeta"
+          :key="`${item}-${index}`"
+        >
+          {{ item }}
+        </span>
+      </p>
+    </div>
   </aside>
 </template>
 
