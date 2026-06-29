@@ -17,7 +17,6 @@ interface BeeswarmNode extends SimulationNodeDatum {
   bandMinY: number
   date: Date
   id: string
-  label: string
   record: IntentRecord
   subLabel: IntentLabelKey
   strategyLabel: IntentLabelKey
@@ -92,6 +91,17 @@ export function createStrategyBeeswarmSketch(container: HTMLElement, state: Stra
       p.clear()
       nodes.forEach((node) => drawNode(p, node, hoveredPoint, state.selectedLabels))
     }
+
+    p.mousePressed = () => {
+      const pressedPoint = checkHover(p, nodes)
+      if (!pressedPoint) return
+
+      state.setPressedStatement(createHoverPayload(pressedPoint, p))
+    }
+
+    p.mouseReleased = () => {
+      state.setPressedStatement(null)
+    }
   }
 
   return new p5(sketch, container)
@@ -134,7 +144,6 @@ function createBeeswarmNodes(
         bandMinY: band.minY,
         date: point.date,
         id,
-        label: point.label,
         record: point.record,
         subLabel: strategy.label,
         strategyLabel: strategy.superLabel,
@@ -208,8 +217,11 @@ function createHoverPayload(
     anchorText: getAnchorText(node.record, node.subLabel),
     author: node.record.author,
     color: formatRgbColor(getPointColor(node.strategyLabel)),
-    date: node.label,
+    date: node.record.date,
     id: node.id,
+    label: node.subLabel,
+    record: node.record,
+    source: node.record.source,
     statement: node.record.statement,
     strategy: node.strategyName,
     xRatio: node.x / p.width,

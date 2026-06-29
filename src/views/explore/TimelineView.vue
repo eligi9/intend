@@ -4,18 +4,28 @@ import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
 import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
 import { useStatementStore } from '../../stores/statementStore'
-import type { BeeswarmDisplayMode, HoveredTimelineStatement } from '../../types/strategyBeeswarm'
+import type {
+  BeeswarmDisplayMode,
+  HoveredBeeswarmStatement,
+  HoveredTimelineStatement,
+} from '../../types/strategyBeeswarm'
 import type { TimelineEvent } from '../../types/timeline'
 
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
 const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
+const hoveredPattern = ref<HoveredBeeswarmStatement | null>(null)
 const hoveredStatement = ref<HoveredTimelineStatement | null>(null)
 
 watch(beeswarmMode, () => {
+  hoveredPattern.value = null
   hoveredStatement.value = null
 })
+
+function showHoveredPattern(pattern: HoveredBeeswarmStatement | null) {
+  hoveredPattern.value = pattern
+}
 
 function showHoveredStatement(statement: HoveredTimelineStatement | null) {
   hoveredStatement.value = statement
@@ -38,6 +48,7 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
           :mode="beeswarmMode"
           :statements="records"
           :selected-labels="[]"
+          @pattern-hover="showHoveredPattern"
           @statement-hover="showHoveredStatement"
         />
       </div>
@@ -55,6 +66,30 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
               · {{ hoveredStatement.source }}
             </template>
           </span>
+        </aside>
+      </Transition>
+
+      <Transition name="timeline-view-statement-hover">
+        <aside
+          v-if="beeswarmMode === 'strategies' && hoveredPattern"
+          class="timeline-view__statement-hover timeline-view__statement-hover--pattern"
+          :style="{ '--timeline-view-pattern-color': hoveredPattern.color }"
+          aria-label="Hovered pattern anchor"
+        >
+          <strong>Anchor</strong>
+          <p
+            v-for="(anchor, index) in hoveredPattern.anchorText ?? []"
+            :key="`${anchor}-${index}`"
+          >
+            "{{ anchor }}"
+          </p>
+          <span>
+            {{ hoveredPattern.author }} · {{ hoveredPattern.date }}
+            <template v-if="hoveredPattern.source">
+              · {{ hoveredPattern.source }}
+            </template>
+          </span>
+          <small>Note: These are shortened excerpts.</small>
         </aside>
       </Transition>
 

@@ -9,6 +9,9 @@ export interface HoveredBeeswarmStatement {
   color: string
   date: string
   id: string
+  label: IntentLabelKey
+  record: IntentRecord
+  source: string | null
   statement: string
   strategy: string
   xRatio: number
@@ -26,6 +29,7 @@ export interface HoveredTimelineStatement {
 }
 
 export interface StrategyBeeswarmSketchState {
+  setPressedStatement: (payload: HoveredBeeswarmStatement | null) => void
   selectedLabels: IntentLabelKey[]
   setHoveredStatement: (payload: HoveredBeeswarmStatement | null) => void
   statements: IntentRecord[]
