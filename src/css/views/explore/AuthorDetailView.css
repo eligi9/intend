@@ -5,17 +5,17 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: grid;
-  align-content: start;
-  gap: 20px;
   width: 100%;
-  min-height: 100vh;
-  padding: 20px 24px;
+  height: 100dvh;
+  max-height: 100dvh;
+  padding: 2rem 5rem;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
   color: var(--color-text);
   background: var(--author-detail-background);
-  padding: 2rem 5rem;
+  touch-action: pan-y;
 }
 
 .author-detail-view__close {

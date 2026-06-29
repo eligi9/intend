@@ -34,7 +34,7 @@
 }
 
 .author-filter-overlay {
-  position: fixed;
+  position: absolute;
   z-index: 70;
   right: 0;
   bottom: 0;

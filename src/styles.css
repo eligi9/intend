@@ -40,10 +40,6 @@ body {
   background: var(--app-background);
 }
 
-body.author-detail-overlay-open {
-  overflow: hidden;
-}
-
 *::-webkit-scrollbar {
   width: 14px;
   height: 14px;

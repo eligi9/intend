@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import { useAuthorStore } from '../../stores/authorStore'
@@ -19,19 +19,6 @@ const selectedGender = ref<string | null>(null)
 const selectedPatternLabels = ref<IntentLabelKey[]>([])
 const selectedAuthorId = ref<string | null>(null)
 const authorPortraitSize = 92
-const bodyOverlayClass = 'author-detail-overlay-open'
-
-watch(
-  selectedAuthorId,
-  (authorId) => {
-    document.body.classList.toggle(bodyOverlayClass, authorId !== null)
-  },
-  { immediate: true },
-)
-
-onBeforeUnmount(() => {
-  document.body.classList.remove(bodyOverlayClass)
-})
 
 const sectors = computed(() =>
   [...new Set(authorInstances.value.map((author) => author.sector).filter(Boolean))] as string[],
