@@ -41,18 +41,18 @@
       "subLabels": [
         {
           "labelKey": "security_rationale",
-          "label": "Security rationale",
+          "label": "Security Rationale",
           "description": "Security Rationale describes how language can present violent, harmful, or controlling measures as necessary for the security and protection of the ingroup. The focus is not mainly on depicting a threat, but on using security as a reason for action. In this way, such measures can appear reasonable, defensive, or legitimate."
         },
         {
           "labelKey": "selfdefence_counterterrorism",
-          "label": "Self-defence / counterterrorism",
-          "description": "Self-Defence / Counter-Terrorism describes how language can justify violent or harmful measures by framing them as self-defence or counter-terrorism. The focus is not on depicting a threat alone, but on how this threat is used to justify a concrete action. As a result, the measure can appear legitimate, necessary or even defensive."
+          "label": "Self-Defense / Counter-Terrorism",
+          "description": "Self-Defense / Counter-Terrorism describes how language can justify violent or harmful measures by framing them as self-defense or counter-terrorism. The focus is not on depicting a threat alone, but on how this threat is used to justify a concrete action. As a result, the measure can appear legitimate, necessary or even defensive."
         },
         {
           "labelKey": "retaliation",
           "label": "Retaliation",
-          "description": "Retaliation describes how language can make harmful measures appear justified as a response to harm attributed to the outgroup. The central logic is: because “they” have harmed us, our response seems deserved, understandable, or necessary. Unlike Self-Defence / Counter-Terrorism, the focus is not mainly on protection from a threat or fighting terrorism. Instead, the measure is framed as a reaction, punishment, or pressure in response to what the outgroup has done."
+          "description": "Retaliation describes how language can make harmful measures appear justified as a response to harm attributed to the outgroup. The central logic is: because “they” have harmed us, our response seems deserved, understandable, or necessary. Unlike Self-Defense / Counter-Terrorism, the focus is not mainly on protection from a threat or fighting terrorism. Instead, the measure is framed as a reaction, punishment, or pressure in response to what the outgroup has done."
         }
       ]
     },
@@ -73,7 +73,7 @@
         },
         {
           "labelKey": "hope_for_victory",
-          "label": "Hope for victory",
+          "label": "Hope for Victory",
           "description": "Hope for Victory describes how language can make victory or success seem possible and close. This can give the ingroup hope, help people keep going, and prevent defeatism."
         }
       ]
@@ -85,17 +85,17 @@
       "subLabels": [
         {
           "labelKey": "no_alternative_framing",
-          "label": "No alternative framing",
-          "description": "No Alternative Framing describes how language can make a measure appear unavoidable. By suggesting that there is “no choice” or “no other way,” the statement closes down alternatives and makes the action seem necessary rather than debatable."
+          "label": "No Alternatives",
+          "description": "No Alternatives describes how language can make a measure appear unavoidable. By suggesting that there is “no choice” or “no other way,” the statement closes down alternatives and makes the action seem necessary rather than debatable."
         },
         {
           "labelKey": "humanity_as_weakness",
-          "label": "Humanity as weakness",
+          "label": "Humanity as Weakness",
           "description": "Humanity as Weakness describes statements that present humanity, mercy, empathy, or restraint as weak, insufficient, or irresponsible. This pattern devalues compassion and makes harshness appear more appropriate or necessary than humanity."
         },
         {
           "labelKey": "external_criticism_rejection",
-          "label": "External criticism rejection",
+          "label": "External Criticism Rejection",
           "description": "External Criticism Rejection describes statements that dismiss outside criticism as illegitimate, hostile, or antisemitic. This can make external pressure or moral objections appear invalid and protect the ingroup from outside influence."
         }
       ]
