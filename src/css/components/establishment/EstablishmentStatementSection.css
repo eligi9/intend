@@ -38,12 +38,8 @@
 }
 
 .establishment-view__statement :deep(.statement-card__quote-highlight) {
-  border-color: var(--establishment-measure-highlight-color);
-  background: color-mix(
-    in srgb,
-    var(--establishment-measure-highlight-color) 16%,
-    transparent
-  );
+  color: var(--color-white);
+  background: var(--establishment-measure-highlight-color);
 }
 
 .establishment-view__statement :deep(.statement-card__badges) {

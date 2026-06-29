@@ -66,6 +66,7 @@ const anchorHighlights = computed(() => {
 const hoveredBadge = computed(
   () => strategyBadges.value.find((badge) => badge.label === hoveredLabel.value) ?? null,
 )
+const statementMeta = computed(() => [props.record.date, props.record.source].filter(Boolean).join(' · '))
 const hoveredExplanation = computed(() => {
   if (!hoveredLabel.value) return null
 
@@ -110,10 +111,10 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
           <strong v-else>{{ record.author }}</strong>
           <span>{{ record.position ?? record.sector }}</span>
         </div>
-        <span class="statement-card__meta">{{ record.date }}</span>
+        <span class="statement-card__meta">{{ statementMeta }}</span>
       </div>
       <span v-else-if="resolvedMetaVariant === 'date'" class="statement-card__compact-heading">
-        {{ record.date }}
+        {{ statementMeta }}
       </span>
 
       <span class="statement-card__quote">
@@ -124,8 +125,6 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
             'statement-card__quote-part': true,
             'statement-card__quote-muted': segment.muted,
             'statement-card__quote-highlight': segment.color,
-            'statement-card__quote-highlight--continues-after': segment.highlightContinuesAfter,
-            'statement-card__quote-highlight--continues-before': segment.highlightContinuesBefore,
           }"
           :style="{ '--statement-card-highlight-color': segment.color ?? 'var(--color-neutral)' }"
         >
@@ -137,6 +136,7 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
         v-if="record.context"
         type="button"
         class="statement-card__context-button"
+        @click.stop
         @mouseenter="showContext = true"
         @mouseleave="showContext = false"
         @focusin="showContext = true"
@@ -156,6 +156,7 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
       v-if="strategyBadges?.length"
       class="statement-card__badges"
       aria-label="Active patterns"
+      @click.stop
     >
       <span
         v-for="badge in strategyBadges"
@@ -166,6 +167,7 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
         @mouseleave="hoveredLabel = null"
         @focusin="hoveredLabel = badge.label"
         @focusout="hoveredLabel = null"
+        @click.stop
       >
         <ReadStrategyBadge
           :label="badge.label"

@@ -1,6 +1,6 @@
 .statement-card {
   display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(10rem, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(8rem, 12rem);
   gap: clamp(1.5rem, 3vw, 3rem);
   align-items: stretch;
   width: 100%;
@@ -84,15 +84,6 @@
 .statement-card__compact-heading,
 .statement-card__quote-part {
   transition: opacity 180ms ease;
-}
-
-.statement-card--focused .statement-card__compact-heading,
-.statement-card--focused .statement-card__quote-part {
-  opacity: 0.14;
-}
-
-.statement-card--focused .statement-card__quote-highlight {
-  opacity: 1;
 }
 
 .statement-card__heading {
@@ -179,10 +170,10 @@
 
 .statement-card__quote {
   max-width: 980px;
-  margin-top: 24px;
+  margin-top: 14px;
   font-family: var(--font-serif);
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 22px;
   line-height: 1.34;
 }
@@ -192,39 +183,22 @@
 }
 
 .statement-card__quote-highlight.statement-card__quote-muted {
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .statement-card__quote-highlight {
   display: inline;
-  border: 1px solid var(--statement-card-highlight-color);
-  border-radius: 4px;
-  box-decoration-break: slice;
-  -webkit-box-decoration-break: slice;
-  color: var(--color-text);
-  background: color-mix(
-    in srgb,
-    var(--statement-card-highlight-color) 16%,
-    transparent
-  );
-}
-
-.statement-card__quote-highlight--continues-after {
-  border-right-color: transparent;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.statement-card__quote-highlight--continues-before {
-  border-left-color: transparent;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  padding: 0.02em 0.12em 0.08em;
+  color: var(--color-white);
+  background: var(--statement-card-highlight-color);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .statement-card__context-button {
   align-self: flex-start;
   min-height: 0;
-  margin-top: 20px;
+  margin-top: 12px;
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -258,8 +232,8 @@
 
 .statement-card__badge-target {
   display: inline-flex;
-  width: max-content;
-  max-width: 100%;
+  width: fit-content;
+  max-width: none;
   border-radius: 999px;
   outline: none;
 }

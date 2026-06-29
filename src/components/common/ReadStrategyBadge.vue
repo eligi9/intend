@@ -9,6 +9,19 @@ const props = defineProps<{
 }>()
 
 const displayLabel = computed(() => intentLabelNames[props.label])
+const displayLabelLines = computed(() => {
+  if (displayLabel.value === 'External Criticism Rejection') {
+    return ['External Criticism', 'Rejection']
+  }
+
+  if (displayLabel.value.includes(' / ')) {
+    const [firstLine, secondLine] = displayLabel.value.split(' / ')
+
+    return [`${firstLine} /`, secondLine]
+  }
+
+  return [displayLabel.value]
+})
 </script>
 
 <template>
@@ -16,7 +29,13 @@ const displayLabel = computed(() => intentLabelNames[props.label])
     class="read-strategy-badge"
     :style="{ '--read-strategy-badge-color': color }"
   >
-    {{ displayLabel }}
+    <span
+      v-for="line in displayLabelLines"
+      :key="line"
+      class="read-strategy-badge__line"
+    >
+      {{ line }}
+    </span>
   </span>
 </template>
 

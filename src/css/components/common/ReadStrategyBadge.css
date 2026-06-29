@@ -1,7 +1,8 @@
 .read-strategy-badge {
-  display: inline-flex;
+  display: inline-grid;
+  box-sizing: border-box;
   width: max-content;
-  max-width: 100%;
+  max-width: none;
   padding: 7px 10px;
   border: 1px solid var(--read-strategy-badge-color);
   border-radius: 999px;
@@ -15,6 +16,10 @@
   transition:
     color 140ms ease,
     background 140ms ease;
+}
+
+.read-strategy-badge__line {
+  display: block;
 }
 
 .read-strategy-badge:hover,
