@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
+import DetailView from '../../components/common/DetailView.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StatementButton from '../../components/statement/StatementButton.vue'
-import StatementDetailView from '../../components/statement/StatementDetailView.vue'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
@@ -103,11 +103,11 @@ function closeStatementDetail() {
     </section>
 
     <Teleport to="body">
-      <Transition name="statement-detail-overlay">
-        <StatementDetailView
+      <Transition name="detail-overlay">
+        <DetailView
           v-if="selectedStatement"
           :author="selectedAuthor"
-          :statement="selectedStatement"
+          :records="[selectedStatement]"
           @close="closeStatementDetail"
         />
       </Transition>

@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
+import DetailView from '../../components/common/DetailView.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import { useAuthorStore } from '../../stores/authorStore'
@@ -11,7 +12,6 @@ import type { PatternLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import { toggleArrayItem } from '../../utils/arrays'
 import { strategyColors } from '../../utils/intentLabels'
-import AuthorDetailView from './AuthorDetailView.vue'
 
 defineProps<ExploreHeaderProps>()
 
@@ -27,6 +27,9 @@ const selectedPatternLabels = ref<PatternLabelKey[]>([])
 const selectedAuthorId = ref<string | null>(null)
 const authorPortraitSize = 92
 
+const selectedAuthor = computed(
+  () => authorInstances.value.find((author) => author.id === selectedAuthorId.value) ?? null,
+)
 const genders = computed(() => {
   const availableGenders = new Set(authorInstances.value.map((author) => author.gender ?? 'unknown'))
 
@@ -131,10 +134,11 @@ function closeAuthorDetail() {
     />
 
     <Teleport to="body">
-      <Transition name="author-detail-overlay">
-        <AuthorDetailView
+      <Transition name="detail-overlay">
+        <DetailView
           v-if="selectedAuthorId"
-          :author-id="selectedAuthorId"
+          :author="selectedAuthor"
+          :records="selectedAuthor?.statements ?? []"
           @close="closeAuthorDetail"
         />
       </Transition>

@@ -115,19 +115,6 @@
   color: rgba(var(--color-text-rgb), 0.42);
 }
 
-.statement-detail-overlay-enter-active,
-.statement-detail-overlay-leave-active {
-  transition:
-    opacity 180ms ease,
-    transform 240ms ease;
-}
-
-.statement-detail-overlay-enter-from,
-.statement-detail-overlay-leave-to {
-  opacity: 0;
-  transform: translateX(100%);
-}
-
 @media (max-width: 48.75rem) {
   .statement-view__grid {
     grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));

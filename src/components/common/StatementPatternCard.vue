@@ -11,10 +11,15 @@ import StatementCard from './StatementCard.vue'
 import StrategyBadgeContainer from './StrategyBadgeContainer.vue'
 import TopOverlay from './TopOverlay.vue'
 
-const props = defineProps<{
-  record: IntentRecord
-  showContextButton?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    record: IntentRecord
+    showContextButton?: boolean
+  }>(),
+  {
+    showContextButton: true,
+  },
+)
 
 const hoveredLabel = ref<PatternLabelKey | null>(null)
 const badges = computed(() => getStatementPatternBadges(props.record))
