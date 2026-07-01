@@ -63,10 +63,6 @@
   --overlay-meta-size: 0.85rem;
   --statement-card-quote-size: clamp(1.1875rem, 1.45vw, 1.375rem);
   --statement-pattern-card-inline-padding: 5vw;
-  --top-overlay-text-size: var(--overlay-text-size);
-  --top-overlay-meta-size: var(--overlay-meta-size);
-  --side-overlay-title-size: var(--overlay-title-size);
-  --side-overlay-text-size: var(--overlay-text-size);
 
   --app-background: var(--bg-black);
   --app-background-rgb: var(--bg-black-rgb);

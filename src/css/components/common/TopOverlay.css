@@ -37,13 +37,13 @@
 .top-overlay p {
   max-width: 68rem;
   font-family: var(--font-serif);
-  font-size: var(--top-overlay-text-size);
+  font-size: var(--overlay-text-size);
   font-weight: 500;
   line-height: 1.35;
 }
 
 .top-overlay span {
-  font-size: var(--top-overlay-meta-size);
+  font-size: var(--overlay-meta-size);
   font-weight: 850;
 }
 

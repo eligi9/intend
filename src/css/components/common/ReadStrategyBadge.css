@@ -1,14 +1,16 @@
 .read-strategy-badge {
   display: inline-grid;
+  align-content: center;
   box-sizing: border-box;
   width: max-content;
   max-width: none;
-  padding: 0.4375rem 0.625rem;
+  min-height: 2.5rem;
+  padding: 0.375rem 0.5625rem;
   border: 0.0625rem solid var(--read-strategy-badge-color);
   border-radius: 999rem;
   color: var(--read-strategy-badge-color);
   background: transparent;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 800;
   line-height: 1.15;
   text-align: left;

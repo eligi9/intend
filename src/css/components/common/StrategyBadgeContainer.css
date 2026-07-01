@@ -1,7 +1,7 @@
 .strategy-badge-container {
   display: flex;
   flex-direction: column;
-  align-items: var(--strategy-badge-container-align, center);
+  align-items: var(--strategy-badge-container-align, flex-start);
   align-self: center;
   gap: 0.5rem;
   justify-self: var(--strategy-badge-container-justify, start);
