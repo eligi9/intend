@@ -8,37 +8,26 @@
   flex: 0 0 auto;
 }
 
-.author-portrait__rings,
-.author-portrait__ring {
+.author-portrait__rings {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
+  pointer-events: none;
 }
 
-.author-portrait__ring::before {
-  content: '';
-  display: block;
-  width: calc(
-    var(--author-image-size) +
-    ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
-    (var(--ring-index) * var(--author-ring-gap) * 2)
-  );
-  height: calc(
-    var(--author-image-size) +
-    ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
-    (var(--ring-index) * var(--author-ring-gap) * 2)
-  );
-  border: var(--author-ring-stroke) solid var(--ring-color);
+.author-portrait__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-style: solid;
   border-radius: 50%;
   box-sizing: border-box;
+  transform: translate(-50%, -50%);
   box-shadow: 0 0 15px color-mix(in srgb, var(--author-shadow-color) 60%, transparent);
 }
 
 .author-portrait__image-shell {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: relative;
+  z-index: 1;
   display: grid;
   place-items: center;
   width: var(--author-image-size);
@@ -46,7 +35,6 @@
   overflow: hidden;
   border-radius: 50%;
   background: var(--color-portrait-surface);
-  transform: translate(-50%, -50%);
 }
 
 .author-portrait__image-shell::after {
