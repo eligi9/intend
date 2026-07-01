@@ -1,0 +1,57 @@
+.strategy-view {
+  --strategy-view-inline-padding: clamp(1.75rem, 3vw, 2.75rem);
+
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 0.875rem;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  color: var(--color-text);
+  background: var(--app-background);
+}
+
+.strategy-view--structure {
+  --strategy-view-inline-padding: 0;
+}
+
+.strategy-view--structure > .explore-header {
+  position: relative;
+  z-index: 220;
+}
+
+.strategy-view__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.strategy-view__structure {
+  display: grid;
+  align-self: center;
+  justify-self: stretch;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 80%;
+}
+
+@media (max-width: 48.75rem) {
+  .strategy-view {
+    --strategy-view-inline-padding: 1.25rem;
+  }
+
+  .strategy-view--structure {
+    --strategy-view-inline-padding: 0;
+  }
+
+  .strategy-view__structure {
+    grid-template-columns: 1fr;
+    align-self: start;
+    height: auto;
+  }
+
+}

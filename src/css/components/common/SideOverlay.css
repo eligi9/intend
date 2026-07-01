@@ -1,0 +1,51 @@
+.side-overlay {
+  position: fixed;
+  z-index: 320;
+  inset-block: 0;
+  inset-inline-end: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.375rem;
+  width: 38.2vw;
+  min-width: 20rem;
+  max-width: 100%;
+  min-height: 0;
+  padding: clamp(1.5rem, 3.6vw, 3.375rem);
+  color: var(--side-overlay-text-color);
+  background:
+    var(--side-overlay-background-effect),
+    var(--side-overlay-background);
+  box-shadow: -1.5rem 0 3rem rgba(var(--color-shadow-rgb), 0.26);
+  overflow-y: auto;
+}
+
+.side-overlay h3 {
+  margin: 0;
+  color: var(--side-overlay-heading-color);
+  font-family: var(--font-sans);
+  font-size: var(--side-overlay-title-size);
+  font-weight: 850;
+  line-height: 0.94;
+}
+
+.side-overlay p {
+  max-width: 31rem;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--side-overlay-text-size);
+  font-weight: 500;
+  line-height: 1.28;
+}
+
+.side-overlay-enter-active,
+.side-overlay-leave-active {
+  transition:
+    opacity 180ms ease,
+    transform 220ms ease;
+}
+
+.side-overlay-enter-from,
+.side-overlay-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}

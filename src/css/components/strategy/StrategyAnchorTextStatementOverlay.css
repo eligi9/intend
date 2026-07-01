@@ -1,114 +1,32 @@
 .strategy-anchor-text-overlay {
   position: fixed;
-  z-index: 420;
+  z-index: 12000;
   inset: 0;
   display: grid;
   align-items: start;
   justify-items: center;
-  padding: 38.2vh clamp(28px, 6vw, 96px) clamp(28px, 6vw, 96px);
-  color: var(--color-white);
+  padding: 38.2vh clamp(1.75rem, 6vw, 6rem) clamp(1.75rem, 6vw, 6rem);
+  color: var(--text-white);
   background: rgba(var(--color-ink-rgb), 0.9);
   cursor: default;
 }
 
-.strategy-anchor-text-overlay__statement {
-  max-width: 68rem;
-  margin: 0;
-  text-align: center;
-  font-family: var(--font-serif);
-  font-size: clamp(17px, 2vw, 30px);
-  font-weight: 400;
-  line-height: 1.28;
+.strategy-anchor-text-overlay__body {
+  width: min(68rem, 100%);
 }
 
-.strategy-anchor-text-overlay__part--muted {
-  color: rgba(var(--color-white-rgb), 0.46);
-}
-
-.strategy-anchor-text-overlay__part--highlight {
-  padding: 0.02em 0.12em 0.08em;
-  color: var(--color-white);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-
-.strategy-anchor-text-overlay__close {
-  position: fixed;
-  z-index: 480;
-  top: clamp(24px, 4vw, 48px);
-  right: clamp(24px, 4vw, 48px);
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
+.strategy-anchor-text-overlay__card {
   padding: 0;
-  border: 1px solid rgba(var(--color-white-rgb), 0.72);
-  border-radius: 0;
-  color: var(--color-white);
-  background: transparent;
-  font-size: 36px;
-  line-height: 1;
-  cursor: pointer;
+  color: var(--text-white);
+  text-align: center;
 }
 
-.strategy-anchor-text-overlay__close:hover {
-  color: var(--color-ink);
-  background: var(--color-white);
-}
-
-.strategy-anchor-text-overlay__explanation {
-  position: fixed;
-  z-index: 460;
-  top: 0;
-  right: 0;
-  left: 0;
-  display: grid;
+.strategy-anchor-text-overlay__card :deep(.statement-card__contents) {
   align-items: center;
-  min-height: 33vh;
-  padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
-  color: var(--color-text);
-  background: color-mix(in srgb, var(--strategy-anchor-text-overlay-highlight) 72%, var(--app-background));
-  box-shadow: 0 18px 42px rgba(var(--color-shadow-rgb), 0.24);
 }
 
-.strategy-anchor-text-overlay__explanation-inner {
-  display: grid;
-  gap: 0.75rem;
-  width: min(72rem, 100%);
-  text-align: left;
-}
-
-.strategy-anchor-text-overlay__explanation h3,
-.strategy-anchor-text-overlay__explanation p {
-  margin: 0;
-}
-
-.strategy-anchor-text-overlay__explanation h3 {
-  color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: clamp(2rem, 4vw, 3.75rem);
-  font-weight: 700;
-  line-height: 1;
-}
-
-.strategy-anchor-text-overlay__explanation p {
+.strategy-anchor-text-overlay__card :deep(.statement-card__quote) {
   max-width: 68rem;
-  color: rgba(var(--color-text-rgb), 0.9);
-  font-family: var(--font-serif);
-  font-size: clamp(1rem, 1.7vw, 1.35rem);
-  font-weight: 500;
-  line-height: 1.45;
-}
-
-.strategy-anchor-text-overlay-explanation-enter-active,
-.strategy-anchor-text-overlay-explanation-leave-active {
-  transition:
-    opacity 220ms ease,
-    transform 220ms ease;
-}
-
-.strategy-anchor-text-overlay-explanation-enter-from,
-.strategy-anchor-text-overlay-explanation-leave-to {
-  opacity: 0;
-  transform: translateY(-100%);
+  font-size: clamp(1.0625rem, 2vw, 1.875rem);
+  line-height: 1.28;
 }

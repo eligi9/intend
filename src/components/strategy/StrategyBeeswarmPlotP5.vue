@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type p5 from 'p5'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import { createStatementBeeswarmSketch } from '../../sketches/statementBeeswarmSketch'
 import { createStrategyBeeswarmSketch } from '../../sketches/strategyBeeswarmSketch'
 import { createStrategyTimelineGridSketch } from '../../sketches/strategyTimelineGridSketch'
@@ -15,26 +15,66 @@ import {
   createStrategyTimelineDomain,
   getMonthDivisionCount,
 } from '../../utils/strategyTimelineDomain'
+import TopOverlay from '../common/TopOverlay.vue'
+import StrategyAnchorTextStatementOverlay from './StrategyAnchorTextStatementOverlay.vue'
 
 const props = defineProps<{
   events?: TimelineEvent[]
   mode: BeeswarmDisplayMode
-  selectedLabels?: IntentLabelKey[]
+  selectedLabels?: PatternLabelKey[]
   statements: IntentRecord[]
 }>()
 
 const emit = defineEmits<{
   'event-hover': [event: HoveredTimelineEvent | null]
+  'pattern-hover': [statement: HoveredBeeswarmStatement | null]
   'statement-hover': [statement: HoveredTimelineStatement | null]
 }>()
 
 const gridHost = ref<HTMLElement | null>(null)
 const plotHost = ref<HTMLElement | null>(null)
-const hoveredStatement = ref<HoveredBeeswarmStatement | null>(null)
+const hoveredPattern = ref<HoveredBeeswarmStatement | null>(null)
+const pressedPattern = ref<HoveredBeeswarmStatement | null>(null)
 const hoveredTimelineEvent = ref<HoveredTimelineEvent | null>(null)
 const hoveredTimelineStatement = ref<HoveredTimelineStatement | null>(null)
 let gridSketch: p5 | null = null
 let swarmSketch: p5 | null = null
+
+interface TimelineTopOverlay {
+  background?: string
+  headingColor?: string
+  meta?: string
+  text?: string
+  textColor?: string
+  title: string
+}
+
+const topOverlay = computed<TimelineTopOverlay | null>(() => {
+  if (hoveredTimelineEvent.value && !pressedPattern.value) {
+    return {
+      meta: `${hoveredTimelineEvent.value.date} · ${hoveredTimelineEvent.value.sourceName}`,
+      text: hoveredTimelineEvent.value.description,
+      title: hoveredTimelineEvent.value.label,
+    }
+  }
+
+  if (props.mode === 'strategies' && hoveredPattern.value && !pressedPattern.value) {
+    return {
+      background: `color-mix(in srgb, ${hoveredPattern.value.color} 72%, var(--app-background))`,
+      headingColor: 'var(--text-white)',
+      textColor: 'var(--text-white)',
+      title: hoveredPattern.value.strategy,
+    }
+  }
+
+  if (props.mode === 'statements' && hoveredTimelineStatement.value && !pressedPattern.value) {
+    return {
+      title: hoveredTimelineStatement.value.author,
+    }
+  }
+
+  return null
+})
 
 function getTimeDomain() {
   return createStrategyTimelineDomain(props.statements, props.events ?? [])
@@ -63,7 +103,9 @@ function createSwarmSketch() {
   if (!plotHost.value) return null
 
   if (props.mode === 'statements') {
-    hoveredStatement.value = null
+    hoveredPattern.value = null
+    pressedPattern.value = null
+    emit('pattern-hover', null)
 
     return createStatementBeeswarmSketch(plotHost.value, {
       setHoveredStatement: (payload) => {
@@ -76,16 +118,27 @@ function createSwarmSketch() {
   }
 
   hoveredTimelineStatement.value = null
+  hoveredPattern.value = null
+  pressedPattern.value = null
+  emit('pattern-hover', null)
   emit('statement-hover', null)
 
   return createStrategyBeeswarmSketch(plotHost.value, {
+    setPressedStatement: (payload) => {
+      pressedPattern.value = payload
+    },
     selectedLabels: props.selectedLabels ?? [],
     setHoveredStatement: (payload) => {
-      hoveredStatement.value = payload
+      hoveredPattern.value = payload
+      emit('pattern-hover', payload)
     },
     statements: props.statements,
     timeDomain: getTimeDomain(),
   })
+}
+
+function closePressedPattern() {
+  pressedPattern.value = null
 }
 
 onMounted(async () => {
@@ -94,6 +147,9 @@ onMounted(async () => {
   await nextTick()
   gridSketch = createGridSketch()
   swarmSketch = createSwarmSketch()
+  window.addEventListener('pointerup', closePressedPattern)
+  window.addEventListener('pointercancel', closePressedPattern)
+  window.addEventListener('blur', closePressedPattern)
 })
 
 watch(
@@ -126,9 +182,15 @@ watch(
 
 onBeforeUnmount(() => {
   hoveredTimelineEvent.value = null
+  hoveredPattern.value = null
+  pressedPattern.value = null
   hoveredTimelineStatement.value = null
   emit('event-hover', null)
+  emit('pattern-hover', null)
   emit('statement-hover', null)
+  window.removeEventListener('pointerup', closePressedPattern)
+  window.removeEventListener('pointercancel', closePressedPattern)
+  window.removeEventListener('blur', closePressedPattern)
   gridSketch?.remove()
   swarmSketch?.remove()
 })
@@ -144,37 +206,25 @@ onBeforeUnmount(() => {
     />
 
     <Teleport to="body">
-      <Transition name="strategy-beeswarm-hover-layer">
-        <aside
-          v-if="hoveredTimelineEvent"
-          class="strategy-beeswarm__hover-layer strategy-beeswarm__hover-layer--event"
-        >
-          <div class="strategy-beeswarm__hover-layer-inner">
-            <h3>{{ hoveredTimelineEvent.label }}</h3>
-            <p>{{ hoveredTimelineEvent.description }}</p>
-            <span>
-              {{ hoveredTimelineEvent.date }} · {{ hoveredTimelineEvent.sourceName }}
-            </span>
-          </div>
-        </aside>
-        <aside
-          v-else-if="mode === 'strategies' && hoveredStatement"
-          class="strategy-beeswarm__hover-layer"
-          :style="{ '--strategy-beeswarm-hover-color': hoveredStatement.color }"
-        >
-          <div class="strategy-beeswarm__hover-layer-inner">
-            <h3>{{ hoveredStatement.strategy }}</h3>
-          </div>
-        </aside>
-        <aside
-          v-else-if="mode === 'statements' && hoveredTimelineStatement"
-          class="strategy-beeswarm__hover-layer strategy-beeswarm__hover-layer--statement"
-        >
-          <div class="strategy-beeswarm__hover-layer-inner">
-            <h3>{{ hoveredTimelineStatement.author }}</h3>
-          </div>
-        </aside>
-      </Transition>
+      <TopOverlay
+        :background="topOverlay?.background"
+        :heading-color="topOverlay?.headingColor"
+        :meta="topOverlay?.meta"
+        :text="topOverlay?.text"
+        :text-color="topOverlay?.textColor"
+        :title="topOverlay?.title ?? ''"
+        :visible="topOverlay !== null"
+      />
+    </Teleport>
+
+    <Teleport to="body">
+      <StrategyAnchorTextStatementOverlay
+        v-if="pressedPattern && pressedPattern.anchorText?.length"
+        :anchor-texts="pressedPattern.anchorText"
+        :highlight-color="pressedPattern.color"
+        :label="pressedPattern.label"
+        :statement="pressedPattern.record"
+      />
     </Teleport>
   </section>
 </template>

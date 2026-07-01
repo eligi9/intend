@@ -1,0 +1,93 @@
+.statement-card {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 0.5rem;
+  color: var(--color-text);
+  background: transparent;
+  text-align: left;
+  cursor: default;
+  touch-action: pan-y;
+  user-select: text;
+}
+
+.statement-card:hover {
+  color: var(--color-text);
+  background: transparent;
+  border-color: transparent;
+}
+
+.statement-card__contents {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  min-width: 0;
+}
+
+.statement-card__quote-part {
+  transition: opacity 180ms ease;
+}
+
+.statement-card__meta {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: rgba(var(--color-text-rgb), 0.62);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statement-card__quote {
+  max-width: 61.25rem;
+  margin-top: 0.875rem;
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: var(--statement-card-quote-size);
+  line-height: 1.34;
+}
+
+.statement-card__quote-muted {
+  opacity: 0.5;
+}
+
+.statement-card__quote-highlight.statement-card__quote-muted {
+  opacity: 1;
+}
+
+.statement-card__quote-highlight {
+  display: inline;
+  padding: 0.02em 0.12em 0.08em;
+  color: var(--color-white);
+  background: var(--statement-card-highlight-color);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.statement-card__context-button {
+  align-self: flex-start;
+  min-height: 0;
+  margin-top: 0.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: rgba(var(--color-text-rgb), 0.72);
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: underline;
+  text-underline-offset: 0.3125rem;
+  cursor: pointer;
+}
+
+.statement-card__context-button:hover,
+.statement-card__context-button:focus-visible {
+  color: var(--color-text);
+  background: transparent;
+  outline: none;
+}

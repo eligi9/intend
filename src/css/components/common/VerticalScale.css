@@ -1,0 +1,42 @@
+.vertical-scale {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 1.55rem;
+  pointer-events: none;
+}
+
+.vertical-scale__title {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 2.5rem;  
+  color: rgba(var(--color-text-rgb), 0.74);
+  font-size: clamp(0.5rem, 0.72vw, 0.625rem);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.08;
+  white-space: normal;
+  transform: translateY(-0.15rem);
+}
+
+.vertical-scale__tick {
+  position: absolute;
+  left: 0;
+  width: 1.5rem;
+  height: 0.0625rem;
+  background: rgba(var(--color-text-rgb), 0.58);
+}
+
+.vertical-scale__tick-label {
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  color: rgba(var(--color-text-rgb), 0.74);
+  font-size: clamp(0.5rem, 0.72vw, 0.625rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateY(calc(-100% - 0.22rem));
+}

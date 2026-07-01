@@ -1,0 +1,29 @@
+.view-headline {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+  max-width: min(40rem, 100%);
+  text-align: left;
+}
+
+.view-headline__title {
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: clamp(1.7rem, 3.4vw, 2.85rem);
+  font-weight: 850;
+  letter-spacing: 0;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.view-headline__subline {
+  margin: 0;
+  color: rgba(var(--color-text-rgb), 0.74);
+  font-size: clamp(1rem, 2.2vw, 1.125rem);
+  font-weight: 500;
+  line-height: 1.35;
+}

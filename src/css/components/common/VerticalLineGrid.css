@@ -1,0 +1,42 @@
+.vertical-line-grid {
+  position: absolute;
+  inset: 0;
+}
+
+.vertical-line-grid__line {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: var(--line-x);
+  width: 0.0625rem;
+  background: rgba(var(--color-text-rgb), 0.1);
+}
+
+.vertical-line-grid__line--center {
+  background: rgba(var(--color-text-rgb), 0.22);
+}
+
+.vertical-line-grid__label {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  color: rgba(var(--color-text-rgb), 0.62);
+  font-size: clamp(0.5625rem, 0.78vw, 0.6875rem);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.vertical-line-grid__scale-label {
+  position: absolute;
+  right: 3rem;
+  bottom: 3rem;
+  color: rgba(var(--color-text-rgb), 0.74);
+  font-size: clamp(0.5625rem, 0.78vw, 0.6875rem);
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import { intentLabelNames, subLabelColors } from '../../utils/intentLabels'
 
 const props = defineProps<{
-  firstLabel: IntentLabelKey
+  firstLabel: PatternLabelKey
   records: IntentRecord[]
-  secondLabel: IntentLabelKey
+  secondLabel: PatternLabelKey
 }>()
 
 const svgWidth = 520
@@ -59,7 +59,7 @@ const overlapShare = computed(() =>
   counts.value.totalStatements === 0 ? 0 : counts.value.bothCount / counts.value.totalStatements,
 )
 
-function countLabel(label: IntentLabelKey) {
+function countLabel(label: PatternLabelKey) {
   return props.records.filter((record) => record[label] === 'yes').length
 }
 

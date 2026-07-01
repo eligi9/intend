@@ -44,7 +44,7 @@ onBeforeUnmount(() => {
 .strategy-sub-label-anchor-sketch {
   width: 100%;
   height: 100%;
-  min-height: 260px;
+  min-height: 16.25rem;
   overflow: hidden;
 }
 </style>

@@ -1,0 +1,82 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import type { IntentRecord } from '../../types/intentData'
+import { splitStatementText } from '../../utils/statementHighlights'
+import SideOverlay from './SideOverlay.vue'
+
+const props = withDefaults(
+  defineProps<{
+    anchorColor?: string
+    anchorTexts?: readonly string[]
+    record: IntentRecord
+    showContextButton?: boolean
+  }>(),
+  {
+    anchorColor: 'var(--color-highlight)',
+    anchorTexts: () => [],
+    showContextButton: true,
+  },
+)
+
+const showContext = ref(false)
+const showContextButton = computed(() => props.showContextButton)
+const anchorHighlights = computed(() => {
+  return props.anchorTexts.map((text) => ({
+    color: props.anchorColor,
+    text,
+  }))
+})
+const statementMeta = computed(() => [props.record.date, props.record.source].filter(Boolean).join(' · '))
+const statementSegments = computed(() => splitStatementText(props.record.statement, anchorHighlights.value))
+</script>
+
+<template>
+  <article
+    class="statement-card"
+  >
+    <div class="statement-card__contents">
+      <span class="statement-card__meta">
+        {{ statementMeta }}
+      </span>
+
+      <span class="statement-card__quote">
+        <span
+          v-for="(segment, index) in statementSegments"
+          :key="`${segment.text}-${index}`"
+          :class="{
+            'statement-card__quote-part': true,
+            'statement-card__quote-muted': segment.muted,
+            'statement-card__quote-highlight': segment.color,
+          }"
+          :style="{ '--statement-card-highlight-color': segment.color ?? 'var(--color-neutral)' }"
+        >
+          {{ segment.text }}
+        </span>
+      </span>
+
+      <button
+        v-if="record.context && showContextButton"
+        type="button"
+        class="statement-card__context-button"
+        @click.stop
+        @mouseenter="showContext = true"
+        @mouseleave="showContext = false"
+        @focusin="showContext = true"
+        @focusout="showContext = false"
+      >
+        seeContext
+      </button>
+    </div>
+
+    <SideOverlay
+      :visible="Boolean(record.context && showContextButton && showContext)"
+      title="Context"
+      :text="record.context ?? ''"
+    />
+
+  </article>
+</template>
+
+<style scoped>
+@import '../../css/components/common/StatementCard.css';
+</style>

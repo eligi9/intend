@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import gsap from 'gsap'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import { splitAnchors } from '../../utils/intentLabels'
 
 interface AnchorTextItem {
@@ -11,7 +11,7 @@ interface AnchorTextItem {
 
 const props = defineProps<{
   highlightColor: string
-  label: IntentLabelKey
+  label: PatternLabelKey
   statements: IntentRecord[]
 }>()
 
@@ -211,6 +211,9 @@ onBeforeUnmount(() => {
 
     <p v-else class="strategy-anchor-text-scroller__empty">No anchor texts available.</p>
 
+    <p class="strategy-anchor-text-scroller__note">
+      Note: These are shortened excerpts. Press and hold an example to view the full statement.
+    </p>
   </section>
 </template>
 

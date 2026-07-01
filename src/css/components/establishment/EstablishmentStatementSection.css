@@ -1,0 +1,102 @@
+.establishment-view__panel.establishment-view__statement {
+  height: 760vh;
+  min-height: 760vh;
+  pointer-events: none;
+}
+
+.establishment-view__statement-inner {
+  position: fixed;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  width: min(51.25rem, calc(100vw - 3rem));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  cursor: pointer;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  will-change: opacity, transform;
+}
+
+.establishment-view__statement-inner:focus-visible {
+  outline: 0.1875rem solid rgba(var(--color-landing-blue-rgb), 0.82);
+  outline-offset: 0.375rem;
+}
+
+.establishment-view__statement :deep(.statement-card) {
+  width: 100%;
+  border-color: rgba(var(--color-text-rgb), 0.22);
+  background: var(--color-background-soft);
+  box-shadow: 0 2.125rem 6.875rem rgba(var(--color-shadow-rgb), 0.42);
+}
+
+.establishment-view__statement :deep(.statement-card__quote) {
+  margin-top: 0;
+  max-width: none;
+}
+
+.establishment-view__statement :deep(.statement-card__quote-highlight) {
+  color: var(--color-white);
+  background: var(--establishment-measure-highlight-color);
+}
+
+.establishment-view__notes {
+  position: fixed;
+  z-index: 3;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.establishment-view__author-mark {
+  position: fixed;
+  z-index: 6;
+  top: 66.666vh;
+  left: 20vw;
+  width: 15rem;
+  height: 15rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: opacity, transform;
+}
+
+.establishment-view__author-mark :deep(.author-tooltip__panel) {
+  display: none;
+}
+
+.establishment-view__author-mark :deep(.author-portrait) {
+  filter: drop-shadow(0 0 2.125rem rgba(var(--color-shadow-rgb), 0.78)) drop-shadow(0 0 5.375rem rgba(var(--color-shadow-rgb), 0.46));
+}
+
+.establishment-view__note--1 {
+  top: 16%;
+  left: 7%;
+}
+
+.establishment-view__note--2 {
+  top: 12%;
+  right: 7%;
+}
+
+.establishment-view__note--3 {
+  right: 9%;
+  bottom: 10%;
+}
+
+@media (max-width: 48.75rem) {
+  .establishment-view__statement {
+    padding: 5rem 1.125rem;
+  }
+
+  .establishment-view__statement-inner {
+    width: 100%;
+  }
+
+  .establishment-view__notes {
+    display: none;
+  }
+}

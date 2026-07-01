@@ -1,0 +1,32 @@
+.filter-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.625rem;
+  border: 0.125rem solid var(--filter-button-color);
+  border-radius: 1.875rem;
+  color: var(--filter-button-color);
+  background: transparent;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  color: var(--color-white);
+  background: var(--filter-button-color);
+}
+
+.filter-button--active {
+  color: var(--color-white);
+  background: var(--filter-button-color);
+}
+
+.filter-button span {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: 0.625rem;
+  font-weight: 800;
+  line-height: normal;
+  text-align: center;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,127 @@
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
+import ExploreHeader from '../../components/explore/ExploreHeader.vue'
+import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
+import { useStatementStore } from '../../stores/statementStore'
+import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
+import type {
+  BeeswarmDisplayMode,
+  HoveredBeeswarmStatement,
+  HoveredTimelineStatement,
+} from '../../types/strategyBeeswarm'
+import type { TimelineEvent } from '../../types/timeline'
+
+defineProps<ExploreHeaderProps>()
+
+const emit = defineEmits<{
+  'section-select': [section: ExploreViewSection]
+}>()
+
+const statementStore = useStatementStore()
+const { records } = storeToRefs(statementStore)
+const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
+const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
+const hoveredPattern = ref<HoveredBeeswarmStatement | null>(null)
+const hoveredStatement = ref<HoveredTimelineStatement | null>(null)
+
+watch(beeswarmMode, () => {
+  hoveredPattern.value = null
+  hoveredStatement.value = null
+})
+
+function showHoveredPattern(pattern: HoveredBeeswarmStatement | null) {
+  hoveredPattern.value = pattern
+}
+
+function showHoveredStatement(statement: HoveredTimelineStatement | null) {
+  hoveredStatement.value = statement
+}
+</script>
+
+<template>
+  <section class="timeline-view" aria-label="Pattern timeline">
+    <ExploreHeader
+      :active-section="activeSection"
+      :sections="sections"
+      subline="All coded statements over time, filterable by top-level pattern."
+      title="Timeline"
+      @select="emit('section-select', $event)"
+    />
+
+    <section class="timeline-view__content" aria-label="All statements timeline">
+      <div class="timeline-view__plot">
+        <StrategyBeeswarmPlotP5
+          :events="timelineEvents"
+          :mode="beeswarmMode"
+          :statements="records"
+          :selected-labels="[]"
+          @pattern-hover="showHoveredPattern"
+          @statement-hover="showHoveredStatement"
+        />
+      </div>
+
+      <Transition name="timeline-view-statement-hover">
+        <aside
+          v-if="beeswarmMode === 'statements' && hoveredStatement"
+          class="timeline-view__statement-hover"
+          aria-label="Hovered statement"
+        >
+          <p>{{ hoveredStatement.statement }}</p>
+          <span>
+            {{ hoveredStatement.author }} · {{ hoveredStatement.date }}
+            <template v-if="hoveredStatement.source">
+              · {{ hoveredStatement.source }}
+            </template>
+          </span>
+        </aside>
+      </Transition>
+
+      <Transition name="timeline-view-statement-hover">
+        <aside
+          v-if="beeswarmMode === 'strategies' && hoveredPattern"
+          class="timeline-view__statement-hover timeline-view__statement-hover--pattern"
+          :style="{ '--timeline-view-pattern-color': hoveredPattern.color }"
+          aria-label="Hovered pattern anchor"
+        >
+          <strong>Anchor</strong>
+          <p
+            v-for="(anchor, index) in hoveredPattern.anchorText ?? []"
+            :key="`${anchor}-${index}`"
+          >
+            "{{ anchor }}"
+          </p>
+          <span>
+            {{ hoveredPattern.author }} · {{ hoveredPattern.date }}
+            <template v-if="hoveredPattern.source">
+              · {{ hoveredPattern.source }}
+            </template>
+          </span>
+          <small>Note: These are shortened excerpts.</small>
+        </aside>
+      </Transition>
+
+      <div class="timeline-view__switch" aria-label="Timeline display">
+        <button
+          type="button"
+          :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'statements' }"
+          @click="beeswarmMode = 'statements'"
+        >
+          Statements
+        </button>
+        <button
+          type="button"
+          :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'strategies' }"
+          @click="beeswarmMode = 'strategies'"
+        >
+          Patterns
+        </button>
+      </div>
+    </section>
+  </section>
+</template>
+
+<style scoped>
+@import '../../css/views/explore/TimelineView.css';
+</style>

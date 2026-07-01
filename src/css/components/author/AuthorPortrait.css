@@ -1,0 +1,80 @@
+.author-portrait {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--author-portrait-size);
+  height: var(--author-portrait-size);
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.author-portrait__rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.author-portrait__ring::before {
+  content: '';
+  display: block;
+  width: calc(
+    var(--author-image-size) +
+    ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
+    ((var(--ring-index) + 1) * var(--author-ring-gap) * 2)
+  );
+  height: calc(
+    var(--author-image-size) +
+    ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
+    ((var(--ring-index) + 1) * var(--author-ring-gap) * 2)
+  );
+  border: var(--author-ring-stroke) solid var(--ring-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.author-portrait__image-shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--author-image-size);
+  height: var(--author-image-size);
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--color-portrait-surface);
+}
+
+.author-portrait__image-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    transparent 72%,
+    color-mix(in srgb, var(--author-image-shadow-color) 24%, transparent) 82%,
+    var(--author-image-shadow-color) 100%
+  );
+}
+
+.author-portrait__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--author-image-position, 50% 50%);
+  user-select: none;
+  filter: contrast(1.3) brightness(0.95) saturate(1.2) grayscale(0.6);
+}
+
+.author-portrait__fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--color-neutral-muted);
+  font-size: calc(var(--author-image-size) * 0.48);
+  font-weight: 800;
+  line-height: 1;
+  background: var(--color-portrait-surface);
+}

@@ -1,79 +1,57 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
-import { getDisplayLabel, splitStatementText } from '../../utils/statementHighlights'
+import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
+import { getDisplayLabel } from '../../utils/statementHighlights'
+import StatementCard from '../common/StatementCard.vue'
+import TopOverlay from '../common/TopOverlay.vue'
 
 const props = defineProps<{
-  anchorText: string
+  anchorText?: string
+  anchorTexts?: string[]
   highlightColor: string
-  label: IntentLabelKey
+  label: PatternLabelKey
   statement: IntentRecord
 }>()
 
-const emit = defineEmits<{
-  close: []
-}>()
-
-const statementSegments = computed(() =>
-  splitStatementText(props.statement.statement, [
-    {
-      color: props.highlightColor,
-      text: props.anchorText,
-    },
-  ]),
+const anchorTexts = computed(() =>
+  props.anchorTexts?.length ? props.anchorTexts : props.anchorText ? [props.anchorText] : [],
 )
 
 const explanation = computed(() => {
   const value = props.statement[`${props.label}_bj` as keyof IntentRecord]
   return typeof value === 'string' && value.length > 0 ? value : null
 })
+
+const explanationBackground = computed(
+  () => `color-mix(in srgb, ${props.highlightColor} 72%, var(--app-background))`,
+)
+
 </script>
 
 <template>
   <aside
     class="strategy-anchor-text-overlay"
-    :style="{ '--strategy-anchor-text-overlay-highlight': props.highlightColor }"
     aria-label="Selected statement"
-    @click="emit('close')"
   >
-    <button
-      type="button"
-      class="strategy-anchor-text-overlay__close"
-      aria-label="Close selected statement"
-      @click.stop="emit('close')"
-    >
-      ×
-    </button>
+    <TopOverlay
+      :background="explanationBackground"
+      heading-color="var(--text-white)"
+      min-height="33vh"
+      :text="explanation ?? ''"
+      text-color="var(--text-white)"
+      :title="`Why ${getDisplayLabel(props.label)}?`"
+      :visible="explanation !== null"
+    />
 
-    <Transition name="strategy-anchor-text-overlay-explanation">
-      <section
-        v-if="explanation"
-        class="strategy-anchor-text-overlay__explanation"
-        @click.stop
-      >
-        <div class="strategy-anchor-text-overlay__explanation-inner">
-          <h3>Why {{ getDisplayLabel(props.label) }}?</h3>
-          <p>{{ explanation }}</p>
-        </div>
-      </section>
-    </Transition>
-
-    <p class="strategy-anchor-text-overlay__statement" @click.stop>
-      <span
-        v-for="(segment, index) in statementSegments"
-        :key="`${segment.text}-${index}`"
-        :class="{
-          'strategy-anchor-text-overlay__part': true,
-          'strategy-anchor-text-overlay__part--muted': segment.muted,
-          'strategy-anchor-text-overlay__part--highlight': segment.color,
-        }"
-        :style="{
-          backgroundColor: segment.color ?? undefined,
-        }"
-      >
-        {{ segment.text }}
-      </span>
-    </p>
+    <div class="strategy-anchor-text-overlay__body">
+      <StatementCard
+        class="strategy-anchor-text-overlay__card"
+        :record="statement"
+        :anchor-color="highlightColor"
+        :anchor-texts="anchorTexts"
+        :show-context-button="false"
+      />
+    </div>
   </aside>
 </template>
 

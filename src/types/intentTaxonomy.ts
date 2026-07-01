@@ -1,25 +1,25 @@
 import strategyLabelsDataset from '../../data/strategy-labels.json'
-import type { IntentLabelKey } from './intentData'
+import type { PatternLabelKey } from './intentData'
 
 export interface IntentSubLabelDescription {
   description: string
   label: string
-  labelKey: IntentLabelKey
+  labelKey: PatternLabelKey
 }
 
 export interface IntentTaxonomyGroup {
-  childLabels: IntentLabelKey[]
+  childLabels: PatternLabelKey[]
   description: string
   label: string
-  labelKey: IntentLabelKey
-  parentLabel: IntentLabelKey
+  labelKey: PatternLabelKey
+  parentLabel: PatternLabelKey
   subLabels: IntentSubLabelDescription[]
 }
 
 interface StrategyLabelGroup {
   description: string
   label: string
-  labelKey: IntentLabelKey
+  labelKey: PatternLabelKey
   subLabels: IntentSubLabelDescription[]
 }
 
@@ -42,4 +42,4 @@ export const intentSubLabelDescriptions = Object.fromEntries(
   intentTaxonomy.flatMap((group) =>
     group.subLabels.map((label) => [label.labelKey, label.description] as const),
   ),
-) as Partial<Record<IntentLabelKey, string>>
+) as Partial<Record<PatternLabelKey, string>>
