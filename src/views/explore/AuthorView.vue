@@ -3,40 +3,35 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
-import ViewHeadline from '../../components/common/ViewHeadline.vue'
+import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import { useAuthorStore } from '../../stores/authorStore'
 import type { AuthorInstance } from '../../types/authorData'
-import type { IntentLabelKey } from '../../types/intentData'
+import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
+import type { PatternLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import { toggleArrayItem } from '../../utils/arrays'
-import { taxonomyButtonColors } from '../../utils/intentLabels'
+import { strategyColors } from '../../utils/intentLabels'
 import AuthorDetailView from './AuthorDetailView.vue'
+
+defineProps<ExploreHeaderProps>()
+
+const emit = defineEmits<{
+  'section-select': [section: ExploreViewSection]
+}>()
 
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
 
-const selectedSector = ref<string | null>(null)
 const selectedGender = ref<string | null>(null)
-const selectedPatternLabels = ref<IntentLabelKey[]>([])
+const selectedPatternLabels = ref<PatternLabelKey[]>([])
 const selectedAuthorId = ref<string | null>(null)
 const authorPortraitSize = 92
 
-const sectors = computed(() =>
-  [...new Set(authorInstances.value.map((author) => author.sector).filter(Boolean))] as string[],
-)
 const genders = computed(() => {
   const availableGenders = new Set(authorInstances.value.map((author) => author.gender ?? 'unknown'))
 
   return ['female', 'male'].filter((gender) => availableGenders.has(gender))
 })
-const sectorFilterLabels = computed(() =>
-  sectors.value.map((sector) => ({
-    active: selectedSector.value === sector,
-    color: 'var(--color-neutral)',
-    key: sector,
-    label: sector,
-  })),
-)
 const genderFilterLabels = computed(() =>
   genders.value.map((gender) => ({
     active: selectedGender.value === gender,
@@ -48,26 +43,22 @@ const genderFilterLabels = computed(() =>
 const patternFilterLabels = computed(() =>
   intentTaxonomy.map((group) => ({
     active: selectedPatternLabels.value.includes(group.parentLabel),
-    color: taxonomyButtonColors[group.parentLabel] ?? 'var(--color-neutral)',
+    color: strategyColors[group.parentLabel] ?? 'var(--color-neutral)',
     key: group.parentLabel,
     label: group.label,
   })),
 )
 
-function toggleSector(sector: string) {
-  selectedSector.value = selectedSector.value === sector ? null : sector
-}
-
 function toggleGender(gender: string) {
   selectedGender.value = selectedGender.value === gender ? null : gender
 }
 
-function togglePatternLabel(label: IntentLabelKey) {
+function togglePatternLabel(label: PatternLabelKey) {
   selectedPatternLabels.value = toggleArrayItem(selectedPatternLabels.value, label)
 }
 
 function togglePatternLabelByKey(label: string) {
-  togglePatternLabel(label as IntentLabelKey)
+  togglePatternLabel(label as PatternLabelKey)
 }
 
 function getGenderLabel(gender: string) {
@@ -76,13 +67,12 @@ function getGenderLabel(gender: string) {
 }
 
 function isAuthorVisible(author: AuthorInstance) {
-  const matchesSector = !selectedSector.value || author.sector === selectedSector.value
   const matchesGender = !selectedGender.value || (author.gender ?? 'unknown') === selectedGender.value
   const matchesPatterns = selectedPatternLabels.value.every((label) =>
     author.usedTopLevelStrategyLabels.includes(label),
   )
 
-  return matchesSector && matchesGender && matchesPatterns
+  return matchesGender && matchesPatterns
 }
 
 function showAuthorDetail(authorId: string) {
@@ -96,17 +86,15 @@ function closeAuthorDetail() {
 
 <template>
   <section class="author-view">
-    <header class="author-view__header">
-      <ViewHeadline title="Authors" />
-    </header>
+    <ExploreHeader
+      :active-section="activeSection"
+      :sections="sections"
+      title="Authors"
+      @select="emit('section-select', $event)"
+    />
 
     <section class="author-filter-overlay" aria-label="Autoren Filter">
       <section class="author-filters">
-        <FilterButtonContainer
-          title="Sector"
-          :labels="sectorFilterLabels"
-          @select="toggleSector"
-        />
         <FilterButtonContainer
           title="Geschlecht"
           :labels="genderFilterLabels"

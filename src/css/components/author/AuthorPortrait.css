@@ -22,17 +22,16 @@
   width: calc(
     var(--author-image-size) +
     ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
-    (var(--ring-index) * var(--author-ring-gap) * 2)
+    ((var(--ring-index) + 1) * var(--author-ring-gap) * 2)
   );
   height: calc(
     var(--author-image-size) +
     ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
-    (var(--ring-index) * var(--author-ring-gap) * 2)
+    ((var(--ring-index) + 1) * var(--author-ring-gap) * 2)
   );
   border: var(--author-ring-stroke) solid var(--ring-color);
   border-radius: 50%;
   box-sizing: border-box;
-  box-shadow: 0 0 15px color-mix(in srgb, var(--author-shadow-color) 60%, transparent);
 }
 
 .author-portrait__image-shell {
@@ -82,14 +81,4 @@
   font-weight: 800;
   line-height: 1;
   background: var(--color-portrait-surface);
-}
-
-.author-portrait__fallback-icon {
-  width: 54%;
-  height: 54%;
-  fill: currentColor;
-}
-
-.author-portrait__fallback-unknown {
-  font-size: calc(var(--author-image-size) * 0.48);
 }

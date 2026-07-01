@@ -3,12 +3,12 @@ import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
-import StatementCard from '../../components/common/StatementCard.vue'
+import StatementPatternCard from '../../components/common/StatementPatternCard.vue'
 import ViewHeadline from '../../components/common/ViewHeadline.vue'
 import { usePageScrollLock } from '../../composables/usePageScrollLock'
 import { useAuthorStore } from '../../stores/authorStore'
-import type { IntentLabelKey } from '../../types/intentData'
-import { taxonomyButtonColors } from '../../utils/intentLabels'
+import type { PatternLabelKey } from '../../types/intentData'
+import { strategyColors } from '../../utils/intentLabels'
 
 const props = defineProps<{
   authorId: string
@@ -20,7 +20,7 @@ const emit = defineEmits<{
 
 const authorStore = useAuthorStore()
 const { authorInstances } = storeToRefs(authorStore)
-const activePattern = ref<IntentLabelKey | null>(null)
+const activePattern = ref<PatternLabelKey | null>(null)
 
 usePageScrollLock()
 
@@ -31,10 +31,10 @@ const patternFilters = computed(() =>
   author.value
     ? author.value.usedTopLevelStrategies.map((strategy) => ({
         active: activePattern.value === strategy.labelKey,
-        color: taxonomyButtonColors[strategy.labelKey] ?? 'var(--color-neutral)',
+        color: strategyColors[strategy.labelKey] ?? 'var(--color-neutral)',
         key: strategy.labelKey,
         label: strategy.label,
-        minWidth: '112px',
+        minWidth: '7rem',
       }))
     : [],
 )
@@ -78,12 +78,12 @@ const visibleStatements = computed(() => {
   return author.value.statements.filter((statement) => statement[pattern] === 'yes')
 })
 
-function toggleFilter(label: IntentLabelKey) {
+function toggleFilter(label: PatternLabelKey) {
   activePattern.value = activePattern.value === label ? null : label
 }
 
 function toggleFilterByKey(label: string) {
-  toggleFilter(label as IntentLabelKey)
+  toggleFilter(label as PatternLabelKey)
 }
 </script>
 
@@ -141,11 +141,11 @@ function toggleFilterByKey(label: string) {
         </div>
 
         <div class="author-detail__statements">
-          <StatementCard
+          <StatementPatternCard
             v-for="statement in visibleStatements"
             :key="statement.id"
+            class="author-detail__statement-card"
             :record="statement"
-            meta-variant="date"
           />
 
           <span v-if="visibleStatements.length === 0" class="author-detail__statements-empty">

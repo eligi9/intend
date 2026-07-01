@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { AuthorInstance } from '../../types/authorData'
-import type { IntentLabelKey } from '../../types/intentData'
+import type { PatternLabelKey } from '../../types/intentData'
+import { strategyColors } from '../../utils/intentLabels'
 import AuthorTooltip from './AuthorTooltip.vue'
+import AuthorFallbackIcon from '../icons/AuthorFallbackIcon.vue'
 
-const strategyColors: Partial<Record<IntentLabelKey, string>> = {
-  enemy_image: 'var(--intent-color-enemy-image)',
-  rhetorical_foreclosure: 'var(--intent-color-rhetorical-foreclosure)',
-  just_cause: 'var(--intent-color-just-cause)',
-  individual_needs: 'var(--intent-color-individual-needs)',
-}
-
-const strategyDisplayOrder: IntentLabelKey[] = [
+const strategyDisplayOrder: PatternLabelKey[] = [
   'enemy_image',
   'rhetorical_foreclosure',
   'just_cause',
@@ -32,11 +27,11 @@ const props = withDefaults(
   },
 )
 
-const ringStroke = computed(() => Math.max(2, props.size * 0.03))
-const ringGap = computed(() => ringStroke.value * 0.5)
+const ringStroke = computed(() => Math.max(2, Math.round(props.size * 0.03)))
+const ringGap = computed(() => Math.max(2, Math.round(ringStroke.value * 0.6)))
 const maxRingCount = strategyDisplayOrder.length
 const totalRingSpace = computed(
-  () => props.showRings ? maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value : 0,
+  () => props.showRings ? maxRingCount * (ringStroke.value + ringGap.value) : 0,
 )
 const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
 
@@ -57,16 +52,6 @@ const rings = computed(() => {
 })
 
 const imageAlt = computed(() => `Portrait von ${props.author.name}`)
-const fallbackIconType = computed(() => {
-  if (props.author.gender === 'female') return '♀'
-  if (props.author.gender === 'male') return '♂'
-  return '?'
-})
-const fallbackLabel = computed(() => {
-  if (props.author.gender === 'female') return 'weibliches Piktogramm'
-  if (props.author.gender === 'male') return 'maennliches Piktogramm'
-  return 'Geschlecht unbekannt'
-})
 </script>
 
 <template>
@@ -80,7 +65,7 @@ const fallbackLabel = computed(() => {
           '--author-ring-gap': `${ringGap}px`,
           '--author-ring-stroke': `${ringStroke}px`,
           '--author-shadow-color': `${outerRingColor}`,
-          '--author-image-shadow-color': 'var(--author-view-background, var(--color-background))',
+          '--author-image-shadow-color': 'var(--author-view-background, var(--bg-black))',
         }"
       >
         <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">
@@ -100,26 +85,8 @@ const fallbackLabel = computed(() => {
             :alt="imageAlt"
             draggable="false"
           />
-          <span v-else class="author-portrait__fallback" :aria-label="fallbackLabel">
-            <svg
-              v-if="fallbackIconType === '♀'"
-              class="author-portrait__fallback-icon"
-              viewBox="0 0 64 64"
-              aria-hidden="true"
-            >
-              <circle cx="32" cy="17" r="10" />
-              <path d="M20 56h24l-5-23h5c0-8-5-13-12-13S20 25 20 33h5l-5 23Z" />
-            </svg>
-            <svg
-              v-else-if="fallbackIconType === '♂'"
-              class="author-portrait__fallback-icon"
-              viewBox="0 0 64 64"
-              aria-hidden="true"
-            >
-              <circle cx="32" cy="17" r="10" />
-              <path d="M20 57V36c0-9 5-14 12-14s12 5 12 14v21h-9V41h-6v16h-9Z" />
-            </svg>
-            <span v-else class="author-portrait__fallback-unknown" aria-hidden="true">?</span>
+          <span v-else class="author-portrait__fallback">
+            <AuthorFallbackIcon :gender="author.gender" />
           </span>
         </span>
       </figure>
@@ -135,7 +102,7 @@ const fallbackLabel = computed(() => {
         '--author-ring-gap': `${ringGap}px`,
         '--author-ring-stroke': `${ringStroke}px`,
         '--author-shadow-color': `${outerRingColor}`,
-        '--author-image-shadow-color': 'var(--author-view-background, var(--color-background))',
+        '--author-image-shadow-color': 'var(--author-view-background, var(--bg-black))',
       }"
     >
       <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">
@@ -155,26 +122,8 @@ const fallbackLabel = computed(() => {
           :alt="imageAlt"
           draggable="false"
         />
-        <span v-else class="author-portrait__fallback" :aria-label="fallbackLabel">
-          <svg
-            v-if="fallbackIconType === '♀'"
-            class="author-portrait__fallback-icon"
-            viewBox="0 0 64 64"
-            aria-hidden="true"
-          >
-            <circle cx="32" cy="17" r="10" />
-            <path d="M20 56h24l-5-23h5c0-8-5-13-12-13S20 25 20 33h5l-5 23Z" />
-          </svg>
-          <svg
-            v-else-if="fallbackIconType === '♂'"
-            class="author-portrait__fallback-icon"
-            viewBox="0 0 64 64"
-            aria-hidden="true"
-          >
-            <circle cx="32" cy="17" r="10" />
-            <path d="M20 57V36c0-9 5-14 12-14s12 5 12 14v21h-9V41h-6v16h-9Z" />
-          </svg>
-          <span v-else class="author-portrait__fallback-unknown" aria-hidden="true">?</span>
+        <span v-else class="author-portrait__fallback">
+          <AuthorFallbackIcon :gender="author.gender" />
         </span>
       </span>
     </figure>

@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { useFloatingPlacement } from '../../composables/useFloatingPlacement'
 import type { AuthorInstance } from '../../types/authorData'
-import { taxonomyButtonColors } from '../../utils/intentLabels'
+import { strategyColors } from '../../utils/intentLabels'
 import StrategyBadge from '../strategy/StrategyBadge.vue'
 
 const props = defineProps<{
@@ -21,7 +21,7 @@ const genderLabel = computed(() => {
 const strategyBadges = computed(() =>
   props.author.usedTopLevelStrategies.map((strategy) => ({
     ...strategy,
-    color: taxonomyButtonColors[strategy.labelKey] ?? 'var(--color-neutral)',
+    color: strategyColors[strategy.labelKey] ?? 'var(--color-neutral)',
   })),
 )
 </script>

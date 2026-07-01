@@ -1,4 +1,4 @@
-import type { IntentLabelKey, IntentRecord } from './intentData'
+import type { PatternLabelKey, IntentRecord } from './intentData'
 
 export interface AuthorImage {
   url: string
@@ -43,7 +43,7 @@ export interface AuthorDataset {
 
 export interface AuthorTopLevelStrategyUsage {
   label: string
-  labelKey: IntentLabelKey
+  labelKey: PatternLabelKey
   statementCount: number
   statementIds: string[]
 }
@@ -53,7 +53,7 @@ export interface AuthorInstance extends AuthorProfile {
   statements: IntentRecord[]
   statementCount: number
   usedTopLevelStrategies: AuthorTopLevelStrategyUsage[]
-  usedTopLevelStrategyLabels: IntentLabelKey[]
+  usedTopLevelStrategyLabels: PatternLabelKey[]
   usedTopLevelStrategyCount: number
   topLevelStrategyCount: number
   usesAllTopLevelStrategies: boolean
