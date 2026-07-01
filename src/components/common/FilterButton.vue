@@ -9,7 +9,7 @@ withDefaults(
   {
     color: 'var(--intent-color-individual-needs)',
     active: false,
-    minWidth: '100px',
+    minWidth: '6.25rem',
   },
 )
 

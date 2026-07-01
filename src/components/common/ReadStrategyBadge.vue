@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IntentLabelKey } from '../../types/intentData'
+import type { PatternLabelKey } from '../../types/intentData'
 import { intentLabelNames } from '../../utils/intentLabels'
 
 const props = defineProps<{
-  label: IntentLabelKey
+  label: PatternLabelKey
   color: string
 }>()
 

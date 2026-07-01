@@ -3,12 +3,12 @@
   box-sizing: border-box;
   width: max-content;
   max-width: none;
-  padding: 7px 10px;
-  border: 1px solid var(--read-strategy-badge-color);
-  border-radius: 999px;
+  padding: 0.4375rem 0.625rem;
+  border: 0.0625rem solid var(--read-strategy-badge-color);
+  border-radius: 999rem;
   color: var(--read-strategy-badge-color);
   background: transparent;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-weight: 800;
   line-height: 1.15;
   text-align: left;
@@ -24,13 +24,13 @@
 
 .read-strategy-badge:hover,
 .read-strategy-badge:focus-visible,
-:global(.statement-card__badge-target:hover) .read-strategy-badge,
-:global(.statement-card__badge-target:focus-visible) .read-strategy-badge {
+:global(.strategy-badge-container__target:hover) .read-strategy-badge,
+:global(.strategy-badge-container__target:focus-visible) .read-strategy-badge {
   color: var(--color-white);
   background: var(--read-strategy-badge-color);
 }
 
-@media (max-width: 780px) {
+@media (max-width: 48.75rem) {
   .read-strategy-badge {
     text-align: left;
   }

@@ -9,7 +9,7 @@
   top: 0;
   bottom: 0;
   left: var(--line-x);
-  width: 1px;
+  width: 0.0625rem;
   background: rgba(var(--color-text-rgb), 0.1);
 }
 
@@ -22,7 +22,7 @@
   bottom: 1rem;
   left: 50%;
   color: rgba(var(--color-text-rgb), 0.62);
-  font-size: clamp(9px, 0.78vw, 11px);
+  font-size: clamp(0.5625rem, 0.78vw, 0.6875rem);
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   line-height: 1;
@@ -35,7 +35,7 @@
   right: 3rem;
   bottom: 3rem;
   color: rgba(var(--color-text-rgb), 0.74);
-  font-size: clamp(9px, 0.78vw, 11px);
+  font-size: clamp(0.5625rem, 0.78vw, 0.6875rem);
   font-weight: 900;
   line-height: 1;
   white-space: nowrap;

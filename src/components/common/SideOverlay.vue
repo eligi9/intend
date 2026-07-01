@@ -12,14 +12,12 @@ const overlayStyle = computed(() => {
   const hasColor = Boolean(props.color)
 
   return {
-    '--side-overlay-background': props.color ?? 'var(--color-white)',
+    '--side-overlay-background': props.color ?? 'var(--bg-white)',
     '--side-overlay-background-effect': hasColor
       ? 'linear-gradient(180deg, rgba(var(--color-ink-rgb), 0.04), rgba(var(--color-ink-rgb), 0.2))'
       : 'none',
-    '--side-overlay-heading-color': hasColor ? 'var(--color-white)' : 'var(--app-background)',
-    '--side-overlay-text-color': hasColor
-      ? 'rgba(var(--color-white-rgb), 0.9)'
-      : 'rgba(var(--color-background-rgb), 0.9)',
+    '--side-overlay-heading-color': hasColor ? 'var(--text-white)' : 'var(--text-black)',
+    '--side-overlay-text-color': hasColor ? 'var(--text-white)' : 'var(--text-black)',
   }
 })
 </script>
