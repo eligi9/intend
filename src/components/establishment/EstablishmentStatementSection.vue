@@ -4,7 +4,11 @@ import gsap from 'gsap'
 import landingCopy from '../../content/landingCopy.json'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
-import type { IntentLabelKey } from '../../types/intentData'
+import type { PatternLabelKey } from '../../types/intentData'
+import {
+  getStatementPatternAnchors,
+  getStatementPatternColor,
+} from '../../utils/statementPatterns'
 import AuthorPortrait from '../author/AuthorPortrait.vue'
 import EstablishmentNote from './EstablishmentNote.vue'
 import StatementCard from '../common/StatementCard.vue'
@@ -30,7 +34,7 @@ const statementTarget = ref<Point>({ x: 0, y: 0 })
 const noteProgresses = ref([0, 0, 0])
 const statementHighlightProgress = ref(0)
 const noteStartCorners = ['bottom-right', 'bottom-left', 'top-left'] as const satisfies readonly NoteStartCorner[]
-const mobilizationHighlightLabels = ['no_alternative_framing'] as const satisfies readonly IntentLabelKey[]
+const mobilizationHighlightLabel = 'no_alternative_framing' satisfies PatternLabelKey
 const featuredRecord = computed(
   () => statementStore.records.find((record) => record.id === 'legislators-0117') ?? statementStore.records[0],
 )
@@ -38,6 +42,12 @@ const featuredAuthor = computed(() =>
   featuredRecord.value ? authorStore.getAuthorInstance(featuredRecord.value.author) : null,
 )
 const statementNotes = computed(() => landingCopy.statementNotes)
+const mobilizationHighlightAnchors = computed(() =>
+  featuredRecord.value && statementHighlightProgress.value > 0
+    ? getStatementPatternAnchors(featuredRecord.value, mobilizationHighlightLabel)
+    : [],
+)
+const mobilizationHighlightColor = getStatementPatternColor(mobilizationHighlightLabel)
 
 let statementPopTween: gsap.core.Tween | null = null
 let statementIsVisible = false
@@ -242,11 +252,8 @@ defineExpose({
       <StatementCard
         v-if="featuredRecord"
         :record="featuredRecord"
-        :author-link="false"
-        :compact-heading="false"
-        :highlight-progress="statementHighlightProgress"
-        :highlighted-labels="statementHighlightProgress > 0 ? mobilizationHighlightLabels : []"
-        :show-heading="false"
+        :anchor-color="mobilizationHighlightColor"
+        :anchor-texts="mobilizationHighlightAnchors"
       />
     </div>
     <div

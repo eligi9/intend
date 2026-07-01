@@ -2,14 +2,14 @@
   --establishment-stage-width: min(100vw, calc(100vh * 1512 / 982));
   --establishment-stage-height: min(100vh, calc(100vw * 982 / 1512));
   --establishment-heading-start: calc(645 / 982 * var(--establishment-stage-height));
-  --establishment-heading-stick-top: clamp(42px, 9vh, 88px);
+  --establishment-heading-stick-top: clamp(2.625rem, 9vh, 5.5rem);
   --establishment-measure-highlight-color: var(--color-measure-highlight);
 
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
   color: var(--color-text-soft);
-  background: var(--color-background);
+  background: var(--bg-black);
 }
 
 .establishment-view__panel {

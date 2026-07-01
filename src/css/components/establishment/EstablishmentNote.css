@@ -1,6 +1,6 @@
 .establishment-note {
   position: absolute;
-  width: min(330px, 26vw);
+  width: min(20.625rem, 26vw);
   color: var(--color-text);
 }
 
@@ -31,10 +31,10 @@
   margin: 0;
   color: rgba(var(--color-text-rgb), 0.9);
   font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: clamp(13px, 0.98vw, 17px);
+  font-size: clamp(0.8125rem, 0.98vw, 1.0625rem);
   font-weight: 500;
   line-height: 1.32;
-  text-shadow: 0 2px 18px rgba(var(--color-shadow-rgb), 0.72);
+  text-shadow: 0 0.125rem 1.125rem rgba(var(--color-shadow-rgb), 0.72);
   transform-origin: center center;
   will-change: opacity, transform;
 }

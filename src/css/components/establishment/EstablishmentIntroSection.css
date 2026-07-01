@@ -23,14 +23,14 @@
 
 .establishment-view__copy {
   display: grid;
-  gap: clamp(15px, 2vw, 22px);
+  gap: clamp(0.9375rem, 2vw, 1.375rem);
   will-change: opacity, transform;
 }
 
 .establishment-view__copy p {
   margin: 0;
   color: rgba(var(--color-text-soft-rgb), 0.84);
-  font-size: clamp(14px, 1.18vw, 18px);
+  font-size: clamp(0.875rem, 1.18vw, 1.125rem);
   font-weight: 430;
   line-height: 1.42;
 }
@@ -51,17 +51,17 @@
   position: relative;
   z-index: 1;
   display: grid;
-  gap: clamp(14px, 2vw, 22px);
+  gap: clamp(0.875rem, 2vw, 1.375rem);
   grid-column: 3;
   width: min(40vw, 38rem);
-  margin-left: clamp(24px, 6vw, 88px);
+  margin-left: clamp(1.5rem, 6vw, 5.5rem);
   margin-inline-end: -9.52vw;
   will-change: opacity, transform;
 }
 
 .establishment-view__intro-bar {
   display: block;
-  height: clamp(24px, 3vw, 38px);
+  height: clamp(1.5rem, 3vw, 2.375rem);
   background: var(--color-neutral-light);
 }
 
@@ -93,19 +93,19 @@
   background: var(--intent-color-enemy-image);
 }
 
-@media (max-width: 780px) {
+@media (max-width: 48.75rem) {
   .establishment-view__intro-inner {
     grid-template-columns: 1fr;
     align-content: center;
-    row-gap: clamp(28px, 8vh, 54px);
-    padding-inline: 24px;
+    row-gap: clamp(1.75rem, 8vh, 3.375rem);
+    padding-inline: 1.5rem;
   }
 
   .establishment-view__visual {
     grid-column: 1;
     width: 100%;
     margin-left: 0;
-    margin-inline-end: -24px;
+    margin-inline-end: -1.5rem;
   }
 
   .establishment-view__text {
