@@ -1,0 +1,58 @@
+.statement-button {
+  --statement-button-core-size: 42%;
+  --statement-button-ring-stroke: 3px;
+
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--color-text);
+  background: transparent;
+  outline: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.statement-button:hover,
+.statement-button:focus-visible {
+  transform: translateY(-0.125rem);
+}
+
+.statement-button:focus-visible {
+  box-shadow: 0 0 0 0.1875rem rgba(var(--color-text-rgb), 0.28);
+}
+
+.statement-button__rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.statement-button__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  border: var(--statement-button-ring-stroke) solid var(--ring-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+
+.statement-button__core {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--statement-button-core-size);
+  height: var(--statement-button-core-size);
+  border-radius: 50%;
+  background: rgba(var(--color-text-rgb), 0.08);
+}

@@ -1,0 +1,21 @@
+.statement-pattern-card {
+  display: grid;
+  grid-template-columns: var(
+    --statement-pattern-card-columns,
+    minmax(0, 1fr) minmax(8rem, 12rem)
+  );
+  gap: var(--statement-pattern-card-gap, clamp(1.5rem, 3vw, 3rem));
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.statement-pattern-card--without-badges {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 48.75rem) {
+  .statement-pattern-card {
+    grid-template-columns: 1fr;
+  }
+}

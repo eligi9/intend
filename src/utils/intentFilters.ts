@@ -1,10 +1,10 @@
-import type { IntentFilters, IntentLabelKey, IntentRecord } from '../types/intentData'
+import type { IntentFilters, PatternLabelKey, IntentRecord } from '../types/intentData'
 
 export function includesText(value: string | null | undefined, query: string) {
   return value?.toLowerCase().includes(query) ?? false
 }
 
-export function isLabelActive(record: IntentRecord, label: IntentLabelKey) {
+export function isLabelActive(record: IntentRecord, label: PatternLabelKey) {
   return record[label] === 'yes'
 }
 
@@ -22,8 +22,6 @@ export function matchesIntentFilters(record: IntentRecord, filters: IntentFilter
     includesText(record.source, query) ||
     includesText(record.statement, query)
 
-  const matchesSector =
-    filters.sectors.length === 0 || filters.sectors.every((sector) => record.sector === sector)
   const matchesAuthor = filters.authors.length === 0 || filters.authors.includes(record.author)
   const matchesAnyLabel =
     filters.labelsAny.length === 0 ||
@@ -32,5 +30,5 @@ export function matchesIntentFilters(record: IntentRecord, filters: IntentFilter
     filters.labelsAll.length === 0 ||
     filters.labelsAll.every((label) => isLabelActive(record, label))
 
-  return matchesQuery && matchesSector && matchesAuthor && matchesAnyLabel && matchesAllLabels
+  return matchesQuery && matchesAuthor && matchesAnyLabel && matchesAllLabels
 }

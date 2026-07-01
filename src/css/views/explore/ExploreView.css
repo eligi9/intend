@@ -15,20 +15,7 @@
   overflow: hidden;
 }
 
-.explore-view__nav {
-  position: absolute;
-  z-index: 80;
-  top: 22px;
-  right: clamp(28px, 3vw, 44px);
-  display: flex;
-  align-items: baseline;
-  justify-content: flex-end;
-  gap: clamp(18px, 2.4vw, 34px);
-  padding: 0;
-  background: transparent;
-}
-
-@media (max-width: 780px) {
+@media (max-width: 48.75rem) {
   .explore-view {
     height: auto;
     min-height: auto;
@@ -40,12 +27,4 @@
     overflow: visible;
   }
 
-  .explore-view__nav {
-    top: 18px;
-    right: 20px;
-    left: auto;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 6px;
-  }
 }

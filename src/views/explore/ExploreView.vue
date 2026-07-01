@@ -1,18 +1,31 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import ExploreNavButton from '../../components/explore/ExploreNavButton.vue'
+import type { ExploreHeaderSection, ExploreViewSection } from '../../types/exploreView'
 import AuthorView from './AuthorView.vue'
 import PatternsView from './PatternsView.vue'
-import ReadView from './ReadView.vue'
+import StatementView from './StatementView.vue'
 import TimelineView from './TimelineView.vue'
 
-type ExploreViewSection =
-  | 'read'
-  | 'authors'
-  | 'patterns'
-  | 'timeline'
+const activeView = ref<ExploreViewSection>('statements')
 
-const activeView = ref<ExploreViewSection>('timeline')
+const exploreSections: ExploreHeaderSection[] = [
+  {
+    key: 'statements',
+    label: 'Statements',
+  },
+  {
+    key: 'authors',
+    label: 'Authors',
+  },
+  {
+    key: 'patterns',
+    label: 'Patterns',
+  },
+  {
+    key: 'timeline',
+    label: 'Timeline',
+  },
+]
 
 function showView(section: ExploreViewSection) {
   activeView.value = section
@@ -21,30 +34,31 @@ function showView(section: ExploreViewSection) {
 
 <template>
   <section id="explore" class="explore-view">
-    <nav class="explore-view__nav" aria-label="Ansicht wechseln">
-      <ExploreNavButton label="Read" :active="activeView === 'read'" @select="showView('read')" />
-      <ExploreNavButton
-        label="Authors"
-        :active="activeView === 'authors'"
-        @select="showView('authors')"
-      />
-      <ExploreNavButton
-        label="Patterns"
-        :active="activeView === 'patterns'"
-        @select="showView('patterns')"
-      />
-      <ExploreNavButton
-        label="Timeline"
-        :active="activeView === 'timeline'"
-        @select="showView('timeline')"
-      />
-    </nav>
-
     <div class="explore-view__content">
-      <ReadView v-if="activeView === 'read'" />
-      <AuthorView v-else-if="activeView === 'authors'" />
-      <PatternsView v-else-if="activeView === 'patterns'" />
-      <TimelineView v-else />
+      <StatementView
+        v-if="activeView === 'statements'"
+        :active-section="activeView"
+        :sections="exploreSections"
+        @section-select="showView"
+      />
+      <AuthorView
+        v-else-if="activeView === 'authors'"
+        :active-section="activeView"
+        :sections="exploreSections"
+        @section-select="showView"
+      />
+      <PatternsView
+        v-else-if="activeView === 'patterns'"
+        :active-section="activeView"
+        :sections="exploreSections"
+        @section-select="showView"
+      />
+      <TimelineView
+        v-else
+        :active-section="activeView"
+        :sections="exploreSections"
+        @section-select="showView"
+      />
     </div>
   </section>
 </template>

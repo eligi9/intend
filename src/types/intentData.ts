@@ -1,7 +1,7 @@
 export type BinaryLabel = 'yes' | 'no' | null
 export type AnchorTexts = string[]
 
-export type IntentLabelKey =
+export type PatternLabelKey =
   | 'enemy_image'
   | 'homogenization'
   | 'immutability'
@@ -21,7 +21,7 @@ export type IntentLabelKey =
   | 'humanity_as_weakness'
   | 'external_criticism_rejection'
 
-export interface IntentRecord extends Record<IntentLabelKey, BinaryLabel> {
+export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
   id: string
   sourceFile: 'legislators' | 'decisionmakers'
   author: string
@@ -80,8 +80,7 @@ export interface IntentDataset {
 
 export interface IntentFilters {
   query: string
-  sectors: string[]
   authors: string[]
-  labelsAny: IntentLabelKey[]
-  labelsAll: IntentLabelKey[]
+  labelsAny: PatternLabelKey[]
+  labelsAll: PatternLabelKey[]
 }

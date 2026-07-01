@@ -1,119 +1,41 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
-import { intentLabelKeys } from '../../stores/statementStore'
-import { getActiveLabels, getVisibleSubLabels, subLabelColors } from '../../utils/intentLabels'
-import {
-  collectAnchorHighlights,
-  getDisplayLabel,
-  splitStatementText,
-} from '../../utils/statementHighlights'
-import ReadStrategyBadge from './ReadStrategyBadge.vue'
+import type { IntentRecord } from '../../types/intentData'
+import { splitStatementText } from '../../utils/statementHighlights'
 import SideOverlay from './SideOverlay.vue'
 
-interface StrategyBadge {
-  label: IntentLabelKey
-  color: string
-}
-
-type StatementCardMetaVariant = 'full' | 'date' | 'none'
-
-const props = defineProps<{
-  record: IntentRecord
-  metaVariant?: StatementCardMetaVariant
-  authorLink?: boolean
-  showHeading?: boolean
-  compactHeading?: boolean
-  highlightedLabels?: readonly IntentLabelKey[]
-  highlightedTexts?: readonly string[]
-  highlightedTextColor?: string
-  highlightProgress?: number
-}>()
-
-const emit = defineEmits<{
-  selectAuthor: [authorName: string]
-}>()
-
-const hoveredLabel = ref<IntentLabelKey | null>(null)
-const showContext = ref(false)
-const resolvedMetaVariant = computed<StatementCardMetaVariant>(() => {
-  if (props.metaVariant) return props.metaVariant
-  if (props.showHeading === false) return props.compactHeading ? 'date' : 'none'
-  return 'full'
-})
-const visibleLabels = computed(() => getVisibleSubLabels(getActiveLabels(props.record, intentLabelKeys)))
-const strategyBadges = computed<StrategyBadge[]>(() =>
-  visibleLabels.value.map((label) => ({
-    label,
-    color: subLabelColors.get(label) ?? 'var(--color-neutral)',
-  })),
+const props = withDefaults(
+  defineProps<{
+    anchorColor?: string
+    anchorTexts?: readonly string[]
+    record: IntentRecord
+    showContextButton?: boolean
+  }>(),
+  {
+    anchorColor: 'var(--color-highlight)',
+    anchorTexts: () => [],
+    showContextButton: true,
+  },
 )
+
+const showContext = ref(false)
+const showContextButton = computed(() => props.showContextButton)
 const anchorHighlights = computed(() => {
-  const labels = [
-    ...(props.highlightedLabels ?? []),
-    ...(hoveredLabel.value ? [hoveredLabel.value] : []),
-  ]
-  const textHighlights = (props.highlightedTexts ?? []).map((text) => ({
-    color: props.highlightedTextColor ?? 'var(--color-highlight)',
+  return props.anchorTexts.map((text) => ({
+    color: props.anchorColor,
     text,
   }))
-
-  return [
-    ...textHighlights,
-    ...labels.flatMap((label) => collectAnchorHighlights(props.record, label)),
-  ]
 })
-const hoveredBadge = computed(
-  () => strategyBadges.value.find((badge) => badge.label === hoveredLabel.value) ?? null,
-)
 const statementMeta = computed(() => [props.record.date, props.record.source].filter(Boolean).join(' · '))
-const hoveredExplanation = computed(() => {
-  if (!hoveredLabel.value) return null
-
-  const explanation = props.record[`${hoveredLabel.value}_bj` as keyof IntentRecord]
-
-  return typeof explanation === 'string' && explanation.length > 0 ? explanation : null
-})
 const statementSegments = computed(() => splitStatementText(props.record.statement, anchorHighlights.value))
 </script>
 
 <template>
   <article
     class="statement-card"
-    :class="{ 'statement-card--focused': hoveredLabel }"
-    :style="{ '--statement-card-highlight-progress': highlightProgress ?? 1 }"
   >
-    <Transition name="statement-card-explanation">
-      <aside
-        v-if="hoveredBadge && hoveredExplanation"
-        class="statement-card__explanation"
-        :style="{ '--statement-card-explanation-color': hoveredBadge.color }"
-        aria-live="polite"
-      >
-        <div class="statement-card__explanation-inner">
-          <h3>Why {{ getDisplayLabel(hoveredBadge.label) }}?</h3>
-          <p>{{ hoveredExplanation }}</p>
-        </div>
-      </aside>
-    </Transition>
-
     <div class="statement-card__contents">
-      <div v-if="resolvedMetaVariant === 'full'" class="statement-card__heading">
-        <div class="statement-card__identity">
-          <button
-            v-if="authorLink"
-            type="button"
-            class="statement-card__author-button"
-            @click="emit('selectAuthor', record.author)"
-          >
-            {{ record.author }}
-          </button>
-          <strong v-else>{{ record.author }}</strong>
-          <span>{{ record.position ?? record.sector }}</span>
-        </div>
-        <span class="statement-card__meta">{{ statementMeta }}</span>
-      </div>
-      <span v-else-if="resolvedMetaVariant === 'date'" class="statement-card__compact-heading">
+      <span class="statement-card__meta">
         {{ statementMeta }}
       </span>
 
@@ -133,7 +55,7 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
       </span>
 
       <button
-        v-if="record.context"
+        v-if="record.context && showContextButton"
         type="button"
         class="statement-card__context-button"
         @click.stop
@@ -147,34 +69,11 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
     </div>
 
     <SideOverlay
-      :visible="Boolean(record.context && showContext)"
+      :visible="Boolean(record.context && showContextButton && showContext)"
       title="Context"
       :text="record.context ?? ''"
     />
 
-    <span
-      v-if="strategyBadges?.length"
-      class="statement-card__badges"
-      aria-label="Active patterns"
-      @click.stop
-    >
-      <span
-        v-for="badge in strategyBadges"
-        :key="badge.label"
-        class="statement-card__badge-target"
-        tabindex="0"
-        @mouseenter="hoveredLabel = badge.label"
-        @mouseleave="hoveredLabel = null"
-        @focusin="hoveredLabel = badge.label"
-        @focusout="hoveredLabel = null"
-        @click.stop
-      >
-        <ReadStrategyBadge
-          :label="badge.label"
-          :color="badge.color"
-        />
-      </span>
-    </span>
   </article>
 </template>
 

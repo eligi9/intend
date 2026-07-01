@@ -1,0 +1,61 @@
+.top-overlay {
+  position: fixed;
+  z-index: 10000;
+  inset-block-start: 0;
+  inset-inline: 0;
+  display: grid;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--top-overlay-min-height);
+  padding: clamp(0.8rem, 1.7vw, 1.35rem) clamp(1.5rem, 5vw, 4rem);
+  color: var(--top-overlay-text-color);
+  background: var(--top-overlay-background);
+  box-shadow: 0 1rem 3rem rgba(var(--color-shadow-rgb), 0.34);
+  pointer-events: none;
+}
+
+.top-overlay__inner {
+  display: grid;
+  gap: 0.75rem;
+  width: min(72rem, 100%);
+}
+
+.top-overlay h3,
+.top-overlay p,
+.top-overlay span {
+  margin: 0;
+}
+
+.top-overlay h3 {
+  color: var(--top-overlay-heading-color);
+  font-family: var(--font-sans);
+  font-size: var(--overlay-title-size);
+  font-weight: 950;
+  line-height: 1;
+}
+
+.top-overlay p {
+  max-width: 68rem;
+  font-family: var(--font-serif);
+  font-size: var(--top-overlay-text-size);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.top-overlay span {
+  font-size: var(--top-overlay-meta-size);
+  font-weight: 850;
+}
+
+.top-overlay-enter-active,
+.top-overlay-leave-active {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.top-overlay-enter-from,
+.top-overlay-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+}

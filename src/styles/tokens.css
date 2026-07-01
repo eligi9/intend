@@ -1,11 +1,11 @@
 :root {
-  --color-background: #1f1f1f;
-  --color-background-rgb: 31, 31, 31;
+  --color-background: #181818;
+  --color-background-rgb: 24, 24, 24;
   --color-background-soft: #262626;
   --color-background-elevated: #202020;
   --color-background-elevated-rgb: 32, 32, 32;
-  --color-surface-raised: #3a3a3a;
-  --color-surface-raised-rgb: 58, 58, 58;
+  --color-surface-raised: #383838;
+  --color-surface-raised-rgb: 56, 56, 56;
   --color-tooltip-background: #161616;
   --color-tooltip-background-rgb: 22, 22, 22;
 
@@ -13,12 +13,13 @@
   --color-text-rgb: 245, 243, 238;
   --color-text-soft: #f2f2f2;
   --color-text-soft-rgb: 242, 242, 242;
-  --color-white: #ffffff;
+  --color-white: #FFFFFF;
   --color-white-rgb: 255, 255, 255;
 
   --color-ink: #20242b;
   --color-ink-rgb: 32, 36, 43;
-  --color-paper: #fffdfa;
+  --color-paper: #FFFFFF;
+  --color-paper-rgb: 255, 255, 255;
 
   --color-accent: #00736f;
   --color-accent-rgb: 0, 115, 111;
@@ -40,25 +41,49 @@
   --color-landing-red: #ff5d78;
   --color-measure-highlight: #c4cbc8;
 
-  --color-author-timeline: #4be0f0;
-  --color-author-timeline-rgb: 75, 224, 240;
-  --color-author-timeline-strong: #65f1ff;
-  --color-author-timeline-strong-rgb: 101, 241, 255;
   --color-portrait-surface: #f0efeb;
   --color-tooltip-muted: rgb(170, 167, 161);
 
-  --app-background: var(--color-background);
-  --app-background-rgb: var(--color-background-rgb);
+  --bg-black: var(--color-background);
+  --bg-black-rgb: var(--color-background-rgb);
+  --bg-grey: var(--color-surface-raised);
+  --bg-grey-rgb: var(--color-surface-raised-rgb);
+  --bg-white: var(--color-paper);
+  --bg-white-rgb: var(--color-paper-rgb);
+
+  --text-black: var(--color-ink);
+  --text-black-rgb: var(--color-ink-rgb);
+  --text-black-muted: rgba(var(--text-black-rgb), 0.58);
+  --text-white: var(--color-text);
+  --text-white-rgb: var(--color-text-rgb);
+  --text-white-muted: rgba(var(--text-white-rgb), 0.58);
+
+  --overlay-title-size: clamp(1.75rem, 3.4vw, 3.25rem);
+  --overlay-text-size: clamp(1.1875rem, 1.7vw, 1.75rem);
+  --overlay-meta-size: 0.85rem;
+  --statement-card-quote-size: clamp(1.1875rem, 1.45vw, 1.375rem);
+  --statement-pattern-card-inline-padding: 5vw;
+  --top-overlay-text-size: var(--overlay-text-size);
+  --top-overlay-meta-size: var(--overlay-meta-size);
+  --side-overlay-title-size: var(--overlay-title-size);
+  --side-overlay-text-size: var(--overlay-text-size);
+
+  --app-background: var(--bg-black);
+  --app-background-rgb: var(--bg-black-rgb);
 
   /* Figma source: Just Cause */
-  --intent-color-just-cause: #d772ff;
+  /* --intent-color-just-cause: #d772ff; */
+  --intent-color-just-cause: #AF6CCC;
 
   /* Figma source: Enemy Image */
-  --intent-color-enemy-image: #ff657c;
+  /* --intent-color-enemy-image: #ff657c; */
+  --intent-color-enemy-image: #D95F6F;
 
   /* Figma source: Individuals Needs */
-  --intent-color-individual-needs: #658cff;
+  /* --intent-color-individual-needs: #658cff; */
+  --intent-color-individual-needs: #6387E9;
 
   /* Figma source: Rhetroical Foreclosure */
-  --intent-color-rhetorical-foreclosure: #93ba79;
+  /* --intent-color-rhetorical-foreclosure: #93ba79; */
+  --intent-color-rhetorical-foreclosure: #66A031;
 }
