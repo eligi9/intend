@@ -30,17 +30,11 @@ const props = withDefaults(
   },
 )
 
+const maxRingCount = strategyDisplayOrder.length
 const ringStroke = computed(() => Math.max(2, props.size * 0.03))
 const ringGap = computed(() => ringStroke.value * 0.5)
-const maxRingCount = strategyDisplayOrder.length
-const totalRingSpace = computed(
-  () => props.showRings ? maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value : 0,
-)
-const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
-
-const outerRingColor = computed(() =>
-  rings.value.length ? rings.value[rings.value.length - 1].color : 'var(--color-neutral)',
-)
+const ringSpace = computed(() => maxRingCount * ringStroke.value + (maxRingCount - 1) * ringGap.value)
+const imageSize = computed(() => Math.max(32, props.size - ringSpace.value * 2))
 
 const rings = computed(() => {
   const usedLabels = new Set(props.author.usedTopLevelStrategyLabels)
@@ -50,9 +44,13 @@ const rings = computed(() => {
     .map((label, index) => ({
       label,
       color: strategyColors[label] ?? 'var(--color-neutral)',
-      index,
+      size: imageSize.value + (index + 1) * ringStroke.value * 2 + index * ringGap.value * 2,
     }))
 })
+
+const outerRingColor = computed(() =>
+  rings.value.length ? rings.value[rings.value.length - 1].color : 'var(--color-neutral)',
+)
 
 const imageAlt = computed(() => `Portrait von ${props.author.name}`)
 const fallbackIconType = computed(() => {
@@ -74,9 +72,7 @@ const fallbackLabel = computed(() => {
       :style="{
         '--author-portrait-size': `${size}px`,
         '--author-image-size': `${imageSize}px`,
-        '--author-ring-gap': `${ringGap}px`,
-        '--author-ring-stroke': `${ringStroke}px`,
-        '--author-shadow-color': `${outerRingColor}`,
+        '--author-shadow-color': outerRingColor,
         '--author-image-shadow-color': 'var(--author-view-background, var(--color-background))',
       }"
     >
@@ -85,7 +81,12 @@ const fallbackLabel = computed(() => {
           v-for="ring in rings"
           :key="ring.label"
           class="author-portrait__ring"
-          :style="{ '--ring-color': ring.color, '--ring-index': ring.index }"
+          :style="{
+            width: `${ring.size}px`,
+            height: `${ring.size}px`,
+            borderColor: ring.color,
+            borderWidth: `${ringStroke}px`,
+          }"
         />
       </span>
 
