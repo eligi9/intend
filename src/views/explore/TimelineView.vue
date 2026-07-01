@@ -2,15 +2,22 @@
 import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
-import ViewHeadline from '../../components/common/ViewHeadline.vue'
+import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
 import { useStatementStore } from '../../stores/statementStore'
+import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
 import type {
   BeeswarmDisplayMode,
   HoveredBeeswarmStatement,
   HoveredTimelineStatement,
 } from '../../types/strategyBeeswarm'
 import type { TimelineEvent } from '../../types/timeline'
+
+defineProps<ExploreHeaderProps>()
+
+const emit = defineEmits<{
+  'section-select': [section: ExploreViewSection]
+}>()
 
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
@@ -35,13 +42,13 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
 
 <template>
   <section class="timeline-view" aria-label="Pattern timeline">
-    <header class="timeline-view__header">
-      <ViewHeadline
-        class="timeline-view__header-copy"
-        title="Timeline"
-        subline="All coded statements over time, filterable by top-level pattern."
-      />
-    </header>
+    <ExploreHeader
+      :active-section="activeSection"
+      :sections="sections"
+      subline="All coded statements over time, filterable by top-level pattern."
+      title="Timeline"
+      @select="emit('section-select', $event)"
+    />
 
     <section class="timeline-view__content" aria-label="All statements timeline">
       <div class="timeline-view__plot">

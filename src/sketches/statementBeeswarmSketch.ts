@@ -1,12 +1,12 @@
 import { forceCollide, forceSimulation, forceX, forceY } from 'd3-force'
 import type { Simulation, SimulationNodeDatum } from 'd3-force'
 import p5 from 'p5'
-import { baseColorRgb } from '../types/designTokens'
 import type { IntentRecord } from '../types/intentData'
 import type {
   HoveredTimelineStatement,
   StatementBeeswarmSketchState,
 } from '../types/strategyBeeswarm'
+import { readCanvasBaseColors, type CanvasBaseColors } from '../utils/colorTokens'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 import { createTimelineModel } from '../utils/timelineScale'
 
@@ -27,6 +27,7 @@ export function createStatementBeeswarmSketch(
   container: HTMLElement,
   state: StatementBeeswarmSketchState,
 ) {
+  const colors = readCanvasBaseColors()
   let cleanupCanvas: (() => void) | null = null
   let layoutKey = ''
   let nodes: StatementNode[] = []
@@ -64,7 +65,7 @@ export function createStatementBeeswarmSketch(
       p.cursor(hoveredNode ? p.HAND : p.ARROW)
       state.setHoveredStatement(createHoverPayload(hoveredNode, p))
       p.clear()
-      nodes.forEach((node) => drawNode(p, node, hoveredNode))
+      nodes.forEach((node) => drawNode(p, node, hoveredNode, colors))
     }
   }
 
@@ -144,14 +145,19 @@ function createLayoutKey(p: p5, pointCount: number) {
   return `${p.width}:${p.height}:${pointCount}`
 }
 
-function drawNode(p: p5, node: StatementNode, hoveredNode: StatementNode | null) {
+function drawNode(
+  p: p5,
+  node: StatementNode,
+  hoveredNode: StatementNode | null,
+  colors: CanvasBaseColors,
+) {
   const hovered = hoveredNode?.id === node.id
   const sameAuthor = hoveredNode?.record.author === node.record.author
   const highlighted = !hoveredNode || sameAuthor
 
-  p.stroke(...baseColorRgb.background, highlighted ? 230 : 70)
+  p.stroke(...colors.background, highlighted ? 230 : 70)
   p.strokeWeight(hovered ? 2.5 : 1.8)
-  p.fill(...baseColorRgb.text, highlighted ? 235 : 36)
+  p.fill(...colors.text, highlighted ? 235 : 36)
   p.circle(node.x, node.y, hovered ? HOVERED_DOT_RADIUS * 2 : DOT_RADIUS * 2)
 }
 

@@ -1,4 +1,4 @@
-import type { IntentLabelKey, IntentRecord } from './intentData'
+import type { PatternLabelKey, IntentRecord } from './intentData'
 import type { HoveredTimelineEvent, TimelineDomain, TimelineEvent } from './timeline'
 
 export type BeeswarmDisplayMode = 'strategies' | 'statements'
@@ -9,7 +9,7 @@ export interface HoveredBeeswarmStatement {
   color: string
   date: string
   id: string
-  label: IntentLabelKey
+  label: PatternLabelKey
   record: IntentRecord
   source: string | null
   statement: string
@@ -30,7 +30,7 @@ export interface HoveredTimelineStatement {
 
 export interface StrategyBeeswarmSketchState {
   setPressedStatement: (payload: HoveredBeeswarmStatement | null) => void
-  selectedLabels: IntentLabelKey[]
+  selectedLabels: PatternLabelKey[]
   setHoveredStatement: (payload: HoveredBeeswarmStatement | null) => void
   statements: IntentRecord[]
   timeDomain: TimelineDomain

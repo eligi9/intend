@@ -23,7 +23,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 1px;
+  height: 0.0625rem;
   background: rgba(var(--color-background-rgb), 0.82);
   content: '';
   pointer-events: none;
@@ -37,9 +37,9 @@
   min-width: 0;
   width: var(--strategy-icicle-button-width);
   height: 100%;
-  padding: 0 10px;
+  padding: 0 0.625rem;
   border: 0;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   color: var(--color-white);
   background: var(--strategy-icicle-button-color);
   box-sizing: border-box;
@@ -56,8 +56,8 @@
 }
 
 .strategy-icicle-button:focus-visible {
-  outline: 2px solid rgba(var(--color-text-rgb), 0.92);
-  outline-offset: 2px;
+  outline: 0.125rem solid rgba(var(--color-text-rgb), 0.92);
+  outline-offset: 0.125rem;
 }
 
 .strategy-icicle-button--left {
@@ -94,7 +94,7 @@
 .strategy-icicle-button span {
   min-width: 0;
   overflow: hidden;
-  font-size: clamp(10px, 0.9vw, 13px);
+  font-size: clamp(0.625rem, 0.9vw, 0.8125rem);
   font-weight: 900;
   line-height: 1.05;
   text-overflow: ellipsis;

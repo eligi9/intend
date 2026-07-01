@@ -1,7 +1,7 @@
 import p5 from 'p5'
-import { baseColorRgb } from '../types/designTokens'
 import type { StrategyTimelineGridSketchState } from '../types/strategyBeeswarm'
 import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
+import { readCanvasBaseColors, type CanvasBaseColors } from '../utils/colorTokens'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 
 const EVENT_LABEL_LINE_HEIGHT = 16
@@ -24,6 +24,7 @@ export function createStrategyTimelineGridSketch(
   container: HTMLElement,
   state: StrategyTimelineGridSketchState,
 ) {
+  const colors = readCanvasBaseColors()
   let cleanupCanvas: (() => void) | null = null
   let hoveredTimelineEvent: PositionedGridEvent | null = null
 
@@ -47,10 +48,10 @@ export function createStrategyTimelineGridSketch(
       p.cursor(hoveredEvent ? p.HAND : p.ARROW)
       state.setHoveredEvent(createHoverPayload(hoveredEvent, p.width, p.height))
       p.clear()
-      p.background(...baseColorRgb.background)
-      drawDivisions(p, state)
-      drawEventAnchors(p, events, hoveredEvent)
-      drawEvents(p, events, hoveredEvent)
+      p.background(...colors.background)
+      drawDivisions(p, state, colors)
+      drawEventAnchors(p, events, hoveredEvent, colors)
+      drawEvents(p, events, hoveredEvent, colors)
     }
 
     p.mouseClicked = () => {
@@ -64,7 +65,7 @@ export function createStrategyTimelineGridSketch(
   return new p5(sketch, container)
 }
 
-function drawDivisions(p: p5, state: StrategyTimelineGridSketchState) {
+function drawDivisions(p: p5, state: StrategyTimelineGridSketchState, colors: CanvasBaseColors) {
   const divisionWidth = p.width / state.divisions
 
   p.textAlign(p.LEFT, p.TOP)
@@ -78,12 +79,12 @@ function drawDivisions(p: p5, state: StrategyTimelineGridSketchState) {
       1,
     )
 
-    p.stroke(...baseColorRgb.text, 36)
+    p.stroke(...colors.text, 36)
     p.strokeWeight(1)
     p.line(x, 0, x, p.height)
 
     p.noStroke()
-    p.fill(...baseColorRgb.text, 150)
+    p.fill(...colors.text, 150)
     p.push()
     p.translate(x + 4, p.height - 18)
     p.rotate(-p.HALF_PI)
@@ -91,7 +92,7 @@ function drawDivisions(p: p5, state: StrategyTimelineGridSketchState) {
     p.pop()
   }
 
-  p.stroke(...baseColorRgb.text, 36)
+  p.stroke(...colors.text, 36)
   p.strokeWeight(1)
   p.line(p.width, 0, p.width, p.height)
 }
@@ -100,12 +101,13 @@ function drawEventAnchors(
   p: p5,
   events: PositionedGridEvent[],
   hoveredEvent: PositionedGridEvent | null,
+  colors: CanvasBaseColors,
 ) {
   events.forEach((event) => {
     const hovered = hoveredEvent?.event.id === event.event.id
 
-    p.stroke(...baseColorRgb.text, hovered ? 170 : 76)
-    p.strokeWeight(2)
+    p.stroke(...colors.text, hovered ? 170 : 76)
+    p.strokeWeight(1)
     p.line(event.x, 0, event.x, p.height)
   })
 }
@@ -114,6 +116,7 @@ function drawEvents(
   p: p5,
   events: PositionedGridEvent[],
   hoveredEvent: PositionedGridEvent | null,
+  colors: CanvasBaseColors,
 ) {
   p.textStyle(p.BOLD)
 
@@ -127,7 +130,7 @@ function drawEvents(
     if (hovered) {
       const fillWidth = getEventLabelWidth(p, event, labelLines)
 
-      p.fill(...baseColorRgb.text, 255)
+      p.fill(...colors.text, 255)
       p.rect(
         event.x,
         event.y - EVENT_LABEL_PADDING_Y,
@@ -140,7 +143,7 @@ function drawEvents(
       )
     }
 
-    const textColor = hovered ? baseColorRgb.ink : baseColorRgb.text
+    const textColor = hovered ? colors.ink : colors.text
 
     p.fill(textColor[0], textColor[1], textColor[2], hovered ? 255 : 240)
     p.textSize(EVENT_DATE_FONT_SIZE)

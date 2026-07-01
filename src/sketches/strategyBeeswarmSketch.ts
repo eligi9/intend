@@ -1,14 +1,20 @@
 import { forceCollide, forceSimulation, forceX, forceY } from 'd3-force'
 import type { Simulation, SimulationNodeDatum } from 'd3-force'
 import p5 from 'p5'
-import { baseColorRgb, type RgbColor } from '../types/designTokens'
-import type { IntentLabelKey, IntentRecord } from '../types/intentData'
+import type { PatternLabelKey, IntentRecord } from '../types/intentData'
 import type {
   HoveredBeeswarmStatement,
   StrategyBeeswarmSketchState,
 } from '../types/strategyBeeswarm'
 import { intentTaxonomy } from '../types/intentTaxonomy'
-import { intentLabelNames, splitAnchors } from '../utils/intentLabels'
+import {
+  formatRgbColor,
+  readCanvasBaseColors,
+  readCssColorRgb,
+  type CanvasBaseColors,
+  type RgbColor,
+} from '../utils/colorTokens'
+import { intentLabelNames, splitAnchors, strategyColors } from '../utils/intentLabels'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 import { createTimelineModel } from '../utils/timelineScale'
 
@@ -18,8 +24,8 @@ interface BeeswarmNode extends SimulationNodeDatum {
   date: Date
   id: string
   record: IntentRecord
-  subLabel: IntentLabelKey
-  strategyLabel: IntentLabelKey
+  subLabel: PatternLabelKey
+  strategyLabel: PatternLabelKey
   strategyName: string
   targetX: number
   targetY: number
@@ -28,28 +34,27 @@ interface BeeswarmNode extends SimulationNodeDatum {
 }
 
 interface BeeswarmBand {
-  id: IntentLabelKey
+  id: PatternLabelKey
   maxY: number
   minY: number
   y: number
 }
 
-const strategyLineColors: Partial<Record<IntentLabelKey, [number, number, number]>> = {
-  enemy_image: [255, 92, 120],
-  just_cause: [214, 103, 255],
-  individual_needs: [99, 136, 255],
-  rhetorical_foreclosure: [134, 183, 118],
-}
 const DOT_RADIUS = 6
 const HOVERED_DOT_RADIUS = 7.5
 const DOT_EDGE_PADDING = HOVERED_DOT_RADIUS + 2
 
 const strategyGroups = intentTaxonomy.map((group) => ({
   childLabels: group.childLabels,
-  superLabel: group.parentLabel as IntentLabelKey,
+  superLabel: group.parentLabel as PatternLabelKey,
 }))
 
-export function createStrategyBeeswarmSketch(container: HTMLElement, state: StrategyBeeswarmSketchState) {
+export function createStrategyBeeswarmSketch(
+  container: HTMLElement,
+  state: StrategyBeeswarmSketchState,
+) {
+  const colors = readCanvasBaseColors()
+  const pointColors = readStrategyPointColors()
   let cleanupCanvas: (() => void) | null = null
   let layoutKey = ''
   let nodes: BeeswarmNode[] = []
@@ -86,17 +91,19 @@ export function createStrategyBeeswarmSketch(container: HTMLElement, state: Stra
       const hoveredPoint = checkHover(p, nodes)
 
       p.cursor(hoveredPoint ? p.HAND : p.ARROW)
-      state.setHoveredStatement(createHoverPayload(hoveredPoint, p))
+      state.setHoveredStatement(createHoverPayload(hoveredPoint, p, colors, pointColors))
 
       p.clear()
-      nodes.forEach((node) => drawNode(p, node, hoveredPoint, state.selectedLabels))
+      nodes.forEach((node) =>
+        drawNode(p, node, hoveredPoint, state.selectedLabels, colors, pointColors),
+      )
     }
 
     p.mousePressed = () => {
       const pressedPoint = checkHover(p, nodes)
       if (!pressedPoint) return
 
-      state.setPressedStatement(createHoverPayload(pressedPoint, p))
+      state.setPressedStatement(createHoverPayload(pressedPoint, p, colors, pointColors))
     }
 
     p.mouseReleased = () => {
@@ -210,13 +217,15 @@ function getSwarmBottom(p: p5) {
 function createHoverPayload(
   node: BeeswarmNode | null,
   p: p5,
+  colors: CanvasBaseColors,
+  pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
 ): HoveredBeeswarmStatement | null {
   if (!node) return null
 
   return {
     anchorText: getAnchorText(node.record, node.subLabel),
     author: node.record.author,
-    color: formatRgbColor(getPointColor(node.strategyLabel)),
+    color: formatRgbColor(getPointColor(node.strategyLabel, colors, pointColors)),
     date: node.record.date,
     id: node.id,
     label: node.subLabel,
@@ -233,15 +242,17 @@ function drawNode(
   p: p5,
   node: BeeswarmNode,
   hoveredNode: BeeswarmNode | null,
-  selectedLabels: IntentLabelKey[],
+  selectedLabels: PatternLabelKey[],
+  colors: CanvasBaseColors,
+  pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
 ) {
   const hovered = hoveredNode?.id === node.id
   const sameSubLabel = !hoveredNode || node.subLabel === hoveredNode.subLabel
   const selected = selectedLabels.length === 0 || selectedLabels.includes(node.strategyLabel)
   const highlighted = selected && sameSubLabel
-  const color = highlighted ? getPointColor(node.strategyLabel) : baseColorRgb.text
+  const color = highlighted ? getPointColor(node.strategyLabel, colors, pointColors) : colors.text
 
-  p.stroke(...baseColorRgb.background, highlighted ? 230 : 105)
+  p.stroke(...colors.background, highlighted ? 230 : 105)
   p.strokeWeight(hovered ? 2.5 : 1.8)
   p.fill(color[0], color[1], color[2], highlighted ? 235 : 42)
   p.circle(node.x, node.y, hovered ? HOVERED_DOT_RADIUS * 2 : DOT_RADIUS * 2)
@@ -253,7 +264,7 @@ function getDeterministicOffset(value: string, amplitude: number) {
   return ((hash % 101) / 100 - 0.5) * amplitude
 }
 
-function getAnchorText(record: IntentRecord, label: IntentLabelKey) {
+function getAnchorText(record: IntentRecord, label: PatternLabelKey) {
   const anchorKey = `${label}_anchor` as keyof IntentRecord
   const anchors = splitAnchors(record[anchorKey])
 
@@ -272,10 +283,16 @@ function getActiveStrategyPoints(record: IntentRecord) {
   )
 }
 
-function getPointColor(label: IntentLabelKey) {
-  return strategyLineColors[label] ?? baseColorRgb.text
+function readStrategyPointColors() {
+  return Object.fromEntries(
+    Object.entries(strategyColors).map(([label, color]) => [label, readCssColorRgb(color)]),
+  ) as Partial<Record<PatternLabelKey, RgbColor>>
 }
 
-function formatRgbColor(color: RgbColor) {
-  return `rgb(${color[0]}, ${color[1]}, ${color[2]})`
+function getPointColor(
+  label: PatternLabelKey,
+  colors: CanvasBaseColors,
+  pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
+) {
+  return pointColors[label] ?? colors.text
 }

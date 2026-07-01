@@ -1,39 +1,24 @@
 .strategy-view {
-  --strategy-view-inline-padding: clamp(28px, 3vw, 44px);
+  --strategy-view-inline-padding: clamp(1.75rem, 3vw, 2.75rem);
 
   position: relative;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 14px;
+  gap: 0.875rem;
   height: 100%;
   min-height: 100%;
   overflow: hidden;
-  padding: 22px var(--strategy-view-inline-padding) 28px;
   color: var(--color-text);
   background: var(--app-background);
 }
 
 .strategy-view--structure {
-  --strategy-view-inline-padding: 0px;
+  --strategy-view-inline-padding: 0;
 }
 
-.strategy-view__header {
+.strategy-view--structure > .explore-header {
   position: relative;
-  z-index: 2;
-}
-
-.strategy-view__header {
-  display: grid;
-  align-items: start;
-  padding-inline: var(--strategy-view-inline-padding);
-}
-
-.strategy-view--structure .strategy-view__header {
-  padding-inline: clamp(28px, 3vw, 44px);
-}
-
-.strategy-view__header-copy {
-  min-width: 0;
+  z-index: 220;
 }
 
 .strategy-view__content {
@@ -54,20 +39,13 @@
   height: 80%;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 48.75rem) {
   .strategy-view {
-    grid-template-rows: auto auto;
-    --strategy-view-inline-padding: 20px;
-    padding: 16px 20px 20px;
+    --strategy-view-inline-padding: 1.25rem;
   }
 
   .strategy-view--structure {
-    --strategy-view-inline-padding: 0px;
-    padding-inline: 0;
-  }
-
-  .strategy-view--structure .strategy-view__header {
-    padding-inline: 20px;
+    --strategy-view-inline-padding: 0;
   }
 
   .strategy-view__structure {

@@ -1,11 +1,11 @@
-import type { IntentLabelKey } from './intentData'
+import type { PatternLabelKey } from './intentData'
 
 export interface StrategyIcicleSegment {
   children: StrategyIcicleSegment[]
   color: string
   description?: string
   heightPercent: number
-  id: IntentLabelKey
+  id: PatternLabelKey
   label: string
   occurrences: number
   parent: StrategyIcicleSegment | null

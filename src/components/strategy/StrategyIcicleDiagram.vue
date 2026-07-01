@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { IntentLabelKey, IntentRecord } from '../../types/intentData'
+import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
-import { intentLabelNames, taxonomyButtonColors } from '../../utils/intentLabels'
+import { intentLabelNames, strategyColors } from '../../utils/intentLabels'
 import { getPercent } from '../../utils/numbers'
 import {
   getStrategyIcicleRootId,
@@ -25,7 +25,7 @@ const emit = defineEmits<{
 const maxStatementsPerSide = 160
 const verticalScaleSteps = 5
 const hoveredSegment = ref<StrategyIcicleSegment | null>(null)
-const selectedSegmentId = ref<IntentLabelKey | null>(null)
+const selectedSegmentId = ref<PatternLabelKey | null>(null)
 
 const mainSegments = computed(() => createMainSegments())
 
@@ -55,7 +55,7 @@ function createMainSegments() {
   const totalOccurrences = countedGroups.reduce((total, item) => total + item.occurrences, 0)
 
   return countedGroups.map(({ group, occurrences }) => {
-    const color = taxonomyButtonColors[group.parentLabel] ?? 'var(--color-neutral)'
+    const color = strategyColors[group.parentLabel] ?? 'var(--color-neutral)'
     const mainSegment = createSegment({
       children: [],
       color,
@@ -101,7 +101,7 @@ function createSegment(
   }
 }
 
-function countLabelOccurrences(label: IntentLabelKey) {
+function countLabelOccurrences(label: PatternLabelKey) {
   return props.records.filter((record) => record[label] === 'yes').length
 }
 

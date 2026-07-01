@@ -1,6 +1,6 @@
 .strategy-icicle {
-  --strategy-icicle-bar-radius: 4px;
-  --strategy-icicle-inline-padding: 0px;
+  --strategy-icicle-bar-radius: 0.25rem;
+  --strategy-icicle-inline-padding: 0;
 
   position: relative;
   display: grid;
@@ -29,7 +29,7 @@
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 1px;
+  width: 0.0625rem;
   background: rgba(var(--color-background-rgb), 0.82);
   content: '';
   pointer-events: none;
@@ -54,10 +54,10 @@
 .strategy-icicle__sub-label {
   min-width: 0;
   max-width: 18rem;
-  margin-left: 8px;
+  margin-left: 0.5rem;
   overflow: hidden;
   color: rgba(var(--color-text-rgb), 0.86);
-  font-size: clamp(9px, 0.8vw, 11px);
+  font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
   font-weight: 900;
   line-height: 1.2;
   text-overflow: ellipsis;
@@ -66,20 +66,20 @@
   transition: opacity 160ms ease;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 48.75rem) {
   .strategy-icicle {
-    --strategy-icicle-inline-padding: 0px;
+    --strategy-icicle-inline-padding: 0;
 
     height: auto;
     min-height: 0;
-    padding: 24px var(--strategy-icicle-inline-padding);
+    padding: 1.5rem var(--strategy-icicle-inline-padding);
   }
 
   .strategy-icicle__diagram {
-    height: 720px;
+    height: 45rem;
   }
 
   .strategy-icicle__sub-label {
-    font-size: 10px;
+    font-size: 0.625rem;
   }
 }

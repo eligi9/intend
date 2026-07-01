@@ -3,12 +3,19 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import MirroredLineGrid from '../../components/common/MirroredLineGrid.vue'
 import SideOverlay from '../../components/common/SideOverlay.vue'
-import ViewHeadline from '../../components/common/ViewHeadline.vue'
+import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyIcicleDiagram from '../../components/strategy/StrategyIcicleDiagram.vue'
 import StrategySubLabelOverlay from '../../components/strategy/StrategySubLabelOverlay.vue'
 import { useStatementStore } from '../../stores/statementStore'
+import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
 import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
+
+defineProps<ExploreHeaderProps>()
+
+const emit = defineEmits<{
+  'section-select': [section: ExploreViewSection]
+}>()
 
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
@@ -38,13 +45,13 @@ function closeOverlay() {
       :step-size="countStep"
     />
 
-    <header class="strategy-view__header">
-      <ViewHeadline
-        class="strategy-view__header-copy"
-        title="Patterns"
-        subline="How are the pattern labels distributed?"
-      />
-    </header>
+    <ExploreHeader
+      :active-section="activeSection"
+      :sections="sections"
+      subline="How are the pattern labels distributed?"
+      title="Patterns"
+      @select="emit('section-select', $event)"
+    />
 
     <div class="strategy-view__content">
       <section
