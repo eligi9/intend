@@ -5,6 +5,7 @@ import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import { intentLabelNames, strategyColors } from '../../utils/intentLabels'
+import { isPatternActive } from '../../utils/intentRecordPatterns'
 import { getPercent } from '../../utils/numbers'
 import {
   getStrategyIcicleRootId,
@@ -102,7 +103,7 @@ function createSegment(
 }
 
 function countLabelOccurrences(label: PatternLabelKey) {
-  return props.records.filter((record) => record[label] === 'yes').length
+  return props.records.filter((record) => isPatternActive(record, label)).length
 }
 
 function handleHover(segment: StrategyIcicleSegment) {

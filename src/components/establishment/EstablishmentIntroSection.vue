@@ -6,6 +6,7 @@ defineProps<{
 }>()
 
 const introCopyElement = ref<HTMLElement | null>(null)
+const introRootElement = ref<HTMLElement | null>(null)
 const introVisualElement = ref<HTMLElement | null>(null)
 
 function splitLinkedText(text: string) {
@@ -33,18 +34,24 @@ function getIntroCopyElement() {
   return introCopyElement.value
 }
 
+function getIntroRootElement() {
+  return introRootElement.value
+}
+
 function getIntroVisualElement() {
   return introVisualElement.value
 }
 
 defineExpose({
   getIntroCopyElement,
+  getIntroRootElement,
   getIntroVisualElement,
 })
 </script>
 
 <template>
   <div
+    ref="introRootElement"
     class="establishment-view__panel establishment-view__intro"
     aria-label="Einordnung der Analyse"
   >

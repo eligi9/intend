@@ -1,10 +1,10 @@
 .strategy-view {
-  --strategy-view-inline-padding: clamp(1.75rem, 3vw, 2.75rem);
+  --strategy-view-inline-padding: var(--layout-view-inline);
 
   position: relative;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 0.875rem;
+  gap: var(--space-2);
   height: 100%;
   min-height: 100%;
   overflow: hidden;
@@ -41,7 +41,7 @@
 
 @media (max-width: 48.75rem) {
   .strategy-view {
-    --strategy-view-inline-padding: 1.25rem;
+    --strategy-view-inline-padding: var(--space-3);
   }
 
   .strategy-view--structure {

@@ -37,7 +37,9 @@ function closeOverlay() {
 </script>
 
 <template>
-  <section class="strategy-view strategy-view--structure">
+  <section
+    class="strategy-view strategy-view--structure"
+  >
     <MirroredLineGrid
       :max-value="maxStatementsPerSide"
       :marker="gridMarker"
@@ -48,8 +50,8 @@ function closeOverlay() {
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      subline="How are the pattern labels distributed?"
-      title="Patterns"
+      subline="Select a pattern to read its description, or select a subpattern to inspect its coded statements."
+      title="How are the Patterns distributed?"
       @select="emit('section-select', $event)"
     />
 
@@ -72,6 +74,7 @@ function closeOverlay() {
       :title="selectedSegment?.label ?? ''"
       :text="selectedSegment?.description ?? ''"
       :color="selectedSegment?.color"
+      @close="closeOverlay"
     />
 
     <StrategySubLabelOverlay

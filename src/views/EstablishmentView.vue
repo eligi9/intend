@@ -3,6 +3,8 @@ import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
+import VerticalLineGrid from '../components/common/VerticalLineGrid.vue'
+import EstablishmentPatternTypesSection from '../components/establishment/EstablishmentPatternTypesSection.vue'
 import EstablishmentStatementSection from '../components/establishment/EstablishmentStatementSection.vue'
 import { pageScrollLockEventName } from '../composables/usePageScrollLock'
 import landingCopy from '../content/landingCopy.json'
@@ -20,7 +22,10 @@ interface EstablishmentStatementSectionExpose {
 const viewRoot = ref<HTMLElement | null>(null)
 const introSection = ref<EstablishmentIntroViewExpose | null>(null)
 const statementSection = ref<EstablishmentStatementSectionExpose | null>(null)
+const showExplore = ref(false)
 const showStatementSection = false
+const establishmentGridAreaCount = 7
+const establishmentGridLabels: string[] = []
 let locomotiveScroll: LocomotiveScroll | null = null
 let scrollAnimationFrame = 0
 let overlayScrollLocked = false
@@ -52,6 +57,14 @@ function scrollToExplore() {
     behavior: 'smooth',
     block: 'start',
   })
+}
+
+async function openExplore() {
+  showExplore.value = true
+
+  await nextTick()
+  window.scrollTo({ top: 0, left: 0 })
+  locomotiveScroll?.resize()
 }
 
 function handleOverlayScrollLock(event: Event) {
@@ -121,18 +134,38 @@ onBeforeUnmount(() => {
 
 <template>
   <div ref="viewRoot" class="establishment-view">
-    <EstablishmentIntroView
-      ref="introSection"
-      :paragraphs="landingCopy.intro.paragraphs"
-    />
+    <ExploreView v-if="showExplore" />
 
-    <EstablishmentStatementSection
-      v-if="showStatementSection"
-      ref="statementSection"
-      @enter="scrollToExplore"
-    />
+    <template v-else>
+      <EstablishmentIntroView
+        ref="introSection"
+        :paragraphs="landingCopy.intro.paragraphs"
+      />
 
-    <ExploreView />
+      <EstablishmentPatternTypesSection />
+
+      <section class="establishment-view__explore-cta" aria-label="Explore statements">
+        <VerticalLineGrid
+          class="establishment-view__explore-grid"
+          :area-count="establishmentGridAreaCount"
+          :labels="establishmentGridLabels"
+        />
+
+        <button
+          type="button"
+          class="establishment-view__explore-button"
+          @click="openExplore"
+        >
+          Explore Statements
+        </button>
+      </section>
+
+      <EstablishmentStatementSection
+        v-if="showStatementSection"
+        ref="statementSection"
+        @enter="scrollToExplore"
+      />
+    </template>
   </div>
 </template>
 

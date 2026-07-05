@@ -2,7 +2,7 @@
   --establishment-stage-width: min(100vw, calc(100vh * 1512 / 982));
   --establishment-stage-height: min(100vh, calc(100vw * 982 / 1512));
   --establishment-heading-start: calc(645 / 982 * var(--establishment-stage-height));
-  --establishment-heading-stick-top: clamp(2.625rem, 9vh, 5.5rem);
+  --establishment-heading-stick-top: clamp(var(--space-5), 9vh, var(--space-11));
   --establishment-measure-highlight-color: var(--color-measure-highlight);
 
   position: relative;
@@ -17,4 +17,53 @@
   z-index: 1;
   height: 100vh;
   min-height: 0;
+}
+
+.establishment-view__explore-cta {
+  --establishment-intro-inline-padding: 0rem;
+
+  position: relative;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-height: 38vh;
+  padding: clamp(var(--space-4), 6vw, var(--space-10));
+}
+
+.establishment-view__explore-grid {
+  inset-inline: var(--establishment-intro-inline-padding);
+}
+
+.establishment-view__explore-button {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: 0.0625rem solid rgba(var(--color-white-rgb), 0.34);
+  border-radius: 0;
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-white);
+  background: rgba(var(--color-white-rgb), 0.06);
+  font: inherit;
+  font-size: var(--text-body-size);
+  font-weight: 760;
+  letter-spacing: 0;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.establishment-view__explore-button:hover,
+.establishment-view__explore-button:focus-visible {
+  border-color: rgba(var(--color-white-rgb), 0.62);
+  background: rgba(var(--color-white-rgb), 0.12);
+  transform: translateY(-0.0625rem);
+}
+
+.establishment-view__explore-button:focus-visible {
+  outline: 0.125rem solid rgba(var(--color-white-rgb), 0.72);
+  outline-offset: 0.25rem;
 }

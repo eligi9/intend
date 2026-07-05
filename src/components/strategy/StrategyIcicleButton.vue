@@ -48,7 +48,7 @@ const segmentState = computed(() =>
       ]"
       :aria-label="accessibilityLabel"
       @blur="emit('leave', segment)"
-      @click="emit('select', segment)"
+      @click.stop="emit('select', segment)"
       @focus="emit('hover', segment)"
     >
       <span v-if="label">{{ label }}</span>

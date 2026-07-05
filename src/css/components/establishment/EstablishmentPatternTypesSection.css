@@ -1,0 +1,134 @@
+.establishment-pattern-types {
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.establishment-pattern-types__grid {
+  inset-inline: 0;
+}
+
+.establishment-pattern-types__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: 38.197fr minmax(0, 61.803fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  row-gap: clamp(var(--space-2), 2vh, var(--space-3));
+  width: 100%;
+  height: 100%;
+}
+
+.establishment-pattern-types__header {
+  display: grid;
+  align-self: center;
+  grid-row: 1;
+  grid-column: 2 / span 3;
+  gap: var(--space-2);
+}
+
+.establishment-pattern-types__header h2,
+.establishment-pattern-types__header p {
+  margin: 0;
+}
+
+.establishment-pattern-types__header h2 {
+  color: var(--color-text);
+  font-size: var(--text-display-size);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: var(--text-heading-line-height);
+}
+
+.establishment-pattern-types__header p {
+  max-width: 31rem;
+  color: rgba(var(--color-text-soft-rgb), 0.82);
+  font-size: var(--text-lead-size);
+  font-weight: var(--text-lead-weight);
+  letter-spacing: 0;
+  line-height: var(--text-body-line-height);
+}
+
+.establishment-pattern-types__body {
+  display: grid;
+  align-self: start;
+  grid-row: 2;
+  grid-column: 2 / 7;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.establishment-pattern-types__card {
+  display: grid;
+  grid-template-rows: minmax(2.5rem, auto) 1fr;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  min-height: clamp(16rem, 32vh, 22rem);
+  padding: var(--space-3);
+  color: var(--color-white);
+}
+
+.establishment-pattern-types__card--enemy-image {
+  background: var(--intent-color-enemy-image);
+}
+
+.establishment-pattern-types__card--just-cause {
+  background: var(--intent-color-just-cause);
+}
+
+.establishment-pattern-types__card--individual-needs {
+  background: var(--intent-color-individual-needs);
+}
+
+.establishment-pattern-types__card--rhetorical-foreclosure {
+  background: var(--intent-color-rhetorical-foreclosure);
+}
+
+.establishment-pattern-types__card h3,
+.establishment-pattern-types__card p {
+  margin: 0;
+}
+
+.establishment-pattern-types__card h3 {
+  font-size: var(--text-lead-size);
+  font-weight: 850;
+  letter-spacing: 0;
+  line-height: var(--text-heading-line-height);
+}
+
+.establishment-pattern-types__card p {
+  color: rgba(var(--color-white-rgb), 0.86);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-body-weight);
+  letter-spacing: 0;
+  line-height: var(--text-body-line-height);
+}
+
+@media (max-width: 48.75rem) {
+  .establishment-pattern-types__inner {
+    grid-template-columns: 1.25rem repeat(5, minmax(0, 1fr)) 1.25rem;
+  }
+
+  .establishment-pattern-types__header,
+  .establishment-pattern-types__body {
+    grid-column: 2 / 7;
+  }
+
+  .establishment-pattern-types__header h2 {
+    font-size: var(--text-display-size);
+  }
+
+  .establishment-pattern-types__header p {
+    font-size: var(--text-lead-size);
+  }
+
+  .establishment-pattern-types__body {
+    grid-row: 2;
+    grid-template-columns: 1fr;
+    align-self: start;
+    overflow-y: auto;
+  }
+}

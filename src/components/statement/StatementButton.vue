@@ -1,34 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
+import type { IntentRecord } from '../../types/intentData'
 import { strategyColors } from '../../utils/intentLabels'
+import { getActiveMainLabels } from '../../utils/sort'
 
 const props = defineProps<{
   statement: IntentRecord
 }>()
 
-const mainPatternOrder: PatternLabelKey[] = [
-  'enemy_image',
-  'rhetorical_foreclosure',
-  'just_cause',
-  'individual_needs',
-]
-
 const mainPatterns = computed(() => {
-  return mainPatternOrder.flatMap((labelKey) => {
-    const group = intentTaxonomy.find((item) => item.parentLabel === labelKey)
-    const active =
-      props.statement[labelKey] === 'yes' ||
-      Boolean(group?.childLabels.some((label) => props.statement[label] === 'yes'))
-
-    return active
-      ? [{
-          color: strategyColors[labelKey],
-          labelKey,
-        }]
-      : []
-  })
+  return getActiveMainLabels(props.statement).map((labelKey) => ({
+    color: strategyColors[labelKey],
+    labelKey,
+  }))
 })
 
 const ringSize = (index: number) => `${42 + (index + 1) * 14}%`

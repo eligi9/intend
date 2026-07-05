@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import { intentLabelNames, subLabelColors } from '../../utils/intentLabels'
+import { isPatternActive } from '../../utils/intentRecordPatterns'
 
 const props = defineProps<{
   firstLabel: PatternLabelKey
@@ -18,7 +19,7 @@ const counts = computed(() => {
   const firstCount = countLabel(props.firstLabel)
   const secondCount = countLabel(props.secondLabel)
   const bothCount = props.records.filter(
-    (record) => record[props.firstLabel] === 'yes' && record[props.secondLabel] === 'yes',
+    (record) => isPatternActive(record, props.firstLabel) && isPatternActive(record, props.secondLabel),
   ).length
 
   return {
@@ -60,7 +61,7 @@ const overlapShare = computed(() =>
 )
 
 function countLabel(label: PatternLabelKey) {
-  return props.records.filter((record) => record[label] === 'yes').length
+  return props.records.filter((record) => isPatternActive(record, label)).length
 }
 
 function getRadius(count: number, areaScale: number) {

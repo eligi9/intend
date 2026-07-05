@@ -7,6 +7,7 @@ import EstablishmentIntroSection from '../../components/establishment/Establishm
 
 interface EstablishmentIntroSectionExpose {
   getIntroCopyElement: () => HTMLElement | null
+  getIntroRootElement: () => HTMLElement | null
   getIntroVisualElement: () => HTMLElement | null
 }
 
@@ -17,45 +18,45 @@ defineProps<{
 const rootElement = ref<HTMLElement | null>(null)
 const headingElement = ref<HTMLElement | null>(null)
 const introSection = ref<EstablishmentIntroSectionExpose | null>(null)
-const introGridAreaCount = 21
+const introGridAreaCount = 7
 const introGridLabels: string[] = []
 
 function clampProgress(value: number) {
   return Math.min(Math.max(value, 0), 1)
 }
 
-function getHeadingPositions(heading: HTMLElement) {
-  const stageHeight = Math.min(window.innerHeight, window.innerWidth * 982 / 1512)
-  const initialY = 645 / 982 * stageHeight
-  const upperThirdCenter = window.innerHeight / 6
-  const stickY = Math.max(0, upperThirdCenter - heading.offsetHeight / 2)
+function getHeadingPositions() {
+  const initialY = window.innerHeight * 0.61803398875
+  const secondPageUpperRowCenter = window.innerHeight * 0.38197 / 2
+  const secondPageY = secondPageUpperRowCenter
 
-  return { initialY, stickY }
+  return { initialY, secondPageY }
 }
 
 function updateScrollState() {
   const introCopy = introSection.value?.getIntroCopyElement()
+  const introRoot = introSection.value?.getIntroRootElement()
   const introVisual = introSection.value?.getIntroVisualElement()
   const heading = headingElement.value
 
-  if (!rootElement.value || !introCopy || !introVisual || !heading) {
+  if (!rootElement.value || !introCopy || !introRoot || !introVisual || !heading) {
     return
   }
 
-  const { initialY, stickY } = getHeadingPositions(heading)
+  const { initialY, secondPageY } = getHeadingPositions()
   const introFadeDistance = window.innerHeight * 0.95
-  const headingFadeDistance = window.innerHeight * 0.34
+  const introRootRect = introRoot.getBoundingClientRect()
   const introRect = introCopy.getBoundingClientRect()
   const releaseLine = window.innerHeight / 3
   const releaseDistance = Math.max(0, releaseLine - introRect.top)
-  const headingProgress = clampProgress(releaseDistance / headingFadeDistance)
+  const headingArrivalProgress = clampProgress(1 - introRootRect.top / window.innerHeight)
   const introProgress = clampProgress(releaseDistance / introFadeDistance)
-  const rootOffset = rootElement.value.offsetTop
-  const headingY = releaseDistance > 0
-    ? stickY - releaseDistance * 1.2
-    : Math.max(stickY, initialY - (window.scrollY - rootOffset))
+  const arrivingHeadingY = initialY + (secondPageY - initialY) * headingArrivalProgress
+  const headingY = introRootRect.top < 0
+    ? secondPageY + introRootRect.top
+    : arrivingHeadingY
 
-  gsap.set(heading, { autoAlpha: 1 - headingProgress, y: headingY })
+  gsap.set(heading, { autoAlpha: 1, y: headingY })
   gsap.set([introCopy, introVisual], {
     autoAlpha: 1 - introProgress,
     y: -52 * introProgress,
