@@ -1,11 +1,12 @@
 import type { IntentFilters, PatternLabelKey, IntentRecord } from '../types/intentData'
+import { isPatternActive } from './intentRecordPatterns'
 
 export function includesText(value: string | null | undefined, query: string) {
   return value?.toLowerCase().includes(query) ?? false
 }
 
 export function isLabelActive(record: IntentRecord, label: PatternLabelKey) {
-  return record[label] === 'yes'
+  return isPatternActive(record, label)
 }
 
 export function uniqueSorted(values: string[]) {
@@ -17,7 +18,7 @@ export function matchesIntentFilters(record: IntentRecord, filters: IntentFilter
   const matchesQuery =
     query.length === 0 ||
     includesText(record.author, query) ||
-    includesText(record.position, query) ||
+    includesText(record.speakerPosition, query) ||
     includesText(record.context, query) ||
     includesText(record.source, query) ||
     includesText(record.statement, query)

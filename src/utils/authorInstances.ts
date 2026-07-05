@@ -1,6 +1,7 @@
 import type { AuthorInstance, AuthorProfile, AuthorTopLevelStrategyUsage } from '../types/authorData'
 import type { IntentRecord } from '../types/intentData'
 import { intentTaxonomy } from '../types/intentTaxonomy'
+import { isPatternGroupActive } from './intentRecordPatterns'
 
 export function calculateAge(dateOfBirth: string | null, referenceDate = new Date()) {
   if (!dateOfBirth) return null
@@ -35,7 +36,7 @@ export function groupStatementsByAuthor(records: IntentRecord[]) {
 
 export function getUsedTopLevelStrategies(records: IntentRecord[]): AuthorTopLevelStrategyUsage[] {
   return intentTaxonomy.flatMap((group) => {
-    const matchingRecords = records.filter((record) => record[group.parentLabel] === 'yes')
+    const matchingRecords = records.filter((record) => isPatternGroupActive(record, group.parentLabel))
 
     if (matchingRecords.length === 0) return []
 
@@ -59,7 +60,6 @@ export function createAuthorInstance(
   return {
     ...author,
     age: calculateAge(author.dateOfBirth, referenceDate),
-    statements,
     statementCount: statements.length,
     usedTopLevelStrategies,
     usedTopLevelStrategyLabels: usedTopLevelStrategies.map((strategy) => strategy.labelKey),

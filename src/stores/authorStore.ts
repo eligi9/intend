@@ -13,7 +13,7 @@ export const useAuthorStore = defineStore('authors', () => {
   const authorProfiles = computed(() => intentAuthorDataset.authors)
   const authorInstances = computed(() =>
     authorProfiles.value.map((author) =>
-      createAuthorInstance(author, statementStore.statementsByAuthor[author.name] ?? []),
+      createAuthorInstance(author, statementStore.getStatementsForAuthor(author.name)),
     ),
   )
   const authorProfileCount = computed(() => authorProfiles.value.length)

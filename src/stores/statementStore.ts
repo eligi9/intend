@@ -4,6 +4,7 @@ import dataset from '../../data/intent-dataset.json'
 import type { IntentDataset, IntentFilters, PatternLabelKey, IntentRecord } from '../types/intentData'
 import { groupStatementsByAuthor } from '../utils/authorInstances'
 import { matchesIntentFilters, uniqueSorted } from '../utils/intentFilters'
+import { normalizeIntentRecords, type RawIntentRecord } from '../utils/intentRecordPatterns'
 
 export const intentLabelKeys = [
   'enemy_image',
@@ -26,7 +27,7 @@ export const intentLabelKeys = [
   'external_criticism_rejection',
 ] as const satisfies readonly PatternLabelKey[]
 
-const intentDataset = dataset as IntentDataset
+const intentDataset = dataset as Omit<IntentDataset, 'records'> & { records: RawIntentRecord[] }
 
 const emptyFilters = (): IntentFilters => ({
   query: '',
@@ -36,7 +37,7 @@ const emptyFilters = (): IntentFilters => ({
 })
 
 export const useStatementStore = defineStore('statements', () => {
-  const records = ref<IntentRecord[]>(intentDataset.records)
+  const records = ref<IntentRecord[]>(normalizeIntentRecords(intentDataset.records))
   const filters = ref<IntentFilters>(emptyFilters())
 
   const totalCount = computed(() => records.value.length)

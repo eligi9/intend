@@ -1,4 +1,4 @@
-import type { PatternLabelKey, IntentRecord } from './intentData'
+import type { PatternLabelKey } from './intentData'
 
 export interface AuthorImage {
   url: string
@@ -50,7 +50,6 @@ export interface AuthorTopLevelStrategyUsage {
 
 export interface AuthorInstance extends AuthorProfile {
   age: number | null
-  statements: IntentRecord[]
   statementCount: number
   usedTopLevelStrategies: AuthorTopLevelStrategyUsage[]
   usedTopLevelStrategyLabels: PatternLabelKey[]
