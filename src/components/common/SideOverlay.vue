@@ -8,6 +8,10 @@ const props = defineProps<{
   visible: boolean
 }>()
 
+const emit = defineEmits<{
+  close: []
+}>()
+
 const overlayStyle = computed(() => {
   const hasColor = Boolean(props.color)
 
@@ -29,7 +33,7 @@ const overlayStyle = computed(() => {
       class="side-overlay"
       :style="overlayStyle"
       aria-live="polite"
-      @click.stop
+      @click.stop="emit('close')"
     >
       <h3>{{ title }}</h3>
       <p>{{ text }}</p>

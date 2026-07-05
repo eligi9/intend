@@ -22,6 +22,7 @@ export interface HoveredTimelineStatement {
   author: string
   date: string
   id: string
+  record: IntentRecord
   source: string | null
   statement: string
   xRatio: number
@@ -37,6 +38,7 @@ export interface StrategyBeeswarmSketchState {
 }
 
 export interface StatementBeeswarmSketchState {
+  setPressedStatement: (payload: HoveredTimelineStatement | null) => void
   setHoveredStatement: (payload: HoveredTimelineStatement | null) => void
   statements: IntentRecord[]
   timeDomain: TimelineDomain

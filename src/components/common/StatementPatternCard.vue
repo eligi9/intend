@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
 import {
   getStatementPatternAnchors,
@@ -21,6 +21,11 @@ const props = withDefaults(
   },
 )
 
+const emit = defineEmits<{
+  contextHoverChange: [visible: boolean]
+  badgeHoverChange: [visible: boolean]
+}>()
+
 const hoveredLabel = ref<PatternLabelKey | null>(null)
 const badges = computed(() => getStatementPatternBadges(props.record))
 const hoveredBadge = computed(
@@ -35,10 +40,12 @@ const hoveredExplanation = computed(() =>
     : null,
 )
 const explanationBackground = computed(() =>
-  hoveredBadge.value
-    ? `color-mix(in srgb, ${hoveredBadge.value.color} 72%, var(--app-background))`
-    : undefined,
+  hoveredBadge.value ? hoveredBadge.value.color : undefined,
 )
+
+watch(hoveredLabel, (label) => {
+  emit('badgeHoverChange', Boolean(label))
+})
 </script>
 
 <template>
@@ -61,6 +68,7 @@ const explanationBackground = computed(() =>
       :anchor-texts="hoveredAnchors"
       :record="record"
       :show-context-button="showContextButton"
+      @context-hover-change="emit('contextHoverChange', $event)"
     />
 
     <StrategyBadgeContainer

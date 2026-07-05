@@ -5,6 +5,7 @@ import type { IntentRecord } from '../../types/intentData'
 import { intentSubLabelDescriptions } from '../../types/intentTaxonomy'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
 import { useStatementStore } from '../../stores/statementStore'
+import { isPatternActive } from '../../utils/intentRecordPatterns'
 import SquareArrowButton from '../common/SquareArrowButton.vue'
 import StrategyAnchorTextScroller from './StrategyAnchorTextScroller.vue'
 import StrategyAnchorTextStatementOverlay from './StrategyAnchorTextStatementOverlay.vue'
@@ -40,7 +41,7 @@ const statements = computed(() => {
   const segment = props.segment
   if (!segment) return []
 
-  return records.value.filter((record) => record[segment.id] === 'yes')
+  return records.value.filter((record) => isPatternActive(record, segment.id))
 })
 
 watch(
@@ -66,6 +67,7 @@ function closeAnchorStatementOverlay() {
       class="strategy-sub-label-overlay"
       :style="{ '--strategy-sub-label-overlay-color': segment.color }"
       aria-label="Sublabel details"
+      @click.stop
     >
       <div class="strategy-sub-label-overlay__columns">
         <section class="strategy-sub-label-overlay__copy">

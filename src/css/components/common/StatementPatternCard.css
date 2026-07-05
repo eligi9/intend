@@ -1,7 +1,7 @@
 .statement-pattern-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--statement-pattern-card-gap, clamp(0.75rem, 1.5vw, 1.25rem));
+  gap: var(--statement-pattern-card-gap, var(--space-2));
   align-items: stretch;
   width: 100%;
   box-sizing: border-box;

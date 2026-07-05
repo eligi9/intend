@@ -29,6 +29,7 @@ const emit = defineEmits<{
   'event-hover': [event: HoveredTimelineEvent | null]
   'pattern-hover': [statement: HoveredBeeswarmStatement | null]
   'statement-hover': [statement: HoveredTimelineStatement | null]
+  'statement-press': [statement: HoveredTimelineStatement | null]
 }>()
 
 const gridHost = ref<HTMLElement | null>(null)
@@ -60,7 +61,7 @@ const topOverlay = computed<TimelineTopOverlay | null>(() => {
 
   if (props.mode === 'strategies' && hoveredPattern.value && !pressedPattern.value) {
     return {
-      background: `color-mix(in srgb, ${hoveredPattern.value.color} 72%, var(--app-background))`,
+      background: hoveredPattern.value.color,
       headingColor: 'var(--text-white)',
       textColor: 'var(--text-white)',
       title: hoveredPattern.value.strategy,
@@ -108,6 +109,9 @@ function createSwarmSketch() {
     emit('pattern-hover', null)
 
     return createStatementBeeswarmSketch(plotHost.value, {
+      setPressedStatement: (payload) => {
+        emit('statement-press', payload)
+      },
       setHoveredStatement: (payload) => {
         hoveredTimelineStatement.value = payload
         emit('statement-hover', payload)
@@ -122,6 +126,7 @@ function createSwarmSketch() {
   pressedPattern.value = null
   emit('pattern-hover', null)
   emit('statement-hover', null)
+  emit('statement-press', null)
 
   return createStrategyBeeswarmSketch(plotHost.value, {
     setPressedStatement: (payload) => {
@@ -188,6 +193,7 @@ onBeforeUnmount(() => {
   emit('event-hover', null)
   emit('pattern-hover', null)
   emit('statement-hover', null)
+  emit('statement-press', null)
   window.removeEventListener('pointerup', closePressedPattern)
   window.removeEventListener('pointercancel', closePressedPattern)
   window.removeEventListener('blur', closePressedPattern)

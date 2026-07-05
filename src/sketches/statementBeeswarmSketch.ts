@@ -67,6 +67,13 @@ export function createStatementBeeswarmSketch(
       p.clear()
       nodes.forEach((node) => drawNode(p, node, hoveredNode, colors))
     }
+
+    p.mousePressed = () => {
+      const pressedNode = checkHover(p, nodes)
+      if (!pressedNode) return
+
+      state.setPressedStatement(createHoverPayload(pressedNode, p))
+    }
   }
 
   return new p5(sketch, container)
@@ -134,6 +141,7 @@ function createHoverPayload(
     author: node.record.author,
     date: node.record.date,
     id: node.id,
+    record: node.record,
     source: node.record.source,
     statement: node.record.statement,
     xRatio: node.x / p.width,

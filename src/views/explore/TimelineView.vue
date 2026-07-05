@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
+import DetailView from '../../components/common/DetailView.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
+import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
+import type { IntentRecord } from '../../types/intentData'
 import type {
   BeeswarmDisplayMode,
   HoveredBeeswarmStatement,
@@ -20,11 +23,24 @@ const emit = defineEmits<{
 }>()
 
 const statementStore = useStatementStore()
+const authorStore = useAuthorStore()
 const { records } = storeToRefs(statementStore)
 const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
 const hoveredPattern = ref<HoveredBeeswarmStatement | null>(null)
 const hoveredStatement = ref<HoveredTimelineStatement | null>(null)
+const selectedStatement = ref<IntentRecord | null>(null)
+
+const selectedAuthor = computed(() =>
+  selectedStatement.value ? authorStore.getAuthorInstance(selectedStatement.value.author) : null,
+)
+const selectedAuthorRecords = computed(() =>
+  selectedAuthor.value
+    ? statementStore.getStatementsForAuthor(selectedAuthor.value.name)
+    : selectedStatement.value
+      ? [selectedStatement.value]
+      : [],
+)
 
 watch(beeswarmMode, () => {
   hoveredPattern.value = null
@@ -37,6 +53,16 @@ function showHoveredPattern(pattern: HoveredBeeswarmStatement | null) {
 
 function showHoveredStatement(statement: HoveredTimelineStatement | null) {
   hoveredStatement.value = statement
+}
+
+function showAuthorDetail(statement: HoveredTimelineStatement | null) {
+  if (!statement) return
+
+  selectedStatement.value = statement.record
+}
+
+function closeAuthorDetail() {
+  selectedStatement.value = null
 }
 </script>
 
@@ -59,6 +85,7 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
           :selected-labels="[]"
           @pattern-hover="showHoveredPattern"
           @statement-hover="showHoveredStatement"
+          @statement-press="showAuthorDetail"
         />
       </div>
 
@@ -70,7 +97,8 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
         >
           <p>{{ hoveredStatement.statement }}</p>
           <span>
-            {{ hoveredStatement.author }} · {{ hoveredStatement.date }}
+            <strong class="timeline-view__statement-hover-author">{{ hoveredStatement.author }}</strong>
+            · {{ hoveredStatement.date }}
             <template v-if="hoveredStatement.source">
               · {{ hoveredStatement.source }}
             </template>
@@ -90,10 +118,11 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
             v-for="(anchor, index) in hoveredPattern.anchorText ?? []"
             :key="`${anchor}-${index}`"
           >
-            "{{ anchor }}"
+            »{{ anchor }}«
           </p>
           <span>
-            {{ hoveredPattern.author }} · {{ hoveredPattern.date }}
+            <strong class="timeline-view__statement-hover-author">{{ hoveredPattern.author }}</strong>
+            · {{ hoveredPattern.date }}
             <template v-if="hoveredPattern.source">
               · {{ hoveredPattern.source }}
             </template>
@@ -119,6 +148,26 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
         </button>
       </div>
     </section>
+
+    <button
+      v-if="selectedStatement"
+      type="button"
+      class="timeline-view__scrim"
+      aria-label="Author detail view schliessen"
+      @click="closeAuthorDetail"
+    />
+
+    <Teleport to="body">
+      <Transition name="detail-overlay">
+        <DetailView
+          v-if="selectedStatement"
+          :author="selectedAuthor"
+          :records="selectedAuthorRecords"
+          :show-author-facts="true"
+          @close="closeAuthorDetail"
+        />
+      </Transition>
+    </Teleport>
   </section>
 </template>
 

@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import gsap from 'gsap'
 import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
-import { splitAnchors } from '../../utils/intentLabels'
+import { getPatternAnnotation } from '../../utils/intentRecordPatterns'
 
 interface AnchorTextItem {
   statement: IntentRecord
@@ -36,7 +36,7 @@ let dragStartScrollX = 0
 
 const anchors = computed(() =>
   props.statements.flatMap((statement) =>
-    splitAnchors(statement[`${props.label}_anchor` as keyof IntentRecord]).map((text) => ({
+    (getPatternAnnotation(statement, props.label)?.anchors ?? []).map((text) => ({
       statement,
       text,
     })),
@@ -201,9 +201,10 @@ onBeforeUnmount(() => {
             type="button"
             class="strategy-anchor-text-scroller__item"
             :style="{ gridRow: index % 2 === 0 ? '1' : '2' }"
+            @click.stop.prevent
             @pointerdown.stop.prevent="showStatementOverlay(anchor)"
           >
-            “{{ anchor.text }}”
+            »{{ anchor.text }}«
           </button>
         </div>
       </div>

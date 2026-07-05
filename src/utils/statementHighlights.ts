@@ -138,7 +138,7 @@ function normalizeText(text: string): NormalizedText {
 
 function normalizePlainText(text: string) {
   return text
-    .replace(/["“”„‘’]/g, '')
+    .replace(/["“”„‘’»«]/g, '')
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase()
@@ -151,5 +151,5 @@ function getNormalizedCursor(statement: NormalizedText, originalCursor: number) 
 }
 
 function isIgnoredQuote(character: string) {
-  return /["“”„‘’]/.test(character)
+  return /["“”„‘’»«]/.test(character)
 }

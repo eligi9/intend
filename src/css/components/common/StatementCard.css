@@ -20,6 +20,7 @@
 .statement-card__contents {
   display: flex;
   flex-direction: column;
+  gap: var(--space-2);
   align-self: start;
   min-width: 0;
 }
@@ -33,7 +34,7 @@
   min-width: 0;
   overflow: hidden;
   color: rgba(var(--color-text-rgb), 0.62);
-  font-size: 0.8125rem;
+  font-size: var(--text-caption-size);
   font-weight: 800;
   line-height: 1.2;
   text-overflow: ellipsis;
@@ -42,12 +43,12 @@
 
 .statement-card__quote {
   max-width: 61.25rem;
-  margin-top: 0.875rem;
   font-family: var(--font-serif);
   font-optical-sizing: auto;
   font-weight: 400;
   font-size: var(--statement-card-quote-size);
-  line-height: 1.34;
+  line-height: var(--text-body-line-height);
+  white-space: pre-line;
 }
 
 .statement-card__quote-muted {
@@ -70,14 +71,13 @@
 .statement-card__context-button {
   align-self: flex-start;
   min-height: 0;
-  margin-top: 0.75rem;
   padding: 0;
   border: 0;
   border-radius: 0;
   color: rgba(var(--color-text-rgb), 0.72);
   background: transparent;
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
+  font-size: var(--text-caption-size);
   font-weight: 800;
   line-height: 1.2;
   text-decoration: underline;

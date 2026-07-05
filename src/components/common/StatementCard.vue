@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 import type { IntentRecord } from '../../types/intentData'
 import { splitStatementText } from '../../utils/statementHighlights'
 import SideOverlay from './SideOverlay.vue'
@@ -20,6 +20,15 @@ const props = withDefaults(
 
 const showContext = ref(false)
 const showContextButton = computed(() => props.showContextButton)
+const emit = defineEmits<{
+  contextHoverChange: [visible: boolean]
+}>()
+const measureHighlights = computed(() => {
+  return props.record.measures.map((text) => ({
+    color: '#000',
+    text,
+  }))
+})
 const anchorHighlights = computed(() => {
   return props.anchorTexts.map((text) => ({
     color: props.anchorColor,
@@ -27,7 +36,23 @@ const anchorHighlights = computed(() => {
   }))
 })
 const statementMeta = computed(() => [props.record.date, props.record.source].filter(Boolean).join(' · '))
-const statementSegments = computed(() => splitStatementText(props.record.statement, anchorHighlights.value))
+const statementSegments = computed(() =>
+  splitStatementText(props.record.statement, [
+    ...measureHighlights.value,
+    ...anchorHighlights.value,
+  ]),
+)
+
+function setContextVisible(visible: boolean) {
+  if (showContext.value === visible) return
+
+  showContext.value = visible
+  emit('contextHoverChange', visible)
+}
+
+onBeforeUnmount(() => {
+  emit('contextHoverChange', false)
+})
 </script>
 
 <template>
@@ -59,10 +84,10 @@ const statementSegments = computed(() => splitStatementText(props.record.stateme
         type="button"
         class="statement-card__context-button"
         @click.stop
-        @mouseenter="showContext = true"
-        @mouseleave="showContext = false"
-        @focusin="showContext = true"
-        @focusout="showContext = false"
+        @mouseenter="setContextVisible(true)"
+        @mouseleave="setContextVisible(false)"
+        @focusin="setContextVisible(true)"
+        @focusout="setContextVisible(false)"
       >
         seeContext
       </button>

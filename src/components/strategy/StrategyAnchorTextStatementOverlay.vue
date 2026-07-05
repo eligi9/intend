@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import { getDisplayLabel } from '../../utils/statementHighlights'
+import { getPatternAnnotation } from '../../utils/intentRecordPatterns'
 import StatementCard from '../common/StatementCard.vue'
 import TopOverlay from '../common/TopOverlay.vue'
 
@@ -18,20 +19,19 @@ const anchorTexts = computed(() =>
 )
 
 const explanation = computed(() => {
-  const value = props.statement[`${props.label}_bj` as keyof IntentRecord]
-  return typeof value === 'string' && value.length > 0 ? value : null
+  return getPatternAnnotation(props.statement, props.label)?.justification ?? null
 })
 
-const explanationBackground = computed(
-  () => `color-mix(in srgb, ${props.highlightColor} 72%, var(--app-background))`,
-)
+const explanationBackground = computed(() => props.highlightColor)
 
 </script>
 
 <template>
   <aside
     class="strategy-anchor-text-overlay"
+    :style="{ '--strategy-anchor-text-overlay-color': highlightColor }"
     aria-label="Selected statement"
+    @click.stop
   >
     <TopOverlay
       :background="explanationBackground"

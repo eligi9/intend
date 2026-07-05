@@ -14,7 +14,8 @@ import {
   type CanvasBaseColors,
   type RgbColor,
 } from '../utils/colorTokens'
-import { intentLabelNames, splitAnchors, strategyColors } from '../utils/intentLabels'
+import { intentLabelNames, strategyColors } from '../utils/intentLabels'
+import { getPatternAnnotation, isPatternActive } from '../utils/intentRecordPatterns'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 import { createTimelineModel } from '../utils/timelineScale'
 
@@ -35,6 +36,7 @@ interface BeeswarmNode extends SimulationNodeDatum {
 
 interface BeeswarmBand {
   id: PatternLabelKey
+  label: string
   maxY: number
   minY: number
   y: number
@@ -94,6 +96,7 @@ export function createStrategyBeeswarmSketch(
       state.setHoveredStatement(createHoverPayload(hoveredPoint, p, colors, pointColors))
 
       p.clear()
+      drawBands(p, bands, state.selectedLabels, colors, pointColors)
       nodes.forEach((node) =>
         drawNode(p, node, hoveredPoint, state.selectedLabels, colors, pointColors),
       )
@@ -126,6 +129,7 @@ function createBeeswarmBands(minY: number, maxY: number) {
 
     return {
       id: group.superLabel,
+      label: intentLabelNames[group.superLabel],
       maxY: bandMaxY,
       minY: bandMinY,
       y: bandMinY + bandHeight / 2,
@@ -162,6 +166,40 @@ function createBeeswarmNodes(
       }
     }),
   )
+}
+
+function drawBands(
+  p: p5,
+  bands: BeeswarmBand[],
+  selectedLabels: PatternLabelKey[],
+  colors: CanvasBaseColors,
+  pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
+) {
+  p.textAlign(p.RIGHT, p.BOTTOM)
+  p.textSize(12)
+  p.textStyle(p.BOLD)
+
+  bands.forEach((band) => {
+    const selected = selectedLabels.length === 0 || selectedLabels.includes(band.id)
+    const color = getPointColor(band.id, colors, pointColors)
+    const alpha = selected ? 26 : 12
+    const strokeAlpha = selected ? 58 : 24
+
+    p.noStroke()
+    p.fill(color[0], color[1], color[2], alpha)
+    p.rect(0, band.minY, p.width, band.maxY - band.minY, 8)
+
+    p.stroke(color[0], color[1], color[2], strokeAlpha)
+    p.strokeWeight(1)
+    p.line(0, band.minY, p.width, band.minY)
+    p.line(0, band.maxY, p.width, band.maxY)
+
+    p.noStroke()
+    p.fill(color[0], color[1], color[2], selected ? 180 : 92)
+    p.text(band.label, p.width - 12, band.maxY - 10)
+  })
+
+  p.textStyle(p.NORMAL)
 }
 
 function createBeeswarmSimulation(nodes: BeeswarmNode[]) {
@@ -265,8 +303,7 @@ function getDeterministicOffset(value: string, amplitude: number) {
 }
 
 function getAnchorText(record: IntentRecord, label: PatternLabelKey) {
-  const anchorKey = `${label}_anchor` as keyof IntentRecord
-  const anchors = splitAnchors(record[anchorKey])
+  const anchors = getPatternAnnotation(record, label)?.anchors ?? []
 
   return anchors.length > 0 ? anchors : null
 }
@@ -275,7 +312,7 @@ function getAnchorText(record: IntentRecord, label: PatternLabelKey) {
 function getActiveStrategyPoints(record: IntentRecord) {
   return strategyGroups.flatMap((group) =>
     group.childLabels
-      .filter((label) => record[label] === 'yes')
+      .filter((label) => isPatternActive(record, label))
       .map((label) => ({
         label,
         superLabel: group.superLabel,

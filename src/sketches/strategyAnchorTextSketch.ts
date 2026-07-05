@@ -39,7 +39,7 @@ export function createStrategyAnchorTextSketch(
 function drawAnchors(p: p5, anchors: string[]) {
   p.noStroke()
   p.fill(255, 255, 255, 235)
-  p.textFont('Source Serif 4')
+  p.textFont('Noto Serif')
   p.textSize(Math.max(24, Math.min(46, p.width / 32)))
   p.textLeading(Math.max(28, Math.min(52, p.width / 30)))
 
@@ -51,7 +51,7 @@ function drawAnchors(p: p5, anchors: string[]) {
 
   const rowCount = Math.min(ROW_COUNT, anchors.length)
   const rowHeight = p.height / rowCount
-  const labels = anchors.map((anchor) => `“${anchor}”`)
+  const labels = anchors.map((anchor) => `»${anchor}«`)
   const widths = labels.map((label) => p.textWidth(label))
   const placements = getAnchorPlacements(widths, rowCount)
   const sequenceWidth = getSequenceWidth(placements, widths, p.width)

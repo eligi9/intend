@@ -12,9 +12,12 @@ import ViewHeadline from './ViewHeadline.vue'
 const props = defineProps<{
   author: AuthorInstance | null
   records: readonly IntentRecord[]
+  showAuthorFacts?: boolean
 }>()
 
 const activePattern = ref<PatternLabelKey | null>(null)
+const isContextHovered = ref(false)
+const hoveredBadgeStatementId = ref<string | null>(null)
 
 const emit = defineEmits<{
   close: []
@@ -32,7 +35,49 @@ const imageCredit = computed(() => {
     .filter((part, index, parts): part is string => Boolean(part) && parts.indexOf(part) === index)
     .join(' / ')
 })
+const normalizeText = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+
+function removePartyParenthetical(position: string | null | undefined, party: string | null | undefined) {
+  if (!position) return null
+  if (!party) return position.trim()
+
+  const normalizedParty = normalizeText(party)
+
+  if (!normalizedParty) return position.trim()
+
+  return position
+    .replace(/\s*\(([^)]*)\)/g, (match, content: string) =>
+      normalizeText(content).includes(normalizedParty) ? '' : match,
+    )
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\s+,/g, ',')
+    .trim()
+}
+
 const hasRecordList = computed(() => props.records.length > 1)
+const authorPositionSubline = computed(
+  () =>
+    removePartyParenthetical(props.author?.position, props.author?.party) ??
+    props.records[0]?.speakerPosition ??
+    props.records[0]?.sector ??
+    'Position unbekannt',
+)
+const authorFacts = computed(() => {
+  const author = props.author
+
+  if (!props.showAuthorFacts || !author) return []
+
+  return [
+    { label: 'Age', value: author.age === null ? 'unknown' : `${author.age}` },
+    { label: 'Gender', value: author.gender ?? 'unknown' },
+    { label: 'Party', value: author.party ?? 'unknown' },
+    { label: 'Statements', value: `${author.statementCount}` },
+  ]
+})
 const patternFilters = computed(() =>
   hasRecordList.value && props.author
     ? props.author.usedTopLevelStrategies.map((strategy) => ({
@@ -40,7 +85,7 @@ const patternFilters = computed(() =>
         color: strategyColors[strategy.labelKey] ?? 'var(--color-neutral)',
         key: strategy.labelKey,
         label: strategy.label,
-        minWidth: '7rem',
+        minWidth: '0',
       }))
     : [],
 )
@@ -57,6 +102,18 @@ function togglePatternFilter(label: PatternLabelKey) {
 function togglePatternFilterByKey(label: string) {
   togglePatternFilter(label as PatternLabelKey)
 }
+
+function setContextHovered(visible: boolean) {
+  isContextHovered.value = visible
+}
+
+function setBadgeHovered(statementId: string, visible: boolean) {
+  hoveredBadgeStatementId.value = visible
+    ? statementId
+    : hoveredBadgeStatementId.value === statementId
+      ? null
+      : hoveredBadgeStatementId.value
+}
 </script>
 
 <template>
@@ -68,37 +125,57 @@ function togglePatternFilterByKey(label: string) {
     @touchmove.stop
     @wheel.stop
   >
-    <section class="detail">
+    <section
+      class="detail"
+      :class="{ 'detail--with-facts': authorFacts.length > 0 }"
+    >
       <header class="detail__header">
-        <div class="detail__author-portrait">
-          <AuthorPortrait
-            v-if="author"
-            :author="author"
-            :size="148"
-            :show-tooltip="false"
-          />
-          <div v-else class="detail__author-fallback" aria-hidden="true">
-            ?
-          </div>
-
-          <div class="detail__headline-block">
-            <ViewHeadline
-              class="detail__headline"
-              :title="author?.name ?? records[0]?.author ?? 'Autor nicht gefunden'"
-              :subline="author?.position ?? records[0]?.position ?? records[0]?.sector ?? 'Position unbekannt'"
+        <div class="detail__header-inner">
+          <div class="detail__author-portrait">
+            <AuthorPortrait
+              v-if="author"
+              :author="author"
+              :size="148"
+              :show-tooltip="false"
             />
+            <div v-else class="detail__author-fallback" aria-hidden="true">
+              ?
+            </div>
 
-            <a
-              v-if="author?.image"
-              class="detail__image-source"
-              :href="author.image.sourceUrl"
-              target="_blank"
-              rel="noreferrer"
-              :title="author.image.attribution"
-            >
-              Foto: {{ imageCredit }}
-            </a>
+            <div class="detail__headline-block">
+              <ViewHeadline
+                class="detail__headline"
+                :title="author?.name ?? records[0]?.author ?? 'Autor nicht gefunden'"
+                :subline="authorPositionSubline"
+              />
+
+              <a
+                v-if="author?.image"
+                class="detail__image-source"
+                :href="author.image.sourceUrl"
+                target="_blank"
+                rel="noreferrer"
+                :title="author.image.attribution"
+              >
+                Foto: {{ imageCredit }}
+              </a>
+            </div>
           </div>
+
+          <dl
+            v-if="authorFacts.length > 0"
+            class="detail__facts"
+            aria-label="Author facts"
+          >
+            <div
+              v-for="fact in authorFacts"
+              :key="fact.label"
+              class="detail__fact"
+            >
+              <dt>{{ fact.label }}</dt>
+              <dd>{{ fact.value }}</dd>
+            </div>
+          </dl>
         </div>
       </header>
 
@@ -117,11 +194,25 @@ function togglePatternFilterByKey(label: string) {
         <StatementPatternCard
           v-for="statement in visibleRecords"
           :key="statement.id"
+          :class="{
+            'detail__statement--badge-dimmed':
+              hoveredBadgeStatementId !== null && hoveredBadgeStatementId !== statement.id,
+          }"
           :record="statement"
           :show-context-button="true"
+          @badge-hover-change="setBadgeHovered(statement.id, $event)"
+          @context-hover-change="setContextHovered"
         />
       </section>
     </section>
+
+    <Transition name="detail-context-blur">
+      <div
+        v-if="isContextHovered"
+        class="detail-view__context-blur"
+        aria-hidden="true"
+      />
+    </Transition>
   </aside>
 </template>
 
