@@ -7,16 +7,16 @@
   align-items: center;
   box-sizing: border-box;
   min-height: var(--top-overlay-min-height);
-  padding: clamp(0.8rem, 1.7vw, 1.35rem) clamp(1.5rem, 5vw, 4rem);
+  padding: var(--space-2) var(--space-9);
   color: var(--top-overlay-text-color);
   background: var(--top-overlay-background);
-  box-shadow: 0 1rem 3rem rgba(var(--color-shadow-rgb), 0.34);
+  box-shadow: var(--overlay-shadow);
   pointer-events: none;
 }
 
 .top-overlay__inner {
   display: grid;
-  gap: 0.75rem;
+  gap: var(--space-2);
   width: min(72rem, 100%);
 }
 
@@ -31,15 +31,15 @@
   font-family: var(--font-sans);
   font-size: var(--overlay-title-size);
   font-weight: 950;
-  line-height: 1;
+  line-height: var(--text-heading-line-height);
 }
 
 .top-overlay p {
   max-width: 68rem;
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--overlay-text-size);
-  font-weight: 500;
-  line-height: 1.35;
+  font-weight: var(--text-lead-weight);
+  line-height: var(--text-body-line-height);
 }
 
 .top-overlay span {

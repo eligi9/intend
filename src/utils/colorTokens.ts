@@ -11,7 +11,7 @@ export function readCanvasBaseColors(): CanvasBaseColors {
   return {
     background: readCssVariableRgb('--bg-black'),
     ink: readCssVariableRgb('--text-black'),
-    text: readCssVariableRgb('--text-white'),
+    text: readCssVariableRgb('--color-text'),
     white: readCssVariableRgb('--color-white'),
   }
 }
