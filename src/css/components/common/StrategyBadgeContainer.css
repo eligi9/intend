@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: var(--strategy-badge-container-align, flex-start);
   align-self: center;
-  gap: 0.5rem;
+  gap: var(--space-1);
   justify-self: var(--strategy-badge-container-justify, start);
   max-width: 100%;
 }
@@ -12,7 +12,7 @@
   display: inline-flex;
   width: fit-content;
   max-width: none;
-  border-radius: 999rem;
+  border-radius: var(--space-1);
   outline: none;
 }
 
@@ -25,6 +25,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 100%;
-    margin-top: 1.125rem;
+    margin-top: var(--space-2);
   }
 }

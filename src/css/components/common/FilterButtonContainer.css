@@ -3,9 +3,9 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 1rem;
+  gap: var(--space-2);
   width: fit-content;
-  max-width: min(100%, 36rem);
+  max-width: 100%;
 }
 
 .filter-button-container small {
@@ -19,9 +19,15 @@
 
 .filter-button-container__buttons {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--space-1);
   width: fit-content;
   max-width: 100%;
+}
+
+@media (max-width: 48.75rem) {
+  .filter-button-container__buttons {
+    flex-wrap: wrap;
+  }
 }

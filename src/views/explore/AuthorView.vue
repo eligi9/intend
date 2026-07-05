@@ -6,6 +6,7 @@ import DetailView from '../../components/common/DetailView.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import { useAuthorStore } from '../../stores/authorStore'
+import { useStatementStore } from '../../stores/statementStore'
 import type { AuthorInstance } from '../../types/authorData'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
 import type { PatternLabelKey } from '../../types/intentData'
@@ -20,9 +21,10 @@ const emit = defineEmits<{
 }>()
 
 const authorStore = useAuthorStore()
+const statementStore = useStatementStore()
 const { authorInstances } = storeToRefs(authorStore)
 
-const selectedGender = ref<string | null>(null)
+const selectedGender = ref('')
 const selectedPatternLabels = ref<PatternLabelKey[]>([])
 const selectedAuthorId = ref<string | null>(null)
 const authorPortraitSize = 92
@@ -30,19 +32,14 @@ const authorPortraitSize = 92
 const selectedAuthor = computed(
   () => authorInstances.value.find((author) => author.id === selectedAuthorId.value) ?? null,
 )
+const selectedAuthorStatements = computed(() =>
+  selectedAuthor.value ? statementStore.getStatementsForAuthor(selectedAuthor.value.name) : [],
+)
 const genders = computed(() => {
   const availableGenders = new Set(authorInstances.value.map((author) => author.gender ?? 'unknown'))
 
   return ['female', 'male'].filter((gender) => availableGenders.has(gender))
 })
-const genderFilterLabels = computed(() =>
-  genders.value.map((gender) => ({
-    active: selectedGender.value === gender,
-    color: 'var(--color-neutral)',
-    key: gender,
-    label: getGenderLabel(gender),
-  })),
-)
 const patternFilterLabels = computed(() =>
   intentTaxonomy.map((group) => ({
     active: selectedPatternLabels.value.includes(group.parentLabel),
@@ -52,10 +49,6 @@ const patternFilterLabels = computed(() =>
   })),
 )
 
-function toggleGender(gender: string) {
-  selectedGender.value = selectedGender.value === gender ? null : gender
-}
-
 function togglePatternLabel(label: PatternLabelKey) {
   selectedPatternLabels.value = toggleArrayItem(selectedPatternLabels.value, label)
 }
@@ -64,13 +57,8 @@ function togglePatternLabelByKey(label: string) {
   togglePatternLabel(label as PatternLabelKey)
 }
 
-function getGenderLabel(gender: string) {
-  if (gender === 'female') return 'Female'
-  return 'Male'
-}
-
 function isAuthorVisible(author: AuthorInstance) {
-  const matchesGender = !selectedGender.value || (author.gender ?? 'unknown') === selectedGender.value
+  const matchesGender = selectedGender.value === '' || (author.gender ?? 'unknown') === selectedGender.value
   const matchesPatterns = selectedPatternLabels.value.every((label) =>
     author.usedTopLevelStrategyLabels.includes(label),
   )
@@ -98,11 +86,22 @@ function closeAuthorDetail() {
 
     <section class="author-filter-overlay" aria-label="Autoren Filter">
       <section class="author-filters">
-        <FilterButtonContainer
-          title="Geschlecht"
-          :labels="genderFilterLabels"
-          @select="toggleGender"
-        />
+        <div class="author-gender-filter">
+          <small>Gender</small>
+          <div class="author-gender-filter__select">
+            <select v-model="selectedGender" aria-label="Filter authors by gender">
+              <option value="">All</option>
+              <option
+                v-for="gender in genders"
+                :key="gender"
+                :value="gender"
+              >
+                {{ gender === 'female' ? 'Female' : 'Male' }}
+              </option>
+            </select>
+          </div>
+        </div>
+
         <FilterButtonContainer
           title="Mobilization Pattern"
           :labels="patternFilterLabels"
@@ -138,7 +137,8 @@ function closeAuthorDetail() {
         <DetailView
           v-if="selectedAuthorId"
           :author="selectedAuthor"
-          :records="selectedAuthor?.statements ?? []"
+          :records="selectedAuthorStatements"
+          :show-author-facts="true"
           @close="closeAuthorDetail"
         />
       </Transition>

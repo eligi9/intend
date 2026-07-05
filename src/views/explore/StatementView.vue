@@ -12,6 +12,11 @@ import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import { toggleArrayItem } from '../../utils/arrays'
 import { strategyColors } from '../../utils/intentLabels'
+import {
+  sortStatementsBySize,
+  sortStatementsByTime,
+  type StatementSortMode,
+} from '../../utils/sort'
 
 defineProps<ExploreHeaderProps>()
 
@@ -23,6 +28,7 @@ const statementStore = useStatementStore()
 const authorStore = useAuthorStore()
 const { filteredRecords, filters } = storeToRefs(statementStore)
 const selectedStatement = ref<IntentRecord | null>(null)
+const sortMode = ref<StatementSortMode>('size')
 
 const selectedAuthor = computed(() =>
   selectedStatement.value ? authorStore.getAuthorInstance(selectedStatement.value.author) : null,
@@ -35,6 +41,13 @@ const patternFilterLabels = computed(() =>
     label: group.label,
   })),
 )
+const sortedRecords = computed(() => {
+  if (sortMode.value === 'time') {
+    return sortStatementsByTime(filteredRecords.value)
+  }
+
+  return sortStatementsBySize(filteredRecords.value)
+})
 
 function togglePatternLabel(label: PatternLabelKey) {
   statementStore.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
@@ -59,17 +72,9 @@ function closeStatementDetail() {
     />
 
     <section class="statement-view__content" aria-label="Statements">
-      <button
-        v-if="selectedStatement"
-        type="button"
-        class="statement-view__scrim"
-        aria-label="Statement Detailansicht schliessen"
-        @click="closeStatementDetail"
-      />
-
       <div class="statement-view__grid">
         <StatementButton
-          v-for="statement in filteredRecords"
+          v-for="statement in sortedRecords"
           :key="statement.id"
           :statement="statement"
           @click="selectedStatement = statement"
@@ -82,16 +87,34 @@ function closeStatementDetail() {
       </div>
     </section>
 
+    <button
+      v-if="selectedStatement"
+      type="button"
+      class="statement-view__scrim"
+      aria-label="Statement Detailansicht schliessen"
+      @click="closeStatementDetail"
+    />
+
     <section class="statement-filter-overlay" aria-label="Statement Filter">
       <section class="statement-filters">
         <div class="statement-search-filter">
-          <small>Search</small>
+          <small>Content Search</small>
           <input
             :value="filters.query"
             type="search"
-            placeholder="Autor, Kontext oder Statement"
+            placeholder="Search for terms like &quot;destroy&quot;"
             @input="statementStore.setQuery(($event.target as HTMLInputElement).value)"
           />
+        </div>
+
+        <div class="statement-sort-filter">
+          <small>Sort</small>
+          <div class="statement-sort-filter__select">
+            <select v-model="sortMode" aria-label="Statements sortieren">
+              <option value="size">Size</option>
+              <option value="time">Time</option>
+            </select>
+          </div>
         </div>
 
         <FilterButtonContainer
