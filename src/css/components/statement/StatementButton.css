@@ -1,5 +1,6 @@
 .statement-button {
-  --statement-button-core-size: 42%;
+  --statement-button-core-size: 38.2%;
+  --statement-button-ring-gap: 0.125rem;
   --statement-button-ring-stroke: 3px;
 
   position: relative;
@@ -54,5 +55,5 @@
   width: var(--statement-button-core-size);
   height: var(--statement-button-core-size);
   border-radius: 50%;
-  background: rgba(var(--color-text-rgb), 0.08);
+  background: var(--layer-2);
 }

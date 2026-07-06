@@ -15,7 +15,12 @@ const mainPatterns = computed(() => {
   }))
 })
 
-const ringSize = (index: number) => `${42 + (index + 1) * 14}%`
+const ringSize = (index: number) => {
+  const ringStep = '(var(--statement-button-ring-stroke) + var(--statement-button-ring-gap))'
+  const ringExpansion = Array.from({ length: (index + 1) * 2 }, () => ringStep).join(' + ')
+
+  return `calc(var(--statement-button-core-size) + ${ringExpansion})`
+}
 
 const ariaLabel = computed(
   () => `${props.statement.author}, ${props.statement.date}: ${props.statement.statement}`,

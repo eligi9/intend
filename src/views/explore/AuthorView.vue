@@ -3,8 +3,11 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
 import DetailView from '../../components/common/DetailView.vue'
+import DropdownSelect from '../../components/common/DropdownSelect.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
+import ViewGrid from '../../components/common/ViewGrid.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
+import { useInitialViewportGridCell } from '../../composables/useInitialViewportGridCellSize'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { AuthorInstance } from '../../types/authorData'
@@ -27,7 +30,10 @@ const { authorInstances } = storeToRefs(authorStore)
 const selectedGender = ref('')
 const selectedPatternLabels = ref<PatternLabelKey[]>([])
 const selectedAuthorId = ref<string | null>(null)
-const authorPortraitSize = 92
+const {
+  cellSize: authorGridCellSize,
+  cellSizePx: authorPortraitSize,
+} = useInitialViewportGridCell({ columns: 16 })
 
 const selectedAuthor = computed(
   () => authorInstances.value.find((author) => author.id === selectedAuthorId.value) ?? null,
@@ -40,6 +46,13 @@ const genders = computed(() => {
 
   return ['female', 'male'].filter((gender) => availableGenders.has(gender))
 })
+const genderOptions = computed(() => [
+  { label: 'Filter: All', value: '' },
+  ...genders.value.map((gender) => ({
+    label: gender === 'female' ? 'Female' : 'Male',
+    value: gender,
+  })),
+])
 const patternFilterLabels = computed(() =>
   intentTaxonomy.map((group) => ({
     active: selectedPatternLabels.value.includes(group.parentLabel),
@@ -76,7 +89,7 @@ function closeAuthorDetail() {
 </script>
 
 <template>
-  <section class="author-view">
+  <section class="author-view" :style="{ '--author-grid-cell-size': authorGridCellSize }">
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
@@ -87,30 +100,27 @@ function closeAuthorDetail() {
     <section class="author-filter-overlay" aria-label="Autoren Filter">
       <section class="author-filters">
         <div class="author-gender-filter">
-          <small>Gender</small>
-          <div class="author-gender-filter__select">
-            <select v-model="selectedGender" aria-label="Filter authors by gender">
-              <option value="">All</option>
-              <option
-                v-for="gender in genders"
-                :key="gender"
-                :value="gender"
-              >
-                {{ gender === 'female' ? 'Female' : 'Male' }}
-              </option>
-            </select>
-          </div>
+          <DropdownSelect
+            v-model="selectedGender"
+            :options="genderOptions"
+            select-label="Filter authors by gender"
+          />
         </div>
 
         <FilterButtonContainer
-          title="Mobilization Pattern"
           :labels="patternFilterLabels"
           @select="togglePatternLabelByKey"
         />
       </section>
     </section>
 
-    <section class="author-view__authors" aria-label="Autoren">
+    <ViewGrid
+      class="author-view__authors"
+      aria-label="Autoren"
+      cell-size="var(--author-grid-cell-size)"
+      :padding-block-start-cells="2"
+      :padding-inline-cells="3"
+    >
       <button
         v-for="author in authorInstances"
         :key="author.id"
@@ -122,7 +132,7 @@ function closeAuthorDetail() {
       >
         <AuthorPortrait :author="author" :size="authorPortraitSize" />
       </button>
-    </section>
+    </ViewGrid>
 
     <button
       v-if="selectedAuthorId"

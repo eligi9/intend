@@ -1,0 +1,29 @@
+.dropdown-select {
+  position: relative;
+  width: 9rem;
+}
+
+.dropdown-select::after {
+  position: absolute;
+  top: 50%;
+  right: var(--space-2);
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 0.125rem solid rgba(var(--color-text-rgb), 0.7);
+  border-bottom: 0.125rem solid rgba(var(--color-text-rgb), 0.7);
+  content: '';
+  pointer-events: none;
+  transform: translateY(-65%) rotate(45deg);
+}
+
+.dropdown-select select {
+  width: 100%;
+  min-height: var(--space-4);
+  padding: 0 var(--space-5) 0 var(--space-2);
+  border: 0.0625rem solid rgba(var(--color-text-rgb), 0.22);
+  border-radius: var(--space-1);
+  color: var(--color-text);
+  background: rgba(var(--color-text-rgb), 0.06);
+  font-weight: 700;
+  cursor: pointer;
+}

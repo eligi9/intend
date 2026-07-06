@@ -1,0 +1,39 @@
+.view-grid {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, var(--view-grid-cell-size));
+  grid-auto-rows: var(--view-grid-cell-size);
+  align-content: start;
+  justify-content: start;
+  min-width: 0;
+  min-height: 0;
+  padding-block-start: calc(var(--view-grid-cell-size) * var(--view-grid-padding-block-start-cells));
+  padding-inline: calc(var(--view-grid-cell-size) * var(--view-grid-padding-inline-cells));
+  box-sizing: border-box;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.view-grid--with-lines::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--layer-2) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--layer-2) 1px, transparent 1px);
+  background-size:
+    var(--view-grid-cell-size) var(--view-grid-cell-size),
+    var(--view-grid-cell-size) var(--view-grid-cell-size);
+  content: '';
+}
+
+.view-grid :slotted(*) {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 0;
+  pointer-events: auto;
+}

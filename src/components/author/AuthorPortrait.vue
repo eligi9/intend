@@ -27,9 +27,15 @@ const props = withDefaults(
   },
 )
 
-const ringStroke = computed(() => Math.max(2, Math.round(props.size * 0.03)))
-const ringGap = computed(() => Math.max(2, Math.round(ringStroke.value * 0.6)))
+const goldenRatio = 1.61803398875
 const maxRingCount = strategyDisplayOrder.length
+const ringStroke = computed(() => Math.max(2, Math.round(props.size * 0.03)))
+const ringGap = computed(() => {
+  const goldenImageSize = props.size / goldenRatio
+  const ringStep = (props.size - goldenImageSize) / (maxRingCount * 2)
+
+  return Math.max(0, ringStep - ringStroke.value)
+})
 const totalRingSpace = computed(
   () => props.showRings ? maxRingCount * (ringStroke.value + ringGap.value) : 0,
 )
