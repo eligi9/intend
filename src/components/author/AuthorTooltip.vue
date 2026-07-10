@@ -12,12 +12,6 @@ const props = defineProps<{
 const tooltipRoot = ref<HTMLElement | null>(null)
 const { placement, updatePlacement } = useFloatingPlacement(tooltipRoot)
 
-const ageLabel = computed(() => (props.author.age === null ? 'unknown' : props.author.age))
-const genderLabel = computed(() => {
-  if (props.author.gender === 'female') return 'female'
-  if (props.author.gender === 'male') return 'male'
-  return 'unknown'
-})
 const strategyBadges = computed(() =>
   props.author.usedTopLevelStrategies.map((strategy) => ({
     ...strategy,
@@ -41,19 +35,6 @@ const strategyBadges = computed(() =>
       <span class="author-tooltip__heading">
         <strong class="author-tooltip__name">{{ author.name }}</strong>
         <span class="author-tooltip__position">{{ author.position ?? 'Position unbekannt' }}</span>
-      </span>
-
-      <span class="author-tooltip__facts">
-        <span class="author-tooltip__fact-labels">
-          <span>age:</span>
-          <span>sex:</span>
-          <span>partie:</span>
-        </span>
-        <span class="author-tooltip__fact-values">
-          <span>{{ ageLabel }}</span>
-          <span>{{ genderLabel }}</span>
-          <span>{{ author.party ?? 'unknown' }}</span>
-        </span>
       </span>
 
       <span

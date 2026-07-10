@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from 'vue'
 import type { IntentRecord } from '../../types/intentData'
-import { splitStatementText } from '../../utils/statementHighlights'
+import { splitMeasureText, splitStatementText } from '../../utils/statementHighlights'
 import SideOverlay from './SideOverlay.vue'
 
 const props = withDefaults(
@@ -23,12 +23,6 @@ const showContextButton = computed(() => props.showContextButton)
 const emit = defineEmits<{
   contextHoverChange: [visible: boolean]
 }>()
-const measureHighlights = computed(() => {
-  return props.record.measures.map((text) => ({
-    color: '#000',
-    text,
-  }))
-})
 const anchorHighlights = computed(() => {
   return props.anchorTexts.map((text) => ({
     color: props.anchorColor,
@@ -36,12 +30,8 @@ const anchorHighlights = computed(() => {
   }))
 })
 const statementMeta = computed(() => [props.record.date, props.record.source].filter(Boolean).join(' · '))
-const statementSegments = computed(() =>
-  splitStatementText(props.record.statement, [
-    ...measureHighlights.value,
-    ...anchorHighlights.value,
-  ]),
-)
+const anchorSegments = computed(() => splitStatementText(props.record.statement, anchorHighlights.value))
+const measureSegments = computed(() => splitMeasureText(props.record.statement, props.record.measures))
 
 function setContextVisible(visible: boolean) {
   if (showContext.value === visible) return
@@ -65,17 +55,37 @@ onBeforeUnmount(() => {
       </span>
 
       <span class="statement-card__quote">
+        <span class="statement-card__quote-layer statement-card__quote-layer--anchors">
+          <span
+            v-for="(segment, index) in anchorSegments"
+            :key="`anchor-${segment.text}-${index}`"
+            :class="{
+              'statement-card__quote-part': true,
+              'statement-card__quote-muted': segment.muted,
+              'statement-card__quote-highlight': segment.color,
+            }"
+            :style="{ '--statement-card-highlight-color': segment.color ?? 'var(--color-neutral)' }"
+          >
+            {{ segment.text }}
+          </span>
+        </span>
+
         <span
-          v-for="(segment, index) in statementSegments"
-          :key="`${segment.text}-${index}`"
-          :class="{
-            'statement-card__quote-part': true,
-            'statement-card__quote-muted': segment.muted,
-            'statement-card__quote-highlight': segment.color,
-          }"
-          :style="{ '--statement-card-highlight-color': segment.color ?? 'var(--color-neutral)' }"
+          class="statement-card__quote-layer statement-card__quote-layer--measures"
+          aria-hidden="true"
         >
-          {{ segment.text }}
+          <span
+            v-for="(segment, index) in measureSegments"
+            :key="`measure-${segment.text}-${index}`"
+            :class="{
+              'statement-card__quote-part': true,
+              'statement-card__quote-muted': segment.muted,
+              'statement-card__quote-highlight--measure': segment.color,
+            }"
+            :style="{ '--statement-card-highlight-color': segment.color ?? 'var(--color-neutral)' }"
+          >
+            {{ segment.text }}
+          </span>
         </span>
       </span>
 
@@ -95,6 +105,8 @@ onBeforeUnmount(() => {
 
     <SideOverlay
       :visible="Boolean(record.context && showContextButton && showContext)"
+      side="left"
+      color="var(--color-text)"
       title="Context"
       :text="record.context ?? ''"
     />

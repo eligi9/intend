@@ -7,9 +7,9 @@ import {
   getStatementPatternBriefJustification,
 } from '../../utils/statementPatterns'
 import { getDisplayLabel } from '../../utils/statementHighlights'
+import SideOverlay from './SideOverlay.vue'
 import StatementCard from './StatementCard.vue'
 import StrategyBadgeContainer from './StrategyBadgeContainer.vue'
-import TopOverlay from './TopOverlay.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -53,14 +53,13 @@ watch(hoveredLabel, (label) => {
     class="statement-pattern-card"
     :class="{ 'statement-pattern-card--without-badges': badges.length === 0 }"
   >
-    <TopOverlay
-      :background="explanationBackground"
-      heading-color="var(--text-white)"
-      min-height="33vh"
+    <SideOverlay
+      :color="explanationBackground"
+      side="left"
       :text="hoveredExplanation ?? ''"
-      text-color="var(--text-white)"
       :title="hoveredBadge ? `Why ${getDisplayLabel(hoveredBadge.label)}?` : ''"
       :visible="Boolean(hoveredBadge && hoveredExplanation)"
+      @close="hoveredLabel = null"
     />
 
     <StatementCard

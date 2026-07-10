@@ -3,8 +3,8 @@ import { computed } from 'vue'
 import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import { getDisplayLabel } from '../../utils/statementHighlights'
 import { getPatternAnnotation } from '../../utils/intentRecordPatterns'
+import SideOverlay from '../common/SideOverlay.vue'
 import StatementCard from '../common/StatementCard.vue'
-import TopOverlay from '../common/TopOverlay.vue'
 
 const props = defineProps<{
   anchorText?: string
@@ -33,12 +33,10 @@ const explanationBackground = computed(() => props.highlightColor)
     aria-label="Selected statement"
     @click.stop
   >
-    <TopOverlay
-      :background="explanationBackground"
-      heading-color="var(--text-white)"
-      min-height="33vh"
+    <SideOverlay
+      :color="explanationBackground"
+      side="left"
       :text="explanation ?? ''"
-      text-color="var(--text-white)"
       :title="`Why ${getDisplayLabel(props.label)}?`"
       :visible="explanation !== null"
     />

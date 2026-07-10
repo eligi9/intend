@@ -1,29 +1,44 @@
 .side-overlay {
+  --side-overlay-background: var(--bg-white);
+  --side-overlay-heading-color: var(--text-black);
+  --side-overlay-text-color: var(--text-black);
+
   position: fixed;
   z-index: 320;
   inset-block: 0;
-  inset-inline-end: 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  width: 38.2vw;
+  inline-size: 38.196601125vw;
   min-width: 20rem;
   max-width: 100%;
   min-height: 0;
   padding: var(--space-9);
   color: var(--side-overlay-text-color);
-  background:
-    var(--side-overlay-background-effect),
-    var(--side-overlay-background);
+  background: var(--side-overlay-background);
   box-shadow: var(--overlay-shadow);
   overflow-y: auto;
+}
+
+.side-overlay--colored {
+  --side-overlay-heading-color: var(--text-white);
+  --side-overlay-text-color: var(--text-white);
+}
+
+.side-overlay--right {
+  inset-inline-end: 0;
+}
+
+.side-overlay--left {
+  inset-inline-start: 0;
 }
 
 .side-overlay h3 {
   margin: 0;
   color: var(--side-overlay-heading-color);
   font-family: var(--font-sans);
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-3);
   font-weight: 850;
   line-height: var(--text-heading-line-height);
 }
@@ -40,12 +55,21 @@
 .side-overlay-enter-active,
 .side-overlay-leave-active {
   transition:
-    opacity 180ms ease,
-    transform 220ms ease;
+    opacity 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .side-overlay-enter-from,
 .side-overlay-leave-to {
   opacity: 0;
+}
+
+.side-overlay-enter-from.side-overlay--right,
+.side-overlay-leave-to.side-overlay--right {
   transform: translateX(100%);
+}
+
+.side-overlay-enter-from.side-overlay--left,
+.side-overlay-leave-to.side-overlay--left {
+  transform: translateX(-100%);
 }

@@ -23,8 +23,8 @@ const props = defineProps<{
   records: readonly IntentRecord[]
 }>()
 
-const isContextHovered = ref(false)
 const hoveredBadgeStatementId = ref<string | null>(null)
+const hoveredContextStatementId = ref<string | null>(null)
 
 const emit = defineEmits<{
   close: []
@@ -55,8 +55,12 @@ const selectionTerms = computed<SelectionTerm[]>(() => {
   return terms
 })
 
-function setContextHovered(visible: boolean) {
-  isContextHovered.value = visible
+function setContextHovered(statementId: string, visible: boolean) {
+  hoveredContextStatementId.value = visible
+    ? statementId
+    : hoveredContextStatementId.value === statementId
+      ? null
+      : hoveredContextStatementId.value
 }
 
 function setBadgeHovered(statementId: string, visible: boolean) {
@@ -72,7 +76,6 @@ function setBadgeHovered(statementId: string, visible: boolean) {
   <aside
     class="detail-view"
     aria-label="Selection detail"
-    @click="emit('close')"
     @scroll.stop
     @touchmove.stop
     @wheel.stop
@@ -111,24 +114,17 @@ function setBadgeHovered(statementId: string, visible: boolean) {
           v-for="statement in records"
           :key="statement.id"
           :class="{
-            'detail__statement--badge-dimmed':
-              hoveredBadgeStatementId !== null && hoveredBadgeStatementId !== statement.id,
+            'detail__statement--dimmed':
+              (hoveredBadgeStatementId !== null && hoveredBadgeStatementId !== statement.id) ||
+              (hoveredContextStatementId !== null && hoveredContextStatementId !== statement.id),
           }"
           :record="statement"
           :show-context-button="true"
           @badge-hover-change="setBadgeHovered(statement.id, $event)"
-          @context-hover-change="setContextHovered"
+          @context-hover-change="setContextHovered(statement.id, $event)"
         />
       </section>
     </section>
-
-    <Transition name="detail-context-blur">
-      <div
-        v-if="isContextHovered"
-        class="detail-view__context-blur"
-        aria-hidden="true"
-      />
-    </Transition>
   </aside>
 </template>
 

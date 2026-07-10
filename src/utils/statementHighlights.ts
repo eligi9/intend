@@ -24,6 +24,22 @@ export function splitStatementText(text: string, anchors: AnchorHighlight[]) {
   return ranges.flatMap((range) => splitRangeByBrackets(text, range))
 }
 
+export function splitMeasureText(text: string, measures: readonly string[]) {
+  const ranges = findHighlightRanges(
+    text,
+    measures.map((measure) => ({
+      color: '#8f8f8f',
+      text: measure,
+    })),
+  )
+
+  return ranges.map((range) => ({
+    color: range.color,
+    muted: false,
+    text: text.slice(range.start, range.end),
+  }))
+}
+
 export function getDisplayLabel(label: PatternLabelKey) {
   return intentLabelNames[label]
 }

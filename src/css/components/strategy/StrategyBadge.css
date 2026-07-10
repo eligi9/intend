@@ -8,7 +8,7 @@
   padding-block: var(--strategy-badge-padding-block, var(--space-half));
   padding-inline: var(--strategy-badge-padding-inline, var(--space-1));
   border: 0.125rem solid var(--strategy-badge-color);
-  border-radius: 999rem;
+  border-radius: var(--space-1);
   color: var(--strategy-badge-color);
   background: color-mix(in srgb, var(--strategy-badge-color) 16%, transparent);
   font-size: var(--strategy-badge-font-size, var(--font-size--1));
@@ -31,7 +31,7 @@
   padding-inline: var(--space-half);
   color: var(--strategy-badge-count-color, var(--app-background));
   background: var(--strategy-badge-color);
-  border-radius: 999rem;
+  border-radius: var(--space-half);
   font-size: 0.9em;
   line-height: 1;
 }

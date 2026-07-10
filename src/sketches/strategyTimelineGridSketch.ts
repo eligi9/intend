@@ -143,7 +143,7 @@ function drawEvents(
       )
     }
 
-    const textColor = hovered ? colors.ink : colors.text
+    const textColor = hovered ? colors.white : colors.text
 
     p.fill(textColor[0], textColor[1], textColor[2], hovered ? 255 : 240)
     p.textSize(EVENT_DATE_FONT_SIZE)
