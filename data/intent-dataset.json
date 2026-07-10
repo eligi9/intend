@@ -292,7 +292,7 @@
       "essentialization_bj": "The statement essentializes the enemy by calling them “Nazis” and “evil,” making evil appear as their defining characteristic.",
       "dehumanization_bj": null,
       "threat_construction_bj": null,
-      "just_cause": "yes",
+      "just_cause": "no",
       "security_rationale": "no",
       "selfdefence_counterterrorism": "no",
       "retaliation": "yes",
@@ -329,7 +329,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "You eradicate evil from the world"
+        "You eradicate evil from the world",
+        "Do you want your pop. [in Gaza] to drink?"
       ]
     },
     {
@@ -420,7 +421,7 @@
       "threat_construction_bj": null,
       "just_cause": "yes",
       "security_rationale": "no",
-      "selfdefence_counterterrorism": "yes",
+      "selfdefence_counterterrorism": "no",
       "retaliation": "no",
       "security_rationale_anchor": [],
       "selfdefence_counterterrorism_anchor": [
@@ -585,8 +586,6 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Nakba to the enemy now",
-        "Right now, one goal: Nakba",
-        "A Nakba that will overshadow the Nakba of 48",
         "A Nakba in Gaza and a Nakba for anyone who dares to join"
       ]
     },
@@ -769,7 +768,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Total operational freedom of action - just like we operate in Jenin"
+        "it must be escalated",
+        "Total operational freedom of action"
       ]
     },
     {
@@ -1146,8 +1146,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "establishment of a military government that will control Gaza",
-        "supervise the distribution of humanitarian aid"
+        "establishment of a military government that will control Gaza"
       ]
     },
     {
@@ -1219,7 +1218,9 @@
       "no_alternative_framing_bj": "The statement presents sustainable peace as possible only when Arab statehood aspirations are “dashed,” making the strengthening of Jewish settlement appear necessary.",
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": "The statement frames accusations of settler violence, BDS, and American sanctions as antisemitic and anti-moral attacks, thereby making external accountability appear illegitimate.",
-      "measures": []
+      "measures": [
+        "strengthen and develop Jewish settlement in all parts of the Land of Israel"
+      ]
     },
     {
       "id": "legislators-0020",
@@ -1279,7 +1280,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "prevent the aid from reaching Hamas"
+      ]
     },
     {
       "id": "legislators-0021",
@@ -1348,9 +1351,9 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "We must destroy Rafah, Nusseirat, & Dir al-Balah",
         "wipe out the memory of Amalek",
-        "absolute destruction"
+        "absolute destruction",
+        "Rafah, Dir al-Balah Nusseirat absolute destruction!"
       ]
     },
     {
@@ -1480,7 +1483,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Hamas is totally eliminated",
+        "continue the war",
         "conquering Rafah completely"
       ]
     },
@@ -1616,6 +1619,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
+        "thwart the establishment of a Palestinian state.",
         "control Gaza for a long time",
         "re-establishing settlements"
       ]
@@ -1681,6 +1685,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
+        "bringing in aid",
         "cause 2 million civilians to die of hunger"
       ]
     },
@@ -2243,7 +2248,9 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "we are colonizing Gaza"
+        "occupying the Land of Israel",
+        "liberating Gaza",
+        "colonizing Gaza"
       ]
     },
     {
@@ -2575,11 +2582,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Erase all of Gaza from the face of the earth",
-        "try to enter Egyptian territory or they will die",
-        "Gaza should be erased",
         "Erasing all of Gaza from the face of the earth",
-        "try to enter Egyptian territory",
-        "Or they will die"
+        "or they will die & their death will be evil.",
+        "Gaza should be erased."
       ]
     },
     {
@@ -2770,8 +2775,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "assist in the costs of resettlement",
-        "build new lives in their new host countries"
+        "resettlement"
       ]
     },
     {
@@ -2832,7 +2836,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "soldiers can be arrested for things they do to 'Nukhba' terrorists"
+      ]
     },
     {
       "id": "legislators-0045",
@@ -3077,7 +3083,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Gazans to leave"
+        "move [of forcing] Gazans to leave"
       ]
     },
     {
@@ -3139,7 +3145,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "A watershed will not be opened until the abductees are returned home"
+        "A watershed will not be opened"
       ]
     },
     {
@@ -3261,9 +3267,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "mass civilian casualties were an acceptable price",
-        "devastating bombings",
-        "dropping of the two atomic warheads"
+        "mass civilian casualties were an acceptable price"
       ]
     },
     {
@@ -3323,8 +3327,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "the city of gaza in ruins",
-        "unconventional tools"
+        "The target: the city of gaza in ruins"
       ]
     },
     {
@@ -3386,8 +3389,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "hundreds of tons of explosives by the Air Force",
-        "not an ounce of humanitarian aid"
+        "the only thing that needs to enter Gaza is hundreds of tons of explosives by the Air Force, and not an ounce of humanitarian aid."
       ]
     },
     {
@@ -3450,7 +3452,7 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "There has to be occupation here",
-        "fully rule",
+        "We need to fully rule",
         "resuming settlement in Gush Katif"
       ]
     },
@@ -3511,10 +3513,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "eight handcuffed terrorists in a dark cell",
-        "iron beds",
-        "toilets in a hole in the floor",
-        "Hatikvah [the Israeli National Anthem] playing on a loop"
+        "eight handcuffed terrorists in a dark cell, iron beds, toilets in a hole in the floor and Hatikvah [the Israeli National Anthem] playing on a loop"
       ]
     },
     {
@@ -3643,7 +3642,7 @@
       "date": "28/01/2024",
       "context": null,
       "source": null,
-      "statement": "1) \"But today everyone already understands that fleeing also brings war and that if we want there to be no more 7.10, we need to return home to control the territory, and also offer a moral and logical solution to the humanitarian problem. Encouraging immigration and a death penalty law for terrorists.\" 2) \"It is also the image of our victory and their understanding that we have been here since and forever.\" 3) \"It's time to encourage immigration and it's time to win!\"",
+      "statement": "1) \"But today everyone already understands that fleeing also brings war and that if we want there to be no more 7.10, we need to return home to control the territory, and also offer a moral and logical solution to the humanitarian problem. Encouraging immigration and a death penalty law for terrorists.\"\n2) \"It is also the image of our victory and their understanding that we have been here since and forever.\"\n3) \"It's time to encourage immigration and it's time to win!\"",
       "speakerPosition": "Minister of National Security",
       "enemy_image": "no",
       "homogenization": "no",
@@ -3700,9 +3699,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "return home to control the territory",
-        "Encouraging immigration",
-        "death penalty law for terrorists"
+        "Encouraging immigration and a death penalty law for terrorists",
+        "encourage immigration"
       ]
     },
     {
@@ -3824,8 +3822,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "shoot anyone who enters the area of ​​the security strip",
-        "Anyone who enters there is a son of death"
+        "shoot anyone who enters the area of ​​the security strip, Anyone who enters there is a son of death"
       ]
     },
     {
@@ -3893,7 +3890,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "elimination of three terrorists",
+        "heroic activity last night in cooperation with the IDF and Shin Bet forces in the Jenin refugee camp",
         "operate everywhere and by all means"
       ]
     },
@@ -3960,7 +3957,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "oppose the introduction of any humanitarian aid"
+        "oppose the introduction of any humanitarian aid",
+        "No for a promiscuous deal and No for stopping the war."
       ]
     },
     {
@@ -4052,7 +4050,7 @@
       "date": "11/02/2024",
       "context": "Minister on National Security calling to shoot any Palestinian, including women or children, that come close to the fence in the North of Gaza.",
       "source": null,
-      "statement": "\"Obviously, we need to pay attention to incidents of our forces shooting at our forces, but on the other hand, we need clear instructions. There is no way that children and women are approaching the fence.Anyone who comes close to harm security should be shot.\"",
+      "statement": "\"Obviously, we need to pay attention to incidents of our forces shooting at our forces, but on the other hand, we need clear instructions. There is no way that children and women are approaching the fence. Anyone who comes close to harm security should be shot.\"",
       "speakerPosition": "Minister of National Security",
       "enemy_image": "yes",
       "homogenization": "yes",
@@ -4141,7 +4139,7 @@
       "selfdefence_counterterrorism": "no",
       "retaliation": "yes",
       "security_rationale_anchor": [
-        "In order for the problem not to recur, two things must be done: return to the Gaza Strip and encourage the voluntary emigration of Gaza residents."
+        "In order for the problem not to recur, two things must be done:"
       ],
       "selfdefence_counterterrorism_anchor": [],
       "retaliation_anchor": [
@@ -4224,17 +4222,21 @@
       "meaning_bj": "The statement gives opposition to a Palestinian state a larger national-religious meaning by linking it to the Temple Mount as “the holiest place for the people of Israel” and framing Israeli sovereignty over it as non-negotiable.",
       "status_bj": null,
       "hope_for_victory_bj": null,
-      "rhetorical_foreclosure": "no",
+      "rhetorical_foreclosure": "yes",
       "no_alternative_framing": "no",
       "humanity_as_weakness": "no",
-      "external_criticism_rejection": "no",
+      "external_criticism_rejection": "yes",
       "no_alternative_framing_anchor": [],
       "humanity_as_weakness_anchor": [],
-      "external_criticism_rejection_anchor": [],
+      "external_criticism_rejection_anchor": [
+        "The countries that recognized a Palestinian state this morning want to reward the kidnappers"
+      ],
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
-      "external_criticism_rejection_bj": null,
-      "measures": []
+      "external_criticism_rejection_bj": "The statement rejects external political recognition of a Palestinian state by framing it as a reward for kidnappers and their supporters, making outside criticism or pressure appear illegitimate.",
+      "measures": [
+        "we will not allow any surrender that even includes a declaration of a Palestinian state."
+      ]
     },
     {
       "id": "legislators-0067",
@@ -4242,7 +4244,7 @@
       "author": "Itamar Ben Gvir",
       "sector": "Legislators",
       "date": "24/05/2024",
-      "context": "Minister of National Security Itamar Ben-Gvir responded to the ICJ ruling. Israel has weaponizing its claims of antisemitism to silence legitimate criticism of its apartheid policies and military aggression, using this narrative to justify the systematic oppression of Palestinians, to shield itself from accountability for ongoing settler colonialism and state-sponsored violence against Palestinians.\n. The ICJ, the top UN court in The Hague, ordered an immediate halt to Israeli operations in Rafah on May 24, 2024, citing the \"disastrous\" humanitarian situation. &&link&&\nhttps://www.aljazeera.com/news/2024/5/24/explainer-icj-rules-israel-must-stop-rafah-operation-whats-next#:~:text=The%20International%20Court%20of%20Justice,hundreds%20of%20thousands%20of%20people.",
+      "context": "Minister of National Security Itamar Ben-Gvir responded to the ICJ ruling. Israel has weaponizing its claims of antisemitism to silence legitimate criticism of its apartheid policies and military aggression, using this narrative to justify the systematic oppression of Palestinians, to shield itself from accountability for ongoing settler colonialism and state-sponsored violence against Palestinians. The ICJ, the top UN court in The Hague, ordered an immediate halt to Israeli operations in Rafah on May 24, 2024, citing the \"disastrous\" humanitarian situation.",
       "source": null,
       "statement": "\"The irrelevant order of the anti-Semitic court in The Hague should have only one answer: the occupation of Rafah.\"",
       "speakerPosition": "Minister of National Security",
@@ -4295,7 +4297,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": "The statement delegitimizes external legal oversight by calling the court in The Hague “irrelevant” and “anti-Semitic,” making its order appear illegitimate.",
       "measures": [
-        "occupation of Rafah"
+        "the occupation of Rafah."
       ]
     },
     {
@@ -4361,8 +4363,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "those who celebrate, those who support, and those who give away candy, all of these are terrorists",
-        "they also need to be eliminated"
+        "And they also need to be eliminated!"
       ]
     },
     {
@@ -4373,7 +4374,7 @@
       "date": "5/6/2024",
       "context": "When asked about his solution for Gaza.",
       "source": null,
-      "statement": "\"Occupation, settlement, and encourgment of migration, only this way we can solve the problem in Gaza; to occupy all the land, to settle in all of the land, and of course to encourage voluntary migration [...]\"",
+      "statement": "\"Occupation, settlement, and encouragement of migration, only this way we can solve the problem in Gaza; to occupy all the land, to settle in all of the land, and of course to encourage voluntary migration [...]\"",
       "speakerPosition": "Minister of National Security",
       "enemy_image": "no",
       "homogenization": "no",
@@ -4424,10 +4425,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Occupation, settlement, and encourgment of migration",
-        "occupy all the land",
-        "settle in all of the land",
-        "encourage voluntary migration"
+        "Occupation, settlement, and encouragement of migration",
+        "to occupy all the land, to settle in all of the land, and of course to encourage voluntary migration"
       ]
     },
     {
@@ -4438,7 +4437,7 @@
       "date": "18/6/2024",
       "context": "National Security Minister Itamar Ben-Gvir participated in a parliamentary caucus at Israel's Knesset, advocating for Israeli Jewish settlements in the Gaza Strip. The caucus, led by far-right lawmakers Limor Son Har-Melech and Zvi Sukkot, convened settler leaders and far-right activists in Israel's parliament.",
       "source": "Knesset parliamentary caucus",
-      "statement": "\"We are committed to returning to Gaza, to northern Samaria, [in the West Bank] and to settling there. People tell me 'Gush Katif', and I say all throughout Gaza,\" [...] \"where there are no Jews, terrorism, murder, and rockets take hold.\" He stressed that re-settlement \"must be accompanied by encouraging emigration\" of Palestinians from Gaza, insisting that \"if we do not promote emigration, we are deceiving ourselves.\"",
+      "statement": "\"We are committed to returning to Gaza, to northern Samaria, [in the West Bank] and to settling there. People tell me 'Gush Katif', and I say all throughout Gaza\" [...] \"where there are no Jews, terrorism, murder, and rockets take hold.\" He stressed that re-settlement \"must be accompanied by encouraging emigration\" of Palestinians from Gaza, insisting that \"if we do not promote emigration, we are deceiving ourselves.\"",
       "speakerPosition": "Minister of National Security",
       "enemy_image": "yes",
       "homogenization": "yes",
@@ -4497,8 +4496,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "re-settlement \"must be accompanied by encouraging emigration\"",
-        "if we do not promote emigration, we are deceiving ourselves"
+        "returning to Gaza, to northern Samaria, [in the West Bank] and to settling there. People tell me 'Gush Katif', and I say all throughout Gaza",
+        "re-settlement \"must be accompanied by encouraging emigration\""
       ]
     },
     {
@@ -4742,8 +4741,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "gates of hell on Gaza",
-        "encourage Gazans to emigrate"
+        "gates of hell on Gaza, encourage Gazans to emigrate."
       ]
     },
     {
@@ -4937,7 +4935,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "closing of the crossing for trucks transporting food, medicine and more"
+        "closing of the crossing for trucks transporting food, medicine and more for the residents of Gaza and especially for Hamas.",
+        "allow aid"
       ]
     },
     {
@@ -5062,7 +5061,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "No electricity, no water, just damage"
+        "No electricity, no water, just damage."
       ]
     },
     {
@@ -5122,7 +5121,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "dead bodies of terrorists around Gaza"
+        "I want to see dead bodies of terrorists around Gaza."
       ]
     },
     {
@@ -5184,7 +5183,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "proud of the ruins in Gaza"
+        "the ruins in Gaza."
       ]
     },
     {
@@ -5284,17 +5283,15 @@
       "essentialization_bj": null,
       "dehumanization_bj": null,
       "threat_construction_bj": null,
-      "just_cause": "yes",
+      "just_cause": "no",
       "security_rationale": "no",
-      "selfdefence_counterterrorism": "yes",
+      "selfdefence_counterterrorism": "no",
       "retaliation": "no",
       "security_rationale_anchor": [],
-      "selfdefence_counterterrorism_anchor": [
-        "Nukhba' terrorists being shot in the head at the end of their interrogation"
-      ],
+      "selfdefence_counterterrorism_anchor": [],
       "retaliation_anchor": [],
       "security_rationale_bj": null,
-      "selfdefence_counterterrorism_bj": "The statement makes violence against detainees appear justified by framing them as Nukhba terrorists, while portraying care for them as illegitimate.",
+      "selfdefence_counterterrorism_bj": null,
       "retaliation_bj": null,
       "individual_needs": "yes",
       "meaning": "no",
@@ -5316,10 +5313,12 @@
       "humanity_as_weakness_anchor": [
         "Instead of the 'Nukhba' terrorists being shot in the head at the end of their interrogation, someone takes care of feeding them and taking care of their welfare"
       ],
-      "external_criticism_rejection_anchor": [],
+      "external_criticism_rejection_anchor": [
+        "reservists are arrested on suspicion of abusing 'Nukhba' terrorists is simply insane!"
+      ],
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": "The statement rejects feeding and caring for detained “Nukhba” terrorists by framing it as “insane” and humiliating, making humanitarian or legal restraint appear inappropriate.",
-      "external_criticism_rejection_bj": null,
+      "external_criticism_rejection_bj": "The statement rejects legal scrutiny of alleged abuse by framing the arrest of reservists as “simply insane,” making accountability for detainee mistreatment appear illegitimate.",
       "measures": [
         "Nukhba' terrorists being shot in the head at the end of their interrogation"
       ]
@@ -5443,9 +5442,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Destroy all energy sources including fuel, solar systems, generators and power lines",
-        "Destroy all food sources including warehouses, water and water pumps",
-        "Lay siege and remotely kill everyone not flying a white flag of surrender"
+        "Destroy all energy sources including fuel, solar systems, generators and power lines. Destroy all food sources including warehouses, water and water pumps. _x000D_\nLay siege and remotely kill everyone not flying a white flag of surrender."
       ]
     },
     {
@@ -5466,7 +5463,7 @@
       "threat_construction": "yes",
       "homogenization_anchor": [
         "There are no uninvolved.",
-        "I hope my [soldier] son will killanyone who will stand infront of him who will want to harm the state of Israel, including children."
+        "I hope my [soldier] son will kill anyone who will stand infront of him who will want to harm the state of Israel, including children."
       ],
       "immutability_anchor": [],
       "essentialization_anchor": [],
@@ -5512,7 +5509,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "kill anyone who will stand infront of him who will want to harm the state of Israel, including children"
+        "I hope my [soldier] son will kill anyone who will stand infront of him who will want to harm the state of Israel, including children."
       ]
     },
     {
@@ -5583,34 +5580,33 @@
       "source": null,
       "statement": "\"Everything that was published about the deplorable conditions of these vile murderers in prison was true. [...] The conditions of the terrorists in prison were reduced to a minimum: we stopped the financial deposits, canceled the canteens for the terrorists, removed the electrical appliances from the cells, stopped the terrorists' promenade, dramatically reduced the terrorists' stay in the showers, canceled the speaker status, stopped the indulgent food menu that was replaced with a minimal menu, and in short - we completely stopped the conditions of the camp. [...] It is quite possible that even after the addition of the new places of detention is completed, the many terrorists will still be overcrowded in prison. I have already proposed a much simpler solution, enacting the death penalty for terrorists, which would solve the issue of overcrowding [...].\"",
       "speakerPosition": "Minister of National Security",
-      "enemy_image": "no",
-      "homogenization": "no",
+      "enemy_image": "yes",
+      "homogenization": "yes",
       "immutability": "no",
       "essentialization": "no",
       "dehumanization": "no",
       "threat_construction": "no",
-      "homogenization_anchor": [],
+      "homogenization_anchor": [
+        "these vile murderers"
+      ],
       "immutability_anchor": [],
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [],
-      "homogenization_bj": null,
+      "homogenization_bj": "The statement homogenizes the prisoners by portraying them collectively as “terrorists” and “vile murderers,” without acknowledging differences in individual conduct or legal status.",
       "immutability_bj": null,
       "essentialization_bj": null,
       "dehumanization_bj": null,
       "threat_construction_bj": null,
-      "just_cause": "yes",
+      "just_cause": "no",
       "security_rationale": "no",
-      "selfdefence_counterterrorism": "yes",
+      "selfdefence_counterterrorism": "no",
       "retaliation": "no",
       "security_rationale_anchor": [],
-      "selfdefence_counterterrorism_anchor": [
-        "The conditions of the terrorists in prison were reduced to a minimum",
-        "enacting the death penalty for terrorists"
-      ],
+      "selfdefence_counterterrorism_anchor": [],
       "retaliation_anchor": [],
       "security_rationale_bj": null,
-      "selfdefence_counterterrorism_bj": "The statement makes harsh prison conditions and the death penalty appear justified by framing the prisoners as terrorists and vile murderers.",
+      "selfdefence_counterterrorism_bj": null,
       "retaliation_bj": null,
       "individual_needs": "no",
       "meaning": "no",
@@ -5633,9 +5629,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "conditions of the terrorists in prison were reduced to a minimum",
-        "indulgent food menu that was replaced with a minimal menu",
-        "death penalty for terrorists"
+        "The conditions of the terrorists in prison were reduced to a minimum: we stopped the financial deposits, canceled the canteens for the terrorists, removed the electrical appliances from the cells, stopped the terrorists' promenade, dramatically reduced the terrorists' stay in the showers, canceled the speaker status, stopped the indulgent food menu that was replaced with a minimal menu, and in short - we completely stopped the conditions of the camp.",
+        "the death penalty for terrorists"
       ]
     },
     {
@@ -5646,7 +5641,7 @@
       "date": "13/10/2023",
       "context": null,
       "source": null,
-      "statement": "Israel's Ministry of Intelligence deportation directive outlines the four stages: 1. A call on #Palestinian civilians to vacate north #Gaza and allow for land operations; 2. Sequential land operations from north to south Gaza; 3. Leaving routes open across Rafah; 4. Establishing \"tent cities\" in northern Sinai and the construction of cities to resettle palestinians in Egypt.",
+      "statement": "Israel's Ministry of Intelligence deportation directive outlines the four stages:\n1. A call on #Palestinian civilians to vacate north #Gaza and allow for land operations;\n2. Sequential land operations from north to south Gaza;\n3. Leaving routes open across Rafah;\n4. Establishing \"tent cities\" in northern Sinai and the construction of cities to resettle palestinians in Egypt.",
       "speakerPosition": "Ministry of Intelligence",
       "enemy_image": "no",
       "homogenization": "no",
@@ -5699,7 +5694,7 @@
         "Sequential land operations from north to south Gaza",
         "Leaving routes open across Rafah",
         "tent cities",
-        "resettle palestinians in Egypt"
+        "the construction of cities to resettle palestinians in Egypt."
       ]
     },
     {
@@ -5766,7 +5761,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "rescind citizenship or residency"
+        "rescind citizenship or residency."
       ]
     },
     {
@@ -5792,7 +5787,7 @@
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [],
-      "homogenization_bj": "The statement homogenizes Gazans by presenting “all the Gazans” as one collective that needs to be destroyed, erasing distinctions between civilians, combatants, and individual responsibility.",
+      "homogenization_bj": "The quoted statement homogenizes all Gazans by treating the entire population as a single, undifferentiated group and collective target. The speaker reports this homogenizing position rather than clearly endorsing it.",
       "immutability_bj": null,
       "essentialization_bj": null,
       "dehumanization_bj": null,
@@ -5844,8 +5839,8 @@
       "speakerPosition": "Deputy Speaker of Knesset (Likud)",
       "enemy_image": "yes",
       "homogenization": "yes",
-      "immutability": "yes",
-      "essentialization": "yes",
+      "immutability": "no",
+      "essentialization": "no",
       "dehumanization": "no",
       "threat_construction": "yes",
       "homogenization_anchor": [
@@ -5853,16 +5848,14 @@
         "Don't leave a child there expel everyone.",
         "Do not leave a child there expel all the ones who will remain"
       ],
-      "immutability_anchor": [
-        "so that they will not have a resurrection"
-      ],
+      "immutability_anchor": [],
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [
         "It is not acceptable that we maintain a terrorist authority next to Israel."
       ],
       "homogenization_bj": "The statement homogenizes Gaza by calling to “erase Gaza” and “not leave a child there,” treating the entire population, including children, as one enemy collective.",
-      "immutability_bj": "The statement suggests immutability by demanding that all remaining people be expelled “so that they will not have a resurrection,” implying that the threat must be permanently prevented from returning.",
+      "immutability_bj": null,
       "essentialization_bj": null,
       "dehumanization_bj": null,
       "threat_construction_bj": "The statement portrays Gaza as a security threat by framing it as a “terrorist authority next to Israel.”",
@@ -5893,7 +5886,7 @@
       "humanity_as_weakness": "no",
       "external_criticism_rejection": "no",
       "no_alternative_framing_anchor": [
-        "Erase Gaza. Nothing else will satisfy us. It is not acceptable that we maintain a terrorist authority next to Israel."
+        "Nothing else will satisfy us."
       ],
       "humanity_as_weakness_anchor": [],
       "external_criticism_rejection_anchor": [],
@@ -5966,7 +5959,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Nakba? Expel them all. If the Egyptians care so much for them — they are welcome to have them wrapped in cellophane tied with a green ribbon"
+        "Nakba? Expel them all."
       ]
     },
     {
@@ -6120,7 +6113,7 @@
       "threat_construction_anchor": [
         "a 10 year old [Gazan] boy is a terrorist in 6-7 years"
       ],
-      "homogenization_bj": "The statement homogenizes Gazan boys by portraying a 10-year-old Gazan boy as a future terrorist, treating male children from Gaza as part of a future enemy category.",
+      "homogenization_bj": "The statement homogenizes Gazan boys by portraying them collectively as future terrorists and therefore as a uniform threat, without allowing for individual differences.",
       "immutability_bj": "The statement suggests immutability by presenting Gazan children as inevitably becoming terrorists, making the threat appear generational and unavoidable.",
       "essentialization_bj": "The statement essentializes Gazan boys by portraying them as future terrorists and implicitly casts Palestinian parents as raising their children into violence, morally distancing Palestinians from the in-group.",
       "dehumanization_bj": null,
@@ -7011,7 +7004,7 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "The children and women need to be separated",
-        "the adult [men]  in Gaza eliminated"
+        "the adult [men] in Gaza eliminated"
       ]
     },
     {
@@ -7133,7 +7126,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "There cannot be any humanitarian aid in [Gaza] while there are hostages in the Gaza Strip"
+        "There cannot be any humanitarian aid in [Gaza]"
       ]
     },
     {
@@ -7201,70 +7194,6 @@
       ]
     },
     {
-      "id": "legislators-0113",
-      "sourceFile": "legislators",
-      "author": "Ohad Tal",
-      "sector": "Legislators",
-      "date": "25/10/2023",
-      "context": null,
-      "source": null,
-      "statement": "“We cannot go back to the same conception… we need to exact a territorial price from them [Hamas], including returning Jewish settlements at least to the north of Gaza Strip\"",
-      "speakerPosition": "Member of the Israeli Knesset (National Union–Tkuma)",
-      "enemy_image": "no",
-      "homogenization": "no",
-      "immutability": "no",
-      "essentialization": "no",
-      "dehumanization": "no",
-      "threat_construction": "no",
-      "homogenization_anchor": [],
-      "immutability_anchor": [],
-      "essentialization_anchor": [],
-      "dehumanization_anchor": [],
-      "threat_construction_anchor": [],
-      "homogenization_bj": null,
-      "immutability_bj": null,
-      "essentialization_bj": null,
-      "dehumanization_bj": null,
-      "threat_construction_bj": null,
-      "just_cause": "yes",
-      "security_rationale": "no",
-      "selfdefence_counterterrorism": "no",
-      "retaliation": "yes",
-      "security_rationale_anchor": [],
-      "selfdefence_counterterrorism_anchor": [],
-      "retaliation_anchor": [
-        "we need to exact a territorial price from them"
-      ],
-      "security_rationale_bj": null,
-      "selfdefence_counterterrorism_bj": null,
-      "retaliation_bj": "The statement makes returning settlements to Gaza appear justified by framing it as a territorial price for Hamas’s actions.",
-      "individual_needs": "no",
-      "meaning": "no",
-      "status": "no",
-      "hope_for_victory": "no",
-      "meaning_anchor": [],
-      "status_anchor": [],
-      "hope_for_victory_anchor": [],
-      "meaning_bj": null,
-      "status_bj": null,
-      "hope_for_victory_bj": null,
-      "rhetorical_foreclosure": "yes",
-      "no_alternative_framing": "yes",
-      "humanity_as_weakness": "no",
-      "external_criticism_rejection": "no",
-      "no_alternative_framing_anchor": [
-        "We cannot go back to the same conception"
-      ],
-      "humanity_as_weakness_anchor": [],
-      "external_criticism_rejection_anchor": [],
-      "no_alternative_framing_bj": "The statement rejects returning to the prior conception and presents territorial seizure through settlements as necessary.",
-      "humanity_as_weakness_bj": null,
-      "external_criticism_rejection_bj": null,
-      "measures": [
-        "we need to exact a territorial price from them [Hamas], including returning Jewish settlements at least to the north of Gaza Strip"
-      ]
-    },
-    {
       "id": "legislators-0114",
       "sourceFile": "legislators",
       "author": "Omer Bar-Lev",
@@ -7323,9 +7252,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "A complete siege on Gaza",
-        "No water, no electricity, no food",
-        "Water for the south of the Gaza Strip - only in exchange for the return of the kidnapped children and women"
+        "A complete siege on Gaza. No water, no electricity, no food."
       ]
     },
     {
@@ -7447,8 +7374,7 @@
       "humanity_as_weakness_bj": "The statement explicitly rejects mercy and presents merciless bombing as the required response.",
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Bring down buildings",
-        "Bomb without distinction",
+        "Bring down buildings!! Bomb without distinction!!",
         "Flatten Gaza"
       ]
     },
@@ -7526,8 +7452,7 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "A ceasefire for several hours is surrender",
-        "crushing Hamas",
-        "razing Gaza"
+        "crushing Hamas and razing Gaza"
       ]
     },
     {
@@ -7587,8 +7512,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Jericho Missile",
-        "Doomsday weapon"
+        "Jericho Missile! Jericho Missile!"
       ]
     },
     {
@@ -7650,7 +7574,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Without hunger and thirst among the Gazan population, we will not succeed in recruiting collaborators, we will not succeed in recruiting intelligence"
+        "bribing people with food, drink, medicine,"
       ]
     },
     {
@@ -7716,8 +7640,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "eliminate everything close to it",
-        "termination of Gaza as a whole"
+        "it’s not about just eliminating Hamas […] it’s the termination of Gaza as a whole […]."
       ]
     },
     {
@@ -7760,10 +7683,12 @@
       "meaning": "yes",
       "status": "no",
       "hope_for_victory": "no",
-      "meaning_anchor": [],
+      "meaning_anchor": [
+        "This is worse than the harsh stories we heard about what happened in the Holocaust."
+      ],
       "status_anchor": [],
       "hope_for_victory_anchor": [],
-      "meaning_bj": null,
+      "meaning_bj": "The alleged danger posed by the hospital is placed within a larger historical and moral narrative through the Holocaust comparison, giving the proposed bombing broader significance.",
       "status_bj": null,
       "hope_for_victory_bj": null,
       "rhetorical_foreclosure": "no",
@@ -7777,8 +7702,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Remove the patients",
-        "bomb hospitals as well"
+        "Remove the patients, and bomb hospitals as well"
       ]
     },
     {
@@ -7789,7 +7713,7 @@
       "date": "25/11/2023",
       "context": null,
       "source": null,
-      "statement": "“At this very moment, aid trucks continue to enter the Gaza Strip! enough! How long will we bow our heads and endure the shame? That's not how you defeat terrorism. stop everything immediately bring back a total blockade. Return instructions to open fire in the north of the Gaza Strip against all incoming Gazans. Let the soldiers and commanders win. Thanks to them and thanks to their courage and understanding of the necessity of fighting we will win”",
+      "statement": "“At this very moment, aid trucks continue to enter the Gaza Strip! enough! How long will we bow our heads and endure the shame? That's not how you defeat terrorism. Stop everything immediately bring back a total blockade. Return instructions to open fire in the north of the Gaza Strip against all incoming Gazans. Let the soldiers and commanders win. Thanks to them and thanks to their courage and understanding of the necessity of fighting we will win”",
       "speakerPosition": "Member of the Israeli Knesset (Likud)",
       "enemy_image": "yes",
       "homogenization": "yes",
@@ -7804,7 +7728,7 @@
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [
-        "That's not how you defeat terrorism. stop everything immediately bring back a total blockade. Return instructions to open fire in the north of the Gaza Strip against all incoming Gazans."
+        "That's not how you defeat terrorism. Stop everything immediately bring back a total blockade. Return instructions to open fire in the north of the Gaza Strip against all incoming Gazans."
       ],
       "homogenization_bj": "The statement homogenizes “all incoming Gazans” as one undifferentiated threat category, blurring distinctions between civilians, fighters, children, and individual roles.",
       "immutability_bj": null,
@@ -7829,7 +7753,7 @@
       "hope_for_victory": "yes",
       "meaning_anchor": [],
       "status_anchor": [
-        "their courage and understanding of the necessity of fighting"
+        "Thanks to them and thanks to their courage and understanding of the necessity of fighting we will win"
       ],
       "hope_for_victory_anchor": [
         "Let the soldiers and commanders win",
@@ -7849,9 +7773,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "stop everything immediately",
-        "bring back a total blockade",
-        "open fire in the north of the Gaza Strip against all incoming Gazans"
+        "Stop everything immediately bring back a total blockade. Return instructions to open fire in the north of the Gaza Strip against all incoming Gazans."
       ]
     },
     {
@@ -7911,8 +7833,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "blockade of the Palestinians in Gaza",
-        "cutting off of water, food and fuel",
+        "blockade of the Palestinians in Gaza and the cutting off of water, food and fuel",
+        "that they must be dealt with forcefully",
         "we will destroy them"
       ]
     },
@@ -7975,7 +7897,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "inaccurate missiles and collapse ten buildings"
+        "Maybe instead of using a precision missile and taking down a specific room, I'll use inaccurate missiles and collapse ten buildings."
       ]
     },
     {
@@ -7986,7 +7908,7 @@
       "date": "26/6/2024",
       "context": "Gotliv went on a rant following a directive made by the Military Advocate General stating that the Israeli army may deliberately eliminate only members of the combat force against Israel in the Gaza Strip and not unarmed civilians as reports of soldiers killing unarmed civilians have garnered international attention.",
       "source": null,
-      "statement": "\"I thought she was the prosecutor at the ICC in The Hague, this dangerous woman endangers our \nsoldiers.\"",
+      "statement": "\"I thought she was the prosecutor at the ICC in The Hague, this dangerous woman endangers our soldiers.\"",
       "speakerPosition": "Member of the Israeli Knesset (Likud)",
       "enemy_image": "no",
       "homogenization": "no",
@@ -8031,7 +7953,7 @@
       "no_alternative_framing_anchor": [],
       "humanity_as_weakness_anchor": [],
       "external_criticism_rejection_anchor": [
-        "I thought she was the prosecutor at the ICC in The Hague, this dangerous woman endangers our \nsoldiers"
+        "I thought she was the prosecutor at the ICC in The Hague, this dangerous woman endangers our soldiers"
       ],
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
@@ -8101,7 +8023,8 @@
       "humanity_as_weakness_bj": "The statement explicitly endorses cruelty and rejects mercy. As legal-institutional delegitimization, it frames the Hague tribunal as antisemitic and anti-Israel.",
       "external_criticism_rejection_bj": "The statement rejects external legal criticism by dismissing international law and The Hague as illegitimate, anti-Israel, and controlled by antisemites.",
       "measures": [
-        "attack without mercy"
+        "we should be cruel to the enemy and attack without mercy.",
+        "I have non-precision missles, instead of blowing up a room in a building, I'll blow up the whole building, instead of blowing up one building, I'll blow up ten, it's very simple."
       ]
     },
     {
@@ -8160,13 +8083,15 @@
       "external_criticism_rejection": "no",
       "no_alternative_framing_anchor": [],
       "humanity_as_weakness_anchor": [
-        "Whoever is responsible for this despicable decision cannot lead us to victory."
+        "Whoever is responsible for this despicable decision cannot lead us to victory. Whoever is responsible for this disgraceful decision must go home."
       ],
       "external_criticism_rejection_anchor": [],
       "no_alternative_framing_bj": null,
-      "humanity_as_weakness_bj": "The statement frames a humanitarian pause and aid as disgraceful.",
+      "humanity_as_weakness_bj": "The statement frames a humanitarian pause and increased aid as a despicable and disgraceful decision that disqualifies leaders from achieving victory.",
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "unilateral decision for a tactical pause in Gaza until 7 p.m. in order to increase humanitarian aid"
+      ]
     },
     {
       "id": "legislators-0128",
@@ -8194,7 +8119,7 @@
       "threat_construction_anchor": [],
       "homogenization_bj": null,
       "immutability_bj": null,
-      "essentialization_bj": "The statement essentializes the enemy by portraying them as “murderous terrorists” who hide inside a school and run a command post there, while the phrase “the language of the enemy” suggests that the enemy’s defining nature is to understand only force rather than negotiation or restraint.",
+      "essentialization_bj": "The phrase “the language of the enemy” suggests that the enemy is seen as a single group that mainly responds to force. The term “murderous terrorists” strengthens this violent image.",
       "dehumanization_bj": null,
       "threat_construction_bj": null,
       "just_cause": "yes",
@@ -8225,7 +8150,7 @@
       "humanity_as_weakness": "yes",
       "external_criticism_rejection": "no",
       "no_alternative_framing_anchor": [
-        "A school where murderous terrorists who run a command post are hiding - we are obligated to be  and flatten the entire school with inaccurate munitions. That's the only way to win!"
+        "That's the only way to win!"
       ],
       "humanity_as_weakness_anchor": [
         "the IDF leadership is busy taking the enemy into consideration all the time?"
@@ -8235,7 +8160,7 @@
       "humanity_as_weakness_bj": "The statement frames precision and consideration for the enemy as the wrong way to fight, making restraint appear ineffective and inappropriate.",
       "external_criticism_rejection_bj": null,
       "measures": [
-        "flatten the entire school with inaccurate munitions"
+        "we are obligated to be and flatten the entire school with inaccurate munitions."
       ]
     },
     {
@@ -8244,7 +8169,7 @@
       "author": "Ron Dermer",
       "sector": "Legislators",
       "date": "30/10/2023",
-      "context": "Both Netanyahu and Dermer noted aid as  strategy tolegitimacy and  gain fighting time in Gaza as opposed to humanitarian assistance. Shasha Biton, a legistrator, opposed this notion.",
+      "context": "Both Netanyahu and Dermer noted aid as a strategy to gain legitimacy and fighting time in Gaza as opposed to humanitarian assistance. Shasha Biton, a legislator, opposed this notion.",
       "source": null,
       "statement": "“From day one we said that humanitarian aid was necessary as part of the fighting strategy, to gain time and international legitimacy.”",
       "speakerPosition": "Minister of Strategic Affairs",
@@ -8294,7 +8219,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "humanitarian aid was necessary as part of the fighting strategy,"
+      ]
     },
     {
       "id": "legislators-0130",
@@ -8355,7 +8282,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "complete destruction of the Hamas"
+        "The complete destruction of the Hamas"
       ]
     },
     {
@@ -8414,7 +8341,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "[effort to supply Starlink in Gaza]"
+      ]
     },
     {
       "id": "legislators-0132",
@@ -8442,7 +8371,7 @@
       "threat_construction_anchor": [],
       "homogenization_bj": null,
       "immutability_bj": null,
-      "essentialization_bj": "The statement essentializes the enemy by calling them “Nazi terrorists” and “damned,” portraying them through an inherently evil, morally cursed, and illegitimate nature.",
+      "essentialization_bj": "The statement essentializes the enemy by labeling them as “Nazi terrorists” and “damned,” reducing them to an inherently evil and morally condemned identity.",
       "dehumanization_bj": null,
       "threat_construction_bj": null,
       "just_cause": "yes",
@@ -8493,7 +8422,7 @@
       "date": "21/11/2023",
       "context": null,
       "source": null,
-      "statement": "“Our fighters, who went to war… for revenge for the terrible massacre carried out by the Nazi terrorists… will return to peace with the hostages, only after they have cut off the foreskins of all these accursed.”",
+      "statement": "“Our fighters, who went to war […] for revenge for the terrible massacre carried out by the Nazi terrorists […] will return to peace with the hostages, only after they have cut off the foreskins of all these accursed.”",
       "speakerPosition": "Minister of Communications",
       "enemy_image": "yes",
       "homogenization": "no",
@@ -8595,7 +8524,7 @@
       ],
       "status_anchor": [],
       "hope_for_victory_anchor": [],
-      "meaning_bj": "The statement creates meaning by framing territorial control and settlement as the restoration of a legitimate claim to ownership and sovereignty over the “Land of Israel.”",
+      "meaning_bj": "The settlement of the land is presented as part of a larger national cause by framing it as land that rightfully belongs to the ingroup.",
       "status_bj": null,
       "hope_for_victory_bj": null,
       "rhetorical_foreclosure": "no",
@@ -8609,8 +8538,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "establish settlements",
-        "settle this land"
+        "We must establish settlements. We need security forces. We need to settle this land"
       ]
     },
     {
@@ -8630,7 +8558,7 @@
       "dehumanization": "no",
       "threat_construction": "yes",
       "homogenization_anchor": [
-        "when asked why don't Israel let civillians enter Israel] They are our enemies"
+        "They are our enemies"
       ],
       "immutability_anchor": [],
       "essentialization_anchor": [],
@@ -8685,7 +8613,7 @@
       "author": "Tzipi Hotovely",
       "sector": "Legislators",
       "date": "16/10/2023",
-      "context": "Israeli Ambassador to the UK Tzipi Hotovely.",
+      "context": null,
       "source": null,
       "statement": "“There is no humanitarian crisis.” [...] “The humanitarian crisis at the moment is in Israel.”",
       "speakerPosition": "Israeli Ambassador to the UK",
@@ -8745,7 +8673,7 @@
       "date": "02/01/2024",
       "context": null,
       "source": null,
-      "statement": "\"Every school, mosque and second house has an access to a tunnel and of course ammunition\". When asked whether that’s effectively a call for the destruction of all of Gaza, she replies: “do you have another solution?”",
+      "statement": "\"Every school, mosque and second house has an access to a tunnel and of course ammunition\". [When asked whether that’s effectively a call for the destruction of all of Gaza, she replies:] “do you have another solution?”",
       "speakerPosition": "Israeli Ambassador to the UK",
       "enemy_image": "yes",
       "homogenization": "no",
@@ -8796,7 +8724,7 @@
       ],
       "humanity_as_weakness_anchor": [],
       "external_criticism_rejection_anchor": [],
-      "no_alternative_framing_bj": "The statement presents the destruction of Gaza as unavoidable by framing schools and mosques as tunnel and ammunition sites and answering the possibility of destruction with “do you have another solution?",
+      "no_alternative_framing_bj": "By asking whether there is another solution, the statement presents the large-scale destruction of Gaza as unavoidable and excludes less harmful alternatives.",
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
@@ -8811,7 +8739,7 @@
       "date": "02/01/2024",
       "context": null,
       "source": null,
-      "statement": "“Occupy, Annex, destroy all houses, and build wide and large settlements, give the lands we occupy to our soldiers .“",
+      "statement": "“Occupy, Annex, destroy all houses, and build wide and large settlements, give the lands we occupy to our soldiers.“",
       "speakerPosition": "Member of the Israeli Knesset - Religious Zionism",
       "enemy_image": "no",
       "homogenization": "no",
@@ -8845,7 +8773,7 @@
       "hope_for_victory": "no",
       "meaning_anchor": [],
       "status_anchor": [
-        "give the lands we occupy to our soldiers"
+        "give the lands we occupy to our soldiers."
       ],
       "hope_for_victory_anchor": [],
       "meaning_bj": null,
@@ -8862,9 +8790,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Occupy, Annex, destroy all houses",
-        "build wide and large settlements",
-        "give the lands we occupy to our soldiers"
+        "Occupy, Annex, destroy all houses, and build wide and large settlements, give the lands we occupy to our soldiers."
       ]
     },
     {
@@ -8913,15 +8839,18 @@
       "meaning_bj": null,
       "status_bj": null,
       "hope_for_victory_bj": null,
-      "rhetorical_foreclosure": "no",
+      "rhetorical_foreclosure": "yes",
       "no_alternative_framing": "no",
-      "humanity_as_weakness": "no",
+      "humanity_as_weakness": "yes",
       "external_criticism_rejection": "no",
       "no_alternative_framing_anchor": [],
-      "humanity_as_weakness_anchor": [],
+      "humanity_as_weakness_anchor": [
+        "It’s unbelievable that we’re helping the enemy during a time of war.",
+        "stop this disgrace."
+      ],
       "external_criticism_rejection_anchor": [],
       "no_alternative_framing_bj": null,
-      "humanity_as_weakness_bj": null,
+      "humanity_as_weakness_bj": "The statement frames assistance to the enemy during wartime as disgraceful, presenting humanitarian consideration as incompatible with strength and effective warfare.",
       "external_criticism_rejection_bj": null,
       "measures": []
     },
@@ -8982,8 +8911,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "almost 100 Gazans were killed",
-        "kill 100 Gazans in one night"
+        "almost 100 Gazans were killed"
       ]
     },
     {
@@ -8996,22 +8924,20 @@
       "source": null,
       "statement": "“The majority of the 12,000 dead Palestinians were terrorists. […] Good riddance.\"",
       "speakerPosition": "Member of the Israeli Knesset (Yesh Atid)",
-      "enemy_image": "yes",
+      "enemy_image": "no",
       "homogenization": "no",
       "immutability": "no",
-      "essentialization": "yes",
+      "essentialization": "no",
       "dehumanization": "no",
       "threat_construction": "no",
       "homogenization_anchor": [],
       "immutability_anchor": [],
-      "essentialization_anchor": [
-        "The majority of the 12,000 dead Palestinians were terrorists."
-      ],
+      "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [],
       "homogenization_bj": null,
       "immutability_bj": null,
-      "essentialization_bj": "The statement essentializes the dead Palestinians by labeling the majority of them as “terrorists,” while “Good riddance” reinforces their portrayal as morally disposable enemies.",
+      "essentialization_bj": null,
       "dehumanization_bj": null,
       "threat_construction_bj": null,
       "just_cause": "yes",
@@ -9024,7 +8950,7 @@
       ],
       "retaliation_anchor": [],
       "security_rationale_bj": null,
-      "selfdefence_counterterrorism_bj": "The statement makes the deaths appear justified by claiming that most of the dead were terrorists.",
+      "selfdefence_counterterrorism_bj": "The killing of Palestinians is retrospectively justified by portraying most of those killed as terrorists, framing their deaths as a legitimate outcome of counter-terrorism.",
       "retaliation_bj": null,
       "individual_needs": "no",
       "meaning": "no",
@@ -9054,7 +8980,7 @@
       "author": "Yifat Shasha Biton",
       "sector": "Legislators",
       "date": "31/10/2023",
-      "context": null,
+      "context": "Hasbara is a Hebrew term meaning “explanation.” In political discourse, it refers to Israeli public diplomacy and strategic communication aimed at explaining and defending Israeli policies to international audiences.",
       "source": null,
       "statement": "“If you had fought from the first day on the level of Hasbara with the same determination, that would have given us time and legitimacy in the world. And since the world is demanding that we expand aid, this means that the efforts of the Israeli Hasbara are not proving themselves.”",
       "speakerPosition": "Member of the Israeli Knesset (New Hope)",
@@ -9173,7 +9099,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "their judgement shall be to destroy them"
+        "their judgement shall be to destroy them, full stop."
       ]
     },
     {
@@ -9304,8 +9230,7 @@
       "measures": [
         "no limits to the response",
         "until we see hundreds of thousands fleeing Gaza, we, the IDF has not achieved its mission",
-        "before crushing everything",
-        "the falling of fifty buildings"
+        "I also do not want [the IDF] to get inside [Gaza] before crushing everything,"
       ]
     },
     {
@@ -9370,7 +9295,6 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "turn all the places in which Hamas deploys and hides into ruins",
-        "get out of there now",
         "act everywhere and with full power"
       ]
     },
@@ -9438,7 +9362,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "we shall realize the prophecy of Isaiah."
+      ]
     },
     {
       "id": "decisionmakers-0003",
@@ -9626,7 +9552,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "the civillians [deaths] as happens in every legitimate war are sometimes what are called 'collateral damage'"
+        "the civillians [deaths]"
       ]
     },
     {
@@ -9685,7 +9611,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "make cultural changes in Gaza"
+      ]
     },
     {
       "id": "decisionmakers-0007",
@@ -9743,7 +9671,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "allow a limited entry of two fuel tankers a day into the southern Gaza Strip"
+      ]
     },
     {
       "id": "decisionmakers-0008",
@@ -9859,7 +9789,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "After we fought and did all this thing we give them the strip?"
+      ]
     },
     {
       "id": "decisionmakers-0010",
@@ -10107,8 +10039,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "hold territory",
-        "carry out raids afterward"
+        "hold territory"
       ]
     },
     {
@@ -10480,7 +10411,9 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [
+        "preserve settlements and give it the tools for its growth and flourishing"
+      ]
     },
     {
       "id": "decisionmakers-0020",
@@ -10601,8 +10534,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "the air force attack is the first step",
-        "you will pay the full price"
+        "the air force attack is the first step. The rest will be much more difficult, and you will pay the full price"
       ]
     },
     {
@@ -10725,10 +10657,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "attack everything",
-        "kill those who fight us",
-        "through the air, land, with tanks, with bulldozers, by all means",
-        "there are no compromises"
+        "attack everything, kill those who fight us,",
+        "through the air, land, with tanks, with bulldozers, by all means,"
       ]
     },
     {
@@ -10758,8 +10688,8 @@
       "threat_construction_anchor": [],
       "homogenization_bj": null,
       "immutability_bj": null,
-      "essentialization_bj": "The statement essentializes the enemy by portraying them as “human animals,” suggesting an inherently inferior, brutal, or non-human nature.",
-      "dehumanization_bj": "The statement dehumanizes the enemy by calling them “human animals,” explicitly placing them outside the category of fully human beings.",
+      "essentialization_bj": "The statement dehumanizes and essentializes the enemy as “human animals” and directly uses this characterization to justify the complete siege and deprivation of essential supplies through the phrase “acting accordingly.”",
+      "dehumanization_bj": "The statement dehumanizes and essentializes the enemy as “human animals” and directly uses this characterization to justify the complete siege and deprivation of essential supplies through the phrase “acting accordingly.”",
       "threat_construction_bj": null,
       "just_cause": "no",
       "security_rationale": "no",
@@ -10792,9 +10722,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "complete siege on the Gaza Strip",
-        "There will be no electricity, no food, no fuel, everything is closed",
-        "We are fighting human animals and we are acting accordingly"
+        "I have ordered a complete siege on the Gaza Strip. There will be no electricity, no food, no fuel, everything is closed."
       ]
     },
     {
@@ -10921,8 +10849,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "eliminate everything",
-        "they will regret it"
+        "We will eliminate everything",
+        "we will reach all places."
       ]
     },
     {
@@ -10984,7 +10912,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "final and complete destruction of the Hamas organization"
+        "the final and complete destruction of the Hamas organization"
       ]
     },
     {
@@ -11046,9 +10974,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "the citizens of Lebanon",
-        "pay the price",
-        "What we are doing in Gaza, we know how to do in Beirut"
+        "What we are doing in Gaza, we know how to do in Beirut."
       ]
     },
     {
@@ -11108,8 +11034,8 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "they'll realize the IDF's power",
-        "deadly power of the IDF"
+        "Soon they'll realize the IDF's power,",
+        "deadly power of the IDF,"
       ]
     },
     {
@@ -11169,8 +11095,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "fighting will continue with intensity",
-        "pressure will be made to bring back more hostages"
+        "fighting will continue with intensity, and pressure will be made to bring back more hostages."
       ]
     },
     {
@@ -11230,7 +11155,7 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "The campaign [of making Gaza inhabitable] will last for months"
+        "The campaign [of making Gaza inhabitable] will last for months to come and include the southern area of the strip"
       ]
     },
     {
@@ -11286,13 +11211,14 @@
       "no_alternative_framing_anchor": [],
       "humanity_as_weakness_anchor": [],
       "external_criticism_rejection_anchor": [
+        "The State of Israel does not need moral preaching to separate terrorism from the civilian population in Gaza",
         "Whoever is looking for justice, will not find it on the leather chairs in The Hague"
       ],
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": "The statement rejects external moral and legal criticism by dismissing it as “moral preaching” and denying The Hague as a place of justice.",
       "measures": [
-        "continue to act and dismantle the Hamas regime"
+        "The IDF and the security agencies will continue to act and dismantle the Hamas regime."
       ]
     }
   ]
