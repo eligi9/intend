@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import DetailView from '../../components/common/DetailView.vue'
+import DropdownSelect from '../../components/common/DropdownSelect.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import SelectionView from '../../components/common/SelectionView.vue'
 import ViewGrid from '../../components/common/ViewGrid.vue'
@@ -11,7 +12,7 @@ import { useInitialViewportGridCellSize } from '../../composables/useInitialView
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
-import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
+import type { IntentRecord, MeasureCategory, PatternLabelKey } from '../../types/intentData'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import { toggleArrayItem } from '../../utils/arrays'
 import { strategyColors } from '../../utils/intentLabels'
@@ -29,6 +30,14 @@ const { filteredRecords, filters } = storeToRefs(statementStore)
 const selectedStatement = ref<IntentRecord | null>(null)
 const selectionDetailIsOpen = ref(false)
 const statementGridCellSize = useInitialViewportGridCellSize({ columns: 24 })
+const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] = [
+  { label: 'All content types', value: '' },
+  { label: 'Destruction', value: 'Destruction' },
+  { label: 'Aid Control / Deprivation', value: 'Aid Control / Deprivation' },
+  { label: 'Forced Displacement', value: 'Forced Displacement' },
+  { label: 'Physical Harm', value: 'Physical Harm' },
+  { label: 'Occupation / Settlement', value: 'Occupation / Settlement' },
+]
 
 const selectedAuthor = computed(() =>
   selectedStatement.value ? authorStore.getAuthorInstance(selectedStatement.value.author) : null,
@@ -42,23 +51,36 @@ const patternFilterLabels = computed(() =>
   })),
 )
 const sortedRecords = computed(() => sortStatementsBySize(filteredRecords.value))
+const selectedMeasureCategory = computed({
+  get: () => filters.value.measureCategories[0] ?? '',
+  set: (category: string) => {
+    statementStore.setMeasureCategories(category ? [category as MeasureCategory] : [])
+  },
+})
 const hasActiveStatementFilters = computed(
   () =>
     filters.value.query.trim().length > 0 ||
     filters.value.authors.length > 0 ||
     filters.value.labelsAny.length > 0 ||
-    filters.value.labelsAll.length > 0,
+    filters.value.labelsAll.length > 0 ||
+    filters.value.measureCategories.length > 0,
 )
 const canShowSelection = computed(
   () => hasActiveStatementFilters.value && sortedRecords.value.length > 0,
 )
 const activePatternFilterLabels = computed(() =>
-  patternFilterLabels.value
+  [
+    ...patternFilterLabels.value
     .filter((label) => label.active)
     .map((label) => ({
       color: label.color,
       label: label.label,
     })),
+    ...filters.value.measureCategories.map((category) => ({
+      color: 'rgba(var(--color-text-rgb), 0.74)',
+      label: category,
+    })),
+  ],
 )
 const selectionTitle = 'Selection'
 const selectionSearchTerm = computed(() => filters.value.query.trim())
@@ -136,6 +158,14 @@ function closeActiveDetail() {
             type="search"
             placeholder="Search for terms like &quot;destroy&quot;"
             @input="statementStore.setQuery(($event.target as HTMLInputElement).value)"
+          />
+        </div>
+
+        <div class="statement-measure-filter">
+          <DropdownSelect
+            v-model="selectedMeasureCategory"
+            :options="measureCategoryOptions"
+            select-label="Filter statements by content category"
           />
         </div>
 

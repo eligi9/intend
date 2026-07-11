@@ -1,7 +1,13 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import dataset from '../../data/intent-dataset.json'
-import type { IntentDataset, IntentFilters, PatternLabelKey, IntentRecord } from '../types/intentData'
+import type {
+  IntentDataset,
+  IntentFilters,
+  MeasureCategory,
+  PatternLabelKey,
+  IntentRecord,
+} from '../types/intentData'
 import { groupStatementsByAuthor } from '../utils/authorInstances'
 import { matchesIntentFilters, uniqueSorted } from '../utils/intentFilters'
 import { normalizeIntentRecords, type RawIntentRecord } from '../utils/intentRecordPatterns'
@@ -34,6 +40,7 @@ const emptyFilters = (): IntentFilters => ({
   authors: [],
   labelsAny: [],
   labelsAll: [],
+  measureCategories: [],
 })
 
 export const useStatementStore = defineStore('statements', () => {
@@ -65,6 +72,10 @@ export const useStatementStore = defineStore('statements', () => {
     filters.value.labelsAll = labels
   }
 
+  function setMeasureCategories(categories: MeasureCategory[]) {
+    filters.value.measureCategories = categories
+  }
+
   function clearFilters() {
     filters.value = emptyFilters()
   }
@@ -86,6 +97,7 @@ export const useStatementStore = defineStore('statements', () => {
     setAuthors,
     setLabelsAny,
     setLabelsAll,
+    setMeasureCategories,
     clearFilters,
     getStatementsForAuthor,
   }

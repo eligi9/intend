@@ -30,6 +30,9 @@ export function matchesIntentFilters(record: IntentRecord, filters: IntentFilter
   const matchesAllLabels =
     filters.labelsAll.length === 0 ||
     filters.labelsAll.every((label) => isLabelActive(record, label))
+  const matchesMeasureCategories =
+    filters.measureCategories.length === 0 ||
+    filters.measureCategories.every((category) => record.measure_categories.includes(category))
 
-  return matchesQuery && matchesAuthor && matchesAnyLabel && matchesAllLabels
+  return matchesQuery && matchesAuthor && matchesAnyLabel && matchesAllLabels && matchesMeasureCategories
 }

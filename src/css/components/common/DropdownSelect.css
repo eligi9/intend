@@ -24,6 +24,6 @@
   border-radius: var(--space-1);
   color: var(--color-text);
   background: rgba(var(--color-text-rgb), 0.06);
-  font-weight: 700;
+  font-weight: inherit;
   cursor: pointer;
 }

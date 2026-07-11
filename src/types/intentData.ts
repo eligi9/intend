@@ -1,5 +1,11 @@
 export type BinaryLabel = 'yes' | 'no' | null
 export type AnchorTexts = string[]
+export type MeasureCategory =
+  | 'Destruction'
+  | 'Aid Control / Deprivation'
+  | 'Forced Displacement'
+  | 'Physical Harm'
+  | 'Occupation / Settlement'
 
 export type PatternLabelKey =
   | 'enemy_image'
@@ -46,6 +52,7 @@ export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
   source: string | null
   statement: string
   measures: string[]
+  measure_categories: MeasureCategory[]
   speakerPosition: string | null
   homogenization_anchor: AnchorTexts
   immutability_anchor: AnchorTexts
@@ -99,4 +106,5 @@ export interface IntentFilters {
   authors: string[]
   labelsAny: PatternLabelKey[]
   labelsAll: PatternLabelKey[]
+  measureCategories: MeasureCategory[]
 }

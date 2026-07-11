@@ -63,7 +63,7 @@
       "meaning_bj": null,
       "status_bj": null,
       "hope_for_victory_bj": null,
-      "rhetorical_foreclosure": "no",
+      "rhetorical_foreclosure": "yes",
       "no_alternative_framing": "no",
       "humanity_as_weakness": "no",
       "external_criticism_rejection": "no",
@@ -76,6 +76,9 @@
       "measures": [
         "Destroy a neighborhood in Gaza every day",
         "a neighborhood must be destroyed on its inhabitants"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -136,6 +139,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "The beach of Gaza will be the blood of terrorists"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -196,6 +202,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "The Ramadan fast is the best time to kill them"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -257,6 +266,10 @@
       "measures": [
         "North Gaza until further notice will be unpopulated area",
         "tractors plowing fields of Khirbet Khizea"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Forced Displacement"
       ]
     },
     {
@@ -275,9 +288,7 @@
       "essentialization": "yes",
       "dehumanization": "no",
       "threat_construction": "no",
-      "homogenization_anchor": [
-
-      ],
+      "homogenization_anchor": [],
       "immutability_anchor": [
         "With Nazis & their assistants, you don't talk"
       ],
@@ -331,6 +342,10 @@
       "measures": [
         "You eradicate evil from the world",
         "Do you want your pop. [in Gaza] to drink?"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation",
+        "Physical Harm"
       ]
     },
     {
@@ -391,6 +406,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "drop an atomic bomb on Gaza"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -454,6 +472,11 @@
       "measures": [
         "bombing Hamas’s fuel and food reserves",
         "go through the emigration plan"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation",
+        "Forced Displacement"
       ]
     },
     {
@@ -522,6 +545,10 @@
       "measures": [
         "There is no more Muslim land in the Land of Israel",
         "Gaza should be left as a monument, like Sodom"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -587,6 +614,9 @@
       "measures": [
         "Nakba to the enemy now",
         "A Nakba in Gaza and a Nakba for anyone who dares to join"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -647,6 +677,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "we’re doing a Gazan Nakba 2023"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -709,7 +742,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0012",
@@ -770,6 +804,9 @@
       "measures": [
         "it must be escalated",
         "Total operational freedom of action"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -830,6 +867,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "complete dismantling of [military and] civilian capabilities"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -893,7 +933,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0015",
@@ -954,6 +995,10 @@
       "measures": [
         "voluntary emigration of Gaza Arabs to countries around the world",
         "no longer be able to accept the existence of an independent entity in Gaza"
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1014,6 +1059,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "destroy infracture as means to win the war"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -1085,6 +1133,10 @@
       "measures": [
         "complete eradication of Hamas",
         "open their doors and assist in the reception and rehabilitation of the residents of Gaza"
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Physical Harm"
       ]
     },
     {
@@ -1147,6 +1199,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "establishment of a military government that will control Gaza"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1220,6 +1275,9 @@
       "external_criticism_rejection_bj": "The statement frames accusations of settler violence, BDS, and American sanctions as antisemitic and anti-moral attacks, thereby making external accountability appear illegitimate.",
       "measures": [
         "strengthen and develop Jewish settlement in all parts of the Land of Israel"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1282,6 +1340,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "prevent the aid from reaching Hamas"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -1354,6 +1415,10 @@
         "wipe out the memory of Amalek",
         "absolute destruction",
         "Rafah, Dir al-Balah Nusseirat absolute destruction!"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -1422,6 +1487,11 @@
         "Destruction of all underground in Rafah and the surrounding area",
         "Full possession of the Philadelphi Route and the Rafah crossing",
         "continue to Deir al-Balah and Nuseirat and the central [refugee] camps"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1485,6 +1555,10 @@
       "measures": [
         "continue the war",
         "conquering Rafah completely"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1551,6 +1625,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "We’ll turn you into ruins like we’re doing in the Gaza Strip"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -1622,6 +1699,9 @@
         "thwart the establishment of a Palestinian state.",
         "control Gaza for a long time",
         "re-establishing settlements"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1687,6 +1767,10 @@
       "measures": [
         "bringing in aid",
         "cause 2 million civilians to die of hunger"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation",
+        "Physical Harm"
       ]
     },
     {
@@ -1754,6 +1838,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "the settlement in the Gaza Strip"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1817,6 +1904,9 @@
       "measures": [
         "occupy the Gaza Strip",
         "take civil responsibility there"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1878,6 +1968,9 @@
       "measures": [
         "territory seizure",
         "stay in Gaza for a very long time"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -1943,6 +2036,11 @@
         "stop humanitarian aid",
         "Open the gates of hell",
         "impose sovereignty over five percent of the territory of the Gaza Strip"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -2004,6 +2102,10 @@
       "measures": [
         "Gaza will be completely destroyed",
         "All its residents concentrated south of the Morag axis and flowing outward"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Forced Displacement"
       ]
     },
     {
@@ -2064,6 +2166,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "looking for relocation to begin a new life in other places"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -2124,6 +2229,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "destroying everything that's left of the Gaza Strip"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -2185,6 +2293,9 @@
       "measures": [
         "occupy the Gaza Strip",
         "occupy territory and stay there"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -2251,6 +2362,9 @@
         "occupying the Land of Israel",
         "liberating Gaza",
         "colonizing Gaza"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -2321,6 +2435,10 @@
       "measures": [
         "there is no place for any humanitarian gestures",
         "erase the memory of Amalek"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation",
+        "Physical Harm"
       ]
     },
     {
@@ -2381,6 +2499,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "The west should welcome Gaza refugees"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -2441,6 +2562,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "we will have to destroy it the next time"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -2511,6 +2635,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "teach them a lesson, destroy them"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -2585,6 +2712,10 @@
         "Erasing all of Gaza from the face of the earth",
         "or they will die & their death will be evil.",
         "Gaza should be erased."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -2647,7 +2778,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0042",
@@ -2714,7 +2846,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0043",
@@ -2776,6 +2909,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "resettlement"
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -2838,6 +2975,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "soldiers can be arrested for things they do to 'Nukhba' terrorists"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -2900,6 +3040,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "empty it of Gazans"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -2960,6 +3103,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Gush Katif will return"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -3022,6 +3168,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "stopped  humanitarian aid [from entering]"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -3084,6 +3233,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "move [of forcing] Gazans to leave"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -3146,6 +3298,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "A watershed will not be opened"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -3208,6 +3363,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "basic resources, such as water, or humanitarian aid would not be permitted into Gaza"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -3268,6 +3426,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "mass civilian casualties were an acceptable price"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -3328,6 +3489,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "The target: the city of gaza in ruins"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -3390,6 +3554,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "the only thing that needs to enter Gaza is hundreds of tons of explosives by the Air Force, and not an ounce of humanitarian aid."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -3454,6 +3622,9 @@
         "There has to be occupation here",
         "We need to fully rule",
         "resuming settlement in Gush Katif"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -3514,6 +3685,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "eight handcuffed terrorists in a dark cell, iron beds, toilets in a hole in the floor and Hatikvah [the Israeli National Anthem] playing on a loop"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -3574,6 +3748,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "behead head after head"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -3632,7 +3809,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0058",
@@ -3701,6 +3879,10 @@
       "measures": [
         "Encouraging immigration and a death penalty law for terrorists",
         "encourage immigration"
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Physical Harm"
       ]
     },
     {
@@ -3761,6 +3943,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "encourage emigration from Gaza"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -3823,6 +4008,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "shoot anyone who enters the area of ​​the security strip, Anyone who enters there is a son of death"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -3892,6 +4080,10 @@
       "measures": [
         "heroic activity last night in cooperation with the IDF and Shin Bet forces in the Jenin refugee camp",
         "operate everywhere and by all means"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -3959,6 +4151,10 @@
       "measures": [
         "oppose the introduction of any humanitarian aid",
         "No for a promiscuous deal and No for stopping the war."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -4040,6 +4236,9 @@
       "measures": [
         "a large part of them will want to emigrate voluntarily",
         "most of them will agree to emigrate voluntarily"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -4106,6 +4305,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Anyone who comes close to harm security should be shot"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -4172,6 +4374,11 @@
         "return to the Gaza Strip",
         "encourage the voluntary emigration of Gaza residents",
         "Want humanitarian [aid]? Bring back the hostages"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation",
+        "Forced Displacement",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -4236,6 +4443,9 @@
       "external_criticism_rejection_bj": "The statement rejects external political recognition of a Palestinian state by framing it as a reward for kidnappers and their supporters, making outside criticism or pressure appear illegitimate.",
       "measures": [
         "we will not allow any surrender that even includes a declaration of a Palestinian state."
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -4298,6 +4508,9 @@
       "external_criticism_rejection_bj": "The statement delegitimizes external legal oversight by calling the court in The Hague “irrelevant” and “anti-Semitic,” making its order appear illegitimate.",
       "measures": [
         "the occupation of Rafah."
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -4364,6 +4577,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "And they also need to be eliminated!"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -4427,6 +4643,10 @@
       "measures": [
         "Occupation, settlement, and encouragement of migration",
         "to occupy all the land, to settle in all of the land, and of course to encourage voluntary migration"
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -4498,6 +4718,10 @@
       "measures": [
         "returning to Gaza, to northern Samaria, [in the West Bank] and to settling there. People tell me 'Gush Katif', and I say all throughout Gaza",
         "re-settlement \"must be accompanied by encouraging emigration\""
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -4561,6 +4785,10 @@
       "measures": [
         "Jewish settlement in the Gaza Strip",
         "encouraging the voluntary emigration of Gaza residents"
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -4622,6 +4850,10 @@
       "measures": [
         "Palestinian prisoners must be killed by shooting them in the head",
         "we will give them little to live on"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation",
+        "Physical Harm"
       ]
     },
     {
@@ -4682,6 +4914,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "To liberate, to colonize, and to destroy"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -4742,6 +4978,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "gates of hell on Gaza, encourage Gazans to emigrate."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Forced Displacement"
       ]
     },
     {
@@ -4807,6 +5047,10 @@
       "measures": [
         "flatten Gaza",
         "go to Egypt"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Forced Displacement"
       ]
     },
     {
@@ -4870,6 +5114,9 @@
       "measures": [
         "control the whole of Gaza",
         "settlements in all of the strip - width and length"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -4937,6 +5184,9 @@
       "measures": [
         "closing of the crossing for trucks transporting food, medicine and more for the residents of Gaza and especially for Hamas.",
         "allow aid"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -5002,6 +5252,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "settlements of the Israeli people in Gaza"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -5062,6 +5315,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "No electricity, no water, just damage."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -5122,6 +5379,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "I want to see dead bodies of terrorists around Gaza."
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -5184,6 +5444,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "the ruins in Gaza."
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -5255,7 +5518,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0083",
@@ -5321,6 +5585,9 @@
       "external_criticism_rejection_bj": "The statement rejects legal scrutiny of alleged abuse by framing the arrest of reservists as “simply insane,” making accountability for detainee mistreatment appear illegitimate.",
       "measures": [
         "Nukhba' terrorists being shot in the head at the end of their interrogation"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -5383,6 +5650,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "What the Arabs need to recieve today is a Nakba"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -5443,6 +5713,11 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Destroy all energy sources including fuel, solar systems, generators and power lines. Destroy all food sources including warehouses, water and water pumps. _x000D_\nLay siege and remotely kill everyone not flying a white flag of surrender."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation",
+        "Physical Harm"
       ]
     },
     {
@@ -5510,6 +5785,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "I hope my [soldier] son will kill anyone who will stand infront of him who will want to harm the state of Israel, including children."
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -5568,7 +5846,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0088",
@@ -5631,6 +5910,9 @@
       "measures": [
         "The conditions of the terrorists in prison were reduced to a minimum: we stopped the financial deposits, canceled the canteens for the terrorists, removed the electrical appliances from the cells, stopped the terrorists' promenade, dramatically reduced the terrorists' stay in the showers, canceled the speaker status, stopped the indulgent food menu that was replaced with a minimal menu, and in short - we completely stopped the conditions of the camp.",
         "the death penalty for terrorists"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -5695,6 +5977,10 @@
         "Leaving routes open across Rafah",
         "tent cities",
         "the construction of cities to resettle palestinians in Egypt."
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -5762,6 +6048,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "rescind citizenship or residency."
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -5825,6 +6114,9 @@
       "measures": [
         "destroy them",
         "all the Gazans need to be destroyed"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -5898,6 +6190,10 @@
         "Don't leave a child there expel everyone",
         "Do not leave a child there expel all the ones who will remain",
         "Do not leave a child there expel all the remaining ones"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Forced Displacement"
       ]
     },
     {
@@ -5960,6 +6256,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Nakba? Expel them all."
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -6022,6 +6321,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "expel them all"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -6082,6 +6384,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Destroy Gaza"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -6152,6 +6457,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "put them [Gazans] on ships and ship them to scotland"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -6230,6 +6538,10 @@
         "Jewish settlement in the northern Gaza Strip",
         "we didn't ask to kill anyone but the terrorists",
         "a Jewish settlement is the answer that makes most sense"
+      ],
+      "measure_categories": [
+        "Physical Harm",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -6288,7 +6600,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0099",
@@ -6347,7 +6660,10 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "allow them to go to other countries, far from here"
+        "we must allow them to go to other countries, far from here"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -6409,7 +6725,10 @@
       "humanity_as_weakness_bj": "The statement explicitly frames being humanitarian as excessive.",
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Burn Gaza now no less"
+        "Burn Gaza now no less!"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -6470,6 +6789,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "burn Gaza now, nothing less"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -6545,7 +6867,12 @@
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
       "measures": [
-        "Burn Gaza no less"
+        "Burn Gaza no less",
+        "Suddenly they put fuel in the Gaza Strip"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -6604,7 +6931,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0104",
@@ -6654,16 +6982,21 @@
       "hope_for_victory_bj": null,
       "rhetorical_foreclosure": "no",
       "no_alternative_framing": "no",
-      "humanity_as_weakness": "no",
+      "humanity_as_weakness": "yes",
       "external_criticism_rejection": "no",
       "no_alternative_framing_anchor": [],
-      "humanity_as_weakness_anchor": [],
+      "humanity_as_weakness_anchor": [
+        "We speak intelligently, like Eastern Europe, like nice Europeans with ties\"; \"We have to be really aggressive"
+      ],
       "external_criticism_rejection_anchor": [],
       "no_alternative_framing_bj": null,
-      "humanity_as_weakness_bj": null,
+      "humanity_as_weakness_bj": "The statement devalues restraint by portraying controlled, civilized language as insufficient and presenting aggression as the more appropriate response.",
       "external_criticism_rejection_bj": null,
       "measures": [
         "we need to say \"Burn Gaza\""
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -6741,6 +7074,10 @@
       "measures": [
         "burn and take down buildings",
         "Whoever remains there should be eliminated"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -6809,6 +7146,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "the ones who got shot probably deserved it"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -6873,6 +7213,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "only settlements will bring security"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -6933,6 +7276,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Lebanon and Beirut will look like Gaza"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -6947,17 +7293,14 @@
       "speakerPosition": "Deputy Speaker of Knesset (Likud)",
       "enemy_image": "yes",
       "homogenization": "yes",
-      "immutability": "yes",
+      "immutability": "no",
       "essentialization": "yes",
       "dehumanization": "yes",
       "threat_construction": "no",
       "homogenization_anchor": [
-        "The children and women need to be separated and the adult [men] in Gaza eliminated.",
-        "they know that these are scum and subhumans"
+        "No one in the world wants the civilians in Gaza, everyone is pushing them into Israel, they know that these are scum and subhumans"
       ],
-      "immutability_anchor": [
-        "We are being too considerate."
-      ],
+      "immutability_anchor": [],
       "essentialization_anchor": [
         "these are scum and subhumans"
       ],
@@ -6966,7 +7309,7 @@
       ],
       "threat_construction_anchor": [],
       "homogenization_bj": "The statement homogenizes civilians in Gaza by referring to them collectively as “scum and subhumans” and treating adult men as one group to be eliminated.",
-      "immutability_bj": "The statement suggests immutability by portraying Gazan adult men as beyond reconsideration and as a group that must be eliminated rather than changed or negotiated with.",
+      "immutability_bj": null,
       "essentialization_bj": "The statement essentializes civilians in Gaza by describing them as “scum and subhumans,” making worthlessness and inhumanity appear as defining collective traits.",
       "dehumanization_bj": "The statement dehumanizes civilians in Gaza by calling them “scum and subhumans,” denying their human status and making elimination appear more acceptable.",
       "threat_construction_bj": null,
@@ -7005,6 +7348,10 @@
       "measures": [
         "The children and women need to be separated",
         "the adult [men] in Gaza eliminated"
+      ],
+      "measure_categories": [
+        "Forced Displacement",
+        "Physical Harm"
       ]
     },
     {
@@ -7065,6 +7412,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Bomb from the air today the food stocks"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -7127,6 +7478,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "There cannot be any humanitarian aid in [Gaza]"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -7191,6 +7545,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "we need to exact a territorial price from [Hamas], including returning Jewish settlements at least to the north of Gaza Strip"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -7253,6 +7611,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "A complete siege on Gaza. No water, no electricity, no food."
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -7313,7 +7674,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0116",
@@ -7376,6 +7738,9 @@
       "measures": [
         "Bring down buildings!! Bomb without distinction!!",
         "Flatten Gaza"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -7453,6 +7818,9 @@
       "measures": [
         "A ceasefire for several hours is surrender",
         "crushing Hamas and razing Gaza"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -7513,6 +7881,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Jericho Missile! Jericho Missile!"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -7575,6 +7946,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "bribing people with food, drink, medicine,"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -7641,6 +8015,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "it’s not about just eliminating Hamas […] it’s the termination of Gaza as a whole […]."
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -7703,6 +8080,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Remove the patients, and bomb hospitals as well"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -7774,6 +8154,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Stop everything immediately bring back a total blockade. Return instructions to open fire in the north of the Gaza Strip against all incoming Gazans."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -7836,6 +8220,11 @@
         "blockade of the Palestinians in Gaza and the cutting off of water, food and fuel",
         "that they must be dealt with forcefully",
         "we will destroy them"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation",
+        "Physical Harm"
       ]
     },
     {
@@ -7898,6 +8287,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Maybe instead of using a precision missile and taking down a specific room, I'll use inaccurate missiles and collapse ten buildings."
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -7958,7 +8350,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": "The statement rejects ICC-related criticism by framing the prosecutor as “dangerous” and as endangering soldiers.",
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0126",
@@ -8025,6 +8418,9 @@
       "measures": [
         "we should be cruel to the enemy and attack without mercy.",
         "I have non-precision missles, instead of blowing up a room in a building, I'll blow up the whole building, instead of blowing up one building, I'll blow up ten, it's very simple."
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -8091,6 +8487,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "unilateral decision for a tactical pause in Gaza until 7 p.m. in order to increase humanitarian aid"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -8161,6 +8560,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "we are obligated to be and flatten the entire school with inaccurate munitions."
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -8221,6 +8623,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "humanitarian aid was necessary as part of the fighting strategy,"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -8283,6 +8688,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "The complete destruction of the Hamas"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -8343,6 +8751,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "[effort to supply Starlink in Gaza]"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -8412,6 +8823,10 @@
       "measures": [
         "shut their tunnels on them with dirt",
         "cut off all the foreskins of these damned [people]"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -8477,6 +8892,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "cut off the foreskins of all these accursed"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -8539,6 +8957,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "We must establish settlements. We need security forces. We need to settle this land"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -8605,6 +9026,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "don't let them conquer your country with refugees"
+      ],
+      "measure_categories": [
+        "Forced Displacement"
       ]
     },
     {
@@ -8663,7 +9087,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0137",
@@ -8729,6 +9154,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "destruction of all of Gaza"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -8791,6 +9219,11 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "Occupy, Annex, destroy all houses, and build wide and large settlements, give the lands we occupy to our soldiers."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm",
+        "Occupation / Settlement"
       ]
     },
     {
@@ -8852,7 +9285,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": "The statement frames assistance to the enemy during wartime as disgraceful, presenting humanitarian consideration as incompatible with strength and effective warfare.",
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0140",
@@ -8912,6 +9346,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "almost 100 Gazans were killed"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -8972,7 +9409,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0142",
@@ -9030,7 +9468,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "legislators-0143",
@@ -9100,6 +9539,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "their judgement shall be to destroy them, full stop."
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -9167,6 +9609,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "they need to be exterminated"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -9231,6 +9676,10 @@
         "no limits to the response",
         "until we see hundreds of thousands fleeing Gaza, we, the IDF has not achieved its mission",
         "I also do not want [the IDF] to get inside [Gaza] before crushing everything,"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Forced Displacement"
       ]
     },
     {
@@ -9296,6 +9745,9 @@
       "measures": [
         "turn all the places in which Hamas deploys and hides into ruins",
         "act everywhere and with full power"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -9364,6 +9816,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "we shall realize the prophecy of Isaiah."
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -9427,6 +9882,10 @@
       "measures": [
         "killed thousands of terrorists",
         "this is only the beginning"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -9489,7 +9948,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "decisionmakers-0005",
@@ -9553,6 +10013,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "the civillians [deaths]"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -9613,6 +10076,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "make cultural changes in Gaza"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -9673,6 +10139,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "allow a limited entry of two fuel tankers a day into the southern Gaza Strip"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -9731,7 +10200,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "decisionmakers-0009",
@@ -9791,6 +10261,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "After we fought and did all this thing we give them the strip?"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -9860,7 +10333,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "decisionmakers-0011",
@@ -9920,6 +10394,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "hit the shards again and again until you're left with [small] squads or individuals"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -9980,7 +10457,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "decisionmakers-0013",
@@ -10040,6 +10518,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "hold territory"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -10101,6 +10582,9 @@
       "measures": [
         "occupy Gaza",
         "security control will be there forever"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -10162,6 +10646,9 @@
       "measures": [
         "The fighting will continue to and expand to any place neccesary in the Gaza strip",
         "There will be no sanctuary cities"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -10224,6 +10711,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "reducing the [aid] supply"
+      ],
+      "measure_categories": [
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -10285,7 +10775,8 @@
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
       "external_criticism_rejection_bj": null,
-      "measures": []
+      "measures": [],
+      "measure_categories": []
     },
     {
       "id": "decisionmakers-0018",
@@ -10349,6 +10840,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "uproot evil"
+      ],
+      "measure_categories": [
+        "Physical Harm"
       ]
     },
     {
@@ -10413,6 +10907,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "preserve settlements and give it the tools for its growth and flourishing"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -10475,6 +10972,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "security control over Gaza with complete freedom of action"
+      ],
+      "measure_categories": [
+        "Occupation / Settlement"
       ]
     },
     {
@@ -10535,6 +11035,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "the air force attack is the first step. The rest will be much more difficult, and you will pay the full price"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -10596,6 +11099,10 @@
       "measures": [
         "operate forcefully in additional areas in Gaza",
         "required to evacuate and lose more and more territory"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Forced Displacement"
       ]
     },
     {
@@ -10659,6 +11166,10 @@
       "measures": [
         "attack everything, kill those who fight us,",
         "through the air, land, with tanks, with bulldozers, by all means,"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -10723,6 +11234,10 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "I have ordered a complete siege on the Gaza Strip. There will be no electricity, no food, no fuel, everything is closed."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Aid Control / Deprivation"
       ]
     },
     {
@@ -10784,6 +11299,9 @@
       "measures": [
         "removed all restraints",
         "moving on to a full attack"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -10851,6 +11369,10 @@
       "measures": [
         "We will eliminate everything",
         "we will reach all places."
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -10913,6 +11435,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "the final and complete destruction of the Hamas organization"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -10975,6 +11500,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "What we are doing in Gaza, we know how to do in Beirut."
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -11036,6 +11564,10 @@
       "measures": [
         "Soon they'll realize the IDF's power,",
         "deadly power of the IDF,"
+      ],
+      "measure_categories": [
+        "Destruction",
+        "Physical Harm"
       ]
     },
     {
@@ -11096,6 +11628,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "fighting will continue with intensity, and pressure will be made to bring back more hostages."
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -11156,6 +11691,9 @@
       "external_criticism_rejection_bj": null,
       "measures": [
         "The campaign [of making Gaza inhabitable] will last for months to come and include the southern area of the strip"
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     },
     {
@@ -11219,6 +11757,9 @@
       "external_criticism_rejection_bj": "The statement rejects external moral and legal criticism by dismissing it as “moral preaching” and denying The Hague as a place of justice.",
       "measures": [
         "The IDF and the security agencies will continue to act and dismantle the Hamas regime."
+      ],
+      "measure_categories": [
+        "Destruction"
       ]
     }
   ]
