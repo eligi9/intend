@@ -1,0 +1,62 @@
+.tooltip {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  outline: none;
+}
+
+.tooltip__panel {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  display: grid;
+  gap: var(--tooltip-panel-gap, var(--space-2));
+  inline-size: var(--tooltip-panel-inline-size, clamp(19rem, 30vw, 24rem));
+  max-inline-size: var(--tooltip-panel-max-inline-size, calc(100vw - 3rem));
+  padding: var(--tooltip-panel-padding, var(--space-2));
+  color: var(--tooltip-panel-color, var(--color-text));
+  font-size: var(--text-caption-size);
+  line-height: var(--text-body-line-height);
+  text-align: left;
+  background: var(--tooltip-panel-background, rgba(var(--color-background-rgb), 0.96));
+  box-shadow: var(--tooltip-panel-shadow, 0 1rem 2.5rem rgba(var(--color-shadow-rgb), 1));
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.98);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.tooltip--right .tooltip__panel {
+  left: calc(100% + 0.875rem);
+}
+
+.tooltip--left .tooltip__panel {
+  right: calc(100% + 0.875rem);
+}
+
+.tooltip__panel::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--tooltip-panel-background, rgba(var(--color-background-rgb), 0.96));
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.tooltip--right .tooltip__panel::after {
+  right: calc(100% - 0.3125rem);
+}
+
+.tooltip--left .tooltip__panel::after {
+  left: calc(100% - 0.3125rem);
+}
+
+.tooltip:hover .tooltip__panel,
+.tooltip:focus-within .tooltip__panel,
+.tooltip:focus .tooltip__panel {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}

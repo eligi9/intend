@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import type { IntentRecord } from '../../types/intentData'
 import { strategyColors } from '../../utils/intentLabels'
 import { getActiveMainLabels } from '../../utils/sort'
+import Tooltip from '../common/Tooltip.vue'
 
 const props = defineProps<{
   statement: IntentRecord
@@ -14,6 +15,7 @@ const mainPatterns = computed(() => {
     labelKey,
   }))
 })
+const measureCategories = computed(() => props.statement.measure_categories ?? [])
 
 const ringSize = (index: number) => {
   const ringStep = '(var(--statement-button-ring-stroke) + var(--statement-button-ring-gap))'
@@ -22,28 +24,54 @@ const ringSize = (index: number) => {
   return `calc(var(--statement-button-core-size) + ${ringExpansion})`
 }
 
-const ariaLabel = computed(
-  () => `${props.statement.author}, ${props.statement.date}: ${props.statement.statement}`,
-)
+const ariaLabel = computed(() => {
+  const categories = measureCategories.value.length
+    ? ` Inhaltliche Labels: ${measureCategories.value.join(', ')}.`
+    : ''
+
+  return `${props.statement.author}, ${props.statement.date}: ${props.statement.statement}.${categories}`
+})
 </script>
 
 <template>
-  <button
-    class="statement-button"
-    type="button"
-    :aria-label="ariaLabel"
+  <Tooltip
+    class="statement-button-tooltip"
+    :disabled="measureCategories.length === 0"
+    :focusable="false"
   >
-    <span class="statement-button__rings" aria-hidden="true">
-      <span
-        v-for="(pattern, index) in mainPatterns"
-        :key="pattern.labelKey"
-        class="statement-button__ring"
-        :style="{ '--ring-color': pattern.color, '--ring-size': ringSize(index) }"
-      />
-    </span>
+    <button
+      class="statement-button"
+      type="button"
+      :aria-label="ariaLabel"
+    >
+      <span class="statement-button__rings" aria-hidden="true">
+        <span
+          v-for="(pattern, index) in mainPatterns"
+          :key="pattern.labelKey"
+          class="statement-button__ring"
+          :style="{ '--ring-color': pattern.color, '--ring-size': ringSize(index) }"
+        />
+      </span>
 
-    <span class="statement-button__core" aria-hidden="true" />
-  </button>
+      <span class="statement-button__core" aria-hidden="true" />
+    </button>
+
+    <template #panel>
+      <span class="statement-button__tooltip-content">
+        <strong class="statement-button__tooltip-title">This statement includes</strong>
+
+        <span class="statement-button__measure-labels">
+          <span
+            v-for="category in measureCategories"
+            :key="category"
+            class="statement-button__measure-label"
+          >
+            {{ category }}
+          </span>
+        </span>
+      </span>
+    </template>
+  </Tooltip>
 </template>
 
 <style scoped>

@@ -1,65 +1,8 @@
 .author-tooltip {
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  outline: none;
-}
-
-.author-tooltip__panel {
-  position: absolute;
-  top: 50%;
-  z-index: 20;
-  display: grid;
-  gap: var(--space-2);
-  inline-size: clamp(19rem, 30vw, 24rem);
-  max-inline-size: calc(100vw - 3rem);
-  padding: var(--space-2);
-  color: var(--color-text);
-  font-size: var(--text-caption-size);
-  line-height: var(--text-body-line-height);
-  text-align: left;
-  background: rgba(var(--color-tooltip-background-rgb), 0.96);
-  border-radius: 0.5rem;
-  box-shadow: 0 1rem 2.5rem rgba(var(--color-shadow-rgb), 1);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-50%) scale(0.98);
-  transition:
-    opacity 160ms ease,
-    transform 160ms ease;
-}
-
-.author-tooltip--right .author-tooltip__panel {
-  left: calc(100% + 0.875rem);
-}
-
-.author-tooltip--left .author-tooltip__panel {
-  right: calc(100% + 0.875rem);
-}
-
-.author-tooltip__panel::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 0.625rem;
-  height: 0.625rem;
-  background: rgba(var(--color-tooltip-background-rgb), 0.96);
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.author-tooltip--right .author-tooltip__panel::after {
-  right: calc(100% - 0.3125rem);
-}
-
-.author-tooltip--left .author-tooltip__panel::after {
-  left: calc(100% - 0.3125rem);
-}
-
-.author-tooltip:hover .author-tooltip__panel,
-.author-tooltip:focus-within .author-tooltip__panel,
-.author-tooltip:focus .author-tooltip__panel {
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
+  --tooltip-panel-inline-size: clamp(19rem, 30vw, 24rem);
+  --tooltip-panel-max-inline-size: calc(100vw - 3rem);
+  --tooltip-panel-padding: var(--space-2);
+  --tooltip-panel-gap: var(--space-2);
 }
 
 .author-tooltip__heading {
@@ -69,7 +12,7 @@
 }
 
 .author-tooltip__name {
-  color: var(--text-black);
+  color: var(--color-text);
   font-size: var(--text-body-size);
   font-weight: 700;
   line-height: var(--text-heading-line-height);
