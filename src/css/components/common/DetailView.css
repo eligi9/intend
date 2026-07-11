@@ -52,7 +52,7 @@
   box-sizing: border-box;
   min-height: 0;
   padding-block-start: var(--space-9);
-  border-bottom: 2px solid var(--text-lightness-4);
+  border-bottom: 2px solid rgba(var(--color-text-rgb), 0.2);
 }
 
 .detail__header-inner {
@@ -175,7 +175,7 @@
 }
 
 .detail__fact dt {
-  color: var(--text-lightness-2);
+  color: rgba(var(--color-text-rgb), 0.6);
   font-size: var(--font-size-1);
   font-weight: 850;
   line-height: 1;
@@ -243,7 +243,7 @@
 
 .detail__content > .statement-pattern-card + .statement-pattern-card {
   padding-block-start: var(--space-9);
-  border-block-start: 2px solid var(--text-lightness-4);
+  border-block-start: 2px solid rgba(var(--color-text-rgb), 0.2);
 }
 
 .detail-overlay-enter-active,

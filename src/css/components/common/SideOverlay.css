@@ -1,7 +1,7 @@
 .side-overlay {
-  --side-overlay-background: var(--bg-white);
-  --side-overlay-heading-color: var(--text-black);
-  --side-overlay-text-color: var(--text-black);
+  --side-overlay-background: var(--color-background);
+  --side-overlay-heading-color: var(--color-text);
+  --side-overlay-text-color: var(--color-text);
 
   position: fixed;
   z-index: 320;
@@ -22,8 +22,8 @@
 }
 
 .side-overlay--colored {
-  --side-overlay-heading-color: var(--text-white);
-  --side-overlay-text-color: var(--text-white);
+  --side-overlay-heading-color: var(--color-white);
+  --side-overlay-text-color: var(--color-white);
 }
 
 .side-overlay--right {

@@ -9,7 +9,7 @@
   min-height: 100vh;
   overflow-x: hidden;
   color: var(--color-text-soft);
-  background: var(--bg-black);
+  background: var(--app-background);
 }
 
 .establishment-view__panel {

@@ -9,8 +9,8 @@ export interface CanvasBaseColors {
 
 export function readCanvasBaseColors(): CanvasBaseColors {
   return {
-    background: readCssVariableRgb('--bg-black'),
-    ink: readCssVariableRgb('--text-black'),
+    background: readCssVariableRgb('--color-background'),
+    ink: readCssVariableRgb('--color-text'),
     text: readCssVariableRgb('--color-text'),
     white: readCssVariableRgb('--color-white'),
   }

@@ -53,10 +53,10 @@ interface TimelineTopOverlay {
 const topOverlay = computed<TimelineTopOverlay | null>(() => {
   if (hoveredTimelineEvent.value && !pressedPattern.value) {
     return {
-      headingColor: 'var(--text-white)',
+      headingColor: 'var(--color-white)',
       meta: `${hoveredTimelineEvent.value.date} · ${hoveredTimelineEvent.value.sourceName}`,
       text: hoveredTimelineEvent.value.description,
-      textColor: 'var(--text-white)',
+      textColor: 'var(--color-white)',
       title: hoveredTimelineEvent.value.label,
     }
   }
@@ -64,8 +64,8 @@ const topOverlay = computed<TimelineTopOverlay | null>(() => {
   if (props.mode === 'strategies' && hoveredPattern.value && !pressedPattern.value) {
     return {
       background: hoveredPattern.value.color,
-      headingColor: 'var(--text-white)',
-      textColor: 'var(--text-white)',
+      headingColor: 'var(--color-white)',
+      textColor: 'var(--color-white)',
       title: hoveredPattern.value.strategy,
     }
   }

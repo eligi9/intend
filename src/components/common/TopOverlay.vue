@@ -14,11 +14,11 @@ const props = withDefaults(
   }>(),
   {
     background: 'var(--color-text)',
-    headingColor: 'var(--text-black)',
+    headingColor: 'var(--color-text)',
     meta: '',
     minHeight: '20vh',
     text: '',
-    textColor: 'var(--text-black)',
+    textColor: 'var(--color-text)',
   },
 )
 

@@ -34,7 +34,7 @@
   font-size: 1.125rem;
   font-weight: 900;
   paint-order: stroke;
-  stroke: rgba(var(--color-background-elevated-rgb), 0.68);
+  stroke: rgba(var(--color-neutral-rgb), 0.68);
   stroke-width: 0.25rem;
 }
 

@@ -22,8 +22,8 @@
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, var(--layer-2) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--layer-2) 1px, transparent 1px);
+    linear-gradient(to right, var(--color-background-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-background-soft) 1px, transparent 1px);
   background-size:
     var(--view-grid-cell-size) var(--view-grid-cell-size),
     var(--view-grid-cell-size) var(--view-grid-cell-size);

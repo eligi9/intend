@@ -1,21 +1,7 @@
 :root {
-  --layer-1: #ffffff;
-  --layer-1-rgb: 255, 255, 255;
-  --layer-2: #cccccc;
-  --layer-2-rgb: 204, 204, 204;
-  --layer-3: #999999;
-  --layer-3-rgb: 153, 153, 153;
-
-  --color-background: var(--layer-1);
-  --color-background-rgb: var(--layer-1-rgb);
-  --color-background-soft: var(--layer-2);
-  --color-background-elevated: var(--layer-3);
-  --color-background-elevated-rgb: var(--layer-3-rgb);
-  --color-surface-raised: var(--layer-2);
-  --color-surface-raised-rgb: var(--layer-2-rgb);
-  --color-tooltip-background: #ffffff;
-  --color-tooltip-background-rgb: 255, 255, 255;
-
+  --color-background: #ffffff;
+  --color-background-rgb: 255, 255, 255;
+  --color-background-soft: #cccccc;
   --color-text: #000000;
   --color-text-rgb: 0, 0, 0;
   --color-text-soft: #222222;
@@ -23,20 +9,11 @@
   --color-white: #ffffff;
   --color-white-rgb: 255, 255, 255;
 
-  --color-ink: #000000;
-  --color-ink-rgb: 0, 0, 0;
-  --color-paper: #ffffff;
-  --color-paper-rgb: 255, 255, 255;
-
-  --color-accent: #00736f;
-  --color-accent-rgb: 0, 115, 111;
-  --color-link: #9dd9d4;
   --color-highlight: #f0c95a;
 
   --color-neutral: #858b94;
   --color-neutral-rgb: 133, 139, 148;
   --color-neutral-light: #d8d8d8;
-  --color-neutral-light-rgb: 216, 216, 216;
   --color-neutral-muted: #6f7278;
 
   --color-scrollbar-thumb: #b5b5b0;
@@ -49,25 +26,6 @@
   --color-measure-highlight: #c4cbc8;
 
   --color-portrait-surface: #f0efeb;
-  --color-tooltip-muted: rgb(170, 167, 161);
-
-  --bg-black: var(--color-background);
-  --bg-black-rgb: var(--color-background-rgb);
-  --bg-grey: var(--color-surface-raised);
-  --bg-grey-rgb: var(--color-surface-raised-rgb);
-  --bg-white: var(--color-paper);
-  --bg-white-rgb: var(--color-paper-rgb);
-
-  --text-black: var(--color-ink);
-  --text-black-rgb: var(--color-ink-rgb);
-  --text-black-muted: rgba(var(--text-black-rgb), 0.58);
-  --text-lightness-1: color-mix(in srgb, var(--color-text) 80%, var(--color-background));
-  --text-lightness-2: color-mix(in srgb, var(--color-text) 60%, var(--color-background));
-  --text-lightness-3: color-mix(in srgb, var(--color-text) 40%, var(--color-background));
-  --text-lightness-4: color-mix(in srgb, var(--color-text) 20%, var(--color-background));
-  --text-white: var(--color-white);
-  --text-white-rgb: var(--color-white-rgb);
-  --text-white-muted: rgba(var(--text-white-rgb), 0.58);
 
   --space-half: 0.25rem;
   --space-1: 0.5rem;
@@ -121,8 +79,7 @@
   --statement-card-quote-size: 1.25rem;
   --statement-pattern-card-inline-padding: 5vw;
 
-  --app-background: var(--bg-black);
-  --app-background-rgb: var(--bg-black-rgb);
+  --app-background: var(--color-background);
 
   /* Figma source: Just Cause */
   /* --intent-color-just-cause: #d772ff; */

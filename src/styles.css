@@ -6,9 +6,9 @@
   --view-title-size: 2.125rem;
   --view-title-mobile-size: 1.875rem;
 
-  color: var(--color-ink);
+  color: var(--color-text);
   background: var(--app-background);
-  scrollbar-color: var(--color-scrollbar-thumb) var(--bg-black);
+  scrollbar-color: var(--color-scrollbar-thumb) var(--app-background);
   font-family: var(--font-sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -27,7 +27,7 @@ html {
 *::before,
 *::after {
   box-sizing: border-box;
-  scrollbar-color: var(--color-scrollbar-thumb) var(--bg-black);
+  scrollbar-color: var(--color-scrollbar-thumb) var(--app-background);
   scrollbar-width: auto;
 }
 
@@ -63,11 +63,11 @@ body.app-scroll-locked {
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--bg-black);
+  background: var(--app-background);
 }
 
 *::-webkit-scrollbar-thumb {
-  border: 0.1875rem solid var(--bg-black);
+  border: 0.1875rem solid var(--app-background);
   border-radius: 999rem;
   background: var(--color-scrollbar-thumb);
 }

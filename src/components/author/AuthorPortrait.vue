@@ -71,7 +71,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
           '--author-ring-gap': `${ringGap}px`,
           '--author-ring-stroke': `${ringStroke}px`,
           '--author-shadow-color': `${outerRingColor}`,
-          '--author-image-shadow-color': 'var(--author-view-background, var(--bg-black))',
+          '--author-image-shadow-color': 'var(--author-view-background, var(--app-background))',
         }"
       >
         <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">
@@ -108,7 +108,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
         '--author-ring-gap': `${ringGap}px`,
         '--author-ring-stroke': `${ringStroke}px`,
         '--author-shadow-color': `${outerRingColor}`,
-        '--author-image-shadow-color': 'var(--author-view-background, var(--bg-black))',
+        '--author-image-shadow-color': 'var(--author-view-background, var(--app-background))',
       }"
     >
       <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">

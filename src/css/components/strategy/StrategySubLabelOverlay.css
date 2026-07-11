@@ -6,7 +6,7 @@
   grid-template-rows: minmax(0, 61.8fr) minmax(16.25rem, 38.2fr);
   min-width: 0;
   min-height: 0;
-  color: var(--text-white);
+  color: var(--color-white);
   background: var(--strategy-sub-label-overlay-color);
   overflow: hidden;
 }
@@ -29,7 +29,7 @@
 .strategy-sub-label-overlay__copy p {
   max-width: var(--text-body-max-width);
   margin: 0;
-  color: var(--text-white);
+  color: var(--color-white);
   font-family: var(--font-source-sans);
   font-size: var(--text-body-size);
   font-weight: var(--text-body-weight);
@@ -47,7 +47,7 @@
 .strategy-sub-label-overlay__header h3 {
   max-inline-size: 100%;
   margin: 0;
-  color: var(--text-white);
+  color: var(--color-white);
   font-family: var(--font-sans);
   font-size: var(--text-display-size);
   font-weight: 950;
@@ -57,7 +57,7 @@
 }
 
 .strategy-sub-label-overlay__close {
-  --square-arrow-button-color: var(--text-white);
+  --square-arrow-button-color: var(--color-white);
   --square-arrow-button-hover-color: var(--strategy-sub-label-overlay-color);
 }
 
