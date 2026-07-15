@@ -72,8 +72,9 @@
   --text-heading-line-height: 0.95;
   --text-body-line-height: 1.45;
   --text-body-max-width: 50ch;
-  --overlay-title-size: var(--text-display-size);
+  --overlay-title-size: var(--text-title-size);
   --overlay-text-size: var(--text-lead-size);
+  --overlay-text-max-width: 50ch;
   --overlay-meta-size: var(--text-caption-size);
   --overlay-shadow: 0 0 3rem rgba(0, 0, 0, 0.7);
   --statement-card-quote-size: 1.25rem;

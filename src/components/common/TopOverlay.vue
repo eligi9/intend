@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { wrapTextAtCharacterLimit } from '../../utils/textWrap'
 
 const props = withDefaults(
   defineProps<{
@@ -30,6 +31,8 @@ const overlayStyle = computed(() => {
     '--top-overlay-text-color': props.textColor,
   }
 })
+
+const wrappedText = computed(() => wrapTextAtCharacterLimit(props.text, 50))
 </script>
 
 <template>
@@ -42,7 +45,7 @@ const overlayStyle = computed(() => {
     >
       <div class="top-overlay__inner">
         <h3>{{ title }}</h3>
-        <p v-if="text">{{ text }}</p>
+        <p v-if="text">{{ wrappedText }}</p>
         <span v-if="meta">{{ meta }}</span>
       </div>
     </aside>

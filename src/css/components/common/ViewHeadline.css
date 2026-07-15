@@ -1,6 +1,6 @@
 .view-headline {
   display: grid;
-  gap: var(--space-half);
+  gap: var(--space-1);
   min-width: 0;
   max-width: min(40rem, 100%);
   text-align: left;
@@ -12,7 +12,7 @@
   overflow: hidden;
   color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: var(--text-display-size);
+  font-size: var(--text-title-size);
   font-weight: 800;
   letter-spacing: 0;
   line-height: var(--text-heading-line-height);
