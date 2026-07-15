@@ -22,6 +22,10 @@
   white-space: normal;
 }
 
+.explore-header__headline :deep(.view-headline__subline) {
+  font-size: var(--font-size-2);
+}
+
 .explore-header__nav {
   display: flex;
   align-items: baseline;
