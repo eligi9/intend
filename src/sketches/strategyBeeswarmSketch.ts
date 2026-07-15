@@ -14,6 +14,7 @@ import {
   type CanvasBaseColors,
   type RgbColor,
 } from '../utils/colorTokens'
+import { readCssRemTokenInPixels } from '../utils/cssTokens'
 import { intentLabelNames, strategyColors } from '../utils/intentLabels'
 import { getPatternAnnotation, isPatternActive } from '../utils/intentRecordPatterns'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
@@ -35,6 +36,7 @@ interface BeeswarmNode extends SimulationNodeDatum {
 }
 
 interface BeeswarmBand {
+  childLabels: PatternLabelKey[]
   id: PatternLabelKey
   label: string
   maxY: number
@@ -58,6 +60,7 @@ export function createStrategyBeeswarmSketch(
   const colors = readCanvasBaseColors()
   const pointColors = readStrategyPointColors()
   let cleanupCanvas: (() => void) | null = null
+  let expandedBandId: PatternLabelKey | null = null
   let layoutKey = ''
   let nodes: BeeswarmNode[] = []
   let simulation: Simulation<BeeswarmNode, undefined> | null = null
@@ -79,34 +82,51 @@ export function createStrategyBeeswarmSketch(
         state.timeDomain.startDate,
         state.timeDomain.endDate,
       )
-      const bands = createBeeswarmBands(getSwarmTop(p), getSwarmBottom(p))
-      const nextLayoutKey = createLayoutKey(p, timeline.points.length)
+      const bands = createBeeswarmBands(getSwarmTop(), getSwarmBottom(p), expandedBandId)
+      const nextLayoutKey = createLayoutKey(p, timeline.points.length, expandedBandId)
 
       if (nextLayoutKey !== layoutKey) {
         layoutKey = nextLayoutKey
-        nodes = createBeeswarmNodes(timeline.points, bands, p.width)
+        nodes = createBeeswarmNodes(timeline.points, bands, p.width, expandedBandId)
         simulation = createBeeswarmSimulation(nodes)
       }
 
       tickSimulation(simulation, nodes, p.width)
 
       const hoveredPoint = checkHover(p, nodes)
+      const hoveredBand = hoveredPoint ? null : checkBandHover(p, bands)
 
-      p.cursor(hoveredPoint ? p.HAND : p.ARROW)
+      p.cursor(hoveredPoint || hoveredBand ? p.HAND : p.ARROW)
       state.setHoveredStatement(createHoverPayload(hoveredPoint, p, colors, pointColors))
 
       p.clear()
-      drawBands(p, bands, state.selectedLabels, colors, pointColors)
+      drawBands(p, bands, state.selectedLabels, colors, pointColors, expandedBandId)
       nodes.forEach((node) =>
-        drawNode(p, node, hoveredPoint, state.selectedLabels, colors, pointColors),
+        drawNode(
+          p,
+          node,
+          hoveredPoint,
+          state.selectedLabels,
+          colors,
+          pointColors,
+          expandedBandId,
+        ),
       )
     }
 
     p.mousePressed = () => {
       const pressedPoint = checkHover(p, nodes)
-      if (!pressedPoint) return
+      if (pressedPoint) {
+        state.setPressedStatement(createHoverPayload(pressedPoint, p, colors, pointColors))
+        return
+      }
 
-      state.setPressedStatement(createHoverPayload(pressedPoint, p, colors, pointColors))
+      const bands = createBeeswarmBands(getSwarmTop(), getSwarmBottom(p), expandedBandId)
+      const pressedBand = checkBandHover(p, bands)
+      if (!pressedBand) return
+
+      expandedBandId = expandedBandId === pressedBand.id ? null : pressedBand.id
+      layoutKey = ''
     }
 
     p.mouseReleased = () => {
@@ -118,16 +138,32 @@ export function createStrategyBeeswarmSketch(
 }
 
 // Splits the vertical drawing area into one invisible lane per main label.
-function createBeeswarmBands(minY: number, maxY: number) {
-  const bandGap = 18
-  const usableHeight = maxY - minY - bandGap * (strategyGroups.length - 1)
-  const bandHeight = usableHeight / strategyGroups.length
+function createBeeswarmBands(
+  minY: number,
+  maxY: number,
+  expandedBandId: PatternLabelKey | null,
+) {
+  const bandGap = 0
+  const totalHeight = maxY - minY
+  const totalGap = bandGap * (strategyGroups.length - 1)
+  const usableHeight = totalHeight - totalGap
+  const expandedHeight = totalHeight * 0.618
+  const collapsedHeight = expandedBandId
+    ? (usableHeight - expandedHeight) / (strategyGroups.length - 1)
+    : usableHeight / strategyGroups.length
+  let bandTop = minY
 
-  return strategyGroups.map((group, index) => {
-    const bandMinY = minY + index * (bandHeight + bandGap)
+  return strategyGroups.map((group) => {
+    const bandHeight =
+      expandedBandId && group.superLabel === expandedBandId
+        ? expandedHeight
+        : collapsedHeight
+    const bandMinY = bandTop
     const bandMaxY = bandMinY + bandHeight
+    bandTop = bandMaxY + bandGap
 
     return {
+      childLabels: group.childLabels,
       id: group.superLabel,
       label: intentLabelNames[group.superLabel],
       maxY: bandMaxY,
@@ -141,6 +177,7 @@ function createBeeswarmNodes(
   timelinePoints: ReturnType<typeof createTimelineModel>['points'],
   bands: BeeswarmBand[],
   width: number,
+  expandedBandId: PatternLabelKey | null,
 ) {
   const bandByLabel = new Map(bands.map((band) => [band.id, band]))
 
@@ -150,9 +187,15 @@ function createBeeswarmNodes(
       const id = `${point.record.id}:${strategy.label}`
       const targetX = point.ratio * width
 
+      const subRowIndex = band.childLabels.indexOf(strategy.label)
+      const subRowHeight = (band.maxY - band.minY) / band.childLabels.length
+      const expanded = band.id === expandedBandId
+      const nodeMinY = expanded ? band.minY + subRowIndex * subRowHeight : band.minY
+      const nodeMaxY = expanded ? nodeMinY + subRowHeight : band.maxY
+
       return {
-        bandMaxY: band.maxY,
-        bandMinY: band.minY,
+        bandMaxY: nodeMaxY,
+        bandMinY: nodeMinY,
         date: point.date,
         id,
         record: point.record,
@@ -160,9 +203,9 @@ function createBeeswarmNodes(
         strategyLabel: strategy.superLabel,
         strategyName: intentLabelNames[strategy.label],
         targetX,
-        targetY: band.y,
+        targetY: expanded ? nodeMinY + subRowHeight / 2 : band.y,
         x: targetX + getDeterministicOffset(id, 18),
-        y: band.y + getDeterministicOffset(id, 42),
+        y: (expanded ? nodeMinY + subRowHeight / 2 : band.y) + getDeterministicOffset(id, 42),
       }
     }),
   )
@@ -174,16 +217,22 @@ function drawBands(
   selectedLabels: PatternLabelKey[],
   colors: CanvasBaseColors,
   pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
+  expandedBandId: PatternLabelKey | null,
 ) {
-  p.textAlign(p.RIGHT, p.BOTTOM)
-  p.textSize(12)
+  const labelInset = readCssRemTokenInPixels('--space-1')
+
+  p.textFont('Montserrat')
+  p.textAlign(p.RIGHT, p.TOP)
+  p.textSize(readCssRemTokenInPixels('--font-size-0'))
   p.textStyle(p.BOLD)
 
   bands.forEach((band) => {
     const selected = selectedLabels.length === 0 || selectedLabels.includes(band.id)
+    const subdued = expandedBandId !== null && band.id !== expandedBandId
+    const expanded = band.id === expandedBandId
     const color = getPointColor(band.id, colors, pointColors)
-    const alpha = selected ? 26 : 12
-    const strokeAlpha = selected ? 58 : 24
+    const alpha = subdued ? 7 : selected ? 26 : 12
+    const strokeAlpha = subdued ? 14 : selected ? 58 : 24
 
     p.noStroke()
     p.fill(color[0], color[1], color[2], alpha)
@@ -194,9 +243,31 @@ function drawBands(
     p.line(0, band.minY, p.width, band.minY)
     p.line(0, band.maxY, p.width, band.maxY)
 
-    p.noStroke()
-    p.fill(color[0], color[1], color[2], selected ? 180 : 92)
-    p.text(band.label, p.width - 12, band.maxY - 10)
+    if (expanded) {
+      const rowHeight = (band.maxY - band.minY) / band.childLabels.length
+
+      band.childLabels.forEach((label, index) => {
+        const rowTop = band.minY + rowHeight * index
+
+        if (index > 0) {
+          p.stroke(color[0], color[1], color[2], 42)
+          p.strokeWeight(1)
+          p.line(0, rowTop, p.width, rowTop)
+        }
+
+        p.noStroke()
+        p.fill(color[0], color[1], color[2], 170)
+        p.text(intentLabelNames[label], p.width - labelInset, rowTop + labelInset)
+      })
+    }
+
+    if (!expanded) {
+      p.noStroke()
+      p.fill(color[0], color[1], color[2], subdued ? 60 : selected ? 180 : 92)
+      p.textAlign(p.RIGHT, p.TOP)
+      p.text(`▸ ${band.label}`, p.width - labelInset, band.minY + labelInset)
+    }
+    p.textAlign(p.RIGHT, p.TOP)
   })
 
   p.textStyle(p.NORMAL)
@@ -240,16 +311,25 @@ function checkHover(p: p5, nodes: BeeswarmNode[]) {
   return nodes.find((node) => p.dist(p.mouseX, p.mouseY, node.x, node.y) <= HOVERED_DOT_RADIUS + 3.5) ?? null
 }
 
-function createLayoutKey(p: p5, pointCount: number) {
-  return `${p.width}:${p.height}:${pointCount}`
+function checkBandHover(p: p5, bands: BeeswarmBand[]) {
+  if (p.mouseX < 0 || p.mouseX > p.width) return null
+  return bands.find((band) => p.mouseY >= band.minY && p.mouseY <= band.maxY) ?? null
 }
 
-function getSwarmTop(p: p5) {
-  return 16
+function createLayoutKey(
+  p: p5,
+  pointCount: number,
+  expandedBandId: PatternLabelKey | null,
+) {
+  return `${p.width}:${p.height}:${pointCount}:${expandedBandId ?? 'closed'}`
+}
+
+function getSwarmTop() {
+  return 0
 }
 
 function getSwarmBottom(p: p5) {
-  return p.height - 16
+  return p.height
 }
 
 function createHoverPayload(
@@ -283,11 +363,13 @@ function drawNode(
   selectedLabels: PatternLabelKey[],
   colors: CanvasBaseColors,
   pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
+  expandedBandId: PatternLabelKey | null,
 ) {
   const hovered = hoveredNode?.id === node.id
   const sameSubLabel = !hoveredNode || node.subLabel === hoveredNode.subLabel
   const selected = selectedLabels.length === 0 || selectedLabels.includes(node.strategyLabel)
-  const highlighted = selected && sameSubLabel
+  const inSubduedBand = expandedBandId !== null && node.strategyLabel !== expandedBandId
+  const highlighted = selected && sameSubLabel && !inSubduedBand
   const color = highlighted ? getPointColor(node.strategyLabel, colors, pointColors) : colors.text
 
   p.stroke(...colors.background, highlighted ? 230 : 105)
