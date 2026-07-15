@@ -65,6 +65,10 @@ const topOverlay = computed<TimelineTopOverlay | null>(() => {
     return {
       background: hoveredPattern.value.color,
       headingColor: 'var(--color-white)',
+      meta: [hoveredPattern.value.author, hoveredPattern.value.date, hoveredPattern.value.source]
+        .filter(Boolean)
+        .join(' · '),
+      text: hoveredPattern.value.anchorText?.map((anchor) => `»${anchor}«`).join(' ') ?? '',
       textColor: 'var(--color-white)',
       title: hoveredPattern.value.strategy,
     }

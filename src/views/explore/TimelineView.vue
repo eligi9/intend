@@ -11,10 +11,10 @@ import type { ExploreHeaderProps, ExploreViewSection } from '../../types/explore
 import type { IntentRecord } from '../../types/intentData'
 import type {
   BeeswarmDisplayMode,
-  HoveredBeeswarmStatement,
   HoveredTimelineStatement,
 } from '../../types/strategyBeeswarm'
 import type { TimelineEvent } from '../../types/timeline'
+import { wrapTextAtCharacterLimit } from '../../utils/textWrap'
 
 defineProps<ExploreHeaderProps>()
 
@@ -27,7 +27,6 @@ const authorStore = useAuthorStore()
 const { records } = storeToRefs(statementStore)
 const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
-const hoveredPattern = ref<HoveredBeeswarmStatement | null>(null)
 const hoveredStatement = ref<HoveredTimelineStatement | null>(null)
 const selectedStatement = ref<IntentRecord | null>(null)
 
@@ -43,13 +42,8 @@ const selectedAuthorRecords = computed(() =>
 )
 
 watch(beeswarmMode, () => {
-  hoveredPattern.value = null
   hoveredStatement.value = null
 })
-
-function showHoveredPattern(pattern: HoveredBeeswarmStatement | null) {
-  hoveredPattern.value = pattern
-}
 
 function showHoveredStatement(statement: HoveredTimelineStatement | null) {
   hoveredStatement.value = statement
@@ -83,7 +77,6 @@ function closeAuthorDetail() {
           :mode="beeswarmMode"
           :statements="records"
           :selected-labels="[]"
-          @pattern-hover="showHoveredPattern"
           @statement-hover="showHoveredStatement"
           @statement-press="showAuthorDetail"
         />
@@ -95,7 +88,7 @@ function closeAuthorDetail() {
           class="timeline-view__statement-hover"
           aria-label="Hovered statement"
         >
-          <p>{{ hoveredStatement.statement }}</p>
+          <p>{{ wrapTextAtCharacterLimit(hoveredStatement.statement, 50) }}</p>
           <span>
             <strong class="timeline-view__statement-hover-author">{{ hoveredStatement.author }}</strong>
             · {{ hoveredStatement.date }}
@@ -103,31 +96,6 @@ function closeAuthorDetail() {
               · {{ hoveredStatement.source }}
             </template>
           </span>
-        </aside>
-      </Transition>
-
-      <Transition name="timeline-view-statement-hover">
-        <aside
-          v-if="beeswarmMode === 'strategies' && hoveredPattern"
-          class="timeline-view__statement-hover timeline-view__statement-hover--pattern"
-          :style="{ '--timeline-view-pattern-color': hoveredPattern.color }"
-          aria-label="Hovered pattern anchor"
-        >
-          <strong>Anchor</strong>
-          <p
-            v-for="(anchor, index) in hoveredPattern.anchorText ?? []"
-            :key="`${anchor}-${index}`"
-          >
-            »{{ anchor }}«
-          </p>
-          <span>
-            <strong class="timeline-view__statement-hover-author">{{ hoveredPattern.author }}</strong>
-            · {{ hoveredPattern.date }}
-            <template v-if="hoveredPattern.source">
-              · {{ hoveredPattern.source }}
-            </template>
-          </span>
-          <small>Note: These are shortened excerpts.</small>
         </aside>
       </Transition>
 
