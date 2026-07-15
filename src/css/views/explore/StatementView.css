@@ -108,10 +108,12 @@
 }
 
 .statement-selection-button {
-  position: absolute;
+  position: relative;
   z-index: 20;
-  inset-block-start: calc(var(--statement-grid-cell-size) * 2);
-  inset-inline-start: 50%;
+  grid-column: 1 / -1;
+  align-self: center;
+  justify-self: center;
+  width: max-content;
   min-height: 2.125rem;
   padding: 0 var(--space-2);
   border: 0.0625rem solid rgba(var(--color-text-rgb), 0.16);
@@ -125,7 +127,6 @@
     background-color 160ms ease,
     color 160ms ease,
     transform 160ms ease;
-  transform: translateX(-50%);
 }
 
 .statement-selection-button:hover,
@@ -133,7 +134,7 @@
   color: var(--color-text);
   background: var(--color-background-soft);
   outline: none;
-  transform: translateX(-50%) translateY(-0.0625rem);
+  transform: translateY(-0.0625rem);
 }
 
 @media (max-width: 48.75rem) {

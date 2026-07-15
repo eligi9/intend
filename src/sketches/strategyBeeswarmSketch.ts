@@ -14,7 +14,7 @@ import {
   type CanvasBaseColors,
   type RgbColor,
 } from '../utils/colorTokens'
-import { readCssRemTokenInPixels } from '../utils/cssTokens'
+import { readCssLengthTokenInPixels } from '../utils/cssTokens'
 import { intentLabelNames, strategyColors } from '../utils/intentLabels'
 import { getPatternAnnotation, isPatternActive } from '../utils/intentRecordPatterns'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
@@ -219,11 +219,11 @@ function drawBands(
   pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
   expandedBandId: PatternLabelKey | null,
 ) {
-  const labelInset = readCssRemTokenInPixels('--space-1')
+  const labelInset = readCssLengthTokenInPixels('--space-1')
 
   p.textFont('Montserrat')
   p.textAlign(p.RIGHT, p.TOP)
-  p.textSize(readCssRemTokenInPixels('--font-size-0'))
+  p.textSize(readCssLengthTokenInPixels('--font-size-0'))
   p.textStyle(p.BOLD)
 
   bands.forEach((band) => {

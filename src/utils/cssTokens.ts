@@ -1,11 +1,16 @@
-export function readCssRemTokenInPixels(token: string) {
-  const rootStyles = getComputedStyle(document.documentElement)
-  const value = rootStyles.getPropertyValue(token).trim()
-  const rootFontSize = Number.parseFloat(rootStyles.fontSize)
+export function readCssLengthTokenInPixels(token: string) {
+  const probe = document.createElement('div')
+  probe.style.position = 'absolute'
+  probe.style.visibility = 'hidden'
+  probe.style.width = `var(${token})`
+  document.body.append(probe)
 
-  if (!value.endsWith('rem') || Number.isNaN(rootFontSize)) {
-    throw new Error(`Expected rem-based CSS token: ${token}`)
+  const pixels = Number.parseFloat(getComputedStyle(probe).width)
+  probe.remove()
+
+  if (Number.isNaN(pixels)) {
+    throw new Error(`Expected CSS length token: ${token}`)
   }
 
-  return Number.parseFloat(value) * rootFontSize
+  return pixels
 }

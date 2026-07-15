@@ -15,7 +15,7 @@ const mainPatterns = computed(() => {
     labelKey,
   }))
 })
-const measureCategories = computed(() => props.statement.measure_categories ?? [])
+const measureAnchors = computed(() => props.statement.measures ?? [])
 
 const ringSize = (index: number) => {
   const ringStep = '(var(--statement-button-ring-stroke) + var(--statement-button-ring-gap))'
@@ -25,18 +25,18 @@ const ringSize = (index: number) => {
 }
 
 const ariaLabel = computed(() => {
-  const categories = measureCategories.value.length
-    ? ` Inhaltliche Labels: ${measureCategories.value.join(', ')}.`
+  const measures = measureAnchors.value.length
+    ? ` Konkrete Measures: ${measureAnchors.value.join(', ')}.`
     : ''
 
-  return `${props.statement.author}, ${props.statement.date}: ${props.statement.statement}.${categories}`
+  return `${props.statement.author}, ${props.statement.date}: ${props.statement.statement}.${measures}`
 })
 </script>
 
 <template>
   <Tooltip
     class="statement-button-tooltip"
-    :disabled="measureCategories.length === 0"
+    :disabled="measureAnchors.length === 0"
     :focusable="false"
   >
     <button
@@ -58,15 +58,15 @@ const ariaLabel = computed(() => {
 
     <template #panel>
       <span class="statement-button__tooltip-content">
-        <strong class="statement-button__tooltip-title">This statement includes</strong>
+        <strong class="statement-button__tooltip-title">Measure examples</strong>
 
         <span class="statement-button__measure-labels">
           <span
-            v-for="category in measureCategories"
-            :key="category"
+            v-for="measure in measureAnchors"
+            :key="measure"
             class="statement-button__measure-label"
           >
-            {{ category }}
+            »{{ measure }}«
           </span>
         </span>
       </span>

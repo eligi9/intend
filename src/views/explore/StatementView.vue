@@ -125,7 +125,7 @@ function closeActiveDetail() {
       class="statement-view__layout"
       aria-label="Statements"
       cell-size="var(--statement-grid-cell-size)"
-      :padding-block-start-cells="3"
+      :padding-block-start-cells="2"
       :padding-inline-cells="2"
     >
       <StatementButton
@@ -139,16 +139,16 @@ function closeActiveDetail() {
         <strong>Keine Statements gefunden</strong>
         <span>Filter zurücksetzen oder Suchbegriff ändern.</span>
       </div>
-    </ViewGrid>
 
-    <button
-      v-if="canShowSelection"
-      type="button"
-      class="statement-selection-button"
-      @click="openSelectionDetail"
-    >
-      Show selection
-    </button>
+      <button
+        v-if="canShowSelection"
+        type="button"
+        class="statement-selection-button"
+        @click="openSelectionDetail"
+      >
+        Show selection
+      </button>
+    </ViewGrid>
 
     <section class="statement-filter-overlay" aria-label="Statement Filter">
       <section class="statement-filters">

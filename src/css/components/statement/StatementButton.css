@@ -1,6 +1,6 @@
 .statement-button-tooltip {
-  --tooltip-panel-inline-size: max-content;
-  --tooltip-panel-max-inline-size: min(20rem, calc(100vw - var(--space-4)));
+  --tooltip-panel-inline-size: min(28rem, calc(100vw - var(--space-4)));
+  --tooltip-panel-max-inline-size: calc(100vw - var(--space-4));
   --tooltip-panel-padding: var(--space-2);
   --tooltip-panel-gap: var(--space-2);
 
@@ -10,7 +10,7 @@
 
 .statement-button-tooltip:hover,
 .statement-button-tooltip:focus-within {
-  z-index: 5;
+  z-index: 30;
 }
 
 .statement-button {
@@ -76,12 +76,10 @@
 }
 
 .statement-button__measure-labels {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+  display: grid;
   gap: var(--space-1);
-  width: max-content;
-  max-width: min(20rem, calc(100vw - var(--space-4)));
+  width: 100%;
+  min-width: 0;
 }
 
 .statement-button__tooltip-content {
@@ -92,20 +90,20 @@
 
 .statement-button__tooltip-title {
   color: var(--color-text);
-  font-size: var(--text-body-size);
+  font-size: var(--font-size-2);
   font-weight: 700;
   line-height: var(--text-heading-line-height);
 }
 
 .statement-button__measure-label {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--space-2);
+  display: block;
   padding: 0;
   border: 0;
   color: inherit;
-  font-size: var(--text-body-size);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-1);
   font-weight: var(--text-body-weight);
   line-height: var(--text-body-line-height);
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }

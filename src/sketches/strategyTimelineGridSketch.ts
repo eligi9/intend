@@ -2,7 +2,7 @@ import p5 from 'p5'
 import type { StrategyTimelineGridSketchState } from '../types/strategyBeeswarm'
 import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
 import { readCanvasBaseColors, type CanvasBaseColors } from '../utils/colorTokens'
-import { readCssRemTokenInPixels } from '../utils/cssTokens'
+import { readCssLengthTokenInPixels } from '../utils/cssTokens'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 
 const EVENT_LABEL_LINE_HEIGHT = 16
@@ -91,7 +91,7 @@ function drawDivisions(
 
   p.textFont(monthLabelFont)
   p.textAlign(p.LEFT, p.TOP)
-  p.textSize(readCssRemTokenInPixels(MONTH_LABEL_FONT_SIZE_TOKEN))
+  p.textSize(readCssLengthTokenInPixels(MONTH_LABEL_FONT_SIZE_TOKEN))
   p.textStyle(p.NORMAL)
 
   for (let index = 0; index < state.divisions; index += 1) {
@@ -287,10 +287,10 @@ function getEventLabelLines(p: p5, event: PositionedGridEvent, fontSizes: EventF
 
 function readEventFontSizes(): EventFontSizes {
   return {
-    date: readCssRemTokenInPixels(EVENT_DATE_FONT_SIZE_TOKEN),
-    gap: readCssRemTokenInPixels(EVENT_LABEL_GAP_TOKEN),
-    label: readCssRemTokenInPixels(EVENT_LABEL_FONT_SIZE_TOKEN),
-    paddingY: readCssRemTokenInPixels(EVENT_LABEL_PADDING_Y_TOKEN),
+    date: readCssLengthTokenInPixels(EVENT_DATE_FONT_SIZE_TOKEN),
+    gap: readCssLengthTokenInPixels(EVENT_LABEL_GAP_TOKEN),
+    label: readCssLengthTokenInPixels(EVENT_LABEL_FONT_SIZE_TOKEN),
+    paddingY: readCssLengthTokenInPixels(EVENT_LABEL_PADDING_Y_TOKEN),
   }
 }
 

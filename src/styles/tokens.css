@@ -49,16 +49,17 @@
   --layout-control-gap: var(--space-1);
   --layout-control-padding: var(--space-1);
 
-  --font-size--2: 0.4444444444rem;
-  --font-size--1: 0.6666666667rem;
-  --font-size-0: 0.75rem;
+  --font-scale-ratio: 1.25;
   --font-size-1: 1rem;
-  --font-size-2: 1.5rem;
-  --font-size-3: 2.25rem;
-  --font-size-4: 3.375rem;
-  --font-size-5: 5.0625rem;
-  --font-size-6: 7.59375rem;
-  --font-size-7: 11.390625rem;
+  --font-size-0: calc(var(--font-size-1) / var(--font-scale-ratio));
+  --font-size--1: calc(var(--font-size-0) / var(--font-scale-ratio));
+  --font-size--2: calc(var(--font-size--1) / var(--font-scale-ratio));
+  --font-size-2: calc(var(--font-size-1) * var(--font-scale-ratio));
+  --font-size-3: calc(var(--font-size-2) * var(--font-scale-ratio));
+  --font-size-4: calc(var(--font-size-3) * var(--font-scale-ratio));
+  --font-size-5: calc(var(--font-size-4) * var(--font-scale-ratio));
+  --font-size-6: calc(var(--font-size-5) * var(--font-scale-ratio));
+  --font-size-7: calc(var(--font-size-6) * var(--font-scale-ratio));
 
   --text-caption-size: var(--font-size-0);
   --text-label-size: var(--font-size-0);

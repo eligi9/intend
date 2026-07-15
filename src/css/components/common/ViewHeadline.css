@@ -12,7 +12,7 @@
   overflow: hidden;
   color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: var(--text-title-size);
+  font-size: var(--text-hero-size);
   font-weight: 800;
   letter-spacing: 0;
   line-height: var(--text-heading-line-height);
