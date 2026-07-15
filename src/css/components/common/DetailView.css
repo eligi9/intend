@@ -35,10 +35,6 @@
   min-height: 100%;
 }
 
-.detail--with-facts {
-  --detail-section-gap: var(--space-4);
-}
-
 .detail--selection {
   --detail-section-gap: var(--space-4);
 }
@@ -148,47 +144,6 @@
   font-weight: 900;
 }
 
-.detail__facts {
-  position: relative;
-  z-index: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-1) var(--space-3);
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0;
-  padding-block: 0;
-  color: rgba(var(--color-text-rgb), 0.72);
-}
-
-.detail__fact {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-1);
-  min-width: 0;
-}
-
-.detail__fact dt,
-.detail__fact dd {
-  margin: 0;
-}
-
-.detail__fact dt {
-  color: rgba(var(--color-text-rgb), 0.6);
-  font-size: var(--font-size-1);
-  font-weight: 850;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.detail__fact dd {
-  color: rgba(var(--color-text-rgb), 0.84);
-  font-size: var(--font-size-1);
-  font-weight: 700;
-  line-height: 1.15;
-}
-
 .detail :deep(.strategy-badge-container) {
   flex-direction: row;
   flex-wrap: wrap;
@@ -227,18 +182,27 @@
 }
 
 .detail__image-source {
-  max-width: min(32rem, 100%);
-  overflow: hidden;
-  color: rgba(var(--color-text-rgb), 0.58);
-  font-size: var(--font-size--1);
-  font-weight: 600;
-  line-height: 1.2;
+  display: inline-block;
+  justify-self: start;
+  color: var(--color-neutral-muted);
+  font-size: var(--text-caption-size);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-line-height);
   text-align: left;
-  text-decoration: underline;
-  text-decoration-thickness: 0.0625rem;
-  text-overflow: ellipsis;
-  text-underline-offset: 0.1875rem;
-  white-space: nowrap;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.detail__image-source:hover,
+.detail__image-source:focus-visible {
+  color: var(--color-text);
+  transform: translateY(-0.0625rem);
+}
+
+.detail__image-source:focus-visible {
+  outline: var(--space-half) solid var(--color-text);
+  outline-offset: var(--space-half);
 }
 
 .detail__content > .statement-pattern-card + .statement-pattern-card {

@@ -148,7 +148,6 @@ function closeAuthorDetail() {
           v-if="selectedAuthorId"
           :author="selectedAuthor"
           :records="selectedAuthorStatements"
-          :show-author-facts="true"
           @close="closeAuthorDetail"
         />
       </Transition>
