@@ -36,7 +36,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "alon-davidi",
@@ -69,7 +70,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "others"
     },
     {
       "id": "amichai-chikli",
@@ -103,7 +105,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "amichai-eliyahu",
@@ -137,7 +140,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "amit-halevi",
@@ -171,7 +175,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "ariel-kallner",
@@ -205,7 +210,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "avi-dichter",
@@ -239,7 +245,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "avigdor-lieberman",
@@ -273,7 +280,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "benjamin-netanyahu",
@@ -307,7 +315,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "benny-gantz",
@@ -341,7 +350,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "bezalel-smotrich",
@@ -375,7 +385,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "boaz-bismuth",
@@ -409,7 +420,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "danny-dannon",
@@ -443,7 +455,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "david-roet",
@@ -459,7 +472,8 @@
         "genderSource": "https://www.wikidata.org/wiki/Q123815364",
         "wikidataSource": "https://www.wikidata.org/wiki/Q123815364"
       },
-      "image": null
+      "image": null,
+      "roleGroup": "others"
     },
     {
       "id": "galit-distel-atbaryan",
@@ -493,7 +507,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "gila-gamliel",
@@ -527,7 +542,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "hanoch-milwidsky",
@@ -561,7 +577,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "idit-silman",
@@ -595,7 +612,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "isaac-herzog",
@@ -629,7 +647,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "israel-katz",
@@ -663,7 +682,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "israeli-officials",
@@ -675,7 +695,8 @@
       "party": null,
       "notes": null,
       "externalIds": {},
-      "image": null
+      "image": null,
+      "roleGroup": "others"
     },
     {
       "id": "itamar-ben-gvir",
@@ -709,7 +730,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "keti-shitrit",
@@ -743,7 +765,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "limor-son-har-melech",
@@ -777,7 +800,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "maj-gen-ghassan-alian",
@@ -811,7 +835,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "others"
     },
     {
       "id": "may-golan",
@@ -845,7 +870,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "members-of-the-israeli-kenesset",
@@ -857,7 +883,8 @@
       "party": null,
       "notes": null,
       "externalIds": {},
-      "image": null
+      "image": null,
+      "roleGroup": "legislators"
     },
     {
       "id": "michal-waldiger",
@@ -891,7 +918,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "miki-levi",
@@ -925,7 +953,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "ministry-of-intelligence",
@@ -937,7 +966,8 @@
       "party": null,
       "notes": null,
       "externalIds": {},
-      "image": null
+      "image": null,
+      "roleGroup": "executive_officials"
     },
     {
       "id": "moshe-arbel",
@@ -971,7 +1001,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "moshe-saada",
@@ -1005,7 +1036,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "nissim-vaturi",
@@ -1039,7 +1071,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "oded-forer",
@@ -1073,7 +1106,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "ohad-tal",
@@ -1107,7 +1141,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "omer-bar-lev",
@@ -1141,7 +1176,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "orit-strook",
@@ -1175,7 +1211,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "revital-gotliv",
@@ -1209,7 +1246,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "ron-dermer",
@@ -1243,7 +1281,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "shlomo-karhi",
@@ -1277,7 +1316,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "simcha-rothman",
@@ -1311,7 +1351,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "tzipi-hotovely",
@@ -1345,7 +1386,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "others"
     },
     {
       "id": "tzvi-sukkot",
@@ -1379,7 +1421,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "yair-lapid",
@@ -1413,7 +1456,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "yifat-shasha-biton",
@@ -1447,7 +1491,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "legislators"
     },
     {
       "id": "yoav-gallant",
@@ -1481,7 +1526,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     },
     {
       "id": "yoav-kisch",
@@ -1515,7 +1561,8 @@
         "isModified": true,
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
-      }
+      },
+      "roleGroup": "executive_officials"
     }
   ]
 }

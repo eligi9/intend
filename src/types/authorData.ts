@@ -1,5 +1,7 @@
 import type { PatternLabelKey } from './intentData'
 
+export type AuthorRoleGroup = 'executive_officials' | 'legislators' | 'others'
+
 export interface AuthorImage {
   url: string
   sourceUrl: string
@@ -28,6 +30,7 @@ export interface AuthorProfile {
   position: string | null
   sector: string | null
   party: string | null
+  roleGroup: AuthorRoleGroup
   image: AuthorImage | null
   notes?: string | null
   externalIds?: Record<string, string>
