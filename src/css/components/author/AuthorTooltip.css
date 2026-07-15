@@ -5,6 +5,10 @@
   --tooltip-panel-gap: var(--space-2);
 }
 
+.author-tooltip :deep(.tooltip__panel) {
+  z-index: 40;
+}
+
 .author-tooltip__heading {
   display: grid;
   gap: var(--space-1);
