@@ -2,15 +2,24 @@ import p5 from 'p5'
 import type { StrategyTimelineGridSketchState } from '../types/strategyBeeswarm'
 import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
 import { readCanvasBaseColors, type CanvasBaseColors } from '../utils/colorTokens'
+import { readCssRemTokenInPixels } from '../utils/cssTokens'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 
 const EVENT_LABEL_LINE_HEIGHT = 16
 const EVENT_LABEL_PADDING_X = 8
-const EVENT_LABEL_PADDING_Y = 6
 const EVENT_LABEL_WIDTH = 108
-const EVENT_DATE_FONT_SIZE = 14
-const EVENT_LABEL_FONT_SIZE = 12.5
-const MONTH_LABEL_FONT_SIZE = 14
+const EVENT_DATE_FONT_SIZE_TOKEN = '--font-size-0'
+const EVENT_LABEL_FONT_SIZE_TOKEN = '--font-size-0'
+const EVENT_LABEL_GAP_TOKEN = '--space-half'
+const EVENT_LABEL_PADDING_Y_TOKEN = '--space-1'
+const MONTH_LABEL_FONT_SIZE_TOKEN = '--font-size-0'
+
+interface EventFontSizes {
+  date: number
+  gap: number
+  label: number
+  paddingY: number
+}
 
 interface PositionedGridEvent {
   date: string
@@ -25,10 +34,16 @@ export function createStrategyTimelineGridSketch(
   state: StrategyTimelineGridSketchState,
 ) {
   const colors = readCanvasBaseColors()
+  const eventFontSizes = readEventFontSizes()
   let cleanupCanvas: (() => void) | null = null
   let hoveredTimelineEvent: PositionedGridEvent | null = null
+  let monthLabelFont: p5.Font
 
   const sketch = (p: p5) => {
+    p.preload = () => {
+      monthLabelFont = p.loadFont('/fonts/Montserrat-Medium.ttf')
+    }
+
     cleanupCanvas = setupResizableP5Canvas(p, container, {
       fallbackHeightRatio: 0.46,
       minHeight: 280,
@@ -40,18 +55,19 @@ export function createStrategyTimelineGridSketch(
     })(p.remove.bind(p))
 
     p.draw = () => {
-      const eventY = p.height - 136
+      const eventY = p.height - 120
       const events = getPositionedEvents(state, p.width, eventY)
       const hoveredEvent = checkEventHover(p, events)
       hoveredTimelineEvent = hoveredEvent
 
+      p.textFont('Montserrat')
       p.cursor(hoveredEvent ? p.HAND : p.ARROW)
       state.setHoveredEvent(createHoverPayload(hoveredEvent, p.width, p.height))
       p.clear()
       p.background(...colors.background)
-      drawDivisions(p, state, colors)
+      drawDivisions(p, state, colors, monthLabelFont)
       drawEventAnchors(p, events, hoveredEvent, colors)
-      drawEvents(p, events, hoveredEvent, colors)
+      drawEvents(p, events, hoveredEvent, colors, eventFontSizes)
     }
 
     p.mouseClicked = () => {
@@ -65,11 +81,18 @@ export function createStrategyTimelineGridSketch(
   return new p5(sketch, container)
 }
 
-function drawDivisions(p: p5, state: StrategyTimelineGridSketchState, colors: CanvasBaseColors) {
+function drawDivisions(
+  p: p5,
+  state: StrategyTimelineGridSketchState,
+  colors: CanvasBaseColors,
+  monthLabelFont: p5.Font,
+) {
   const divisionWidth = p.width / state.divisions
 
+  p.textFont(monthLabelFont)
   p.textAlign(p.LEFT, p.TOP)
-  p.textSize(MONTH_LABEL_FONT_SIZE)
+  p.textSize(readCssRemTokenInPixels(MONTH_LABEL_FONT_SIZE_TOKEN))
+  p.textStyle(p.NORMAL)
 
   for (let index = 0; index < state.divisions; index += 1) {
     const x = index * divisionWidth
@@ -95,6 +118,7 @@ function drawDivisions(p: p5, state: StrategyTimelineGridSketchState, colors: Ca
   p.stroke(...colors.text, 36)
   p.strokeWeight(1)
   p.line(p.width, 0, p.width, p.height)
+  p.textFont('Montserrat')
 }
 
 function drawEventAnchors(
@@ -117,25 +141,26 @@ function drawEvents(
   events: PositionedGridEvent[],
   hoveredEvent: PositionedGridEvent | null,
   colors: CanvasBaseColors,
+  fontSizes: EventFontSizes,
 ) {
   p.textStyle(p.BOLD)
 
   events.forEach((event) => {
     const hovered = hoveredEvent?.event.id === event.event.id
     const textX = getEventTextX(event)
-    const labelLines = getEventLabelLines(p, event)
-    const labelHeight = getEventLabelHeight(labelLines)
+    const labelLines = getEventLabelLines(p, event, fontSizes)
+    const labelHeight = getEventLabelHeight(labelLines, fontSizes)
 
     p.noStroke()
     if (hovered) {
-      const fillWidth = getEventLabelWidth(p, event, labelLines)
+      const fillWidth = getEventLabelWidth(p, event, labelLines, fontSizes)
 
       p.fill(...colors.text, 255)
       p.rect(
         event.x,
-        event.y - EVENT_LABEL_PADDING_Y,
+        event.y - fontSizes.paddingY,
         fillWidth + EVENT_LABEL_PADDING_X + (textX - event.x),
-        labelHeight + EVENT_LABEL_PADDING_Y * 2,
+        labelHeight + fontSizes.paddingY * 2,
         0,
         6,
         6,
@@ -146,15 +171,23 @@ function drawEvents(
     const textColor = hovered ? colors.white : colors.text
 
     p.fill(textColor[0], textColor[1], textColor[2], hovered ? 255 : 240)
-    p.textSize(EVENT_DATE_FONT_SIZE)
+    p.textFont('Montserrat')
+    p.textStyle(p.BOLD)
+    p.textSize(fontSizes.date)
     p.textAlign(p.LEFT, p.TOP)
     p.text(event.date, textX, event.y, EVENT_LABEL_WIDTH)
 
+    p.textFont('Montserrat')
     p.textStyle(p.NORMAL)
     p.fill(textColor[0], textColor[1], textColor[2], hovered ? 255 : 220)
-    p.textSize(EVENT_LABEL_FONT_SIZE)
+    p.textSize(fontSizes.label)
     labelLines.forEach((line, index) => {
-      p.text(line, textX, event.y + EVENT_LABEL_LINE_HEIGHT * (index + 1), EVENT_LABEL_WIDTH)
+      p.text(
+        line,
+        textX,
+        event.y + fontSizes.date + fontSizes.gap + EVENT_LABEL_LINE_HEIGHT * index,
+        EVENT_LABEL_WIDTH,
+      )
     })
     p.textStyle(p.BOLD)
   })
@@ -194,16 +227,17 @@ function checkEventHover(p: p5, events: PositionedGridEvent[]) {
 }
 
 function isEventLabelHovered(p: p5, event: PositionedGridEvent) {
+  const fontSizes = readEventFontSizes()
   const textX = getEventTextX(event)
-  const labelLines = getEventLabelLines(p, event)
-  const labelHeight = getEventLabelHeight(labelLines)
-  const fillWidth = getEventLabelWidth(p, event, labelLines)
+  const labelLines = getEventLabelLines(p, event, fontSizes)
+  const labelHeight = getEventLabelHeight(labelLines, fontSizes)
+  const fillWidth = getEventLabelWidth(p, event, labelLines, fontSizes)
 
   return (
     p.mouseX >= event.x &&
     p.mouseX <= event.x + fillWidth + EVENT_LABEL_PADDING_X + (textX - event.x) &&
-    p.mouseY >= event.y - EVENT_LABEL_PADDING_Y &&
-    p.mouseY <= event.y + labelHeight + EVENT_LABEL_PADDING_Y
+    p.mouseY >= event.y - fontSizes.paddingY &&
+    p.mouseY <= event.y + labelHeight + fontSizes.paddingY
   )
 }
 
@@ -225,27 +259,46 @@ function getEventTextX(event: PositionedGridEvent) {
   return event.x + 8
 }
 
-function getEventLabelWidth(p: p5, event: PositionedGridEvent, labelLines: string[]) {
+function getEventLabelWidth(
+  p: p5,
+  event: PositionedGridEvent,
+  labelLines: string[],
+  fontSizes: EventFontSizes,
+) {
+  p.textFont('Montserrat')
   p.textStyle(p.BOLD)
-  p.textSize(EVENT_DATE_FONT_SIZE)
+  p.textSize(fontSizes.date)
   const dateWidth = p.textWidth(event.date)
 
+  p.textFont('Montserrat')
   p.textStyle(p.NORMAL)
-  p.textSize(EVENT_LABEL_FONT_SIZE)
+  p.textSize(fontSizes.label)
   const labelWidth = Math.max(...labelLines.map((line) => p.textWidth(line)))
 
   return Math.min(EVENT_LABEL_WIDTH, Math.max(dateWidth, labelWidth))
 }
 
-function getEventLabelLines(p: p5, event: PositionedGridEvent) {
+function getEventLabelLines(p: p5, event: PositionedGridEvent, fontSizes: EventFontSizes) {
   p.textStyle(p.NORMAL)
-  p.textSize(EVENT_LABEL_FONT_SIZE)
+  p.textSize(fontSizes.label)
 
   return wrapText(p, event.label, EVENT_LABEL_WIDTH)
 }
 
-function getEventLabelHeight(labelLines: string[]) {
-  return EVENT_LABEL_LINE_HEIGHT * (labelLines.length + 1)
+function readEventFontSizes(): EventFontSizes {
+  return {
+    date: readCssRemTokenInPixels(EVENT_DATE_FONT_SIZE_TOKEN),
+    gap: readCssRemTokenInPixels(EVENT_LABEL_GAP_TOKEN),
+    label: readCssRemTokenInPixels(EVENT_LABEL_FONT_SIZE_TOKEN),
+    paddingY: readCssRemTokenInPixels(EVENT_LABEL_PADDING_Y_TOKEN),
+  }
+}
+
+function getEventLabelHeight(labelLines: string[], fontSizes: EventFontSizes) {
+  const labelTextHeight =
+    Math.max(0, labelLines.length - 1) * EVENT_LABEL_LINE_HEIGHT + fontSizes.label
+
+  return fontSizes.date + fontSizes.gap + labelTextHeight
 }
 
 function wrapText(p: p5, text: string, maxWidth: number) {
