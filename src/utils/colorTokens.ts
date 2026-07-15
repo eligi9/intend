@@ -1,4 +1,5 @@
 export type RgbColor = readonly [number, number, number]
+export type RgbaColor = readonly [number, number, number, number]
 
 export interface CanvasBaseColors {
   background: RgbColor
@@ -21,6 +22,29 @@ export function readCssColorRgb(cssColor: string): RgbColor {
   const value = variableName ? getCssVariableValue(variableName) : cssColor.trim()
 
   return parseCssRgb(value)
+}
+
+export function readCssColorRgba(cssColor: string): RgbaColor {
+  const variableName = getCssVariableName(cssColor)
+  const value = variableName ? getCssVariableValue(variableName) : cssColor.trim()
+
+  if (value.startsWith('#')) {
+    const [red, green, blue] = parseHexColor(value)
+    return [red, green, blue, 255]
+  }
+
+  const channels = value
+    .replace(/^rgba?\(/, '')
+    .replace(/\)$/, '')
+    .split(/[,\s/]+/)
+    .filter(Boolean)
+    .map(Number)
+
+  if (channels.length < 3 || channels.some((channel) => Number.isNaN(channel))) {
+    throw new Error(`Unsupported CSS color value: ${value}`)
+  }
+
+  return [channels[0], channels[1], channels[2], (channels[3] ?? 1) * 255]
 }
 
 export function formatRgbColor(color: RgbColor) {

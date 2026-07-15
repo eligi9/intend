@@ -4,6 +4,16 @@
   --color-background-soft: #cccccc;
   --color-text: #000000;
   --color-text-rgb: 0, 0, 0;
+  --color-black-20: rgba(0, 0, 0, 0.2);
+  --color-black-40: rgba(0, 0, 0, 0.4);
+  --color-black-60: rgba(0, 0, 0, 0.6);
+  --color-black-80: rgba(0, 0, 0, 0.8);
+  --color-black: #000000;
+  --color-grid-line: var(--color-black-20);
+  --color-grid-legend: var(--color-black-40);
+  --color-legend-label: var(--color-black-60);
+  --color-event-line-inactive: var(--color-black-60);
+  --color-event-line-active: var(--color-black);
   --color-text-soft: #222222;
   --color-text-soft-rgb: 34, 34, 34;
   --color-white: #ffffff;

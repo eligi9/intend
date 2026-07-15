@@ -1,7 +1,12 @@
 import p5 from 'p5'
 import type { StrategyTimelineGridSketchState } from '../types/strategyBeeswarm'
 import type { HoveredTimelineEvent, TimelineEvent } from '../types/timeline'
-import { readCanvasBaseColors, type CanvasBaseColors } from '../utils/colorTokens'
+import {
+  readCanvasBaseColors,
+  readCssColorRgba,
+  type CanvasBaseColors,
+  type RgbaColor,
+} from '../utils/colorTokens'
 import { readCssLengthTokenInPixels } from '../utils/cssTokens'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 
@@ -21,6 +26,15 @@ interface EventFontSizes {
   paddingY: number
 }
 
+interface TimelineBlackTones {
+  black: RgbaColor
+  black80: RgbaColor
+  eventLineActive: RgbaColor
+  eventLineInactive: RgbaColor
+  gridLegend: RgbaColor
+  gridLine: RgbaColor
+}
+
 interface PositionedGridEvent {
   date: string
   event: TimelineEvent
@@ -34,6 +48,7 @@ export function createStrategyTimelineGridSketch(
   state: StrategyTimelineGridSketchState,
 ) {
   const colors = readCanvasBaseColors()
+  const blackTones = readTimelineBlackTones()
   const eventFontSizes = readEventFontSizes()
   let cleanupCanvas: (() => void) | null = null
   let hoveredTimelineEvent: PositionedGridEvent | null = null
@@ -65,9 +80,9 @@ export function createStrategyTimelineGridSketch(
       state.setHoveredEvent(createHoverPayload(hoveredEvent, p.width, p.height))
       p.clear()
       p.background(...colors.background)
-      drawDivisions(p, state, colors, monthLabelFont)
-      drawEventAnchors(p, events, hoveredEvent, colors)
-      drawEvents(p, events, hoveredEvent, colors, eventFontSizes)
+      drawDivisions(p, state, colors, blackTones, monthLabelFont)
+      drawEventAnchors(p, events, hoveredEvent, blackTones)
+      drawEvents(p, events, hoveredEvent, colors, blackTones, eventFontSizes)
     }
 
     p.mouseClicked = () => {
@@ -85,6 +100,7 @@ function drawDivisions(
   p: p5,
   state: StrategyTimelineGridSketchState,
   colors: CanvasBaseColors,
+  blackTones: TimelineBlackTones,
   monthLabelFont: p5.Font,
 ) {
   const divisionWidth = p.width / state.divisions
@@ -102,12 +118,12 @@ function drawDivisions(
       1,
     )
 
-    p.stroke(...colors.text, 36)
+    p.stroke(...blackTones.gridLine)
     p.strokeWeight(1)
     p.line(x, 0, x, p.height)
 
     p.noStroke()
-    p.fill(...colors.text, 150)
+    p.fill(...blackTones.gridLegend)
     p.push()
     p.translate(x + 4, p.height - 18)
     p.rotate(-p.HALF_PI)
@@ -115,7 +131,7 @@ function drawDivisions(
     p.pop()
   }
 
-  p.stroke(...colors.text, 36)
+  p.stroke(...blackTones.gridLine)
   p.strokeWeight(1)
   p.line(p.width, 0, p.width, p.height)
   p.textFont('Montserrat')
@@ -125,12 +141,12 @@ function drawEventAnchors(
   p: p5,
   events: PositionedGridEvent[],
   hoveredEvent: PositionedGridEvent | null,
-  colors: CanvasBaseColors,
+  blackTones: TimelineBlackTones,
 ) {
   events.forEach((event) => {
     const hovered = hoveredEvent?.event.id === event.event.id
 
-    p.stroke(...colors.text, hovered ? 170 : 76)
+    p.stroke(...(hovered ? blackTones.eventLineActive : blackTones.eventLineInactive))
     p.strokeWeight(1)
     p.line(event.x, 0, event.x, p.height)
   })
@@ -141,6 +157,7 @@ function drawEvents(
   events: PositionedGridEvent[],
   hoveredEvent: PositionedGridEvent | null,
   colors: CanvasBaseColors,
+  blackTones: TimelineBlackTones,
   fontSizes: EventFontSizes,
 ) {
   p.textStyle(p.BOLD)
@@ -155,7 +172,7 @@ function drawEvents(
     if (hovered) {
       const fillWidth = getEventLabelWidth(p, event, labelLines, fontSizes)
 
-      p.fill(...colors.text, 255)
+      p.fill(...blackTones.black)
       p.rect(
         event.x,
         event.y - fontSizes.paddingY,
@@ -170,7 +187,11 @@ function drawEvents(
 
     const textColor = hovered ? colors.white : colors.text
 
-    p.fill(textColor[0], textColor[1], textColor[2], hovered ? 255 : 240)
+    if (hovered) {
+      p.fill(textColor[0], textColor[1], textColor[2], 255)
+    } else {
+      p.fill(...blackTones.black)
+    }
     p.textFont('Montserrat')
     p.textStyle(p.BOLD)
     p.textSize(fontSizes.date)
@@ -179,7 +200,11 @@ function drawEvents(
 
     p.textFont('Montserrat')
     p.textStyle(p.NORMAL)
-    p.fill(textColor[0], textColor[1], textColor[2], hovered ? 255 : 220)
+    if (hovered) {
+      p.fill(textColor[0], textColor[1], textColor[2], 255)
+    } else {
+      p.fill(...blackTones.black80)
+    }
     p.textSize(fontSizes.label)
     labelLines.forEach((line, index) => {
       p.text(
@@ -291,6 +316,17 @@ function readEventFontSizes(): EventFontSizes {
     gap: readCssLengthTokenInPixels(EVENT_LABEL_GAP_TOKEN),
     label: readCssLengthTokenInPixels(EVENT_LABEL_FONT_SIZE_TOKEN),
     paddingY: readCssLengthTokenInPixels(EVENT_LABEL_PADDING_Y_TOKEN),
+  }
+}
+
+function readTimelineBlackTones(): TimelineBlackTones {
+  return {
+    black: readCssColorRgba('var(--color-black)'),
+    black80: readCssColorRgba('var(--color-black-80)'),
+    eventLineActive: readCssColorRgba('var(--color-event-line-active)'),
+    eventLineInactive: readCssColorRgba('var(--color-event-line-inactive)'),
+    gridLegend: readCssColorRgba('var(--color-grid-legend)'),
+    gridLine: readCssColorRgba('var(--color-grid-line)'),
   }
 }
 

@@ -11,7 +11,7 @@
   bottom: 0;
   left: var(--marker-x);
   width: 0.125rem;
-  background: rgba(var(--color-text-rgb), 0.82);
+  background: var(--color-event-line-active);
   transform: translateX(-50%);
 }
 

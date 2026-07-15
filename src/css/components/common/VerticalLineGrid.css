@@ -10,18 +10,18 @@
   bottom: 0;
   left: var(--line-x);
   width: 0.0625rem;
-  background: rgba(var(--color-text-rgb), 0.1);
+  background: var(--color-grid-line);
 }
 
 .vertical-line-grid__line--center {
-  background: rgba(var(--color-text-rgb), 0.22);
+  background: var(--color-grid-legend);
 }
 
 .vertical-line-grid__label {
   position: absolute;
   bottom: 1rem;
   left: 50%;
-  color: rgba(var(--color-text-rgb), 0.62);
+  color: var(--color-grid-legend);
   font-size: clamp(0.5625rem, 0.78vw, 0.6875rem);
   font-weight: 800;
   font-variant-numeric: tabular-nums;
@@ -34,7 +34,7 @@
   position: absolute;
   right: 3rem;
   bottom: 3rem;
-  color: rgba(var(--color-text-rgb), 0.74);
+  color: var(--color-legend-label);
   font-size: clamp(0.5625rem, 0.78vw, 0.6875rem);
   font-weight: 900;
   line-height: 1;
