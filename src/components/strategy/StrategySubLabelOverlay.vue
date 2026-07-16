@@ -8,7 +8,7 @@ import { useStatementStore } from '../../stores/statementStore'
 import { isPatternActive } from '../../utils/intentRecordPatterns'
 import SquareArrowButton from '../common/SquareArrowButton.vue'
 import StrategyAnchorTextScroller from './StrategyAnchorTextScroller.vue'
-import StrategyAnchorTextStatementOverlay from './StrategyAnchorTextStatementOverlay.vue'
+import StrategyAnchorOverlay from './StrategyAnchorOverlay.vue'
 
 interface SelectedAnchorStatement {
   statement: IntentRecord
@@ -97,7 +97,7 @@ function closeAnchorStatementOverlay() {
     </aside>
   </Transition>
 
-  <StrategyAnchorTextStatementOverlay
+  <StrategyAnchorOverlay
     v-if="segment && selectedAnchorStatement"
     :anchor-text="selectedAnchorStatement.text"
     :highlight-color="segment.color"

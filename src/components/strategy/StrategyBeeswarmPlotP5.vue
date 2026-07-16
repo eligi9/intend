@@ -16,7 +16,7 @@ import {
   getMonthDivisionCount,
 } from '../../utils/strategyTimelineDomain'
 import TopOverlay from '../common/TopOverlay.vue'
-import StrategyAnchorTextStatementOverlay from './StrategyAnchorTextStatementOverlay.vue'
+import StrategyAnchorOverlay from './StrategyAnchorOverlay.vue'
 
 const props = defineProps<{
   events?: TimelineEvent[]
@@ -231,7 +231,7 @@ onBeforeUnmount(() => {
     </Teleport>
 
     <Teleport to="body">
-      <StrategyAnchorTextStatementOverlay
+      <StrategyAnchorOverlay
         v-if="pressedPattern && pressedPattern.anchorText?.length"
         :anchor-texts="pressedPattern.anchorText"
         :highlight-color="pressedPattern.color"

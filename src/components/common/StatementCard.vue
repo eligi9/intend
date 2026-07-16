@@ -9,12 +9,18 @@ const props = withDefaults(
     anchorColor?: string
     anchorTexts?: readonly string[]
     record: IntentRecord
+    showAuthor?: boolean
     showContextButton?: boolean
+    showDate?: boolean
+    showSource?: boolean
   }>(),
   {
     anchorColor: 'var(--color-highlight)',
     anchorTexts: () => [],
+    showAuthor: false,
     showContextButton: true,
+    showDate: true,
+    showSource: true,
   },
 )
 
@@ -29,7 +35,15 @@ const anchorHighlights = computed(() => {
     text,
   }))
 })
-const statementMeta = computed(() => [props.record.date, props.record.source].filter(Boolean).join(' · '))
+const statementMeta = computed(() =>
+  [
+    props.showAuthor ? props.record.author : null,
+    props.showDate ? props.record.date : null,
+    props.showSource ? props.record.source : null,
+  ]
+    .filter(Boolean)
+    .join(' · '),
+)
 const anchorSegments = computed(() => splitStatementText(props.record.statement, anchorHighlights.value))
 const measureSegments = computed(() => splitMeasureText(props.record.statement, props.record.measures))
 
@@ -50,7 +64,7 @@ onBeforeUnmount(() => {
     class="statement-card"
   >
     <div class="statement-card__contents">
-      <span class="statement-card__meta">
+      <span v-if="statementMeta" class="statement-card__meta">
         {{ statementMeta }}
       </span>
 

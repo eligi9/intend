@@ -28,8 +28,8 @@ const explanationBackground = computed(() => props.highlightColor)
 
 <template>
   <aside
-    class="strategy-anchor-text-overlay"
-    :style="{ '--strategy-anchor-text-overlay-color': highlightColor }"
+    class="strategy-anchor-overlay"
+    :style="{ '--strategy-anchor-overlay-color': highlightColor }"
     aria-label="Selected statement"
     @click.stop
   >
@@ -41,12 +41,13 @@ const explanationBackground = computed(() => props.highlightColor)
       :visible="explanation !== null"
     />
 
-    <div class="strategy-anchor-text-overlay__body">
+    <div class="strategy-anchor-overlay__body">
       <StatementCard
-        class="strategy-anchor-text-overlay__card"
+        class="strategy-anchor-overlay__card"
         :record="statement"
         :anchor-color="highlightColor"
         :anchor-texts="anchorTexts"
+        :show-author="true"
         :show-context-button="false"
       />
     </div>
@@ -54,5 +55,5 @@ const explanationBackground = computed(() => props.highlightColor)
 </template>
 
 <style scoped>
-@import '../../css/components/strategy/StrategyAnchorTextStatementOverlay.css';
+@import '../../css/components/strategy/StrategyAnchorOverlay.css';
 </style>
