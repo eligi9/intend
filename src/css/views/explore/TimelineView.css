@@ -58,7 +58,8 @@
   left: auto;
   display: grid;
   gap: var(--space-1);
-  width: min(58rem, calc(100% - 3rem));
+  width: fit-content;
+  max-width: min(58rem, calc(100% - 3rem));
   padding: var(--space-2);
   border: 0.0625rem solid rgba(var(--color-text-rgb), 0.16);
   border-radius: 0.5rem;
