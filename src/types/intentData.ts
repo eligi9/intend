@@ -42,6 +42,13 @@ export interface PatternGroupAnnotation {
   subLabels: PatternAnnotation[]
 }
 
+export interface TopLevelStrategyUsage {
+  label: string
+  labelKey: PatternLabelKey
+  statementCount: number
+  statementIds: string[]
+}
+
 export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
   id: string
   sourceFile: 'legislators' | 'decisionmakers'

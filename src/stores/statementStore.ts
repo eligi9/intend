@@ -11,6 +11,7 @@ import type {
 import { groupStatementsByAuthor } from '../utils/authorInstances'
 import { matchesIntentFilters, uniqueSorted } from '../utils/intentFilters'
 import { normalizeIntentRecords, type RawIntentRecord } from '../utils/intentRecordPatterns'
+import { getTopLevelStrategies } from '../utils/statementPatterns'
 
 export const intentLabelKeys = [
   'enemy_image',
@@ -54,6 +55,9 @@ export const useStatementStore = defineStore('statements', () => {
   const filteredRecords = computed(() =>
     records.value.filter((record) => matchesIntentFilters(record, filters.value)),
   )
+  const filteredTopLevelStrategies = computed(() =>
+    getTopLevelStrategies(filteredRecords.value),
+  )
   const filteredCount = computed(() => filteredRecords.value.length)
 
   function setQuery(query: string) {
@@ -92,6 +96,7 @@ export const useStatementStore = defineStore('statements', () => {
     statementsByAuthor,
     labelKeys,
     filteredRecords,
+    filteredTopLevelStrategies,
     filteredCount,
     setQuery,
     setAuthors,

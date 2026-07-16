@@ -1,4 +1,4 @@
-import type { PatternLabelKey } from './intentData'
+import type { PatternLabelKey, TopLevelStrategyUsage } from './intentData'
 
 export type AuthorRoleGroup = 'executive_officials' | 'legislators' | 'others'
 
@@ -44,17 +44,10 @@ export interface AuthorDataset {
   authors: AuthorProfile[]
 }
 
-export interface AuthorTopLevelStrategyUsage {
-  label: string
-  labelKey: PatternLabelKey
-  statementCount: number
-  statementIds: string[]
-}
-
 export interface AuthorInstance extends AuthorProfile {
   age: number | null
   statementCount: number
-  usedTopLevelStrategies: AuthorTopLevelStrategyUsage[]
+  usedTopLevelStrategies: TopLevelStrategyUsage[]
   usedTopLevelStrategyLabels: PatternLabelKey[]
   usedTopLevelStrategyCount: number
   topLevelStrategyCount: number

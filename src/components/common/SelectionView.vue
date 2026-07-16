@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { usePageScrollLock } from '../../composables/usePageScrollLock'
+import { useCompactStickyHeader } from '../../composables/useCompactStickyHeader'
 import type { IntentRecord } from '../../types/intentData'
 import StatementPatternCard from './StatementPatternCard.vue'
 import ViewHeadline from './ViewHeadline.vue'
@@ -25,6 +26,12 @@ const props = defineProps<{
 
 const hoveredBadgeStatementId = ref<string | null>(null)
 const hoveredContextStatementId = ref<string | null>(null)
+const {
+  compactHeaderContent,
+  compactHeaderHeight,
+  handleScroll: handleDetailScroll,
+  isHeaderCompact,
+} = useCompactStickyHeader()
 
 const emit = defineEmits<{
   close: []
@@ -70,20 +77,25 @@ function setBadgeHovered(statementId: string, visible: boolean) {
       ? null
       : hoveredBadgeStatementId.value
 }
+
 </script>
 
 <template>
   <aside
     class="detail-view"
     aria-label="Selection detail"
-    @scroll.stop
+    @scroll.stop="handleDetailScroll"
     @touchmove.stop
     @wheel.stop
   >
-    <section class="detail detail--selection">
+    <section
+      class="detail detail--selection"
+      :class="{ 'detail--header-compact': isHeaderCompact }"
+      :style="{ '--detail-compact-header-height': compactHeaderHeight }"
+    >
       <header class="detail__header">
         <div class="detail__header-inner">
-          <div class="detail__headline-block">
+          <div ref="compactHeaderContent" class="detail__headline-block">
             <ViewHeadline
               class="detail__headline"
               :title="selectionTitle"

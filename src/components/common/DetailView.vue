@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import AuthorPortrait from '../author/AuthorPortrait.vue'
 import type { AuthorInstance } from '../../types/authorData'
 import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
 import ImageCreditsView from '../../views/ImageCreditsView.vue'
 import { usePageScrollLock } from '../../composables/usePageScrollLock'
+import { useCompactStickyHeader } from '../../composables/useCompactStickyHeader'
 import { strategyColors } from '../../utils/intentLabels'
+import { getTopLevelStrategies } from '../../utils/statementPatterns'
 import FilterButtonContainer from './FilterButtonContainer.vue'
 import StatementPatternCard from './StatementPatternCard.vue'
 import ViewHeadline from './ViewHeadline.vue'
@@ -19,6 +21,12 @@ const activePattern = ref<PatternLabelKey | null>(null)
 const hoveredBadgeStatementId = ref<string | null>(null)
 const hoveredContextStatementId = ref<string | null>(null)
 const showImageCredits = ref(false)
+const {
+  compactHeaderContent,
+  compactHeaderHeight,
+  handleScroll: handleDetailScroll,
+  isHeaderCompact,
+} = useCompactStickyHeader()
 
 const emit = defineEmits<{
   close: []
@@ -58,8 +66,9 @@ const authorPositionSubline = computed(
     'Position unbekannt',
 )
 const patternFilters = computed(() =>
-  hasRecordList.value && props.author
-    ? props.author.usedTopLevelStrategies.map((strategy) => ({
+  hasRecordList.value
+    ? getTopLevelStrategies(props.records)
+      .map((strategy) => ({
         active: activePattern.value === strategy.labelKey,
         color: strategyColors[strategy.labelKey] ?? 'var(--color-neutral)',
         key: strategy.labelKey,
@@ -72,6 +81,12 @@ const visibleRecords = computed(() => {
   if (!activePattern.value) return props.records
 
   return props.records.filter((record) => record[activePattern.value as PatternLabelKey] === 'yes')
+})
+
+watch(patternFilters, (filters) => {
+  if (activePattern.value && !filters.some((filter) => filter.key === activePattern.value)) {
+    activePattern.value = null
+  }
 })
 
 function togglePatternFilter(label: PatternLabelKey) {
@@ -105,20 +120,25 @@ function openImageCredits() {
 function closeImageCredits() {
   showImageCredits.value = false
 }
+
 </script>
 
 <template>
   <aside
     class="detail-view"
     aria-label="Detail"
-    @scroll.stop
+    @scroll.stop="handleDetailScroll"
     @touchmove.stop
     @wheel.stop
   >
-    <section class="detail">
+    <section
+      class="detail"
+      :class="{ 'detail--header-compact': isHeaderCompact }"
+      :style="{ '--detail-compact-header-height': compactHeaderHeight }"
+    >
       <header class="detail__header">
         <div class="detail__header-inner">
-          <div class="detail__author-portrait">
+          <div ref="compactHeaderContent" class="detail__author-portrait">
             <AuthorPortrait
               v-if="author"
               :author="author"
