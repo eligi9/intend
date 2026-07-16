@@ -159,6 +159,15 @@ function closeActiveDetail() {
             placeholder="Search for terms like &quot;destroy&quot;"
             @input="statementStore.setQuery(($event.target as HTMLInputElement).value)"
           />
+          <button
+            v-if="filters.query"
+            type="button"
+            class="statement-search-filter__clear"
+            aria-label="Clear statement search"
+            @click="statementStore.setQuery('')"
+          >
+            ×
+          </button>
         </div>
 
         <div class="statement-measure-filter">

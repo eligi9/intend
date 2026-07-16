@@ -114,6 +114,15 @@ function closeAuthorDetail() {
             placeholder="Search for terms like &quot;destroy&quot;"
             @input="statementStore.setQuery(($event.target as HTMLInputElement).value)"
           />
+          <button
+            v-if="filters.query"
+            type="button"
+            class="author-search-filter__clear"
+            aria-label="Clear author search"
+            @click="statementStore.setQuery('')"
+          >
+            ×
+          </button>
         </div>
 
         <div class="author-measure-filter">

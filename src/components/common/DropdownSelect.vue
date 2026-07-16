@@ -24,10 +24,21 @@ const emit = defineEmits<{
         v-for="option in options"
         :key="option.value"
         :value="option.value"
+        :disabled="option.value === ''"
       >
         {{ option.label }}
       </option>
     </select>
+
+    <button
+      v-if="modelValue"
+      type="button"
+      class="dropdown-select__clear"
+      :aria-label="`Clear ${selectLabel}`"
+      @click="emit('update:modelValue', '')"
+    >
+      ×
+    </button>
   </div>
 </template>
 
