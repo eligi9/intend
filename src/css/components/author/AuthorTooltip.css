@@ -19,7 +19,7 @@
   color: var(--color-text);
   font-size: var(--text-body-size);
   font-weight: 700;
-  line-height: var(--text-heading-line-height);
+  line-height: var(--line-height-1);
 }
 
 .author-tooltip__position {
@@ -27,7 +27,7 @@
   color: rgba(var(--color-text-rgb), 0.78);
   font-size: var(--text-caption-size);
   font-weight: 200;
-  line-height: var(--text-body-line-height);
+  line-height: var(--text-caption-line-height);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

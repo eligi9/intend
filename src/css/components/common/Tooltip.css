@@ -17,7 +17,7 @@
   padding: var(--tooltip-panel-padding, var(--space-2));
   color: var(--tooltip-panel-color, var(--color-text));
   font-size: var(--text-caption-size);
-  line-height: var(--text-body-line-height);
+  line-height: var(--text-caption-line-height);
   text-align: left;
   background: var(--tooltip-panel-background, rgba(var(--color-background-rgb), 0.96));
   box-shadow: var(--tooltip-panel-shadow, 0 1rem 2.5rem rgba(var(--color-shadow-rgb), 1));

@@ -8,7 +8,6 @@ import SelectionView from '../../components/common/SelectionView.vue'
 import ViewGrid from '../../components/common/ViewGrid.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StatementButton from '../../components/statement/StatementButton.vue'
-import { useInitialViewportGridCellSize } from '../../composables/useInitialViewportGridCellSize'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
@@ -29,7 +28,6 @@ const authorStore = useAuthorStore()
 const { filteredRecords, filters } = storeToRefs(statementStore)
 const selectedStatement = ref<IntentRecord | null>(null)
 const selectionDetailIsOpen = ref(false)
-const statementGridCellSize = useInitialViewportGridCellSize({ columns: 24 })
 const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] = [
   { label: 'All content types', value: '' },
   { label: 'Destruction', value: 'Destruction' },
@@ -113,7 +111,7 @@ function closeActiveDetail() {
 </script>
 
 <template>
-  <section class="statement-view" :style="{ '--statement-grid-cell-size': statementGridCellSize }">
+  <section class="statement-view">
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"

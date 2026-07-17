@@ -15,7 +15,7 @@
   font-size: var(--text-hero-size);
   font-weight: 800;
   letter-spacing: 0;
-  line-height: var(--text-heading-line-height);
+  line-height: var(--text-hero-line-height);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -25,5 +25,5 @@
   color: rgba(var(--color-text-rgb), 0.74);
   font-size: var(--text-body-size);
   font-weight: var(--text-body-weight);
-  line-height: var(--text-body-line-height);
+  line-height: var(--text-body-size-line-height);
 }

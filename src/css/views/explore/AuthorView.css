@@ -162,16 +162,16 @@
   color: var(--color-legend-label);
   font-size: var(--font-size-0);
   font-weight: 800;
-  line-height: var(--text-body-line-height);
+  line-height: var(--line-height-0);
   white-space: nowrap;
 }
 
 .author-view__group-divider-label--above {
-  bottom: calc(100% + var(--space-half));
+  bottom: calc(100% + var(--space-1));
 }
 
 .author-view__group-divider-label--below {
-  top: var(--space-half);
+  top: var(--space-1);
 }
 
 .author-view__item {

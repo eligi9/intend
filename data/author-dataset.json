@@ -71,7 +71,7 @@
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
       },
-      "roleGroup": "others"
+      "roleGroup": "public_officials"
     },
     {
       "id": "amichai-chikli",
@@ -473,7 +473,7 @@
         "wikidataSource": "https://www.wikidata.org/wiki/Q123815364"
       },
       "image": null,
-      "roleGroup": "others"
+      "roleGroup": "public_officials"
     },
     {
       "id": "galit-distel-atbaryan",
@@ -648,7 +648,7 @@
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
       },
-      "roleGroup": "executive_officials"
+      "roleGroup": "public_officials"
     },
     {
       "id": "israel-katz",
@@ -836,7 +836,7 @@
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
       },
-      "roleGroup": "others"
+      "roleGroup": "public_officials"
     },
     {
       "id": "may-golan",
@@ -1387,7 +1387,7 @@
         "modifications": "Modified: cropped, background removed, displayed in grayscale",
         "retrievedAt": "2026-05-18"
       },
-      "roleGroup": "others"
+      "roleGroup": "public_officials"
     },
     {
       "id": "tzvi-sukkot",

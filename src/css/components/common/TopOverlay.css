@@ -38,7 +38,7 @@
   font-family: var(--font-sans);
   font-size: var(--overlay-title-size);
   font-weight: 950;
-  line-height: var(--text-heading-line-height);
+  line-height: var(--line-height-4);
   text-align: left;
 }
 
@@ -48,7 +48,7 @@
   font-family: var(--font-sans);
   font-size: var(--overlay-text-size);
   font-weight: var(--text-lead-weight);
-  line-height: var(--text-body-line-height);
+  line-height: var(--text-lead-line-height);
   white-space: pre-line;
 }
 

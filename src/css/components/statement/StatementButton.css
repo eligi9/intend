@@ -14,9 +14,9 @@
 }
 
 .statement-button {
-  --statement-button-core-size: 38.2%;
+  --statement-button-core-size: 40%;
   --statement-button-ring-gap: 0.125rem;
-  --statement-button-ring-stroke: 3px;
+  --statement-button-ring-stroke: 2px;
 
   position: relative;
   display: grid;

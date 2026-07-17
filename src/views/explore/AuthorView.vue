@@ -67,10 +67,10 @@ const selectedMeasureCategory = computed({
 const visibleAuthorNames = computed(
   () => new Set(filteredRecords.value.map((record) => record.author)),
 )
-const parliamentAndOtherOfficials = computed(() =>
+const otherPoliticalAndStateActors = computed(() =>
   authorInstances.value.filter((author) => author.roleGroup !== 'executive_officials'),
 )
-const governmentMinisters = computed(() =>
+const executiveLeadership = computed(() =>
   authorInstances.value.filter((author) => author.roleGroup === 'executive_officials'),
 )
 
@@ -156,7 +156,7 @@ function closeAuthorDetail() {
           :show-lines="false"
         >
           <button
-            v-for="author in governmentMinisters"
+            v-for="author in executiveLeadership"
             :key="author.id"
             type="button"
             class="author-view__item"
@@ -171,13 +171,15 @@ function closeAuthorDetail() {
 
       <section
         class="author-view__group author-view__group--parliament"
-        aria-label="Members of Parliament and other officials"
+        aria-label="Other political and state officials"
       >
         <span class="author-view__group-divider-label author-view__group-divider-label--above">
-          Executive Officials
+          Government &amp;<br />
+          Executive Leadership
         </span>
         <span class="author-view__group-divider-label author-view__group-divider-label--below">
-          Legislators and others
+          Other Political &amp;<br />
+          State Officials
         </span>
 
         <ViewGrid
@@ -187,7 +189,7 @@ function closeAuthorDetail() {
           :show-lines="false"
         >
           <button
-            v-for="author in parliamentAndOtherOfficials"
+            v-for="author in otherPoliticalAndStateActors"
             :key="author.id"
             type="button"
             class="author-view__item"

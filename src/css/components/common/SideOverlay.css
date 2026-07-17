@@ -40,7 +40,7 @@
   font-family: var(--font-sans);
   font-size: var(--overlay-title-size);
   font-weight: 850;
-  line-height: var(--text-heading-line-height);
+  line-height: var(--line-height-4);
 }
 
 .side-overlay p {
@@ -49,7 +49,7 @@
   font-family: var(--font-sans);
   font-size: var(--font-size-2);
   font-weight: var(--text-lead-weight);
-  line-height: var(--text-body-line-height);
+  line-height: var(--line-height-2);
 }
 
 .side-overlay-enter-active,

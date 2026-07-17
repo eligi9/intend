@@ -15,7 +15,7 @@
   font-size: var(--font-size-0);
   font-weight: 900;
   letter-spacing: 0;
-  line-height: 1.08;
+  line-height: var(--line-height-0);
   white-space: normal;
   transform: translateY(-0.15rem);
 }
@@ -36,7 +36,7 @@
   font-size: var(--font-size--1);
   font-weight: 800;
   font-variant-numeric: tabular-nums;
-  line-height: 1;
+  line-height: var(--line-height--1);
   white-space: nowrap;
   transform: translateY(calc(-100% - 0.22rem));
 }
