@@ -160,27 +160,6 @@
   align-self: center;
   justify-self: center;
   width: max-content;
-  min-height: 2.125rem;
-  padding: 0 var(--space-2);
-  border: 0.0625rem solid rgba(var(--color-text-rgb), 0.16);
-  border-radius: 0.375rem;
-  color: var(--app-background);
-  background: var(--color-text);
-  font-size: var(--text-caption-size);
-  font-weight: 850;
-  cursor: pointer;
-  transition:
-    background-color 160ms ease,
-    color 160ms ease,
-    transform 160ms ease;
-}
-
-.statement-selection-button:hover,
-.statement-selection-button:focus-visible {
-  color: var(--color-text);
-  background: var(--color-background-soft);
-  outline: none;
-  transform: translateY(-0.0625rem);
 }
 
 @media (max-width: 48.75rem) {

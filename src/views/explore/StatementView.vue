@@ -5,6 +5,7 @@ import DetailView from '../../components/common/DetailView.vue'
 import DropdownSelect from '../../components/common/DropdownSelect.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import SelectionView from '../../components/common/SelectionView.vue'
+import StrategyButton from '../../components/common/StrategyButton.vue'
 import ViewGrid from '../../components/common/ViewGrid.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StatementButton from '../../components/statement/StatementButton.vue'
@@ -138,14 +139,14 @@ function closeActiveDetail() {
         <span>Filter zurücksetzen oder Suchbegriff ändern.</span>
       </div>
 
-      <button
+      <StrategyButton
         v-if="canShowSelection"
-        type="button"
         class="statement-selection-button"
-        @click="openSelectionDetail"
-      >
-        Show selection
-      </button>
+        color="var(--color-black)"
+        label="Show selection"
+        min-width="8rem"
+        @select="openSelectionDetail"
+      />
     </ViewGrid>
 
     <section class="statement-filter-overlay" aria-label="Statement Filter">

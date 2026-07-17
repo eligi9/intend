@@ -5,6 +5,7 @@ import strategyTimelineEventsDataset from '../../../data/strategy-timeline-event
 import DetailView from '../../components/common/DetailView.vue'
 import DropdownSelect from '../../components/common/DropdownSelect.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
+import StrategyButton from '../../components/common/StrategyButton.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
 import { useAuthorStore } from '../../stores/authorStore'
@@ -139,20 +140,20 @@ function togglePatternLabelByKey(label: string) {
       </Transition>
 
       <div class="timeline-view__switch" aria-label="Timeline display">
-        <button
-          type="button"
-          :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'statements' }"
-          @click="beeswarmMode = 'statements'"
-        >
-          Statements
-        </button>
-        <button
-          type="button"
-          :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'strategies' }"
-          @click="beeswarmMode = 'strategies'"
-        >
-          Patterns
-        </button>
+        <StrategyButton
+          :active="beeswarmMode === 'statements'"
+          color="var(--color-black)"
+          label="Statements"
+          min-width="6rem"
+          @select="beeswarmMode = 'statements'"
+        />
+        <StrategyButton
+          :active="beeswarmMode === 'strategies'"
+          color="var(--color-black)"
+          label="Patterns"
+          min-width="6rem"
+          @select="beeswarmMode = 'strategies'"
+        />
       </div>
     </section>
 
