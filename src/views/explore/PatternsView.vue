@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import MirroredLineGrid from '../../components/common/MirroredLineGrid.vue'
+import SelectionView from '../../components/common/SelectionView.vue'
 import SideOverlay from '../../components/common/SideOverlay.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyIcicleDiagram from '../../components/strategy/StrategyIcicleDiagram.vue'
-import StrategySubLabelOverlay from '../../components/strategy/StrategySubLabelOverlay.vue'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
+import { intentSubLabelDescriptions } from '../../types/intentTaxonomy'
 import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
+import { isPatternActive, isPatternGroupActive } from '../../utils/intentRecordPatterns'
 
 defineProps<ExploreHeaderProps>()
 
@@ -19,20 +21,50 @@ const emit = defineEmits<{
 
 const statementStore = useStatementStore()
 const { records } = storeToRefs(statementStore)
-const icicleDiagram = ref<{ clearSelection: () => void } | null>(null)
 const maxStatementsPerSide = 160
 const countStep = 20
 const selectedSegment = ref<StrategyIcicleSegment | null>(null)
+const detailSegment = ref<StrategyIcicleSegment | null>(null)
 const gridMarker = ref<MirroredLineGridMarker | null>(null)
+const selectedSubpatternDescription = computed(() => {
+  const segment = selectedSegment.value
+  if (!segment?.parent) return ''
+
+  return (
+    intentSubLabelDescriptions[segment.id] ??
+    `${segment.label} describes statements where this pattern appears inside ${segment.parent.label}.`
+  )
+})
+const detailRecords = computed(() => {
+  const segment = detailSegment.value
+  if (!segment) return []
+
+  return records.value.filter((record) =>
+    segment.parent
+      ? isPatternActive(record, segment.id)
+      : isPatternGroupActive(record, segment.id),
+  )
+})
+
+function handleSegmentHover(segment: StrategyIcicleSegment | null) {
+  if (detailSegment.value) return
+
+  selectedSegment.value = segment
+}
 
 function handleSegmentClick(segment: StrategyIcicleSegment) {
-  selectedSegment.value = selectedSegment.value?.id === segment.id ? null : segment
+  selectedSegment.value = null
+  gridMarker.value = null
+  detailSegment.value = segment
 }
 
 function closeOverlay() {
   selectedSegment.value = null
   gridMarker.value = null
-  icicleDiagram.value?.clearSelection()
+}
+
+function closeDetail() {
+  detailSegment.value = null
 }
 </script>
 
@@ -61,10 +93,10 @@ function closeOverlay() {
         aria-label="Pattern label structure"
       >
         <StrategyIcicleDiagram
-          ref="icicleDiagram"
           :records="records"
           @grid-marker-change="gridMarker = $event"
           @segment-click="handleSegmentClick"
+          @segment-hover="handleSegmentHover"
         />
       </section>
     </div>
@@ -77,10 +109,34 @@ function closeOverlay() {
       @close="closeOverlay"
     />
 
-    <StrategySubLabelOverlay
-      :segment="selectedSegment?.parent ? selectedSegment : null"
+    <SideOverlay
+      :visible="Boolean(selectedSegment?.parent)"
+      :title="selectedSegment?.label ?? ''"
+      :text="selectedSubpatternDescription"
+      :color="selectedSegment?.color"
+      side="left"
       @close="closeOverlay"
     />
+
+    <button
+      v-if="detailSegment"
+      type="button"
+      class="strategy-view__scrim"
+      aria-label="Pattern detail view schliessen"
+      @click="closeDetail"
+    />
+
+    <Teleport to="body">
+      <Transition name="detail-overlay">
+        <SelectionView
+          v-if="detailSegment"
+          :header-color="detailSegment.color"
+          :records="detailRecords"
+          :title="detailSegment.label"
+          @close="closeDetail"
+        />
+      </Transition>
+    </Teleport>
   </section>
 </template>
 

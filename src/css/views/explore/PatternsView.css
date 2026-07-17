@@ -39,6 +39,19 @@
   height: 80%;
 }
 
+.strategy-view__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 10000;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: rgba(var(--color-shadow-rgb), 0.22);
+  backdrop-filter: blur(0.1875rem);
+  cursor: default;
+}
+
 @media (max-width: 48.75rem) {
   .strategy-view {
     --strategy-view-inline-padding: var(--space-3);

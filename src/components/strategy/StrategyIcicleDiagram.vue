@@ -21,12 +21,12 @@ const props = defineProps<{
 const emit = defineEmits<{
   gridMarkerChange: [marker: MirroredLineGridMarker | null]
   segmentClick: [segment: StrategyIcicleSegment]
+  segmentHover: [segment: StrategyIcicleSegment | null]
 }>()
 
 const maxStatementsPerSide = 160
 const verticalScaleSteps = 5
 const hoveredSegment = ref<StrategyIcicleSegment | null>(null)
-const selectedSegmentId = ref<PatternLabelKey | null>(null)
 
 const mainSegments = computed(() => createMainSegments())
 
@@ -36,12 +36,7 @@ const allSegments = computed(() =>
   mainSegments.value.flatMap((segment) => [segment, ...segment.children]),
 )
 
-const activeSegment = computed(
-  () =>
-    hoveredSegment.value ??
-    allSegments.value.find((segment) => segment.id === selectedSegmentId.value) ??
-    null,
-)
+const activeSegment = computed(() => hoveredSegment.value)
 
 function createGridMarker(segment: StrategyIcicleSegment): MirroredLineGridMarker {
   return {
@@ -109,25 +104,28 @@ function countLabelOccurrences(label: PatternLabelKey) {
 function handleHover(segment: StrategyIcicleSegment) {
   hoveredSegment.value = segment
   emit('gridMarkerChange', createGridMarker(segment))
+  emit('segmentHover', segment)
 }
 
 function handleLeave(segment: StrategyIcicleSegment) {
   if (hoveredSegment.value?.id === segment.id) {
     hoveredSegment.value = null
     emit('gridMarkerChange', null)
+    emit('segmentHover', null)
   }
 }
 
 function handleClick(segment: StrategyIcicleSegment) {
-  const nextSelectedId = selectedSegmentId.value === segment.id ? null : segment.id
-  selectedSegmentId.value = nextSelectedId
+  hoveredSegment.value = null
+  emit('gridMarkerChange', null)
+  emit('segmentHover', null)
   emit('segmentClick', segment)
 }
 
 function clearSelection() {
-  selectedSegmentId.value = null
   hoveredSegment.value = null
   emit('gridMarkerChange', null)
+  emit('segmentHover', null)
 }
 
 defineExpose({
@@ -161,7 +159,7 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
           :accessibility-label="`${mainSegment.label}: ${mainSegment.occurrences}`"
           :label="mainSegment.label"
           :segment="mainSegment"
-          :selected="selectedSegmentId === mainSegment.id"
+          :selected="false"
           @hover="handleHover"
           @leave="handleLeave"
           @select="handleClick"
@@ -176,7 +174,7 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
           align="right"
           :accessibility-label="`${child.label}: ${child.occurrences}`"
           :segment="child"
-          :selected="selectedSegmentId === child.id"
+          :selected="false"
           @hover="handleHover"
           @leave="handleLeave"
           @select="handleClick"
