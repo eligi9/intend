@@ -124,7 +124,6 @@ function togglePatternLabelByKey(label: string) {
           :events="timelineEvents"
           :mode="beeswarmMode"
           :statements="filteredRecords"
-          :selected-labels="filters.labelsAll"
           :suppress-top-overlay="Boolean(selectedPattern)"
           :time-domain="timelineDomain"
           @pattern-press="showPatternDetail"

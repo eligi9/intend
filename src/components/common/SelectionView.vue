@@ -154,6 +154,7 @@ function setBadgeHovered(statementId: string, visible: boolean) {
               (hoveredContextStatementId !== null && hoveredContextStatementId !== statement.id),
           }"
           :record="statement"
+          :show-author="true"
           :show-context-button="true"
           @badge-hover-change="setBadgeHovered(statement.id, $event)"
           @context-hover-change="setContextHovered(statement.id, $event)"

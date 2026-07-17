@@ -14,3 +14,15 @@ export function readCssLengthTokenInPixels(token: string) {
 
   return pixels
 }
+
+export function readCssNumberToken(token: string) {
+  const value = Number.parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue(token),
+  )
+
+  if (Number.isNaN(value)) {
+    throw new Error(`Expected CSS number token: ${token}`)
+  }
+
+  return value
+}

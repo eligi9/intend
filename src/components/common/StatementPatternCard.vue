@@ -14,9 +14,11 @@ import StrategyBadgeContainer from './StrategyBadgeContainer.vue'
 const props = withDefaults(
   defineProps<{
     record: IntentRecord
+    showAuthor?: boolean
     showContextButton?: boolean
   }>(),
   {
+    showAuthor: false,
     showContextButton: true,
   },
 )
@@ -66,6 +68,7 @@ watch(hoveredLabel, (label) => {
       :anchor-color="hoveredBadge?.color"
       :anchor-texts="hoveredAnchors"
       :record="record"
+      :show-author="showAuthor"
       :show-context-button="showContextButton"
       @context-hover-change="emit('contextHoverChange', $event)"
     />

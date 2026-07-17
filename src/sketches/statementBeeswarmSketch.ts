@@ -14,6 +14,7 @@ import {
 } from '../utils/colorTokens'
 import { strategyColors } from '../utils/intentLabels'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
+import { readCssNumberToken } from '../utils/cssTokens'
 import { getActiveMainLabels } from '../utils/sort'
 import { createTimelineModel } from '../utils/timelineScale'
 
@@ -31,6 +32,8 @@ const RING_STROKE = 2
 const RING_GAP = 2
 const HOVER_SCALE = 1.15
 const EDGE_GAP = 2
+const DIMMED_OPACITY_TOKEN = '--opacity-dimmed'
+const DIMMED_CORE_OPACITY_TOKEN = '--opacity-dimmed-core'
 
 export function createStatementBeeswarmSketch(
   container: HTMLElement,
@@ -38,6 +41,8 @@ export function createStatementBeeswarmSketch(
 ) {
   const colors = readCanvasBaseColors()
   const ringColors = readStatementRingColors()
+  const dimmedAlpha = Math.round(readCssNumberToken(DIMMED_OPACITY_TOKEN) * 255)
+  const dimmedCoreAlpha = Math.round(readCssNumberToken(DIMMED_CORE_OPACITY_TOKEN) * 255)
   let cleanupCanvas: (() => void) | null = null
   let layoutKey = ''
   let nodes: StatementNode[] = []
@@ -75,7 +80,9 @@ export function createStatementBeeswarmSketch(
       p.cursor(hoveredNode ? p.HAND : p.ARROW)
       state.setHoveredStatement(createHoverPayload(hoveredNode, p))
       p.clear()
-      nodes.forEach((node) => drawNode(p, node, hoveredNode, colors, ringColors))
+      nodes.forEach((node) =>
+        drawNode(p, node, hoveredNode, colors, ringColors, dimmedAlpha, dimmedCoreAlpha),
+      )
     }
 
     p.mousePressed = () => {
@@ -178,6 +185,8 @@ function drawNode(
   hoveredNode: StatementNode | null,
   colors: CanvasBaseColors,
   ringColors: Partial<Record<PatternLabelKey, RgbColor>>,
+  dimmedAlpha: number,
+  dimmedCoreAlpha: number,
 ) {
   const hovered = hoveredNode?.id === node.id
   const sameAuthor = hoveredNode?.record.author === node.record.author
@@ -190,13 +199,13 @@ function drawNode(
     const color = ringColors[label] ?? colors.text
     const radius = CORE_RADIUS + (index + 1) * (RING_STROKE + RING_GAP)
 
-    p.stroke(color[0], color[1], color[2], highlighted ? 235 : 55)
+    p.stroke(color[0], color[1], color[2], highlighted ? 255 : dimmedAlpha)
     p.strokeWeight(RING_STROKE)
     p.circle(node.x, node.y, radius * 2 * scale)
   })
 
   p.noStroke()
-  p.fill(...colors.text, highlighted ? 235 : 36)
+  p.fill(...colors.text, highlighted ? 255 : dimmedCoreAlpha)
   p.circle(node.x, node.y, CORE_RADIUS * 2 * scale)
 }
 

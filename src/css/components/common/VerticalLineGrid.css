@@ -19,7 +19,7 @@
 
 .vertical-line-grid__label {
   position: absolute;
-  bottom: 1rem;
+  bottom: var(--vertical-line-grid-label-bottom, 1rem);
   left: 50%;
   color: var(--color-grid-legend);
   font-size: var(--font-size--1);
@@ -33,7 +33,7 @@
 .vertical-line-grid__scale-label {
   position: absolute;
   right: 3rem;
-  bottom: 3rem;
+  bottom: var(--vertical-line-grid-scale-label-bottom, 3rem);
   color: var(--color-legend-label);
   font-size: var(--font-size-0);
   font-weight: 900;

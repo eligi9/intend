@@ -5,7 +5,7 @@ import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import { intentLabelNames, strategyColors } from '../../utils/intentLabels'
-import { isPatternActive } from '../../utils/intentRecordPatterns'
+import { isPatternActive, isPatternGroupActive } from '../../utils/intentRecordPatterns'
 import { getPercent } from '../../utils/numbers'
 import {
   getStrategyIcicleRootId,
@@ -24,7 +24,7 @@ const emit = defineEmits<{
   segmentHover: [segment: StrategyIcicleSegment | null]
 }>()
 
-const maxStatementsPerSide = 160
+const maxStatementsPerSide = 80
 const verticalScaleSteps = 5
 const hoveredSegment = ref<StrategyIcicleSegment | null>(null)
 
@@ -47,29 +47,37 @@ function createGridMarker(segment: StrategyIcicleSegment): MirroredLineGridMarke
 }
 
 function createMainSegments() {
-  const countedGroups = countTaxonomyGroups()
-  const totalOccurrences = countedGroups.reduce((total, item) => total + item.occurrences, 0)
+  const subLabelOccurrences = new Map(
+    intentTaxonomy.flatMap((group) =>
+      group.childLabels.map((label) => [label, countLabelOccurrences(label)] as const),
+    ),
+  )
+  const countedGroups = countTaxonomyGroups(subLabelOccurrences)
+  const totalLabelOccurrences = countedGroups.reduce(
+    (total, item) => total + item.labelOccurrences,
+    0,
+  )
 
-  return countedGroups.map(({ group, occurrences }) => {
+  return countedGroups.map(({ group, labelOccurrences, statementOccurrences }) => {
     const color = strategyColors[group.parentLabel] ?? 'var(--color-neutral)'
     const mainSegment = createSegment({
       children: [],
       color,
       description: group.description,
-      heightPercent: getPercent(occurrences, totalOccurrences),
+      heightPercent: getPercent(labelOccurrences, totalLabelOccurrences),
       id: group.parentLabel,
       label: group.label,
-      occurrences,
+      occurrences: statementOccurrences,
       parent: null,
     })
 
     mainSegment.children = group.childLabels.map((label) => {
-      const childOccurrences = countLabelOccurrences(label)
+      const childOccurrences = subLabelOccurrences.get(label) ?? 0
 
       return createSegment({
         children: [],
         color,
-        heightPercent: getPercent(childOccurrences, totalOccurrences),
+        heightPercent: getPercent(childOccurrences, totalLabelOccurrences),
         id: label,
         label: intentLabelNames[label],
         occurrences: childOccurrences,
@@ -81,9 +89,17 @@ function createMainSegments() {
   })
 }
 
-function countTaxonomyGroups() {
+function countTaxonomyGroups(
+  subLabelOccurrences: ReadonlyMap<PatternLabelKey, number>,
+) {
   return intentTaxonomy.map((group) => ({
-    occurrences: group.childLabels.reduce((total, label) => total + countLabelOccurrences(label), 0),
+    labelOccurrences: group.childLabels.reduce(
+      (total, label) => total + (subLabelOccurrences.get(label) ?? 0),
+      0,
+    ),
+    statementOccurrences: props.records.filter((record) =>
+      isPatternGroupActive(record, group.parentLabel),
+    ).length,
     group,
   }))
 }

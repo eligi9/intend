@@ -37,8 +37,8 @@ const anchorHighlights = computed(() => {
 })
 const statementMeta = computed(() =>
   [
-    props.showAuthor ? props.record.author : null,
     props.showDate ? props.record.date : null,
+    props.showAuthor ? props.record.author : null,
     props.showSource ? props.record.source : null,
   ]
     .filter(Boolean)

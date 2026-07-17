@@ -17,7 +17,7 @@
 
 .mirrored-line-grid__marker-value {
   position: absolute;
-  bottom: 1rem;
+  bottom: var(--mirrored-line-grid-marker-bottom, 1rem);
   left: 50%;
   padding: 0.28rem 0.5rem;
   border-radius: 999rem;

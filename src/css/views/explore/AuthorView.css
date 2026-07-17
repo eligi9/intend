@@ -229,7 +229,7 @@
 }
 
 .author-view__item--muted {
-  opacity: 0.22;
+  opacity: var(--opacity-dimmed);
   filter: grayscale(1);
   pointer-events: none;
 }

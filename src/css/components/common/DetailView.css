@@ -220,7 +220,7 @@
 }
 
 .detail__statement--dimmed {
-  opacity: 0.34;
+  opacity: var(--opacity-dimmed);
   filter: blur(0.1875rem);
 }
 
