@@ -240,11 +240,6 @@
   outline-offset: var(--space-half);
 }
 
-.detail__content > .statement-pattern-card + .statement-pattern-card {
-  padding-block-start: var(--space-9);
-  border-block-start: 2px solid rgba(var(--color-text-rgb), 0.2);
-}
-
 .detail-overlay-enter-active,
 .detail-overlay-leave-active {
   transition:

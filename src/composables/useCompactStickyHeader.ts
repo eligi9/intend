@@ -4,13 +4,14 @@ import { readCssLengthTokenInPixels } from '../utils/cssTokens'
 interface CompactStickyHeaderOptions {
   compactPaddingToken?: string
   compactThresholdToken?: string
+  initialCompact?: boolean
   scrollThreshold?: number
 }
 
 export function useCompactStickyHeader(options: CompactStickyHeaderOptions = {}) {
   const compactHeaderContent = ref<HTMLElement | null>(null)
   const compactHeaderHeight = ref('auto')
-  const isHeaderCompact = ref(false)
+  const isHeaderCompact = ref(options.initialCompact ?? false)
   let resizeObserver: ResizeObserver | null = null
 
   function measureCompactHeight() {
@@ -46,7 +47,10 @@ export function useCompactStickyHeader(options: CompactStickyHeaderOptions = {})
     (content) => {
       resizeObserver?.disconnect()
       resizeObserver = content ? new ResizeObserver(measureCompactHeight) : null
-      if (content) resizeObserver?.observe(content)
+      if (content) {
+        measureCompactHeight()
+        resizeObserver?.observe(content)
+      }
     },
     { flush: 'post' },
   )

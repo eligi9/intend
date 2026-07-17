@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, toRef, watch } from 'vue'
 import AuthorPortrait from '../author/AuthorPortrait.vue'
 import type { AuthorInstance } from '../../types/authorData'
 import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
 import ImageCreditsView from '../../views/ImageCreditsView.vue'
 import { usePageScrollLock } from '../../composables/usePageScrollLock'
 import { useCompactStickyHeader } from '../../composables/useCompactStickyHeader'
+import { useDetailStatementScroll } from '../../composables/useDetailStatementScroll'
 import { strategyColors } from '../../utils/intentLabels'
 import { getTopLevelStrategies } from '../../utils/statementPatterns'
 import FilterButtonContainer from './FilterButtonContainer.vue'
@@ -15,8 +16,10 @@ import ViewHeadline from './ViewHeadline.vue'
 const props = defineProps<{
   author: AuthorInstance | null
   records: readonly IntentRecord[]
+  targetStatementId?: string | null
 }>()
 
+const detailView = ref<HTMLElement | null>(null)
 const activePattern = ref<PatternLabelKey | null>(null)
 const hoveredBadgeStatementId = ref<string | null>(null)
 const hoveredContextStatementId = ref<string | null>(null)
@@ -26,7 +29,7 @@ const {
   compactHeaderHeight,
   handleScroll: handleDetailScroll,
   isHeaderCompact,
-} = useCompactStickyHeader()
+} = useCompactStickyHeader({ initialCompact: Boolean(props.targetStatementId) })
 
 const emit = defineEmits<{
   close: []
@@ -89,6 +92,11 @@ watch(patternFilters, (filters) => {
   }
 })
 
+useDetailStatementScroll({
+  container: detailView,
+  targetStatementId: toRef(props, 'targetStatementId'),
+})
+
 function togglePatternFilter(label: PatternLabelKey) {
   activePattern.value = activePattern.value === label ? null : label
 }
@@ -125,6 +133,7 @@ function closeImageCredits() {
 
 <template>
   <aside
+    ref="detailView"
     class="detail-view"
     aria-label="Detail"
     @scroll.stop="handleDetailScroll"
@@ -186,6 +195,7 @@ function closeImageCredits() {
         <StatementPatternCard
           v-for="statement in visibleRecords"
           :key="statement.id"
+          :data-statement-id="statement.id"
           :class="{
             'detail__statement--dimmed':
               (hoveredBadgeStatementId !== null && hoveredBadgeStatementId !== statement.id) ||

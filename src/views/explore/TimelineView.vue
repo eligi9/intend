@@ -178,6 +178,7 @@ function togglePatternLabelByKey(label: string) {
           v-if="selectedStatement"
           :author="selectedAuthor"
           :records="selectedAuthorRecords"
+          :target-statement-id="selectedStatement.id"
           @close="closeAuthorDetail"
         />
       </Transition>
