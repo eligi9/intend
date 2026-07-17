@@ -1,9 +1,9 @@
 import type { AuthorInstance, AuthorProfile } from '../types/authorData'
 import type { IntentRecord } from '../types/intentData'
-import { intentTaxonomy } from '../types/intentTaxonomy'
+import { intentTaxonomy } from './intentTaxonomy'
 import { getTopLevelStrategies } from './statementPatterns'
 
-export function calculateAge(dateOfBirth: string | null, referenceDate = new Date()) {
+function calculateAge(dateOfBirth: string | null, referenceDate = new Date()) {
   if (!dateOfBirth) return null
 
   const [year, month = '1', day = '1'] = dateOfBirth.split('-')

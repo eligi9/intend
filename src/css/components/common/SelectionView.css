@@ -1,0 +1,56 @@
+@import './DetailView.css';
+
+.detail--selection {
+  --detail-section-gap: var(--space-4);
+}
+
+.detail--selection .detail__header {
+  justify-content: center;
+  padding-block-start: 0;
+}
+
+.detail--selection.detail--header-compact .detail__header {
+  justify-content: center;
+  padding-block: var(--space-5);
+}
+
+.detail--selection .detail__header-inner {
+  justify-content: center;
+  height: 100%;
+  margin-inline: 0 auto;
+}
+
+.detail--selection .detail__headline-block {
+  justify-items: start;
+  width: min(58rem, 100%);
+  max-width: min(58rem, 100%);
+  margin-inline: 0 auto;
+  text-align: left;
+}
+
+.detail--selection .detail__headline {
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+}
+
+.selection-view__terms {
+  margin: 0;
+  color: rgba(var(--color-text-rgb), 0.74);
+  font-size: var(--font-size-2);
+  font-weight: 750;
+  line-height: var(--line-height-2);
+}
+
+.selection-view__term {
+  display: inline;
+}
+
+.selection-view__term + .selection-view__term {
+  margin-inline-start: 0.25em;
+}
+
+.selection-view__term-text--colored {
+  color: var(--selection-term-color);
+  font-weight: 850;
+}

@@ -1,8 +1,8 @@
 import type { PatternLabelKey, TopLevelStrategyUsage } from './intentData'
 
-export type AuthorRoleGroup = 'executive_officials' | 'legislators' | 'others'
+type AuthorRoleGroup = 'executive_officials' | 'legislators' | 'others'
 
-export interface AuthorImage {
+interface AuthorImage {
   url: string
   sourceUrl: string
   wikidataImageProperty: string

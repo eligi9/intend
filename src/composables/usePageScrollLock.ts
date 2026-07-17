@@ -1,6 +1,6 @@
 import { onBeforeUnmount, onMounted } from 'vue'
 
-export const pageScrollLockClass = 'app-scroll-locked'
+const pageScrollLockClass = 'app-scroll-locked'
 export const pageScrollLockEventName = 'app-overlay-scroll-lock'
 
 export function usePageScrollLock() {

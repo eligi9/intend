@@ -6,7 +6,7 @@ interface CanvasSizeOptions {
   minWidth?: number
 }
 
-export function getP5CanvasSize(container: HTMLElement, options: CanvasSizeOptions) {
+function getP5CanvasSize(container: HTMLElement, options: CanvasSizeOptions) {
   const bounds = container.getBoundingClientRect()
   const minWidth = options.minWidth ?? 320
 

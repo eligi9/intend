@@ -40,10 +40,6 @@ const {
   initialCompact: Boolean(props.targetStatementId),
 })
 
-const emit = defineEmits<{
-  close: []
-}>()
-
 usePageScrollLock()
 useDetailStatementScroll({
   container: detailView,
@@ -165,5 +161,5 @@ function setBadgeHovered(statementId: string, visible: boolean) {
 </template>
 
 <style scoped>
-@import '../../css/components/common/DetailView.css';
+@import '../../css/components/common/SelectionView.css';
 </style>

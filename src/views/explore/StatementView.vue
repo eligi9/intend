@@ -2,19 +2,17 @@
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import DetailView from '../../components/common/DetailView.vue'
-import DropdownSelect from '../../components/common/DropdownSelect.vue'
-import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import SelectionView from '../../components/common/SelectionView.vue'
 import StrategyButton from '../../components/common/StrategyButton.vue'
 import ViewGrid from '../../components/common/ViewGrid.vue'
+import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StatementButton from '../../components/statement/StatementButton.vue'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
-import type { IntentRecord, MeasureCategory, PatternLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
-import { toggleArrayItem } from '../../utils/arrays'
+import type { IntentRecord } from '../../types/intentData'
+import { intentTaxonomy } from '../../utils/intentTaxonomy'
 import { strategyColors } from '../../utils/intentLabels'
 import { sortStatementsBySize } from '../../utils/sort'
 
@@ -29,14 +27,6 @@ const authorStore = useAuthorStore()
 const { filteredRecords, filters } = storeToRefs(statementStore)
 const selectedStatement = ref<IntentRecord | null>(null)
 const selectionDetailIsOpen = ref(false)
-const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] = [
-  { label: 'All content types', value: '' },
-  { label: 'Destruction', value: 'Destruction' },
-  { label: 'Aid Control / Deprivation', value: 'Aid Control / Deprivation' },
-  { label: 'Forced Displacement', value: 'Forced Displacement' },
-  { label: 'Physical Harm', value: 'Physical Harm' },
-  { label: 'Occupation / Settlement', value: 'Occupation / Settlement' },
-]
 
 const selectedAuthor = computed(() =>
   selectedStatement.value ? authorStore.getAuthorInstance(selectedStatement.value.author) : null,
@@ -50,17 +40,9 @@ const patternFilterLabels = computed(() =>
   })),
 )
 const sortedRecords = computed(() => sortStatementsBySize(filteredRecords.value))
-const selectedMeasureCategory = computed({
-  get: () => filters.value.measureCategories[0] ?? '',
-  set: (category: string) => {
-    statementStore.setMeasureCategories(category ? [category as MeasureCategory] : [])
-  },
-})
 const hasActiveStatementFilters = computed(
   () =>
     filters.value.query.trim().length > 0 ||
-    filters.value.authors.length > 0 ||
-    filters.value.labelsAny.length > 0 ||
     filters.value.labelsAll.length > 0 ||
     filters.value.measureCategories.length > 0,
 )
@@ -83,14 +65,6 @@ const activePatternFilterLabels = computed(() =>
 )
 const selectionTitle = 'Selection'
 const selectionSearchTerm = computed(() => filters.value.query.trim())
-
-function togglePatternLabel(label: PatternLabelKey) {
-  statementStore.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
-}
-
-function togglePatternLabelByKey(label: string) {
-  togglePatternLabel(label as PatternLabelKey)
-}
 
 function closeStatementDetail() {
   selectedStatement.value = null
@@ -149,40 +123,7 @@ function closeActiveDetail() {
       />
     </ViewGrid>
 
-    <section class="statement-filter-overlay" aria-label="Statement Filter">
-      <section class="statement-filters">
-        <div class="statement-search-filter">
-          <input
-            :value="filters.query"
-            type="search"
-            placeholder="Search for terms like &quot;destroy&quot;"
-            @input="statementStore.setQuery(($event.target as HTMLInputElement).value)"
-          />
-          <button
-            v-if="filters.query"
-            type="button"
-            class="statement-search-filter__clear"
-            aria-label="Clear statement search"
-            @click="statementStore.setQuery('')"
-          >
-            ×
-          </button>
-        </div>
-
-        <div class="statement-measure-filter">
-          <DropdownSelect
-            v-model="selectedMeasureCategory"
-            :options="measureCategoryOptions"
-            select-label="Filter statements by content category"
-          />
-        </div>
-
-        <FilterButtonContainer
-          :labels="patternFilterLabels"
-          @select="togglePatternLabelByKey"
-        />
-      </section>
-    </section>
+    <ExploreFilterBar select-label="Filter statements by content category" />
 
     <button
       v-if="selectedStatement || selectionDetailIsOpen"
@@ -198,7 +139,6 @@ function closeActiveDetail() {
           v-if="selectedStatement"
           :author="selectedAuthor"
           :records="[selectedStatement]"
-          @close="closeStatementDetail"
         />
       </Transition>
     </Teleport>
@@ -211,7 +151,6 @@ function closeActiveDetail() {
           :title="selectionTitle"
           :search-term="selectionSearchTerm"
           :labels="activePatternFilterLabels"
-          @close="closeSelectionDetail"
         />
       </Transition>
     </Teleport>

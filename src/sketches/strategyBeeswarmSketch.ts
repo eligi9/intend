@@ -6,7 +6,7 @@ import type {
   HoveredBeeswarmStatement,
   StrategyBeeswarmSketchState,
 } from '../types/strategyBeeswarm'
-import { intentTaxonomy } from '../types/intentTaxonomy'
+import { intentTaxonomy } from '../utils/intentTaxonomy'
 import {
   formatRgbColor,
   readCanvasBaseColors,
@@ -18,7 +18,7 @@ import { readCssLengthTokenInPixels } from '../utils/cssTokens'
 import { intentLabelNames, strategyColors } from '../utils/intentLabels'
 import { getPatternAnnotation, isPatternActive } from '../utils/intentRecordPatterns'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
-import { createTimelineModel } from '../utils/timelineScale'
+import { createTimelinePoints } from '../utils/timelineScale'
 
 interface BeeswarmNode extends SimulationNodeDatum {
   bandMaxY: number
@@ -77,17 +77,17 @@ export function createStrategyBeeswarmSketch(
     })(p.remove.bind(p))
 
     p.draw = () => {
-      const timeline = createTimelineModel(
+      const timelinePoints = createTimelinePoints(
         state.statements,
         state.timeDomain.startDate,
         state.timeDomain.endDate,
       )
       const bands = createBeeswarmBands(getSwarmTop(), getSwarmBottom(p), expandedBandId)
-      const nextLayoutKey = createLayoutKey(p, timeline.points.length, expandedBandId)
+      const nextLayoutKey = createLayoutKey(p, timelinePoints.length, expandedBandId)
 
       if (nextLayoutKey !== layoutKey) {
         layoutKey = nextLayoutKey
-        nodes = createBeeswarmNodes(timeline.points, bands, p.width, expandedBandId)
+        nodes = createBeeswarmNodes(timelinePoints, bands, p.width, expandedBandId)
         simulation = createBeeswarmSimulation(nodes)
       }
 
@@ -174,7 +174,7 @@ function createBeeswarmBands(
 }
 
 function createBeeswarmNodes(
-  timelinePoints: ReturnType<typeof createTimelineModel>['points'],
+  timelinePoints: ReturnType<typeof createTimelinePoints>,
   bands: BeeswarmBand[],
   width: number,
   expandedBandId: PatternLabelKey | null,

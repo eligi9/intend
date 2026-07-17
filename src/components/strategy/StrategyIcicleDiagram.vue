@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
+import { intentTaxonomy } from '../../utils/intentTaxonomy'
 import { intentLabelNames, strategyColors } from '../../utils/intentLabels'
 import { isPatternActive, isPatternGroupActive } from '../../utils/intentRecordPatterns'
 import { getPercent } from '../../utils/numbers'
@@ -31,10 +31,6 @@ const hoveredSegment = ref<StrategyIcicleSegment | null>(null)
 const mainSegments = computed(() => createMainSegments())
 
 const subSegments = computed(() => mainSegments.value.flatMap((segment) => segment.children))
-
-const allSegments = computed(() =>
-  mainSegments.value.flatMap((segment) => [segment, ...segment.children]),
-)
 
 const activeSegment = computed(() => hoveredSegment.value)
 
@@ -137,16 +133,6 @@ function handleClick(segment: StrategyIcicleSegment) {
   emit('segmentHover', null)
   emit('segmentClick', segment)
 }
-
-function clearSelection() {
-  hoveredSegment.value = null
-  emit('gridMarkerChange', null)
-  emit('segmentHover', null)
-}
-
-defineExpose({
-  clearSelection,
-})
 
 function shouldShowSubLabel(segment: StrategyIcicleSegment) {
   const activeHover = hoveredSegment.value

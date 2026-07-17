@@ -3,11 +3,8 @@ import {
   getActivePatternGroups,
   isPatternGroupActive,
 } from './intentRecordPatterns'
-import { parseStatementDate } from './timelineScale'
 
-export type StatementSortMode = 'size' | 'time'
-
-export const statementMainLabelOrder: PatternLabelKey[] = [
+const statementMainLabelOrder: PatternLabelKey[] = [
   'enemy_image',
   'rhetorical_foreclosure',
   'just_cause',
@@ -26,46 +23,12 @@ export function sortStatementsBySize(records: readonly IntentRecord[]) {
   })
 }
 
-export function sortStatementsBySubLabelCount(records: readonly IntentRecord[]) {
-  return [...records].sort((first, second) => {
-    const subLabelCountDifference = getSubLabelCount(second) - getSubLabelCount(first)
-
-    if (subLabelCountDifference !== 0) {
-      return subLabelCountDifference
-    }
-
-    return compareStatementsByMainLabelOrder(first, second)
-  })
-}
-
-export function sortStatementsByTime(records: readonly IntentRecord[]) {
-  return [...records].sort((first, second) => {
-    const firstTime = parseStatementDate(first.date)?.getTime() ?? Number.NEGATIVE_INFINITY
-    const secondTime = parseStatementDate(second.date)?.getTime() ?? Number.NEGATIVE_INFINITY
-
-    return secondTime - firstTime
-  })
-}
-
-export function getSubLabelCount(record: IntentRecord) {
-  return record.patterns.reduce(
-    (count, group) => count + group.subLabels.filter((annotation) => annotation.active === 'yes').length,
-    0,
-  )
-}
-
-export function getMainLabelCount(record: IntentRecord) {
+function getMainLabelCount(record: IntentRecord) {
   return getActivePatternGroups(record).length
 }
 
 export function getActiveMainLabels(record: IntentRecord) {
   return statementMainLabelOrder.filter((labelKey) => isPatternGroupActive(record, labelKey))
-}
-
-export function getActiveSubLabelCount(record: IntentRecord, mainLabel: PatternLabelKey) {
-  const group = record.patterns.find((item) => item.key === mainLabel)
-
-  return group?.subLabels.filter((annotation) => annotation.active === 'yes').length ?? 0
 }
 
 function getMainLabelSortSignature(record: IntentRecord) {

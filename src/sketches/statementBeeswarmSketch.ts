@@ -16,7 +16,7 @@ import { strategyColors } from '../utils/intentLabels'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 import { readCssNumberToken } from '../utils/cssTokens'
 import { getActiveMainLabels } from '../utils/sort'
-import { createTimelineModel } from '../utils/timelineScale'
+import { createTimelinePoints } from '../utils/timelineScale'
 
 interface StatementNode extends SimulationNodeDatum {
   id: string
@@ -60,16 +60,16 @@ export function createStatementBeeswarmSketch(
     })(p.remove.bind(p))
 
     p.draw = () => {
-      const timeline = createTimelineModel(
+      const timelinePoints = createTimelinePoints(
         state.statements,
         state.timeDomain.startDate,
         state.timeDomain.endDate,
       )
-      const nextLayoutKey = createLayoutKey(p, timeline.points.length)
+      const nextLayoutKey = createLayoutKey(p, timelinePoints.length)
 
       if (nextLayoutKey !== layoutKey) {
         layoutKey = nextLayoutKey
-        nodes = createStatementNodes(timeline.points, p.width, p.height)
+        nodes = createStatementNodes(timelinePoints, p.width, p.height)
         simulation = createStatementSimulation(nodes)
       }
 
@@ -97,7 +97,7 @@ export function createStatementBeeswarmSketch(
 }
 
 function createStatementNodes(
-  timelinePoints: ReturnType<typeof createTimelineModel>['points'],
+  timelinePoints: ReturnType<typeof createTimelinePoints>,
   width: number,
   height: number,
 ) {

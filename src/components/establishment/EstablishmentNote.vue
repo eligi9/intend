@@ -2,13 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import gsap from 'gsap'
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
-
-type NoteStartCorner = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
-
-interface Point {
-  x: number
-  y: number
-}
+import type { NoteStartCorner, Point } from '../../types/geometry'
 
 interface RectBox {
   bottom: number

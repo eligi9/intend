@@ -45,19 +45,5 @@ const fallbackLabel = computed(() => {
 </template>
 
 <style scoped>
-.author-fallback-icon {
-  width: 54%;
-  height: 54%;
-  fill: currentColor;
-}
-
-.author-fallback-icon--unknown {
-  display: grid;
-  place-items: center;
-  width: auto;
-  height: auto;
-  font-size: calc(var(--author-image-size) * 0.48);
-  font-weight: 800;
-  line-height: 1;
-}
+@import '../../css/components/icons/AuthorFallbackIcon.css';
 </style>

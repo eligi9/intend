@@ -17,17 +17,3 @@ export interface HoveredTimelineEvent extends TimelineEvent {
   xRatio: number
   yRatio: number
 }
-
-export type TimelineEventDirection = 'down' | 'up'
-
-export interface PositionedTimelineEventBase {
-  date: string
-  description: string
-  direction: TimelineEventDirection
-  id: string
-  label: string
-  sourceName: string
-  sourceUrl: string
-  xRatio: number
-  yRatio: number
-}

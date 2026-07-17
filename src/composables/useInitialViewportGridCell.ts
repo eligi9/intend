@@ -1,6 +1,6 @@
 import { onMounted, ref } from 'vue'
 
-interface InitialViewportGridCellSizeOptions {
+interface InitialViewportGridCellOptions {
   columns: number
   fallback?: string
   fallbackPx?: number
@@ -12,7 +12,7 @@ export function useInitialViewportGridCell({
   fallback = `calc(100vw / ${columns})`,
   fallbackPx = 80,
   gridUnit = 4,
-}: InitialViewportGridCellSizeOptions) {
+}: InitialViewportGridCellOptions) {
   const cellSize = ref(fallback)
   const cellSizePx = ref(fallbackPx)
 
@@ -28,8 +28,4 @@ export function useInitialViewportGridCell({
     cellSize,
     cellSizePx,
   }
-}
-
-export function useInitialViewportGridCellSize(options: InitialViewportGridCellSizeOptions) {
-  return useInitialViewportGridCell(options).cellSize
 }

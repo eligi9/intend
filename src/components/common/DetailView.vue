@@ -31,10 +31,6 @@ const {
   isHeaderCompact,
 } = useCompactStickyHeader({ initialCompact: Boolean(props.targetStatementId) })
 
-const emit = defineEmits<{
-  close: []
-}>()
-
 usePageScrollLock()
 
 const normalizeText = (value: string) =>

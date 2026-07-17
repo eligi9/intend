@@ -3,13 +3,12 @@ import type {
   PatternAnnotation,
   PatternGroupAnnotation,
   PatternLabelKey,
+  RawIntentRecord,
 } from '../types/intentData'
-import { intentTaxonomy } from '../types/intentTaxonomy'
+import { intentTaxonomy } from './intentTaxonomy'
 import { intentLabelNames, splitAnchors } from './intentLabels'
 
-export type RawIntentRecord = Omit<IntentRecord, 'patterns'>
-
-export function normalizeIntentRecord(record: RawIntentRecord): IntentRecord {
+function normalizeIntentRecord(record: RawIntentRecord): IntentRecord {
   return {
     ...record,
     patterns: createPatternGroups(record),
@@ -20,7 +19,7 @@ export function normalizeIntentRecords(records: RawIntentRecord[]): IntentRecord
   return records.map((record) => normalizeIntentRecord(record))
 }
 
-export function getPatternGroup(record: IntentRecord, label: PatternLabelKey) {
+function getPatternGroup(record: IntentRecord, label: PatternLabelKey) {
   return record.patterns.find((group) => group.key === label) ?? null
 }
 

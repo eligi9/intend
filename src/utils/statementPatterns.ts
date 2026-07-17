@@ -1,5 +1,5 @@
 import type { IntentRecord, PatternLabelKey, TopLevelStrategyUsage } from '../types/intentData'
-import { intentTaxonomy } from '../types/intentTaxonomy'
+import { intentTaxonomy } from './intentTaxonomy'
 import {
   getActivePatternAnnotations,
   getPatternAnnotation,
@@ -7,7 +7,7 @@ import {
 } from './intentRecordPatterns'
 import { subLabelColors } from './intentLabels'
 
-export interface StatementPatternBadge {
+interface StatementPatternBadge {
   color: string
   label: PatternLabelKey
 }

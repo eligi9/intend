@@ -3,19 +3,14 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
 import DetailView from '../../components/common/DetailView.vue'
-import DropdownSelect from '../../components/common/DropdownSelect.vue'
-import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import ViewGrid from '../../components/common/ViewGrid.vue'
+import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
-import { useInitialViewportGridCell } from '../../composables/useInitialViewportGridCellSize'
+import { useInitialViewportGridCell } from '../../composables/useInitialViewportGridCell'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { AuthorInstance } from '../../types/authorData'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
-import type { MeasureCategory, PatternLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
-import { toggleArrayItem } from '../../utils/arrays'
-import { strategyColors } from '../../utils/intentLabels'
 
 defineProps<ExploreHeaderProps>()
 
@@ -26,17 +21,9 @@ const emit = defineEmits<{
 const authorStore = useAuthorStore()
 const statementStore = useStatementStore()
 const { authorInstances } = storeToRefs(authorStore)
-const { filteredRecords, filters } = storeToRefs(statementStore)
+const { filteredRecords } = storeToRefs(statementStore)
 
 const selectedAuthorId = ref<string | null>(null)
-const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] = [
-  { label: 'All content types', value: '' },
-  { label: 'Destruction', value: 'Destruction' },
-  { label: 'Aid Control / Deprivation', value: 'Aid Control / Deprivation' },
-  { label: 'Forced Displacement', value: 'Forced Displacement' },
-  { label: 'Physical Harm', value: 'Physical Harm' },
-  { label: 'Occupation / Settlement', value: 'Occupation / Settlement' },
-]
 const {
   cellSize: authorGridCellSize,
   cellSizePx: authorGridCellSizePx,
@@ -51,20 +38,6 @@ const selectedAuthorStatements = computed(() =>
     ? filteredRecords.value.filter((record) => record.author === selectedAuthor.value?.name)
     : [],
 )
-const patternFilterLabels = computed(() =>
-  intentTaxonomy.map((group) => ({
-    active: filters.value.labelsAll.includes(group.parentLabel),
-    color: strategyColors[group.parentLabel] ?? 'var(--color-neutral)',
-    key: group.parentLabel,
-    label: group.label,
-  })),
-)
-const selectedMeasureCategory = computed({
-  get: () => filters.value.measureCategories[0] ?? '',
-  set: (category: string) => {
-    statementStore.setMeasureCategories(category ? [category as MeasureCategory] : [])
-  },
-})
 const visibleAuthorNames = computed(
   () => new Set(filteredRecords.value.map((record) => record.author)),
 )
@@ -74,14 +47,6 @@ const otherPoliticalAndStateActors = computed(() =>
 const executiveLeadership = computed(() =>
   authorInstances.value.filter((author) => author.roleGroup === 'executive_officials'),
 )
-
-function togglePatternLabel(label: PatternLabelKey) {
-  statementStore.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
-}
-
-function togglePatternLabelByKey(label: string) {
-  togglePatternLabel(label as PatternLabelKey)
-}
 
 function isAuthorVisible(author: AuthorInstance) {
   return visibleAuthorNames.value.has(author.name)
@@ -106,40 +71,10 @@ function closeAuthorDetail() {
       @select="emit('section-select', $event)"
     />
 
-    <section class="author-filter-overlay" aria-label="Autoren Filter">
-      <section class="author-filters">
-        <div class="author-search-filter">
-          <input
-            :value="filters.query"
-            type="search"
-            placeholder="Search for terms like &quot;destroy&quot;"
-            @input="statementStore.setQuery(($event.target as HTMLInputElement).value)"
-          />
-          <button
-            v-if="filters.query"
-            type="button"
-            class="author-search-filter__clear"
-            aria-label="Clear author search"
-            @click="statementStore.setQuery('')"
-          >
-            ×
-          </button>
-        </div>
-
-        <div class="author-measure-filter">
-          <DropdownSelect
-            v-model="selectedMeasureCategory"
-            :options="measureCategoryOptions"
-            select-label="Filter authors by content category"
-          />
-        </div>
-
-        <FilterButtonContainer
-          :labels="patternFilterLabels"
-          @select="togglePatternLabelByKey"
-        />
-      </section>
-    </section>
+    <ExploreFilterBar
+      aria-label="Autoren Filter"
+      select-label="Filter authors by content category"
+    />
 
     <ViewGrid
       class="author-view__background-grid"
@@ -220,7 +155,6 @@ function closeAuthorDetail() {
           v-if="selectedAuthorId"
           :author="selectedAuthor"
           :records="selectedAuthorStatements"
-          @close="closeAuthorDetail"
         />
       </Transition>
     </Teleport>

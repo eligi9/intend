@@ -1,5 +1,5 @@
-export type BinaryLabel = 'yes' | 'no' | null
-export type AnchorTexts = string[]
+type BinaryLabel = 'yes' | 'no' | null
+type AnchorTexts = string[]
 export type MeasureCategory =
   | 'Destruction'
   | 'Aid Control / Deprivation'
@@ -92,6 +92,8 @@ export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
   patterns: PatternGroupAnnotation[]
 }
 
+export type RawIntentRecord = Omit<IntentRecord, 'patterns'>
+
 export interface IntentDataset {
   name: string
   generatedAt: string
@@ -110,8 +112,6 @@ export interface IntentDataset {
 
 export interface IntentFilters {
   query: string
-  authors: string[]
-  labelsAny: PatternLabelKey[]
   labelsAll: PatternLabelKey[]
   measureCategories: MeasureCategory[]
 }

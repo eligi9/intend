@@ -83,7 +83,7 @@ export function createStrategyTimelineGridSketch(
       state.setHoveredEvent(createHoverPayload(hoveredEvent, p.width, p.height))
       p.clear()
       p.background(...colors.background)
-      drawDivisions(p, state, colors, blackTones, monthLabelFont, filterHeight)
+      drawDivisions(p, state, blackTones, monthLabelFont, filterHeight)
       drawEventAnchors(p, events, hoveredEvent, blackTones)
       drawEvents(p, events, hoveredEvent, colors, blackTones, eventFontSizes)
     }
@@ -102,7 +102,6 @@ export function createStrategyTimelineGridSketch(
 function drawDivisions(
   p: p5,
   state: StrategyTimelineGridSketchState,
-  colors: CanvasBaseColors,
   blackTones: TimelineBlackTones,
   monthLabelFont: p5.Font,
   filterHeight: number,

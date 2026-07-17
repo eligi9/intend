@@ -1,21 +1,17 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import DropdownSelect from '../../components/common/DropdownSelect.vue'
-import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
 import MirroredLineGrid from '../../components/common/MirroredLineGrid.vue'
 import SelectionView from '../../components/common/SelectionView.vue'
 import SideOverlay from '../../components/common/SideOverlay.vue'
+import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyIcicleDiagram from '../../components/strategy/StrategyIcicleDiagram.vue'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
-import type { MeasureCategory, PatternLabelKey } from '../../types/intentData'
-import { intentSubLabelDescriptions, intentTaxonomy } from '../../types/intentTaxonomy'
+import { intentSubLabelDescriptions } from '../../utils/intentTaxonomy'
 import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
-import { toggleArrayItem } from '../../utils/arrays'
-import { strategyColors } from '../../utils/intentLabels'
 import { isPatternActive, isPatternGroupActive } from '../../utils/intentRecordPatterns'
 
 defineProps<ExploreHeaderProps>()
@@ -25,34 +21,12 @@ const emit = defineEmits<{
 }>()
 
 const statementStore = useStatementStore()
-const { filteredRecords, filters } = storeToRefs(statementStore)
+const { filteredRecords } = storeToRefs(statementStore)
 const maxStatementsPerSide = 80
 const countStep = 10
 const selectedSegment = ref<StrategyIcicleSegment | null>(null)
 const detailSegment = ref<StrategyIcicleSegment | null>(null)
 const gridMarker = ref<MirroredLineGridMarker | null>(null)
-const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] = [
-  { label: 'All content types', value: '' },
-  { label: 'Destruction', value: 'Destruction' },
-  { label: 'Aid Control / Deprivation', value: 'Aid Control / Deprivation' },
-  { label: 'Forced Displacement', value: 'Forced Displacement' },
-  { label: 'Physical Harm', value: 'Physical Harm' },
-  { label: 'Occupation / Settlement', value: 'Occupation / Settlement' },
-]
-const patternFilterLabels = computed(() =>
-  intentTaxonomy.map((group) => ({
-    active: filters.value.labelsAll.includes(group.parentLabel),
-    color: strategyColors[group.parentLabel] ?? 'var(--color-neutral)',
-    key: group.parentLabel,
-    label: group.label,
-  })),
-)
-const selectedMeasureCategory = computed({
-  get: () => filters.value.measureCategories[0] ?? '',
-  set: (category: string) => {
-    statementStore.setMeasureCategories(category ? [category as MeasureCategory] : [])
-  },
-})
 const selectedSubpatternDescription = computed(() => {
   const segment = selectedSegment.value
   if (!segment?.parent) return ''
@@ -94,13 +68,6 @@ function closeDetail() {
   detailSegment.value = null
 }
 
-function togglePatternLabel(label: PatternLabelKey) {
-  statementStore.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
-}
-
-function togglePatternLabelByKey(label: string) {
-  togglePatternLabel(label as PatternLabelKey)
-}
 </script>
 
 <template>
@@ -137,40 +104,11 @@ function togglePatternLabelByKey(label: string) {
       </section>
     </div>
 
-    <section class="pattern-filter-overlay" aria-label="Pattern Filter">
-      <section class="pattern-filters">
-        <div class="pattern-search-filter">
-          <input
-            :value="filters.query"
-            type="search"
-            placeholder="Search for terms like &quot;destroy&quot;"
-            @input="statementStore.setQuery(($event.target as HTMLInputElement).value)"
-          />
-          <button
-            v-if="filters.query"
-            type="button"
-            class="pattern-search-filter__clear"
-            aria-label="Clear pattern search"
-            @click="statementStore.setQuery('')"
-          >
-            ×
-          </button>
-        </div>
-
-        <div class="pattern-measure-filter">
-          <DropdownSelect
-            v-model="selectedMeasureCategory"
-            :options="measureCategoryOptions"
-            select-label="Filter patterns by content category"
-          />
-        </div>
-
-        <FilterButtonContainer
-          :labels="patternFilterLabels"
-          @select="togglePatternLabelByKey"
-        />
-      </section>
-    </section>
+    <ExploreFilterBar
+      aria-label="Pattern Filter"
+      select-label="Filter patterns by content category"
+      :z-index="200"
+    />
 
     <SideOverlay
       :visible="Boolean(selectedSegment && selectedSegment.parent === null)"
@@ -204,7 +142,6 @@ function togglePatternLabelByKey(label: string) {
           :header-color="detailSegment.color"
           :records="detailRecords"
           :title="detailSegment.label"
-          @close="closeDetail"
         />
       </Transition>
     </Teleport>
