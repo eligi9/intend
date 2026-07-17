@@ -20,6 +20,10 @@
   white-space: nowrap;
 }
 
+.view-headline__title-suffix {
+  font-weight: 400;
+}
+
 .view-headline__subline {
   margin: 0;
   color: rgba(var(--color-text-rgb), 0.74);

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, toRef } from 'vue'
 import { usePageScrollLock } from '../../composables/usePageScrollLock'
 import { useCompactStickyHeader } from '../../composables/useCompactStickyHeader'
+import { useDetailStatementScroll } from '../../composables/useDetailStatementScroll'
 import type { IntentRecord } from '../../types/intentData'
 import StatementPatternCard from './StatementPatternCard.vue'
 import ViewHeadline from './ViewHeadline.vue'
@@ -18,12 +19,15 @@ interface SelectionTerm {
 }
 
 const props = defineProps<{
+  headerColor?: string
   labels?: SelectionFilterLabel[]
   searchTerm?: string
   title: string
   records: readonly IntentRecord[]
+  targetStatementId?: string | null
 }>()
 
+const detailView = ref<HTMLElement | null>(null)
 const hoveredBadgeStatementId = ref<string | null>(null)
 const hoveredContextStatementId = ref<string | null>(null)
 const {
@@ -31,15 +35,25 @@ const {
   compactHeaderHeight,
   handleScroll: handleDetailScroll,
   isHeaderCompact,
-} = useCompactStickyHeader()
+} = useCompactStickyHeader({
+  compactPaddingToken: '--space-5',
+  initialCompact: Boolean(props.targetStatementId),
+})
 
 const emit = defineEmits<{
   close: []
 }>()
 
 usePageScrollLock()
+useDetailStatementScroll({
+  container: detailView,
+  targetStatementId: toRef(props, 'targetStatementId'),
+})
 
-const selectionTitle = computed(() => `${props.title} (${props.records.length})`)
+const selectionStyle = computed(() => ({
+  '--detail-header-background': props.headerColor ?? 'var(--app-background)',
+  '--detail-header-color': props.headerColor ? 'var(--color-white)' : 'var(--color-text)',
+}))
 const selectionTerms = computed<SelectionTerm[]>(() => {
   const terms: SelectionTerm[] = []
   const searchTerm = props.searchTerm?.trim()
@@ -82,6 +96,7 @@ function setBadgeHovered(statementId: string, visible: boolean) {
 
 <template>
   <aside
+    ref="detailView"
     class="detail-view"
     aria-label="Selection detail"
     @scroll.stop="handleDetailScroll"
@@ -90,15 +105,22 @@ function setBadgeHovered(statementId: string, visible: boolean) {
   >
     <section
       class="detail detail--selection"
-      :class="{ 'detail--header-compact': isHeaderCompact }"
-      :style="{ '--detail-compact-header-height': compactHeaderHeight }"
+      :class="{
+        'detail--header-colored': Boolean(headerColor),
+        'detail--header-compact': isHeaderCompact,
+      }"
+      :style="{
+        ...selectionStyle,
+        '--detail-compact-header-height': compactHeaderHeight,
+      }"
     >
       <header class="detail__header">
         <div class="detail__header-inner">
           <div ref="compactHeaderContent" class="detail__headline-block">
             <ViewHeadline
               class="detail__headline"
-              :title="selectionTitle"
+              :title="title"
+              :title-suffix="`(${records.length})`"
             />
 
             <p v-if="selectionTerms.length > 0" class="selection-view__terms">
@@ -125,6 +147,7 @@ function setBadgeHovered(statementId: string, visible: boolean) {
         <StatementPatternCard
           v-for="statement in records"
           :key="statement.id"
+          :data-statement-id="statement.id"
           :class="{
             'detail__statement--dimmed':
               (hoveredBadgeStatementId !== null && hoveredBadgeStatementId !== statement.id) ||

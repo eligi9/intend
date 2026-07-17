@@ -5,6 +5,7 @@ import strategyTimelineEventsDataset from '../../../data/strategy-timeline-event
 import DetailView from '../../components/common/DetailView.vue'
 import DropdownSelect from '../../components/common/DropdownSelect.vue'
 import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
+import SelectionView from '../../components/common/SelectionView.vue'
 import StrategyButton from '../../components/common/StrategyButton.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
@@ -15,11 +16,13 @@ import type { IntentRecord, MeasureCategory, PatternLabelKey } from '../../types
 import { intentTaxonomy } from '../../types/intentTaxonomy'
 import type {
   BeeswarmDisplayMode,
+  HoveredBeeswarmStatement,
   HoveredTimelineStatement,
 } from '../../types/strategyBeeswarm'
 import type { TimelineEvent } from '../../types/timeline'
 import { toggleArrayItem } from '../../utils/arrays'
 import { strategyColors } from '../../utils/intentLabels'
+import { isPatternActive } from '../../utils/intentRecordPatterns'
 import { createStrategyTimelineDomain } from '../../utils/strategyTimelineDomain'
 
 defineProps<ExploreHeaderProps>()
@@ -35,6 +38,7 @@ const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const timelineDomain = computed(() => createStrategyTimelineDomain(records.value, timelineEvents))
 const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
 const selectedStatement = ref<IntentRecord | null>(null)
+const selectedPattern = ref<HoveredBeeswarmStatement | null>(null)
 const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] = [
   { label: 'All content types', value: '' },
   { label: 'Destruction', value: 'Destruction' },
@@ -69,15 +73,30 @@ const selectedAuthorRecords = computed(() =>
       ? [selectedStatement.value]
       : [],
 )
+const selectedPatternRecords = computed(() => {
+  const pattern = selectedPattern.value
 
+  return pattern
+    ? records.value.filter((record) => isPatternActive(record, pattern.label))
+    : []
+})
 function showAuthorDetail(statement: HoveredTimelineStatement | null) {
   if (!statement) return
 
+  selectedPattern.value = null
   selectedStatement.value = statement.record
 }
 
-function closeAuthorDetail() {
+function showPatternDetail(statement: HoveredBeeswarmStatement | null) {
+  if (!statement) return
+
   selectedStatement.value = null
+  selectedPattern.value = statement
+}
+
+function closeDetail() {
+  selectedStatement.value = null
+  selectedPattern.value = null
 }
 
 function togglePatternLabel(label: PatternLabelKey) {
@@ -106,7 +125,9 @@ function togglePatternLabelByKey(label: string) {
           :mode="beeswarmMode"
           :statements="filteredRecords"
           :selected-labels="filters.labelsAll"
+          :suppress-top-overlay="Boolean(selectedPattern)"
           :time-domain="timelineDomain"
+          @pattern-press="showPatternDetail"
           @statement-press="showAuthorDetail"
         />
       </div>
@@ -165,11 +186,11 @@ function togglePatternLabelByKey(label: string) {
     </section>
 
     <button
-      v-if="selectedStatement"
+      v-if="selectedStatement || selectedPattern"
       type="button"
       class="timeline-view__scrim"
-      aria-label="Author detail view schliessen"
-      @click="closeAuthorDetail"
+      aria-label="Detail view schliessen"
+      @click="closeDetail"
     />
 
     <Teleport to="body">
@@ -179,7 +200,20 @@ function togglePatternLabelByKey(label: string) {
           :author="selectedAuthor"
           :records="selectedAuthorRecords"
           :target-statement-id="selectedStatement.id"
-          @close="closeAuthorDetail"
+          @close="closeDetail"
+        />
+      </Transition>
+    </Teleport>
+
+    <Teleport to="body">
+      <Transition name="detail-overlay">
+        <SelectionView
+          v-if="selectedPattern"
+          :header-color="selectedPattern.color"
+          :records="selectedPatternRecords"
+          :target-statement-id="selectedPattern.record.id"
+          :title="selectedPattern.strategy"
+          @close="closeDetail"
         />
       </Transition>
     </Teleport>
