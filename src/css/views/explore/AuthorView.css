@@ -198,15 +198,6 @@
     transform 160ms ease;
 }
 
-.author-view__item :deep(.author-portrait) {
-  transform: scale(
-    calc(
-      (var(--author-grid-cell-size) - (var(--author-representation-inline-padding) * 2)) /
-      var(--author-grid-cell-size)
-    )
-  );
-}
-
 .author-view__item:hover,
 .author-view__item:focus-visible {
   z-index: 30;
@@ -226,7 +217,7 @@
 .author-view__item--muted {
   opacity: 0.22;
   filter: grayscale(1);
-  transform: scale(0.96);
+  pointer-events: none;
 }
 
 @media (max-width: 48.75rem) {

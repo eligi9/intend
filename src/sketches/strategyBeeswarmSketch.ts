@@ -44,8 +44,8 @@ interface BeeswarmBand {
   y: number
 }
 
-const DOT_RADIUS = 6
-const HOVERED_DOT_RADIUS = 7.5
+const DOT_RADIUS = 5
+const HOVERED_DOT_RADIUS = 7
 const DOT_EDGE_PADDING = HOVERED_DOT_RADIUS + 2
 
 const strategyGroups = intentTaxonomy.map((group) => ({
@@ -265,7 +265,7 @@ function drawBands(
       p.noStroke()
       p.fill(color[0], color[1], color[2], subdued ? 60 : selected ? 180 : 92)
       p.textAlign(p.RIGHT, p.TOP)
-      p.text(`▸ ${band.label}`, p.width - labelInset, band.minY + labelInset)
+      p.text(`${band.label} ▸`, p.width - labelInset, band.minY + labelInset)
     }
     p.textAlign(p.RIGHT, p.TOP)
   })
@@ -274,7 +274,7 @@ function drawBands(
 }
 
 function createBeeswarmSimulation(nodes: BeeswarmNode[]) {
-  const radius = 6.4
+  const radius = 5.4
 
   const simulation = forceSimulation<BeeswarmNode>(nodes)
     .alpha(1)
@@ -372,9 +372,9 @@ function drawNode(
   const highlighted = selected && sameSubLabel && !inSubduedBand
   const color = highlighted ? getPointColor(node.strategyLabel, colors, pointColors) : colors.text
 
-  p.stroke(...colors.background, highlighted ? 230 : 105)
-  p.strokeWeight(hovered ? 2.5 : 1.8)
-  p.fill(color[0], color[1], color[2], highlighted ? 235 : 42)
+  p.noFill()
+  p.stroke(color[0], color[1], color[2], highlighted ? 235 : 42)
+  p.strokeWeight(hovered ? 2.5 : 2)
   p.circle(node.x, node.y, hovered ? HOVERED_DOT_RADIUS * 2 : DOT_RADIUS * 2)
 }
 

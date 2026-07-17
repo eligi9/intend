@@ -14,7 +14,7 @@
 }
 
 .statement-button {
-  --statement-button-core-size: 40%;
+  --statement-button-core-size: 12px;
   --statement-button-ring-gap: 0.125rem;
   --statement-button-ring-stroke: 2px;
 
@@ -72,7 +72,7 @@
   width: var(--statement-button-core-size);
   height: var(--statement-button-core-size);
   border-radius: 50%;
-  background: var(--color-background-soft);
+  background: var(--color-black);
 }
 
 .statement-button__measure-labels {

@@ -27,24 +27,9 @@ const props = withDefaults(
   },
 )
 
-const goldenRatio = 1.61803398875
+const ringStroke = 2
+const ringGap = 2
 const maxRingCount = strategyDisplayOrder.length
-const ringStroke = computed(() => Math.max(2, Math.round(props.size * 0.03)))
-const ringGap = computed(() => {
-  const goldenImageSize = props.size / goldenRatio
-  const ringStep = (props.size - goldenImageSize) / (maxRingCount * 2)
-
-  return Math.max(0, ringStep - ringStroke.value)
-})
-const totalRingSpace = computed(
-  () => props.showRings ? maxRingCount * (ringStroke.value + ringGap.value) : 0,
-)
-const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
-
-const outerRingColor = computed(() =>
-  rings.value.length ? rings.value[rings.value.length - 1].color : 'var(--color-neutral)',
-)
-
 const rings = computed(() => {
   const usedLabels = new Set(props.author.usedTopLevelStrategyLabels)
 
@@ -56,6 +41,14 @@ const rings = computed(() => {
       index,
     }))
 })
+const totalRingSpace = computed(
+  () => props.showRings ? maxRingCount * (ringStroke + ringGap) : 0,
+)
+const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
+
+const outerRingColor = computed(() =>
+  rings.value.length ? rings.value[rings.value.length - 1].color : 'var(--color-neutral)',
+)
 
 const imageAlt = computed(() => `Portrait von ${props.author.name}`)
 </script>

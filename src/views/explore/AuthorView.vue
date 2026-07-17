@@ -39,8 +39,9 @@ const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] =
 ]
 const {
   cellSize: authorGridCellSize,
-  cellSizePx: authorPortraitSize,
+  cellSizePx: authorGridCellSizePx,
 } = useInitialViewportGridCell({ columns: 16 })
+const authorPortraitSize = computed(() => Math.max(0, authorGridCellSizePx.value - 8))
 
 const selectedAuthor = computed(
   () => authorInstances.value.find((author) => author.id === selectedAuthorId.value) ?? null,
@@ -161,6 +162,7 @@ function closeAuthorDetail() {
             type="button"
             class="author-view__item"
             :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
+            :disabled="!isAuthorVisible(author)"
             :aria-label="`${author.name} Details anzeigen`"
             @click="showAuthorDetail(author.id)"
           >
@@ -194,6 +196,7 @@ function closeAuthorDetail() {
             type="button"
             class="author-view__item"
             :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
+            :disabled="!isAuthorVisible(author)"
             :aria-label="`${author.name} Details anzeigen`"
             @click="showAuthorDetail(author.id)"
           >
