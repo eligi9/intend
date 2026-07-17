@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import type { IntentRecord } from '../../types/intentData'
 import { strategyColors } from '../../utils/intentLabels'
 import { getActiveMainLabels } from '../../utils/sort'
-import Tooltip from '../common/Tooltip.vue'
+import StatementTooltip from './StatementTooltip.vue'
 
 const props = defineProps<{
   statement: IntentRecord
@@ -34,10 +34,10 @@ const ariaLabel = computed(() => {
 </script>
 
 <template>
-  <Tooltip
+  <StatementTooltip
     class="statement-button-tooltip"
-    :disabled="measureAnchors.length === 0"
     :focusable="false"
+    :record="statement"
   >
     <button
       class="statement-button"
@@ -56,22 +56,7 @@ const ariaLabel = computed(() => {
       <span class="statement-button__core" aria-hidden="true" />
     </button>
 
-    <template #panel>
-      <span class="statement-button__tooltip-content">
-        <strong class="statement-button__tooltip-title">Measure examples</strong>
-
-        <span class="statement-button__measure-labels">
-          <span
-            v-for="measure in measureAnchors"
-            :key="measure"
-            class="statement-button__measure-label"
-          >
-            »{{ measure }}«
-          </span>
-        </span>
-      </span>
-    </template>
-  </Tooltip>
+  </StatementTooltip>
 </template>
 
 <style scoped>

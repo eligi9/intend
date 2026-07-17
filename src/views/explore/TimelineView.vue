@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
 import DetailView from '../../components/common/DetailView.vue'
@@ -21,7 +21,6 @@ import type { TimelineEvent } from '../../types/timeline'
 import { toggleArrayItem } from '../../utils/arrays'
 import { strategyColors } from '../../utils/intentLabels'
 import { createStrategyTimelineDomain } from '../../utils/strategyTimelineDomain'
-import { wrapTextAtCharacterLimit } from '../../utils/textWrap'
 
 defineProps<ExploreHeaderProps>()
 
@@ -35,7 +34,6 @@ const { filteredRecords, filters, records } = storeToRefs(statementStore)
 const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const timelineDomain = computed(() => createStrategyTimelineDomain(records.value, timelineEvents))
 const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
-const hoveredStatement = ref<HoveredTimelineStatement | null>(null)
 const selectedStatement = ref<IntentRecord | null>(null)
 const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] = [
   { label: 'All content types', value: '' },
@@ -71,14 +69,6 @@ const selectedAuthorRecords = computed(() =>
       ? [selectedStatement.value]
       : [],
 )
-
-watch(beeswarmMode, () => {
-  hoveredStatement.value = null
-})
-
-function showHoveredStatement(statement: HoveredTimelineStatement | null) {
-  hoveredStatement.value = statement
-}
 
 function showAuthorDetail(statement: HoveredTimelineStatement | null) {
   if (!statement) return
@@ -117,27 +107,9 @@ function togglePatternLabelByKey(label: string) {
           :statements="filteredRecords"
           :selected-labels="filters.labelsAll"
           :time-domain="timelineDomain"
-          @statement-hover="showHoveredStatement"
           @statement-press="showAuthorDetail"
         />
       </div>
-
-      <Transition name="timeline-view-statement-hover">
-        <aside
-          v-if="beeswarmMode === 'statements' && hoveredStatement"
-          class="timeline-view__statement-hover"
-          aria-label="Hovered statement"
-        >
-          <p>{{ wrapTextAtCharacterLimit(hoveredStatement.statement, 50) }}</p>
-          <span>
-            <strong class="timeline-view__statement-hover-author">{{ hoveredStatement.author }}</strong>
-            · {{ hoveredStatement.date }}
-            <template v-if="hoveredStatement.source">
-              · {{ hoveredStatement.source }}
-            </template>
-          </span>
-        </aside>
-      </Transition>
 
       <div class="timeline-view__switch" aria-label="Timeline display">
         <StrategyButton

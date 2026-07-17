@@ -1,0 +1,62 @@
+.statement-tooltip {
+  --tooltip-panel-background: var(--color-white);
+}
+
+.statement-tooltip__content {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+}
+
+.statement-tooltip__title {
+  color: var(--color-text);
+  font-size: var(--font-size-0);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+
+.statement-tooltip__labels {
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+  min-width: 0;
+}
+
+.statement-tooltip__label {
+  display: inline;
+  justify-self: start;
+  width: fit-content;
+  padding-block: 0;
+  padding-inline: var(--space-1);
+  color: inherit;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-1);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-line-height);
+  box-shadow: 0 0 0 0.125rem var(--color-black-40);
+  box-decoration-break: clone;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  -webkit-box-decoration-break: clone;
+}
+
+.statement-tooltip__meta {
+  color: var(--color-black-60);
+  font-size: var(--font-size-0);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--space-2);
+}
+
+.statement-tooltip__meta strong {
+  color: var(--color-black-80);
+}
+
+.statement-tooltip__note {
+  margin-top: var(--space-2);
+  color: var(--color-black-60);
+  font-size: var(--font-size-0);
+  font-weight: 400;
+  line-height: 1.2;
+}

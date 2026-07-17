@@ -28,7 +28,7 @@ export function splitMeasureText(text: string, measures: readonly string[]) {
   const ranges = findHighlightRanges(
     text,
     measures.map((measure) => ({
-      color: '#8f8f8f',
+      color: 'var(--color-black-40)',
       text: measure,
     })),
   )

@@ -16,6 +16,7 @@ import {
   getMonthDivisionCount,
 } from '../../utils/strategyTimelineDomain'
 import TopOverlay from '../common/TopOverlay.vue'
+import StatementTooltip from '../statement/StatementTooltip.vue'
 import StrategyAnchorOverlay from './StrategyAnchorOverlay.vue'
 
 const props = defineProps<{
@@ -226,6 +227,18 @@ onBeforeUnmount(() => {
       class="strategy-beeswarm__canvas"
       :class="`strategy-beeswarm__canvas--${mode}`"
     />
+
+    <StatementTooltip
+      v-if="mode === 'statements' && hoveredTimelineStatement?.record.measures.length"
+      class="strategy-beeswarm__timeline-tooltip"
+      placement="left"
+      :record="hoveredTimelineStatement.record"
+      :focusable="false"
+      :show-arrow="false"
+      visible
+    >
+      <span class="strategy-beeswarm__timeline-tooltip-anchor" aria-hidden="true" />
+    </StatementTooltip>
 
     <TopOverlay
       :background="topOverlay?.background"
