@@ -25,9 +25,3 @@
   width: fit-content;
   max-width: 100%;
 }
-
-@media (max-width: 48.75rem) {
-  .filter-button-container__buttons {
-    flex-wrap: wrap;
-  }
-}

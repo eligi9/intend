@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { PatternLabelKey } from '../../types/intentData'
-import ReadStrategyBadge from './ReadStrategyBadge.vue'
+import { intentLabelNames } from '../../utils/intentLabels'
+import StrategyButton from './StrategyButton.vue'
 
 defineProps<{
   badges: readonly {
@@ -25,22 +26,14 @@ function setHoveredLabel(label: PatternLabelKey | null) {
     aria-label="Active patterns"
     @click.stop
   >
-    <span
+    <StrategyButton
       v-for="badge in badges"
       :key="badge.label"
-      class="strategy-badge-container__target"
-      tabindex="0"
-      @mouseenter="setHoveredLabel(badge.label)"
-      @mouseleave="setHoveredLabel(null)"
-      @focusin="setHoveredLabel(badge.label)"
-      @focusout="setHoveredLabel(null)"
-      @click.stop
-    >
-      <ReadStrategyBadge
-        :label="badge.label"
-        :color="badge.color"
-      />
-    </span>
+      :color="badge.color"
+      interaction-type="hover"
+      :label="intentLabelNames[badge.label]"
+      @interaction-change="setHoveredLabel($event ? badge.label : null)"
+    />
   </span>
 </template>
 

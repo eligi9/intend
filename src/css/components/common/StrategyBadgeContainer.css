@@ -8,18 +8,6 @@
   max-width: 100%;
 }
 
-.strategy-badge-container__target {
-  display: inline-flex;
-  width: fit-content;
-  max-width: none;
-  border-radius: var(--space-1);
-  outline: none;
-}
-
-.strategy-badge-container__target:focus-visible {
-  box-shadow: 0 0 0 0.1875rem rgba(var(--color-text-rgb), 0.14);
-}
-
 @media (max-width: 48.75rem) {
   .strategy-badge-container {
     flex-direction: row;
