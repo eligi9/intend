@@ -21,22 +21,24 @@ const overlayStyle = computed(() => {
 </script>
 
 <template>
-  <Transition name="side-overlay">
-    <aside
-      v-if="visible"
-      class="side-overlay"
-      :class="[
-        `side-overlay--${side ?? 'right'}`,
-        { 'side-overlay--colored': color },
-      ]"
-      :style="overlayStyle"
-      aria-live="polite"
-      @click.stop="emit('close')"
-    >
-      <h3>{{ title }}</h3>
-      <p>{{ text }}</p>
-    </aside>
-  </Transition>
+  <Teleport to="body">
+    <Transition name="side-overlay">
+      <aside
+        v-if="visible"
+        class="side-overlay"
+        :class="[
+          `side-overlay--${side ?? 'right'}`,
+          { 'side-overlay--colored': color },
+        ]"
+        :style="overlayStyle"
+        aria-live="polite"
+        @click.stop="emit('close')"
+      >
+        <h3>{{ title }}</h3>
+        <p>{{ text }}</p>
+      </aside>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>

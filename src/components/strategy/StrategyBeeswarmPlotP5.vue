@@ -227,17 +227,15 @@ onBeforeUnmount(() => {
       :class="`strategy-beeswarm__canvas--${mode}`"
     />
 
-    <Teleport to="body">
-      <TopOverlay
-        :background="topOverlay?.background"
-        :heading-color="topOverlay?.headingColor"
-        :meta="topOverlay?.meta"
-        :text="topOverlay?.text"
-        :text-color="topOverlay?.textColor"
-        :title="topOverlay?.title ?? ''"
-        :visible="topOverlay !== null"
-      />
-    </Teleport>
+    <TopOverlay
+      :background="topOverlay?.background"
+      :heading-color="topOverlay?.headingColor"
+      :meta="topOverlay?.meta"
+      :text="topOverlay?.text"
+      :text-color="topOverlay?.textColor"
+      :title="topOverlay?.title ?? ''"
+      :visible="topOverlay !== null"
+    />
 
     <Teleport to="body">
       <StrategyAnchorOverlay

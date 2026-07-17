@@ -4,7 +4,9 @@
   --side-overlay-text-color: var(--color-text);
 
   position: fixed;
-  z-index: 320;
+  z-index: 12500;
+  top: 0;
+  bottom: 0;
   inset-block: 0;
   box-sizing: border-box;
   display: flex;
@@ -27,10 +29,12 @@
 }
 
 .side-overlay--right {
+  right: 0;
   inset-inline-end: 0;
 }
 
 .side-overlay--left {
+  left: 0;
   inset-inline-start: 0;
 }
 

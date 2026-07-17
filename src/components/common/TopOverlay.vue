@@ -36,20 +36,22 @@ const wrappedText = computed(() => wrapTextAtCharacterLimit(props.text, 50))
 </script>
 
 <template>
-  <Transition name="top-overlay">
-    <aside
-      v-if="visible"
-      class="top-overlay"
-      :style="overlayStyle"
-      aria-live="polite"
-    >
-      <div class="top-overlay__inner">
-        <h3>{{ title }}</h3>
-        <p v-if="text">{{ wrappedText }}</p>
-        <span v-if="meta">{{ meta }}</span>
-      </div>
-    </aside>
-  </Transition>
+  <Teleport to="body">
+    <Transition name="top-overlay">
+      <aside
+        v-if="visible"
+        class="top-overlay"
+        :style="overlayStyle"
+        aria-live="polite"
+      >
+        <div class="top-overlay__inner">
+          <h3>{{ title }}</h3>
+          <p v-if="text">{{ wrappedText }}</p>
+          <span v-if="meta">{{ meta }}</span>
+        </div>
+      </aside>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>

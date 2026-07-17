@@ -16,18 +16,13 @@
   pointer-events: auto;
 }
 
-.view-grid--with-lines::before {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  pointer-events: none;
+.view-grid--with-lines {
   background-image:
     linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
   background-size:
     var(--view-grid-cell-size) var(--view-grid-cell-size),
     var(--view-grid-cell-size) var(--view-grid-cell-size);
-  content: '';
 }
 
 .view-grid :slotted(*) {

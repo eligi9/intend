@@ -1,6 +1,9 @@
 .top-overlay {
   position: fixed;
   z-index: 10000;
+  top: 0;
+  right: 0;
+  left: 0;
   inset-block-start: 0;
   inset-inline: 0;
   display: grid;
