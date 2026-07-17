@@ -56,6 +56,7 @@
   inset-block-end: 0;
   display: grid;
   align-items: end;
+  min-height: var(--space-10);
   padding: var(--space-2) var(--space-3);
   overflow-x: auto;
   color: var(--color-text);
@@ -111,7 +112,7 @@
   border: 0.0625rem solid rgba(var(--color-text-rgb), 0.22);
   border-radius: var(--space-1);
   color: var(--color-text);
-  background: rgba(var(--color-text-rgb), 0.06);
+  background: var(--color-white);
   font-size: var(--font-size-0);
   font-weight: 700;
   line-height: 1;
