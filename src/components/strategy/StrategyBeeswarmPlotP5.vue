@@ -10,7 +10,7 @@ import type {
   HoveredBeeswarmStatement,
   HoveredTimelineStatement,
 } from '../../types/strategyBeeswarm'
-import type { HoveredTimelineEvent, TimelineEvent } from '../../types/timeline'
+import type { HoveredTimelineEvent, TimelineDomain, TimelineEvent } from '../../types/timeline'
 import {
   createStrategyTimelineDomain,
   getMonthDivisionCount,
@@ -23,6 +23,7 @@ const props = defineProps<{
   mode: BeeswarmDisplayMode
   selectedLabels?: PatternLabelKey[]
   statements: IntentRecord[]
+  timeDomain?: TimelineDomain
 }>()
 
 const emit = defineEmits<{
@@ -40,6 +41,7 @@ const hoveredTimelineEvent = ref<HoveredTimelineEvent | null>(null)
 const hoveredTimelineStatement = ref<HoveredTimelineStatement | null>(null)
 let gridSketch: p5 | null = null
 let swarmSketch: p5 | null = null
+let sketchesMounted = false
 
 interface TimelineTopOverlay {
   background?: string
@@ -85,7 +87,7 @@ const topOverlay = computed<TimelineTopOverlay | null>(() => {
 })
 
 function getTimeDomain() {
-  return createStrategyTimelineDomain(props.statements, props.events ?? [])
+  return props.timeDomain ?? createStrategyTimelineDomain(props.statements, props.events ?? [])
 }
 
 function createGridSketch() {
@@ -157,6 +159,7 @@ onMounted(async () => {
   if (!gridHost.value || !plotHost.value) return
 
   await nextTick()
+  sketchesMounted = true
   gridSketch = createGridSketch()
   swarmSketch = createSwarmSketch()
   window.addEventListener('pointerup', closePressedPattern)
@@ -168,9 +171,11 @@ watch(
   () =>
     [
       props.events,
-      props.statements,
+      props.timeDomain ?? props.statements,
     ] as const,
   () => {
+    if (!sketchesMounted) return
+
     hoveredTimelineEvent.value = null
     emit('event-hover', null)
     gridSketch?.remove()
@@ -185,14 +190,18 @@ watch(
       props.mode,
       props.selectedLabels,
       props.statements,
+      props.timeDomain,
     ] as const,
   () => {
+    if (!sketchesMounted) return
+
     swarmSketch?.remove()
     swarmSketch = createSwarmSketch()
   },
 )
 
 onBeforeUnmount(() => {
+  sketchesMounted = false
   hoveredTimelineEvent.value = null
   hoveredPattern.value = null
   pressedPattern.value = null

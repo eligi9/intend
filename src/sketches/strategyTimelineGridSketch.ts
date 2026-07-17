@@ -17,7 +17,9 @@ const EVENT_DATE_FONT_SIZE_TOKEN = '--font-size-0'
 const EVENT_LABEL_FONT_SIZE_TOKEN = '--font-size-0'
 const EVENT_LABEL_GAP_TOKEN = '--space-half'
 const EVENT_LABEL_PADDING_Y_TOKEN = '--space-1'
+const MONTH_LABEL_FILTER_GAP_TOKEN = '--space-1'
 const MONTH_LABEL_FONT_SIZE_TOKEN = '--font-size-0'
+const TIMELINE_FILTER_HEIGHT_TOKEN = '--space-8'
 
 interface EventFontSizes {
   date: number
@@ -50,6 +52,7 @@ export function createStrategyTimelineGridSketch(
   const colors = readCanvasBaseColors()
   const blackTones = readTimelineBlackTones()
   const eventFontSizes = readEventFontSizes()
+  const filterHeight = readCssLengthTokenInPixels(TIMELINE_FILTER_HEIGHT_TOKEN)
   let cleanupCanvas: (() => void) | null = null
   let hoveredTimelineEvent: PositionedGridEvent | null = null
   let monthLabelFont: p5.Font
@@ -70,7 +73,7 @@ export function createStrategyTimelineGridSketch(
     })(p.remove.bind(p))
 
     p.draw = () => {
-      const eventY = p.height - 120
+      const eventY = p.height - filterHeight - 120
       const events = getPositionedEvents(state, p.width, eventY)
       const hoveredEvent = checkEventHover(p, events)
       hoveredTimelineEvent = hoveredEvent
@@ -80,7 +83,7 @@ export function createStrategyTimelineGridSketch(
       state.setHoveredEvent(createHoverPayload(hoveredEvent, p.width, p.height))
       p.clear()
       p.background(...colors.background)
-      drawDivisions(p, state, colors, blackTones, monthLabelFont)
+      drawDivisions(p, state, colors, blackTones, monthLabelFont, filterHeight)
       drawEventAnchors(p, events, hoveredEvent, blackTones)
       drawEvents(p, events, hoveredEvent, colors, blackTones, eventFontSizes)
     }
@@ -102,8 +105,10 @@ function drawDivisions(
   colors: CanvasBaseColors,
   blackTones: TimelineBlackTones,
   monthLabelFont: p5.Font,
+  filterHeight: number,
 ) {
   const divisionWidth = p.width / state.divisions
+  const filterGap = readCssLengthTokenInPixels(MONTH_LABEL_FILTER_GAP_TOKEN)
 
   p.textFont(monthLabelFont)
   p.textAlign(p.LEFT, p.TOP)
@@ -125,7 +130,7 @@ function drawDivisions(
     p.noStroke()
     p.fill(...blackTones.gridLegend)
     p.push()
-    p.translate(x + 4, p.height - 18)
+    p.translate(x + 4, Math.max(0, p.height - filterHeight - filterGap))
     p.rotate(-p.HALF_PI)
     p.text(formatMonthLabel(labelDate), 0, 0)
     p.pop()
@@ -390,9 +395,9 @@ function formatIsoDate(date: string, endDate?: string) {
 
 function formatMonthLabel(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = String(date.getFullYear()).slice(-2)
+  if (date.getMonth() !== 0) return month
 
-  return `${month}/${year}`
+  return `${month}/${String(date.getFullYear()).slice(-2)}`
 }
 
 function formatEventDate(date: string) {
