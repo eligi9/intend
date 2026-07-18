@@ -12,8 +12,8 @@
   color: var(--strategy-badge-color);
   background: color-mix(in srgb, var(--strategy-badge-color) 16%, transparent);
   font-size: var(--strategy-badge-font-size, var(--font-size--1));
-  font-weight: 800;
-  line-height: 1.2;
+  font-weight: var(--font-weight-extra-bold);
+  line-height: var(--line-height-snug);
   white-space: nowrap;
 }
 
@@ -33,5 +33,5 @@
   background: var(--strategy-badge-color);
   border-radius: var(--space-half);
   font-size: 0.9em;
-  line-height: 1;
+  line-height: var(--line-height-tight);
 }

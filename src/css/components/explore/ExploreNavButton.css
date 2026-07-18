@@ -9,9 +9,9 @@
   color: rgba(var(--color-text-rgb), 0.82);
   background: transparent;
   font-size: var(--text-body-size);
-  font-weight: 400;
+  font-weight: var(--font-weight-regular);
   letter-spacing: 0;
-  line-height: 1;
+  line-height: var(--button-line-height);
   white-space: nowrap;
 }
 

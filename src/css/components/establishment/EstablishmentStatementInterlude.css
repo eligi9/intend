@@ -1,0 +1,34 @@
+.establishment-statement-interlude {
+  position: relative;
+  box-sizing: border-box;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.establishment-statement-interlude__grid {
+  inset-inline: 0;
+}
+
+.establishment-statement-interlude__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-4);
+}
+
+.establishment-statement-interlude__statement {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+}
+
+.establishment-statement-interlude__statement :deep(.establishment-featured-statement__quote) {
+  line-height: 1.5;
+}

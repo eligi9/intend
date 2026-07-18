@@ -59,7 +59,7 @@
 
 .image-credits-view h2 {
   font-size: var(--font-size-3);
-  font-weight: 800;
+  font-weight: var(--font-weight-extra-bold);
   letter-spacing: 0;
   line-height: var(--text-heading-line-height);
 }
@@ -73,7 +73,7 @@
   color: var(--color-text);
   font-size: var(--font-size-2);
   font-weight: var(--text-body-weight);
-  line-height: 1;
+  line-height: var(--line-height-tight);
 }
 
 .image-credits-view__close:hover,
@@ -130,7 +130,7 @@
 
 .image-credits-view h3 {
   font-size: var(--font-size-2);
-  font-weight: 800;
+  font-weight: var(--font-weight-extra-bold);
   letter-spacing: 0;
   line-height: var(--text-heading-line-height);
 }
@@ -151,7 +151,7 @@
 .image-credits-view dt {
   color: var(--color-neutral-muted);
   font-size: var(--text-caption-size);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   line-height: var(--text-body-line-height);
 }
 

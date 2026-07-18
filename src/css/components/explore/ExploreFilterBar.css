@@ -64,8 +64,8 @@
   color: var(--color-text);
   background: var(--color-white);
   font-size: var(--font-size-0);
-  font-weight: 700;
-  line-height: 1;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--control-line-height);
 }
 
 .explore-filter-bar__search input::-webkit-search-cancel-button {
@@ -91,8 +91,8 @@
   background: transparent;
   font: inherit;
   font-size: var(--font-size-2);
-  font-weight: 800;
-  line-height: 1;
+  font-weight: var(--font-weight-extra-bold);
+  line-height: var(--button-line-height);
   cursor: pointer;
   transform: translateY(-50%);
 }

@@ -7,24 +7,26 @@ import {
   type CanvasBaseColors,
   type RgbaColor,
 } from '../utils/colorTokens'
-import { readCssLengthTokenInPixels } from '../utils/cssTokens'
+import { readCssLengthTokenInPixels, readCssToken } from '../utils/cssTokens'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
 
-const EVENT_LABEL_LINE_HEIGHT = 16
 const EVENT_LABEL_PADDING_X = 8
 const EVENT_LABEL_WIDTH = 108
 const EVENT_DATE_FONT_SIZE_TOKEN = '--font-size-0'
 const EVENT_LABEL_FONT_SIZE_TOKEN = '--font-size-0'
+const EVENT_LABEL_LINE_HEIGHT_TOKEN = '--line-height-0'
 const EVENT_LABEL_GAP_TOKEN = '--space-half'
 const EVENT_LABEL_PADDING_Y_TOKEN = '--space-1'
 const MONTH_LABEL_FILTER_GAP_TOKEN = '--space-1'
 const MONTH_LABEL_FONT_SIZE_TOKEN = '--font-size-0'
 const TIMELINE_FILTER_HEIGHT_TOKEN = '--space-8'
 
-interface EventFontSizes {
+interface EventTypography {
   date: number
+  fontFamily: string
   gap: number
   label: number
+  lineHeight: number
   paddingY: number
 }
 
@@ -51,7 +53,7 @@ export function createStrategyTimelineGridSketch(
 ) {
   const colors = readCanvasBaseColors()
   const blackTones = readTimelineBlackTones()
-  const eventFontSizes = readEventFontSizes()
+  const eventTypography = readEventTypography()
   const filterHeight = readCssLengthTokenInPixels(TIMELINE_FILTER_HEIGHT_TOKEN)
   let cleanupCanvas: (() => void) | null = null
   let hoveredTimelineEvent: PositionedGridEvent | null = null
@@ -75,17 +77,24 @@ export function createStrategyTimelineGridSketch(
     p.draw = () => {
       const eventY = p.height - filterHeight - 120
       const events = getPositionedEvents(state, p.width, eventY)
-      const hoveredEvent = checkEventHover(p, events)
+      const hoveredEvent = checkEventHover(p, events, eventTypography)
       hoveredTimelineEvent = hoveredEvent
 
-      p.textFont('Montserrat')
+      p.textFont(eventTypography.fontFamily)
       p.cursor(hoveredEvent ? p.HAND : p.ARROW)
       state.setHoveredEvent(createHoverPayload(hoveredEvent, p.width, p.height))
       p.clear()
       p.background(...colors.background)
-      drawDivisions(p, state, blackTones, monthLabelFont, filterHeight)
+      drawDivisions(
+        p,
+        state,
+        blackTones,
+        monthLabelFont,
+        eventTypography.fontFamily,
+        filterHeight,
+      )
       drawEventAnchors(p, events, hoveredEvent, blackTones)
-      drawEvents(p, events, hoveredEvent, colors, blackTones, eventFontSizes)
+      drawEvents(p, events, hoveredEvent, colors, blackTones, eventTypography)
     }
 
     p.mouseClicked = () => {
@@ -104,6 +113,7 @@ function drawDivisions(
   state: StrategyTimelineGridSketchState,
   blackTones: TimelineBlackTones,
   monthLabelFont: p5.Font,
+  fontFamily: string,
   filterHeight: number,
 ) {
   const divisionWidth = p.width / state.divisions
@@ -138,7 +148,7 @@ function drawDivisions(
   p.stroke(...blackTones.gridLine)
   p.strokeWeight(1)
   p.line(p.width, 0, p.width, p.height)
-  p.textFont('Montserrat')
+  p.textFont(fontFamily)
 }
 
 function drawEventAnchors(
@@ -162,7 +172,7 @@ function drawEvents(
   hoveredEvent: PositionedGridEvent | null,
   colors: CanvasBaseColors,
   blackTones: TimelineBlackTones,
-  fontSizes: EventFontSizes,
+  fontSizes: EventTypography,
 ) {
   p.textStyle(p.BOLD)
 
@@ -196,13 +206,13 @@ function drawEvents(
     } else {
       p.fill(...blackTones.black)
     }
-    p.textFont('Montserrat')
+    p.textFont(fontSizes.fontFamily)
     p.textStyle(p.BOLD)
     p.textSize(fontSizes.date)
     p.textAlign(p.LEFT, p.TOP)
     p.text(event.date, textX, event.y, EVENT_LABEL_WIDTH)
 
-    p.textFont('Montserrat')
+    p.textFont(fontSizes.fontFamily)
     p.textStyle(p.NORMAL)
     if (hovered) {
       p.fill(textColor[0], textColor[1], textColor[2], 255)
@@ -214,7 +224,7 @@ function drawEvents(
       p.text(
         line,
         textX,
-        event.y + fontSizes.date + fontSizes.gap + EVENT_LABEL_LINE_HEIGHT * index,
+        event.y + fontSizes.date + fontSizes.gap + fontSizes.lineHeight * index,
         EVENT_LABEL_WIDTH,
       )
     })
@@ -249,14 +259,17 @@ function getPositionedEvents(
     .filter((event): event is NonNullable<typeof event> => event !== null)
 }
 
-function checkEventHover(p: p5, events: PositionedGridEvent[]) {
+function checkEventHover(
+  p: p5,
+  events: PositionedGridEvent[],
+  typography: EventTypography,
+) {
   if (p.mouseX < 0 || p.mouseX > p.width || p.mouseY < 0 || p.mouseY > p.height) return null
 
-  return events.find((event) => isEventLabelHovered(p, event)) ?? null
+  return events.find((event) => isEventLabelHovered(p, event, typography)) ?? null
 }
 
-function isEventLabelHovered(p: p5, event: PositionedGridEvent) {
-  const fontSizes = readEventFontSizes()
+function isEventLabelHovered(p: p5, event: PositionedGridEvent, fontSizes: EventTypography) {
   const textX = getEventTextX(event)
   const labelLines = getEventLabelLines(p, event, fontSizes)
   const labelHeight = getEventLabelHeight(labelLines, fontSizes)
@@ -292,14 +305,14 @@ function getEventLabelWidth(
   p: p5,
   event: PositionedGridEvent,
   labelLines: string[],
-  fontSizes: EventFontSizes,
+  fontSizes: EventTypography,
 ) {
-  p.textFont('Montserrat')
+  p.textFont(fontSizes.fontFamily)
   p.textStyle(p.BOLD)
   p.textSize(fontSizes.date)
   const dateWidth = p.textWidth(event.date)
 
-  p.textFont('Montserrat')
+  p.textFont(fontSizes.fontFamily)
   p.textStyle(p.NORMAL)
   p.textSize(fontSizes.label)
   const labelWidth = Math.max(...labelLines.map((line) => p.textWidth(line)))
@@ -307,18 +320,21 @@ function getEventLabelWidth(
   return Math.min(EVENT_LABEL_WIDTH, Math.max(dateWidth, labelWidth))
 }
 
-function getEventLabelLines(p: p5, event: PositionedGridEvent, fontSizes: EventFontSizes) {
+function getEventLabelLines(p: p5, event: PositionedGridEvent, fontSizes: EventTypography) {
+  p.textFont(fontSizes.fontFamily)
   p.textStyle(p.NORMAL)
   p.textSize(fontSizes.label)
 
   return wrapText(p, event.label, EVENT_LABEL_WIDTH)
 }
 
-function readEventFontSizes(): EventFontSizes {
+function readEventTypography(): EventTypography {
   return {
     date: readCssLengthTokenInPixels(EVENT_DATE_FONT_SIZE_TOKEN),
+    fontFamily: readCssToken('--font-sans'),
     gap: readCssLengthTokenInPixels(EVENT_LABEL_GAP_TOKEN),
     label: readCssLengthTokenInPixels(EVENT_LABEL_FONT_SIZE_TOKEN),
+    lineHeight: readCssLengthTokenInPixels(EVENT_LABEL_LINE_HEIGHT_TOKEN),
     paddingY: readCssLengthTokenInPixels(EVENT_LABEL_PADDING_Y_TOKEN),
   }
 }
@@ -334,9 +350,9 @@ function readTimelineBlackTones(): TimelineBlackTones {
   }
 }
 
-function getEventLabelHeight(labelLines: string[], fontSizes: EventFontSizes) {
+function getEventLabelHeight(labelLines: string[], fontSizes: EventTypography) {
   const labelTextHeight =
-    Math.max(0, labelLines.length - 1) * EVENT_LABEL_LINE_HEIGHT + fontSizes.label
+    Math.max(0, labelLines.length - 1) * fontSizes.lineHeight + fontSizes.label
 
   return fontSizes.date + fontSizes.gap + labelTextHeight
 }

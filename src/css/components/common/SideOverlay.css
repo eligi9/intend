@@ -43,7 +43,7 @@
   color: var(--side-overlay-heading-color);
   font-family: var(--font-sans);
   font-size: var(--overlay-title-size);
-  font-weight: 850;
+  font-weight: var(--font-weight-heavy);
   line-height: var(--line-height-4);
 }
 

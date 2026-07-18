@@ -12,7 +12,7 @@
   display: block;
   width: 100%;
   color: rgba(var(--color-text-rgb), 0.74);
-  font-weight: 800;
+  font-weight: var(--font-weight-extra-bold);
   text-align: left;
   text-transform: uppercase;
 }

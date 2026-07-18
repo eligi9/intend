@@ -37,7 +37,7 @@
 .establishment-pattern-types__header h2 {
   color: var(--color-text);
   font-size: var(--text-display-size);
-  font-weight: 800;
+  font-weight: var(--font-weight-extra-bold);
   letter-spacing: 0;
   line-height: var(--text-heading-line-height);
 }
@@ -94,7 +94,7 @@
 
 .establishment-pattern-types__card h3 {
   font-size: var(--text-lead-size);
-  font-weight: 850;
+  font-weight: var(--font-weight-heavy);
   letter-spacing: 0;
   line-height: var(--text-heading-line-height);
 }

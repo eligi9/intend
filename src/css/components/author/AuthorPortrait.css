@@ -78,7 +78,7 @@
   height: 100%;
   color: var(--color-neutral-muted);
   font-size: calc(var(--author-image-size) * 0.48);
-  font-weight: 800;
-  line-height: 1;
+  font-weight: var(--font-weight-extra-bold);
+  line-height: var(--line-height-tight);
   background: var(--color-portrait-surface);
 }

@@ -7,7 +7,6 @@ defineProps<{
 
 const introCopyElement = ref<HTMLElement | null>(null)
 const introRootElement = ref<HTMLElement | null>(null)
-const introVisualElement = ref<HTMLElement | null>(null)
 
 function splitLinkedText(text: string) {
   const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g
@@ -38,14 +37,9 @@ function getIntroRootElement() {
   return introRootElement.value
 }
 
-function getIntroVisualElement() {
-  return introVisualElement.value
-}
-
 defineExpose({
   getIntroCopyElement,
   getIntroRootElement,
-  getIntroVisualElement,
 })
 </script>
 
@@ -78,17 +72,6 @@ defineExpose({
             </template>
           </p>
         </div>
-      </div>
-      <div
-        ref="introVisualElement"
-        class="establishment-view__visual"
-        aria-hidden="true"
-      >
-        <span class="establishment-view__intro-bar establishment-view__intro-bar--one" />
-        <span class="establishment-view__intro-bar establishment-view__intro-bar--two" />
-        <span class="establishment-view__intro-bar establishment-view__intro-bar--three" />
-        <span class="establishment-view__intro-bar establishment-view__intro-bar--four" />
-        <span class="establishment-view__intro-bar establishment-view__intro-bar--five" />
       </div>
     </div>
   </div>

@@ -23,7 +23,7 @@
   left: 50%;
   color: var(--color-grid-legend);
   font-size: var(--font-size--1);
-  font-weight: 800;
+  font-weight: var(--font-weight-extra-bold);
   font-variant-numeric: tabular-nums;
   line-height: var(--line-height--1);
   white-space: nowrap;
@@ -36,7 +36,7 @@
   bottom: var(--vertical-line-grid-scale-label-bottom, 3rem);
   color: var(--color-legend-label);
   font-size: var(--font-size-0);
-  font-weight: 900;
+  font-weight: var(--font-weight-black);
   line-height: var(--line-height-0);
   white-space: nowrap;
 }

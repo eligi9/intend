@@ -13,7 +13,7 @@
   left: 2.5rem;  
   color: var(--color-legend-label);
   font-size: var(--font-size-0);
-  font-weight: 900;
+  font-weight: var(--font-weight-black);
   letter-spacing: 0;
   line-height: var(--line-height-0);
   white-space: normal;
@@ -34,7 +34,7 @@
   top: 0;
   color: var(--color-grid-legend);
   font-size: var(--font-size--1);
-  font-weight: 800;
+  font-weight: var(--font-weight-extra-bold);
   font-variant-numeric: tabular-nums;
   line-height: var(--line-height--1);
   white-space: nowrap;

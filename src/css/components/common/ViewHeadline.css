@@ -13,7 +13,7 @@
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--text-hero-size);
-  font-weight: 800;
+  font-weight: var(--font-weight-extra-bold);
   letter-spacing: 0;
   line-height: var(--text-hero-line-height);
   text-overflow: ellipsis;
@@ -21,7 +21,7 @@
 }
 
 .view-headline__title-suffix {
-  font-weight: 400;
+  font-weight: var(--font-weight-regular);
 }
 
 .view-headline__subline {

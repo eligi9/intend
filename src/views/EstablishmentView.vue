@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import gsap from 'gsap'
 import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
 import VerticalLineGrid from '../components/common/VerticalLineGrid.vue'
 import EstablishmentPatternTypesSection from '../components/establishment/EstablishmentPatternTypesSection.vue'
 import EstablishmentStatementSection from '../components/establishment/EstablishmentStatementSection.vue'
+import EstablishmentStatementInterlude from '../components/establishment/EstablishmentStatementInterlude.vue'
 import { pageScrollLockEventName } from '../composables/usePageScrollLock'
 import landingCopy from '../content/landingCopy.json'
+import { useStatementStore } from '../stores/statementStore'
 import ExploreView from './explore/ExploreView.vue'
 import EstablishmentIntroView from './establishment/EstablishmentIntroView.vue'
 
@@ -20,12 +22,16 @@ interface EstablishmentStatementSectionExpose {
 }
 
 const viewRoot = ref<HTMLElement | null>(null)
+const statementStore = useStatementStore()
 const introSection = ref<EstablishmentIntroViewExpose | null>(null)
 const statementSection = ref<EstablishmentStatementSectionExpose | null>(null)
 const showExplore = ref(false)
 const showStatementSection = false
 const establishmentGridAreaCount = 7
 const establishmentGridLabels: string[] = []
+const interludeRecord = computed(() =>
+  statementStore.records.find((record) => record.id === 'legislators-0039'),
+)
 let locomotiveScroll: LocomotiveScroll | null = null
 let scrollAnimationFrame = 0
 let overlayScrollLocked = false
@@ -143,6 +149,11 @@ onBeforeUnmount(() => {
       />
 
       <EstablishmentPatternTypesSection />
+
+      <EstablishmentStatementInterlude
+        v-if="interludeRecord"
+        :record="interludeRecord"
+      />
 
       <section class="establishment-view__explore-cta" aria-label="Explore statements">
         <VerticalLineGrid

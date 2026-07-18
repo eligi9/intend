@@ -46,9 +46,9 @@
   background: rgba(var(--color-white-rgb), 0.06);
   font: inherit;
   font-size: var(--text-body-size);
-  font-weight: 760;
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0;
-  line-height: 1;
+  line-height: var(--button-line-height);
   cursor: pointer;
   transition:
     background 160ms ease,

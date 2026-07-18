@@ -23,10 +23,10 @@
   border-radius: 999rem;
   color: var(--color-background);
   background: rgba(var(--color-text-rgb), 0.92);
-  font-size: clamp(0.5625rem, 0.78vw, 0.6875rem);
-  font-weight: 900;
+  font-size: var(--diagram-label-size);
+  font-weight: var(--font-weight-black);
   font-variant-numeric: tabular-nums;
-  line-height: 1;
+  line-height: var(--line-height-tight);
   white-space: nowrap;
   transform: translateX(-50%);
 }

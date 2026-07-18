@@ -40,7 +40,7 @@
   color: var(--top-overlay-heading-color);
   font-family: var(--font-sans);
   font-size: var(--overlay-title-size);
-  font-weight: 950;
+  font-weight: var(--font-weight-display);
   line-height: var(--line-height-4);
   text-align: left;
 }
@@ -58,7 +58,7 @@
 .top-overlay span {
   grid-column: 2;
   font-size: var(--overlay-meta-size);
-  font-weight: 850;
+  font-weight: var(--font-weight-heavy);
 }
 
 @media (max-width: 48.75rem) {

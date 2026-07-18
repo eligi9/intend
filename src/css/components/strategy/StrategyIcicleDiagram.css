@@ -57,9 +57,9 @@
   margin-left: 0.5rem;
   overflow: hidden;
   color: rgba(var(--color-text-rgb), 0.86);
-  font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
-  font-weight: 900;
-  line-height: 1.2;
+  font-size: var(--diagram-label-size);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-snug);
   text-overflow: ellipsis;
   white-space: nowrap;
   pointer-events: none;
@@ -80,6 +80,6 @@
   }
 
   .strategy-icicle__sub-label {
-    font-size: 0.625rem;
+    font-size: var(--font-size--1);
   }
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
+import gsap from 'gsap'
 import type { PatternLabelKey, IntentRecord } from '../../types/intentData'
 import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
@@ -26,7 +27,9 @@ const emit = defineEmits<{
 
 const maxStatementsPerSide = 80
 const verticalScaleSteps = 5
+const rootElement = ref<HTMLElement | null>(null)
 const hoveredSegment = ref<StrategyIcicleSegment | null>(null)
+let motionMedia: gsap.MatchMedia | null = null
 
 const mainSegments = computed(() => createMainSegments())
 
@@ -142,10 +145,59 @@ function shouldShowSubLabel(segment: StrategyIcicleSegment) {
   }
   return isValidSize
 }
+
+onMounted(() => {
+  const root = rootElement.value
+  if (!root) return
+
+  motionMedia = gsap.matchMedia()
+  motionMedia.add(
+    {
+      allowMotion: '(prefers-reduced-motion: no-preference)',
+      reduceMotion: '(prefers-reduced-motion: reduce)',
+    },
+    (context) => {
+      const buttons = Array.from(
+        root.querySelectorAll<HTMLElement>('.strategy-icicle-button'),
+      )
+      const diagramBounds = root.getBoundingClientRect()
+      const verticalRange = Math.max(1, diagramBounds.height)
+
+      if (context.conditions?.reduceMotion) {
+        gsap.set(buttons, { '--strategy-icicle-fill-scale': 1 })
+        return
+      }
+
+      const delays = new Map(
+        buttons.map((button) => [
+          button,
+          ((button.getBoundingClientRect().top - diagramBounds.top) / verticalRange) * 0.65,
+        ]),
+      )
+
+      gsap.fromTo(
+        buttons,
+        { '--strategy-icicle-fill-scale': 0 },
+        {
+          '--strategy-icicle-fill-scale': 1,
+          delay: (_, button) => delays.get(button as HTMLElement) ?? 0,
+          duration: 0.55,
+          ease: 'power2.out',
+        },
+      )
+    },
+    root,
+  )
+})
+
+onUnmounted(() => {
+  motionMedia?.revert()
+  motionMedia = null
+})
 </script>
 
 <template>
-  <article class="strategy-icicle" aria-label="Pattern label distribution">
+  <article ref="rootElement" class="strategy-icicle" aria-label="Pattern label distribution">
     <div class="strategy-icicle__diagram">
       <VerticalScale
         label="Percentage Distribution Across Patterns"

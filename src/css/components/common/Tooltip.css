@@ -22,7 +22,7 @@
   line-height: var(--text-caption-line-height);
   text-align: left;
   background: var(--tooltip-panel-background, rgba(var(--color-background-rgb), 0.96));
-  box-shadow: var(--tooltip-panel-shadow, 0 1rem 2.5rem rgba(var(--color-shadow-rgb), 1));
+  box-shadow: var(--tooltip-panel-shadow, var(--floating-panel-shadow));
   opacity: 0;
   pointer-events: none;
   transform: var(--tooltip-panel-transform, translateY(-50%) scale(0.98));

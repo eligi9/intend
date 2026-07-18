@@ -70,7 +70,7 @@
   left: var(--space-3);
   color: var(--color-legend-label);
   font-size: var(--font-size-0);
-  font-weight: 800;
+  font-weight: var(--font-weight-extra-bold);
   line-height: var(--line-height-0);
   white-space: nowrap;
 }

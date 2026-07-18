@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import gsap from 'gsap'
 import VerticalLineGrid from '../../components/common/VerticalLineGrid.vue'
+import EstablishmentFeaturedStatement from '../../components/establishment/EstablishmentFeaturedStatement.vue'
 import EstablishmentHeroSection from '../../components/establishment/EstablishmentHeroSection.vue'
 import EstablishmentIntroSection from '../../components/establishment/EstablishmentIntroSection.vue'
+import { useStatementStore } from '../../stores/statementStore'
 
 interface EstablishmentIntroSectionExpose {
   getIntroCopyElement: () => HTMLElement | null
   getIntroRootElement: () => HTMLElement | null
-  getIntroVisualElement: () => HTMLElement | null
 }
 
 defineProps<{
@@ -18,8 +19,15 @@ defineProps<{
 const rootElement = ref<HTMLElement | null>(null)
 const headingElement = ref<HTMLElement | null>(null)
 const introSection = ref<EstablishmentIntroSectionExpose | null>(null)
+const statementStore = useStatementStore()
 const introGridAreaCount = 7
 const introGridLabels: string[] = []
+const primaryFeaturedRecord = computed(() =>
+  statementStore.records.find((record) => record.id === 'decisionmakers-0024'),
+)
+const secondaryFeaturedRecord = computed(() =>
+  statementStore.records.find((record) => record.id === 'legislators-0039'),
+)
 
 function clampProgress(value: number) {
   return Math.min(Math.max(value, 0), 1)
@@ -36,10 +44,9 @@ function getHeadingPositions() {
 function updateScrollState() {
   const introCopy = introSection.value?.getIntroCopyElement()
   const introRoot = introSection.value?.getIntroRootElement()
-  const introVisual = introSection.value?.getIntroVisualElement()
   const heading = headingElement.value
 
-  if (!rootElement.value || !introCopy || !introRoot || !introVisual || !heading) {
+  if (!rootElement.value || !introCopy || !introRoot || !heading) {
     return
   }
 
@@ -57,7 +64,7 @@ function updateScrollState() {
     : arrivingHeadingY
 
   gsap.set(heading, { autoAlpha: 1, y: headingY })
-  gsap.set([introCopy, introVisual], {
+  gsap.set(introCopy, {
     autoAlpha: 1 - introProgress,
     y: -52 * introProgress,
   })
@@ -76,6 +83,12 @@ defineExpose({
       :labels="introGridLabels"
     />
 
+    <EstablishmentFeaturedStatement
+      v-if="secondaryFeaturedRecord"
+      class="establishment-featured-statement--secondary"
+      :record="secondaryFeaturedRecord"
+    />
+
     <div
       ref="headingElement"
       class="establishment-view__sticky-heading"
@@ -83,7 +96,11 @@ defineExpose({
     >
       <div class="establishment-view__sticky-heading-inner">
         <div class="establishment-view__content">
-          <h1 id="landing-title">Incitement to Genocide</h1>
+          <EstablishmentFeaturedStatement
+            v-if="primaryFeaturedRecord"
+            :record="primaryFeaturedRecord"
+          />
+          <h1 id="landing-title">Incitement to<br />Genocide</h1>
           <p class="establishment-view__subtitle">
             How can language make violence seem justified?
           </p>

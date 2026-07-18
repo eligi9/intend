@@ -14,7 +14,7 @@ import {
   type CanvasBaseColors,
   type RgbColor,
 } from '../utils/colorTokens'
-import { readCssLengthTokenInPixels } from '../utils/cssTokens'
+import { readCssLengthTokenInPixels, readCssToken } from '../utils/cssTokens'
 import { intentLabelNames, strategyColors } from '../utils/intentLabels'
 import { getPatternAnnotation, isPatternActive } from '../utils/intentRecordPatterns'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
@@ -58,6 +58,7 @@ export function createStrategyBeeswarmSketch(
   state: StrategyBeeswarmSketchState,
 ) {
   const colors = readCanvasBaseColors()
+  const fontFamily = readCssToken('--font-sans')
   const pointColors = readStrategyPointColors()
   let cleanupCanvas: (() => void) | null = null
   let expandedBandId: PatternLabelKey | null = null
@@ -100,7 +101,15 @@ export function createStrategyBeeswarmSketch(
       state.setHoveredStatement(createHoverPayload(hoveredPoint, p, colors, pointColors))
 
       p.clear()
-      drawBands(p, bands, state.selectedLabels, colors, pointColors, expandedBandId)
+      drawBands(
+        p,
+        bands,
+        state.selectedLabels,
+        colors,
+        pointColors,
+        expandedBandId,
+        fontFamily,
+      )
       nodes.forEach((node) =>
         drawNode(
           p,
@@ -218,10 +227,11 @@ function drawBands(
   colors: CanvasBaseColors,
   pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
   expandedBandId: PatternLabelKey | null,
+  fontFamily: string,
 ) {
   const labelInset = readCssLengthTokenInPixels('--space-1')
 
-  p.textFont('Montserrat')
+  p.textFont(fontFamily)
   p.textAlign(p.RIGHT, p.TOP)
   p.textSize(readCssLengthTokenInPixels('--font-size-0'))
   p.textStyle(p.BOLD)

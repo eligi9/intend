@@ -128,8 +128,8 @@
   border-radius: 50%;
   color: var(--color-neutral-muted);
   background: var(--color-portrait-surface);
-  font-size: 3rem;
-  font-weight: 900;
+  font-size: var(--font-size-6);
+  font-weight: var(--font-weight-black);
 }
 
 .detail :deep(.strategy-badge-container) {
