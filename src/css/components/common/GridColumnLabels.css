@@ -1,0 +1,19 @@
+.grid-column-labels {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.grid-column-labels span {
+  position: absolute;
+  bottom: calc(var(--space-8) + var(--space-1));
+  left: var(--grid-column-label-x);
+  color: var(--color-grid-legend);
+  font-size: var(--font-size--1);
+  font-weight: var(--font-weight-extra-bold);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--line-height--1);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}

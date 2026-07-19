@@ -19,15 +19,21 @@ const props = withDefaults(
     showTooltip?: boolean
     showRings?: boolean
     size?: number
+    variant?: 'default' | 'detail'
   }>(),
   {
     showTooltip: true,
     showRings: true,
     size: 148,
+    variant: 'default',
   },
 )
 
-const ringStroke = 2
+const ringStrokeByVariant = {
+  default: 2,
+  detail: 4,
+} as const
+const ringStroke = computed(() => ringStrokeByVariant[props.variant])
 const ringGap = 2
 const maxRingCount = strategyDisplayOrder.length
 const rings = computed(() => {
@@ -42,7 +48,7 @@ const rings = computed(() => {
     }))
 })
 const totalRingSpace = computed(
-  () => props.showRings ? maxRingCount * (ringStroke + ringGap) : 0,
+  () => props.showRings ? maxRingCount * (ringStroke.value + ringGap) : 0,
 )
 const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
 

@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
 import DetailView from '../../components/common/DetailView.vue'
+import GridColumnLabels from '../../components/common/GridColumnLabels.vue'
 import ViewGrid from '../../components/common/ViewGrid.vue'
 import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
@@ -42,11 +43,22 @@ const visibleAuthorNames = computed(
   () => new Set(filteredRecords.value.map((record) => record.author)),
 )
 const otherPoliticalAndStateActors = computed(() =>
-  authorInstances.value.filter((author) => author.roleGroup !== 'executive_officials'),
+  sortAuthorsByPatternCount(
+    authorInstances.value.filter((author) => author.roleGroup !== 'executive_officials'),
+  ),
 )
 const executiveLeadership = computed(() =>
-  authorInstances.value.filter((author) => author.roleGroup === 'executive_officials'),
+  sortAuthorsByPatternCount(
+    authorInstances.value.filter((author) => author.roleGroup === 'executive_officials'),
+  ),
 )
+
+function sortAuthorsByPatternCount(authors: AuthorInstance[]) {
+  return [...authors].sort((first, second) =>
+    second.usedTopLevelStrategyCount - first.usedTopLevelStrategyCount ||
+    first.name.localeCompare(second.name),
+  )
+}
 
 function isAuthorVisible(author: AuthorInstance) {
   return visibleAuthorNames.value.has(author.name)
@@ -74,6 +86,14 @@ function closeAuthorDetail() {
     <ExploreFilterBar
       aria-label="Autoren Filter"
       select-label="Filter authors by content category"
+    />
+
+    <GridColumnLabels
+      :cell-size-px="authorGridCellSizePx"
+      :columns="14"
+      :labels="[1, 5, 10]"
+      :offset-cells="1"
+      :padding-inline-cells="2"
     />
 
     <ViewGrid

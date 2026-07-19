@@ -149,6 +149,7 @@ function closeImageCredits() {
               :author="author"
               :size="148"
               :show-tooltip="false"
+              variant="detail"
             />
             <div v-else class="detail__author-fallback" aria-hidden="true">
               ?

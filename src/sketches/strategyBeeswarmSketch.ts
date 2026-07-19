@@ -44,6 +44,14 @@ interface BeeswarmBand {
   y: number
 }
 
+interface BandToggleButton {
+  band: BeeswarmBand
+  maxX: number
+  maxY: number
+  minX: number
+  minY: number
+}
+
 const DOT_RADIUS = 5
 const HOVERED_DOT_RADIUS = 7
 const DOT_EDGE_PADDING = HOVERED_DOT_RADIUS + 2
@@ -95,9 +103,9 @@ export function createStrategyBeeswarmSketch(
       tickSimulation(simulation, nodes, p.width)
 
       const hoveredPoint = checkHover(p, nodes)
-      const hoveredBand = hoveredPoint ? null : checkBandHover(p, bands)
+      const hoveredToggle = checkBandToggleHover(p, createBandToggleButtons(p, bands))
 
-      p.cursor(hoveredPoint || hoveredBand ? p.HAND : p.ARROW)
+      p.cursor(hoveredPoint || hoveredToggle ? p.HAND : p.ARROW)
       state.setHoveredStatement(createHoverPayload(hoveredPoint, p, colors, pointColors))
 
       p.clear()
@@ -108,6 +116,7 @@ export function createStrategyBeeswarmSketch(
         colors,
         pointColors,
         expandedBandId,
+        hoveredToggle?.band.id ?? null,
         fontFamily,
       )
       nodes.forEach((node) =>
@@ -131,10 +140,10 @@ export function createStrategyBeeswarmSketch(
       }
 
       const bands = createBeeswarmBands(getSwarmTop(), getSwarmBottom(p), expandedBandId)
-      const pressedBand = checkBandHover(p, bands)
-      if (!pressedBand) return
+      const pressedToggle = checkBandToggleHover(p, createBandToggleButtons(p, bands))
+      if (!pressedToggle) return
 
-      expandedBandId = expandedBandId === pressedBand.id ? null : pressedBand.id
+      expandedBandId = expandedBandId === pressedToggle.band.id ? null : pressedToggle.band.id
       layoutKey = ''
     }
 
@@ -227,19 +236,21 @@ function drawBands(
   colors: CanvasBaseColors,
   pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
   expandedBandId: PatternLabelKey | null,
+  hoveredBandId: PatternLabelKey | null,
   fontFamily: string,
 ) {
   const labelInset = readCssLengthTokenInPixels('--space-1')
 
   p.textFont(fontFamily)
   p.textAlign(p.RIGHT, p.TOP)
-  p.textSize(readCssLengthTokenInPixels('--font-size-0'))
+  p.textSize(readCssLengthTokenInPixels('--font-size-1'))
   p.textStyle(p.BOLD)
 
   bands.forEach((band) => {
     const selected = selectedLabels.length === 0 || selectedLabels.includes(band.id)
     const subdued = expandedBandId !== null && band.id !== expandedBandId
     const expanded = band.id === expandedBandId
+    const toggleHovered = band.id === hoveredBandId
     const color = getPointColor(band.id, colors, pointColors)
     const alpha = subdued ? 7 : selected ? 26 : 12
     const strokeAlpha = subdued ? 14 : selected ? 58 : 24
@@ -266,17 +277,17 @@ function drawBands(
         }
 
         p.noStroke()
-        p.fill(color[0], color[1], color[2], 170)
-        p.text(intentLabelNames[label], p.width - labelInset, rowTop + labelInset)
+        p.fill(color[0], color[1], color[2], 220)
+        p.textAlign(p.RIGHT, p.BOTTOM)
+        p.text(
+          intentLabelNames[label],
+          p.width - labelInset,
+          rowTop + rowHeight - labelInset,
+        )
       })
     }
 
-    if (!expanded) {
-      p.noStroke()
-      p.fill(color[0], color[1], color[2], subdued ? 60 : selected ? 180 : 92)
-      p.textAlign(p.RIGHT, p.TOP)
-      p.text(`${band.label} ▸`, p.width - labelInset, band.minY + labelInset)
-    }
+    drawBandToggleButton(p, band, color, expanded, toggleHovered, subdued, selected, labelInset)
     p.textAlign(p.RIGHT, p.TOP)
   })
 
@@ -321,9 +332,75 @@ function checkHover(p: p5, nodes: BeeswarmNode[]) {
   return nodes.find((node) => p.dist(p.mouseX, p.mouseY, node.x, node.y) <= HOVERED_DOT_RADIUS + 3.5) ?? null
 }
 
-function checkBandHover(p: p5, bands: BeeswarmBand[]) {
-  if (p.mouseX < 0 || p.mouseX > p.width) return null
-  return bands.find((band) => p.mouseY >= band.minY && p.mouseY <= band.maxY) ?? null
+function createBandToggleButtons(p: p5, bands: BeeswarmBand[]) {
+  return bands.map((band) => createBandToggleButton(p, band))
+}
+
+function createBandToggleButton(p: p5, band: BeeswarmBand): BandToggleButton {
+  const inset = readCssLengthTokenInPixels('--space-1')
+  const size = readCssLengthTokenInPixels('--space-4')
+  const minX = p.width - inset - size
+  const minY = band.minY + inset
+
+  return {
+    band,
+    maxX: minX + size,
+    maxY: minY + size,
+    minX,
+    minY,
+  }
+}
+
+function checkBandToggleHover(p: p5, buttons: BandToggleButton[]) {
+  return buttons.find((button) =>
+    p.mouseX >= button.minX &&
+    p.mouseX <= button.maxX &&
+    p.mouseY >= button.minY &&
+    p.mouseY <= button.maxY,
+  ) ?? null
+}
+
+function drawBandToggleButton(
+  p: p5,
+  band: BeeswarmBand,
+  color: RgbColor,
+  expanded: boolean,
+  hovered: boolean,
+  subdued: boolean,
+  selected: boolean,
+  labelInset: number,
+) {
+  p.push()
+  const button = createBandToggleButton(p, band)
+  const active = expanded || hovered
+  const radius = readCssLengthTokenInPixels('--space-1')
+  const centerX = (button.minX + button.maxX) / 2
+  const centerY = (button.minY + button.maxY) / 2
+
+  p.stroke(color[0], color[1], color[2], active ? 255 : 153)
+  p.strokeWeight(1)
+  p.fill(active ? color[0] : 255, active ? color[1] : 255, active ? color[2] : 255)
+  p.rect(
+    button.minX,
+    button.minY,
+    button.maxX - button.minX,
+    button.maxY - button.minY,
+    radius,
+  )
+
+  p.noStroke()
+  p.fill(active ? 255 : color[0], active ? 255 : color[1], active ? 255 : color[2])
+  p.textAlign(p.CENTER, p.CENTER)
+  p.textSize(readCssLengthTokenInPixels('--font-size-0'))
+  p.textStyle(p.BOLD)
+  p.text(expanded ? '▼' : '▶', centerX, centerY)
+  p.pop()
+
+  if (!expanded) {
+    p.fill(color[0], color[1], color[2], subdued ? 60 : selected ? 180 : 92)
+    p.textAlign(p.RIGHT, p.BOTTOM)
+    p.text(band.label, p.width - labelInset, band.maxY - labelInset)
+  }
 }
 
 function createLayoutKey(

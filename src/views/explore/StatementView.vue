@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import DetailView from '../../components/common/DetailView.vue'
+import GridColumnLabels from '../../components/common/GridColumnLabels.vue'
 import SelectionView from '../../components/common/SelectionView.vue'
 import StrategyButton from '../../components/common/StrategyButton.vue'
 import ViewGrid from '../../components/common/ViewGrid.vue'
@@ -90,8 +91,15 @@ function closeActiveDetail() {
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      title="Statements"
+      subline="Click to read, or use filters to create your own selection."
+      title="How do statements frame proposed actions?"
       @select="emit('section-select', $event)"
+    />
+
+    <GridColumnLabels
+      :columns="24"
+      :labels="[1, 5, 10, 15, 20]"
+      :padding-inline-cells="2"
     />
 
     <ViewGrid

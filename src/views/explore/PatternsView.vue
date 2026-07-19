@@ -85,8 +85,8 @@ function closeDetail() {
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      subline="Select a pattern to read its description, or select a subpattern to inspect its coded statements."
-      title="How are the Patterns distributed?"
+      subline="Explore pattern hierarchy and frequency. Hover for explanation, click for coded statements."
+      title="How are patterns organized?"
       @select="emit('section-select', $event)"
     />
 

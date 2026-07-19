@@ -17,6 +17,7 @@
 }
 
 .explore-header__headline :deep(.view-headline__title) {
+  font-size: var(--font-size-4);
   overflow: visible;
   text-overflow: clip;
   white-space: normal;
