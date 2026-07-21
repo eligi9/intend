@@ -166,7 +166,11 @@ function closeActiveDetail() {
       type="button"
       class="statement-view__scrim"
       aria-label="Statement Detailansicht schliessen"
-      @click="closeActiveDetail"
+      @click.stop="closeActiveDetail"
+      @mousedown.stop
+      @mouseup.stop
+      @pointerdown.stop
+      @pointerup.stop
     />
 
     <Teleport to="body">

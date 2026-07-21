@@ -31,7 +31,11 @@ const records = computed(() => {
         type="button"
         class="author-detail-overlay__scrim"
         aria-label="Author detail view schliessen"
-        @click="authorDetailStore.closeAuthorDetail"
+        @click.stop="authorDetailStore.closeAuthorDetail"
+        @mousedown.stop
+        @mouseup.stop
+        @pointerdown.stop
+        @pointerup.stop
       />
     </Transition>
 

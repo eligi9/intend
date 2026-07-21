@@ -133,7 +133,11 @@ function closeDetail() {
       type="button"
       class="strategy-view__scrim"
       aria-label="Pattern detail view schliessen"
-      @click="closeDetail"
+      @click.stop="closeDetail"
+      @mousedown.stop
+      @mouseup.stop
+      @pointerdown.stop
+      @pointerup.stop
     />
 
     <Teleport to="body">

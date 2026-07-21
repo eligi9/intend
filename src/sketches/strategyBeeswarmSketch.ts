@@ -115,12 +115,9 @@ export function createStrategyBeeswarmSketch(
       tickSimulation(simulation, nodes, p.width)
 
       const hoveredPoint = checkHover(p, nodes, expandedBandId)
-      const hoveredToggle = checkBandToggleHover(
-        p,
-        createBandToggleButtons(p, bands, expandedBandId),
-      )
+      const hoveredBand = checkBandHover(p, bands)
 
-      p.cursor(hoveredPoint || hoveredToggle ? p.HAND : p.ARROW)
+      p.cursor(hoveredPoint || hoveredBand ? p.HAND : p.ARROW)
       state.setHoveredStatement(createHoverPayload(hoveredPoint, p, colors, pointColors))
 
       p.clear()
@@ -131,7 +128,7 @@ export function createStrategyBeeswarmSketch(
         colors,
         pointColors,
         expandedBandId,
-        hoveredToggle?.band.id ?? null,
+        hoveredBand?.id ?? null,
         patternLabelFont,
         buttonFontFamily,
       )
@@ -157,13 +154,10 @@ export function createStrategyBeeswarmSketch(
       }
 
       const bands = createBeeswarmBands(getSwarmTop(), getSwarmBottom(p), expandedBandId)
-      const pressedToggle = checkBandToggleHover(
-        p,
-        createBandToggleButtons(p, bands, expandedBandId),
-      )
-      if (!pressedToggle) return
+      const pressedBand = checkBandHover(p, bands)
+      if (!pressedBand) return
 
-      expandedBandId = expandedBandId === pressedToggle.band.id ? null : pressedToggle.band.id
+      expandedBandId = expandedBandId === pressedBand.id ? null : pressedBand.id
       state.setExpandedBandId(expandedBandId)
       layoutKey = ''
     }
@@ -385,14 +379,10 @@ function checkHover(
   ) ?? null
 }
 
-function createBandToggleButtons(
-  p: p5,
-  bands: BeeswarmBand[],
-  expandedBandId: PatternLabelKey | null,
-) {
-  return bands
-    .filter((band) => expandedBandId === null || band.id === expandedBandId)
-    .map((band) => createBandToggleButton(p, band))
+function checkBandHover(p: p5, bands: BeeswarmBand[]) {
+  if (p.mouseX < 0 || p.mouseX > p.width) return null
+
+  return bands.find((band) => p.mouseY >= band.minY && p.mouseY <= band.maxY) ?? null
 }
 
 function createBandToggleButton(p: p5, band: BeeswarmBand): BandToggleButton {
@@ -408,15 +398,6 @@ function createBandToggleButton(p: p5, band: BeeswarmBand): BandToggleButton {
     minX,
     minY,
   }
-}
-
-function checkBandToggleHover(p: p5, buttons: BandToggleButton[]) {
-  return buttons.find((button) =>
-    p.mouseX >= button.minX &&
-    p.mouseX <= button.maxX &&
-    p.mouseY >= button.minY &&
-    p.mouseY <= button.maxY,
-  ) ?? null
 }
 
 function drawBandToggleButton(

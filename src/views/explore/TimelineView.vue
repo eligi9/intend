@@ -118,7 +118,11 @@ function closeDetail() {
       type="button"
       class="timeline-view__scrim"
       aria-label="Detail view schliessen"
-      @click="closeDetail"
+      @click.stop="closeDetail"
+      @mousedown.stop
+      @mouseup.stop
+      @pointerdown.stop
+      @pointerup.stop
     />
 
     <Teleport to="body">
