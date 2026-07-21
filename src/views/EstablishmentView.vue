@@ -27,7 +27,7 @@ const introSection = ref<EstablishmentIntroViewExpose | null>(null)
 const statementSection = ref<EstablishmentStatementSectionExpose | null>(null)
 const showExplore = ref(false)
 const showStatementSection = false
-const establishmentGridAreaCount = 7
+const establishmentGridLineCount = 8
 const establishmentGridLabels: string[] = []
 const interludeRecord = computed(() =>
   statementStore.records.find((record) => record.id === 'legislators-0039'),
@@ -158,8 +158,8 @@ onBeforeUnmount(() => {
       <section class="establishment-view__explore-cta" aria-label="Explore statements">
         <VerticalLineGrid
           class="establishment-view__explore-grid"
-          :area-count="establishmentGridAreaCount"
           :labels="establishmentGridLabels"
+          :line-count="establishmentGridLineCount"
         />
 
         <button

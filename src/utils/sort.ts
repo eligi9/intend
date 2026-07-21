@@ -23,7 +23,7 @@ export function sortStatementsBySize(records: readonly IntentRecord[]) {
   })
 }
 
-function getMainLabelCount(record: IntentRecord) {
+export function getMainLabelCount(record: IntentRecord) {
   return getActivePatternGroups(record).length
 }
 

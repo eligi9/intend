@@ -1,0 +1,46 @@
+.statement-representation {
+  --statement-representation-core-size: 12px;
+  --statement-representation-ring-gap: 1px;
+  --statement-representation-ring-stroke: 3px;
+
+  position: relative;
+  display: inline-grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: var(--statement-representation-size);
+  height: var(--statement-representation-size);
+  border-radius: 50%;
+}
+
+.statement-representation--large {
+  --statement-representation-core-size: 18px;
+  --statement-representation-ring-gap: 2px;
+  --statement-representation-ring-stroke: 4px;
+}
+
+.statement-representation__rings {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.statement-representation__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--ring-size);
+  height: var(--ring-size);
+  border: var(--statement-representation-ring-stroke) solid var(--ring-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+
+.statement-representation__core {
+  position: relative;
+  z-index: 1;
+  width: var(--statement-representation-core-size);
+  height: var(--statement-representation-core-size);
+  border-radius: 50%;
+  background: var(--color-black);
+}

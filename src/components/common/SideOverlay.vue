@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { OverlaySide } from '../../types/overlay'
 
 const props = defineProps<{
   color?: string
-  side?: 'left' | 'right'
+  side?: OverlaySide
   title: string
   text: string
   visible: boolean

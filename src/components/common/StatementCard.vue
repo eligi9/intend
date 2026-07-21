@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { useInlineFragmentRects } from '../../composables/useInlineFragmentRects'
+import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import type { IntentRecord } from '../../types/intentData'
+import type { OverlaySide } from '../../types/overlay'
 import { splitMeasureText, splitStatementText } from '../../utils/statementHighlights'
 import InlineFragmentLayer from './InlineFragmentLayer.vue'
 import SideOverlay from './SideOverlay.vue'
@@ -10,6 +12,7 @@ const props = withDefaults(
   defineProps<{
     anchorColor?: string
     anchorTexts?: readonly string[]
+    overlaySide?: OverlaySide
     record: IntentRecord
     showAuthor?: boolean
     showContextButton?: boolean
@@ -19,6 +22,7 @@ const props = withDefaults(
   {
     anchorColor: 'var(--color-highlight)',
     anchorTexts: () => [],
+    overlaySide: 'left',
     showAuthor: false,
     showContextButton: true,
     showDate: true,
@@ -27,6 +31,7 @@ const props = withDefaults(
 )
 
 const showContext = ref(false)
+const authorDetailStore = useAuthorDetailStore()
 const quoteElement = ref<HTMLElement | null>(null)
 const anchorLayerElement = ref<HTMLElement | null>(null)
 const measureLayerElement = ref<HTMLElement | null>(null)
@@ -40,14 +45,18 @@ const anchorHighlights = computed(() => {
     text,
   }))
 })
-const statementMeta = computed(() =>
+const statementMetaItems = computed(() =>
   [
-    props.showDate ? props.record.date : null,
-    props.showAuthor ? props.record.author : null,
-    props.showSource ? props.record.source : null,
+    props.showDate ? { interactive: false, text: props.record.date, underlined: true } : null,
+    props.showAuthor ? { interactive: true, text: props.record.author, underlined: true } : null,
+    props.showSource && props.record.source
+      ? { interactive: false, text: props.record.source, underlined: false }
+      : null,
   ]
-    .filter(Boolean)
-    .join(' · '),
+    .filter(
+      (item): item is { interactive: boolean; text: string; underlined: boolean } =>
+        item !== null,
+    ),
 )
 const anchorSegments = computed(() => splitStatementText(props.record.statement, anchorHighlights.value))
 const measureSegments = computed(() => splitMeasureText(props.record.statement, props.record.measures))
@@ -91,8 +100,27 @@ onBeforeUnmount(() => {
     class="statement-card"
   >
     <div class="statement-card__contents">
-      <span v-if="statementMeta" class="statement-card__meta">
-        {{ statementMeta }}
+      <span v-if="statementMetaItems.length" class="statement-card__meta">
+        <template
+          v-for="(item, index) in statementMetaItems"
+          :key="`${item.text}-${index}`"
+        >
+          <button
+            v-if="item.interactive"
+            type="button"
+            class="statement-card__meta-author statement-card__meta-underlined"
+            @click.stop="authorDetailStore.openAuthorDetail(record.author, { side: 'left' })"
+          >
+            {{ item.text }}
+          </button>
+          <span
+            v-else
+            :class="{ 'statement-card__meta-underlined': item.underlined }"
+          >
+            {{ item.text }}
+          </span>
+          <span v-if="index < statementMetaItems.length - 1"> · </span>
+        </template>
       </span>
 
       <span ref="quoteElement" class="statement-card__quote">
@@ -164,7 +192,7 @@ onBeforeUnmount(() => {
 
     <SideOverlay
       :visible="Boolean(record.context && showContextButton && showContext)"
-      side="left"
+      :side="overlaySide"
       color="var(--color-text)"
       title="Context"
       :text="record.context ?? ''"

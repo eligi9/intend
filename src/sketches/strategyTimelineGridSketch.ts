@@ -331,12 +331,16 @@ function getEventLabelLines(p: p5, event: PositionedGridEvent, fontSizes: EventT
 function readEventTypography(): EventTypography {
   return {
     date: readCssLengthTokenInPixels(EVENT_DATE_FONT_SIZE_TOKEN),
-    fontFamily: readCssToken('--font-sans'),
+    fontFamily: readPrimaryFontFamily('--font-sans'),
     gap: readCssLengthTokenInPixels(EVENT_LABEL_GAP_TOKEN),
     label: readCssLengthTokenInPixels(EVENT_LABEL_FONT_SIZE_TOKEN),
     lineHeight: readCssLengthTokenInPixels(EVENT_LABEL_LINE_HEIGHT_TOKEN),
     paddingY: readCssLengthTokenInPixels(EVENT_LABEL_PADDING_Y_TOKEN),
   }
+}
+
+function readPrimaryFontFamily(token: string) {
+  return readCssToken(token).split(',')[0]?.trim().replace(/^['"]|['"]$/g, '') || 'sans-serif'
 }
 
 function readTimelineBlackTones(): TimelineBlackTones {

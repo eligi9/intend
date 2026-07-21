@@ -65,6 +65,7 @@
   --layout-panel-gap: var(--space-3);
   --layout-control-gap: var(--space-1);
   --layout-control-padding: var(--space-1);
+  --layout-scale-label-inline-end: var(--space-6);
 
   --font-scale-ratio: 1.25;
   --font-size-1: 1rem;
@@ -141,11 +142,11 @@
 
   /* Figma source: Just Cause */
   /* --intent-color-just-cause: #d772ff; */
-  --intent-color-just-cause: #9554B1;
+  --intent-color-just-cause: #9454B2;
 
   /* Figma source: Enemy Image */
   /* --intent-color-enemy-image: #ff657c; */
-  --intent-color-enemy-image: #C44C5D;
+  --intent-color-enemy-image: #C44C5C;
 
   /* Figma source: Individuals Needs */
   /* --intent-color-individual-needs: #658cff; */

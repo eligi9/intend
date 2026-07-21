@@ -12,19 +12,6 @@
   color: var(--color-white);
 }
 
-.author-view__scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 100;
-  min-height: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: rgba(var(--color-shadow-rgb), 0.22);
-  backdrop-filter: blur(0.1875rem);
-  cursor: default;
-}
-
 .author-view__authors {
   z-index: 0;
 }

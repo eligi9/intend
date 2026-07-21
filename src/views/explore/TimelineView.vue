@@ -2,16 +2,14 @@
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
-import DetailView from '../../components/common/DetailView.vue'
 import SelectionView from '../../components/common/SelectionView.vue'
 import StrategyButton from '../../components/common/StrategyButton.vue'
 import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
-import { useAuthorStore } from '../../stores/authorStore'
+import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
-import type { IntentRecord } from '../../types/intentData'
 import type {
   BeeswarmDisplayMode,
   HoveredBeeswarmStatement,
@@ -28,24 +26,13 @@ const emit = defineEmits<{
 }>()
 
 const statementStore = useStatementStore()
-const authorStore = useAuthorStore()
+const authorDetailStore = useAuthorDetailStore()
 const { filteredRecords, records } = storeToRefs(statementStore)
 const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const timelineDomain = computed(() => createStrategyTimelineDomain(records.value, timelineEvents))
 const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
-const selectedStatement = ref<IntentRecord | null>(null)
 const selectedPattern = ref<HoveredBeeswarmStatement | null>(null)
 
-const selectedAuthor = computed(() =>
-  selectedStatement.value ? authorStore.getAuthorInstance(selectedStatement.value.author) : null,
-)
-const selectedAuthorRecords = computed(() =>
-  selectedAuthor.value
-    ? statementStore.getStatementsForAuthor(selectedAuthor.value.name)
-    : selectedStatement.value
-      ? [selectedStatement.value]
-      : [],
-)
 const selectedPatternRecords = computed(() => {
   const pattern = selectedPattern.value
 
@@ -56,19 +43,24 @@ const selectedPatternRecords = computed(() => {
 function showAuthorDetail(statement: HoveredTimelineStatement | null) {
   if (!statement) return
 
+  const filteredAuthorRecordIds = filteredRecords.value
+    .filter((record) => record.author === statement.record.author)
+    .map((record) => record.id)
+
   selectedPattern.value = null
-  selectedStatement.value = statement.record
+  authorDetailStore.openAuthorDetail(statement.record.author, {
+    recordIds: filteredAuthorRecordIds,
+    targetStatementId: statement.record.id,
+  })
 }
 
 function showPatternDetail(statement: HoveredBeeswarmStatement | null) {
   if (!statement) return
 
-  selectedStatement.value = null
   selectedPattern.value = statement
 }
 
 function closeDetail() {
-  selectedStatement.value = null
   selectedPattern.value = null
 }
 
@@ -122,23 +114,12 @@ function closeDetail() {
     />
 
     <button
-      v-if="selectedStatement || selectedPattern"
+      v-if="selectedPattern"
       type="button"
       class="timeline-view__scrim"
       aria-label="Detail view schliessen"
       @click="closeDetail"
     />
-
-    <Teleport to="body">
-      <Transition name="detail-overlay">
-        <DetailView
-          v-if="selectedStatement"
-          :author="selectedAuthor"
-          :records="selectedAuthorRecords"
-          :target-statement-id="selectedStatement.id"
-        />
-      </Transition>
-    </Teleport>
 
     <Teleport to="body">
       <Transition name="detail-overlay">

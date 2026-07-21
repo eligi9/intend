@@ -17,3 +17,14 @@
   white-space: nowrap;
   transform: translateX(-50%);
 }
+
+.grid-column-labels .grid-column-labels__scale-label {
+  right: var(--layout-scale-label-inline-end);
+  bottom: calc(var(--space-8) + var(--space-1) + var(--space-3));
+  left: auto;
+  color: var(--color-legend-label);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-0);
+  transform: none;
+}

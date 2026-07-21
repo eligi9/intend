@@ -20,7 +20,7 @@ const rootElement = ref<HTMLElement | null>(null)
 const headingElement = ref<HTMLElement | null>(null)
 const introSection = ref<EstablishmentIntroSectionExpose | null>(null)
 const statementStore = useStatementStore()
-const introGridAreaCount = 7
+const introGridLineCount = 8
 const introGridLabels: string[] = []
 const primaryFeaturedRecord = computed(() =>
   statementStore.records.find((record) => record.id === 'decisionmakers-0024'),
@@ -79,8 +79,8 @@ defineExpose({
   <section ref="rootElement" class="establishment-intro-view">
     <VerticalLineGrid
       class="establishment-intro-view__grid"
-      :area-count="introGridAreaCount"
       :labels="introGridLabels"
+      :line-count="introGridLineCount"
     />
 
     <EstablishmentFeaturedStatement

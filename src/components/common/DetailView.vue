@@ -1,26 +1,29 @@
 <script setup lang="ts">
-import { computed, ref, toRef, watch } from 'vue'
+import { computed, ref, toRef } from 'vue'
 import AuthorPortrait from '../author/AuthorPortrait.vue'
 import type { AuthorInstance } from '../../types/authorData'
-import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
+import type { IntentRecord } from '../../types/intentData'
+import type { OverlaySide } from '../../types/overlay'
 import ImageCreditsView from '../../views/ImageCreditsView.vue'
 import { usePageScrollLock } from '../../composables/usePageScrollLock'
 import { useCompactStickyHeader } from '../../composables/useCompactStickyHeader'
 import { useDetailStatementScroll } from '../../composables/useDetailStatementScroll'
-import { strategyColors } from '../../utils/intentLabels'
-import { getTopLevelStrategies } from '../../utils/statementPatterns'
-import FilterButtonContainer from './FilterButtonContainer.vue'
 import StatementPatternCard from './StatementPatternCard.vue'
 import ViewHeadline from './ViewHeadline.vue'
 
-const props = defineProps<{
-  author: AuthorInstance | null
-  records: readonly IntentRecord[]
-  targetStatementId?: string | null
-}>()
+const props = withDefaults(
+  defineProps<{
+    author: AuthorInstance | null
+    records: readonly IntentRecord[]
+    side?: OverlaySide
+    targetStatementId?: string | null
+  }>(),
+  {
+    side: 'right',
+  },
+)
 
 const detailView = ref<HTMLElement | null>(null)
-const activePattern = ref<PatternLabelKey | null>(null)
 const hoveredBadgeStatementId = ref<string | null>(null)
 const hoveredContextStatementId = ref<string | null>(null)
 const showImageCredits = ref(false)
@@ -56,7 +59,9 @@ function removePartyParenthetical(position: string | null | undefined, party: st
     .trim()
 }
 
-const hasRecordList = computed(() => props.records.length > 1)
+const statementSideOverlaySide = computed<OverlaySide>(() =>
+  props.side === 'left' ? 'right' : 'left',
+)
 const authorPositionSubline = computed(
   () =>
     removePartyParenthetical(props.author?.position, props.author?.party) ??
@@ -64,42 +69,10 @@ const authorPositionSubline = computed(
     props.records[0]?.sector ??
     'Position unbekannt',
 )
-const patternFilters = computed(() =>
-  hasRecordList.value
-    ? getTopLevelStrategies(props.records)
-      .map((strategy) => ({
-        active: activePattern.value === strategy.labelKey,
-        color: strategyColors[strategy.labelKey] ?? 'var(--color-neutral)',
-        key: strategy.labelKey,
-        label: strategy.label,
-        minWidth: '0',
-      }))
-    : [],
-)
-const visibleRecords = computed(() => {
-  if (!activePattern.value) return props.records
-
-  return props.records.filter((record) => record[activePattern.value as PatternLabelKey] === 'yes')
-})
-
-watch(patternFilters, (filters) => {
-  if (activePattern.value && !filters.some((filter) => filter.key === activePattern.value)) {
-    activePattern.value = null
-  }
-})
-
 useDetailStatementScroll({
   container: detailView,
   targetStatementId: toRef(props, 'targetStatementId'),
 })
-
-function togglePatternFilter(label: PatternLabelKey) {
-  activePattern.value = activePattern.value === label ? null : label
-}
-
-function togglePatternFilterByKey(label: string) {
-  togglePatternFilter(label as PatternLabelKey)
-}
 
 function setContextHovered(statementId: string, visible: boolean) {
   hoveredContextStatementId.value = visible
@@ -131,6 +104,7 @@ function closeImageCredits() {
   <aside
     ref="detailView"
     class="detail-view"
+    :class="`detail-view--${side}`"
     aria-label="Detail"
     @scroll.stop="handleDetailScroll"
     @touchmove.stop
@@ -159,6 +133,7 @@ function closeImageCredits() {
               <ViewHeadline
                 class="detail__headline"
                 :title="author?.name ?? records[0]?.author ?? 'Autor nicht gefunden'"
+                :title-suffix="`(${records.length})`"
                 :subline="authorPositionSubline"
               />
 
@@ -178,19 +153,8 @@ function closeImageCredits() {
       </header>
 
       <section class="detail__content" aria-label="Statements">
-        <div
-          v-if="patternFilters.length > 0"
-          class="detail__filters"
-          @click.stop
-        >
-          <FilterButtonContainer
-            :labels="patternFilters"
-            @select="togglePatternFilterByKey"
-          />
-        </div>
-
         <StatementPatternCard
-          v-for="statement in visibleRecords"
+          v-for="statement in records"
           :key="statement.id"
           :data-statement-id="statement.id"
           :class="{
@@ -199,6 +163,7 @@ function closeImageCredits() {
               (hoveredContextStatementId !== null && hoveredContextStatementId !== statement.id),
           }"
           :record="statement"
+          :overlay-side="statementSideOverlaySide"
           :show-context-button="true"
           @badge-hover-change="setBadgeHovered(statement.id, $event)"
           @context-hover-change="setContextHovered(statement.id, $event)"

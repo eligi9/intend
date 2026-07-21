@@ -2,8 +2,11 @@ import { onBeforeUnmount, onMounted } from 'vue'
 
 const pageScrollLockClass = 'app-scroll-locked'
 export const pageScrollLockEventName = 'app-overlay-scroll-lock'
+let pageScrollLockCount = 0
 
 export function usePageScrollLock() {
+  let ownsScrollLock = false
+
   function getScrollbarWidth() {
     return Math.max(0, window.innerWidth - document.documentElement.clientWidth)
   }
@@ -24,10 +27,22 @@ export function usePageScrollLock() {
   }
 
   onMounted(() => {
-    setLocked(true)
+    ownsScrollLock = true
+    pageScrollLockCount += 1
+
+    if (pageScrollLockCount === 1) {
+      setLocked(true)
+    }
   })
 
   onBeforeUnmount(() => {
-    setLocked(false)
+    if (!ownsScrollLock) return
+
+    ownsScrollLock = false
+    pageScrollLockCount = Math.max(0, pageScrollLockCount - 1)
+
+    if (pageScrollLockCount === 0) {
+      setLocked(false)
+    }
   })
 }

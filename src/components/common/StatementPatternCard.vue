@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
+import type { OverlaySide } from '../../types/overlay'
 import {
   getStatementPatternAnchors,
   getStatementPatternBadges,
@@ -10,14 +11,17 @@ import { getDisplayLabel } from '../../utils/statementHighlights'
 import SideOverlay from './SideOverlay.vue'
 import StatementCard from './StatementCard.vue'
 import StrategyBadgeContainer from './StrategyBadgeContainer.vue'
+import StatementRepresentation from '../statement/StatementRepresentation.vue'
 
 const props = withDefaults(
   defineProps<{
     record: IntentRecord
+    overlaySide?: OverlaySide
     showAuthor?: boolean
     showContextButton?: boolean
   }>(),
   {
+    overlaySide: 'left',
     showAuthor: false,
     showContextButton: true,
   },
@@ -57,17 +61,24 @@ watch(hoveredLabel, (label) => {
   >
     <SideOverlay
       :color="explanationBackground"
-      side="left"
+      :side="overlaySide"
       :text="hoveredExplanation ?? ''"
       :title="hoveredBadge ? `Why ${getDisplayLabel(hoveredBadge.label)}?` : ''"
       :visible="Boolean(hoveredBadge && hoveredExplanation)"
       @close="hoveredLabel = null"
     />
 
+    <StatementRepresentation
+      class="statement-pattern-card__representation"
+      size="large"
+      :statement="record"
+    />
+
     <StatementCard
       :anchor-color="hoveredBadge?.color"
       :anchor-texts="hoveredAnchors"
       :record="record"
+      :overlay-side="overlaySide"
       :show-author="showAuthor"
       :show-context-button="showContextButton"
       @context-hover-change="emit('contextHoverChange', $event)"

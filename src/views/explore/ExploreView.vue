@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import AuthorDetailOverlay from '../../components/author/AuthorDetailOverlay.vue'
 import type { ExploreHeaderSection, ExploreViewSection } from '../../types/exploreView'
 import AuthorView from './AuthorView.vue'
 import PatternsView from './PatternsView.vue'
@@ -60,6 +61,8 @@ function showView(section: ExploreViewSection) {
         @section-select="showView"
       />
     </div>
+
+    <AuthorDetailOverlay />
   </section>
 </template>
 

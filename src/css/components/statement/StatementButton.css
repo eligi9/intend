@@ -4,8 +4,8 @@
   --tooltip-panel-padding: var(--space-2);
   --tooltip-panel-gap: var(--space-2);
 
-  width: 100%;
-  height: 100%;
+  width: max-content;
+  height: max-content;
 }
 
 .statement-button-tooltip:hover,
@@ -14,14 +14,11 @@
 }
 
 .statement-button {
-  --statement-button-core-size: 12px;
-  --statement-button-ring-gap: 0.125rem;
-  --statement-button-ring-stroke: 2px;
-
   position: relative;
   display: grid;
   place-items: center;
-  width: 100%;
+  width: max-content;
+  height: max-content;
   min-height: 0;
   aspect-ratio: 1;
   padding: 0;
@@ -44,33 +41,4 @@
 
 .statement-button:focus-visible {
   box-shadow: 0 0 0 0.1875rem rgba(var(--color-text-rgb), 0.28);
-}
-
-.statement-button__rings {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.statement-button__ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--ring-size);
-  height: var(--ring-size);
-  border: var(--statement-button-ring-stroke) solid var(--ring-color);
-  border-radius: 50%;
-  box-sizing: border-box;
-  transform: translate(-50%, -50%);
-}
-
-.statement-button__core {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: var(--statement-button-core-size);
-  height: var(--statement-button-core-size);
-  border-radius: 50%;
-  background: var(--color-black);
 }

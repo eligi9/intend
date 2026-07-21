@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
-import DetailView from '../../components/common/DetailView.vue'
 import GridColumnLabels from '../../components/common/GridColumnLabels.vue'
 import ViewGrid from '../../components/common/ViewGrid.vue'
 import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import { useInitialViewportGridCell } from '../../composables/useInitialViewportGridCell'
+import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { AuthorInstance } from '../../types/authorData'
@@ -20,25 +20,17 @@ const emit = defineEmits<{
 }>()
 
 const authorStore = useAuthorStore()
+const authorDetailStore = useAuthorDetailStore()
 const statementStore = useStatementStore()
 const { authorInstances } = storeToRefs(authorStore)
 const { filteredRecords } = storeToRefs(statementStore)
 
-const selectedAuthorId = ref<string | null>(null)
 const {
   cellSize: authorGridCellSize,
   cellSizePx: authorGridCellSizePx,
 } = useInitialViewportGridCell({ columns: 16 })
 const authorPortraitSize = computed(() => Math.max(0, authorGridCellSizePx.value - 8))
 
-const selectedAuthor = computed(
-  () => authorInstances.value.find((author) => author.id === selectedAuthorId.value) ?? null,
-)
-const selectedAuthorStatements = computed(() =>
-  selectedAuthor.value
-    ? filteredRecords.value.filter((record) => record.author === selectedAuthor.value?.name)
-    : [],
-)
 const visibleAuthorNames = computed(
   () => new Set(filteredRecords.value.map((record) => record.author)),
 )
@@ -64,12 +56,14 @@ function isAuthorVisible(author: AuthorInstance) {
   return visibleAuthorNames.value.has(author.name)
 }
 
-function showAuthorDetail(authorId: string) {
-  selectedAuthorId.value = authorId
-}
+function showAuthorDetail(authorName: string) {
+  const filteredAuthorRecordIds = filteredRecords.value
+    .filter((record) => record.author === authorName)
+    .map((record) => record.id)
 
-function closeAuthorDetail() {
-  selectedAuthorId.value = null
+  authorDetailStore.openAuthorDetail(authorName, {
+    recordIds: filteredAuthorRecordIds,
+  })
 }
 </script>
 
@@ -94,6 +88,7 @@ function closeAuthorDetail() {
       :labels="[1, 5, 10]"
       :offset-cells="1"
       :padding-inline-cells="2"
+      scale-label="Number of authors"
     />
 
     <ViewGrid
@@ -119,7 +114,7 @@ function closeAuthorDetail() {
             :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
             :disabled="!isAuthorVisible(author)"
             :aria-label="`${author.name} Details anzeigen`"
-            @click="showAuthorDetail(author.id)"
+            @click="showAuthorDetail(author.name)"
           >
             <AuthorPortrait :author="author" :size="authorPortraitSize" />
           </button>
@@ -131,7 +126,7 @@ function closeAuthorDetail() {
         aria-label="Other political and state officials"
       >
         <span class="author-view__group-divider-label author-view__group-divider-label--above">
-          Government &amp;<br />
+          Cabinet &amp;<br />
           Executive Leadership
         </span>
         <span class="author-view__group-divider-label author-view__group-divider-label--below">
@@ -153,7 +148,7 @@ function closeAuthorDetail() {
             :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
             :disabled="!isAuthorVisible(author)"
             :aria-label="`${author.name} Details anzeigen`"
-            @click="showAuthorDetail(author.id)"
+            @click="showAuthorDetail(author.name)"
           >
             <AuthorPortrait :author="author" :size="authorPortraitSize" />
           </button>
@@ -161,23 +156,6 @@ function closeAuthorDetail() {
       </section>
     </section>
 
-    <button
-      v-if="selectedAuthorId"
-      type="button"
-      class="author-view__scrim"
-      aria-label="Autor Detailansicht schliessen"
-      @click="closeAuthorDetail"
-    />
-
-    <Teleport to="body">
-      <Transition name="detail-overlay">
-        <DetailView
-          v-if="selectedAuthorId"
-          :author="selectedAuthor"
-          :records="selectedAuthorStatements"
-        />
-      </Transition>
-    </Teleport>
   </section>
 </template>
 

@@ -7,6 +7,7 @@ const props = defineProps<{
   labels: readonly number[]
   offsetCells?: number
   paddingInlineCells: number
+  scaleLabel?: string
 }>()
 
 const positionedLabels = computed(() =>
@@ -27,6 +28,13 @@ const positionedLabels = computed(() =>
       :style="{ '--grid-column-label-x': label.x }"
     >
       {{ label.value }}
+    </span>
+
+    <span
+      v-if="props.scaleLabel"
+      class="grid-column-labels__scale-label"
+    >
+      {{ props.scaleLabel }}
     </span>
   </div>
 </template>

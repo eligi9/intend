@@ -41,6 +41,7 @@ const plotHost = ref<HTMLElement | null>(null)
 const hoveredPattern = ref<HoveredBeeswarmStatement | null>(null)
 const hoveredTimelineEvent = ref<HoveredTimelineEvent | null>(null)
 const hoveredTimelineStatement = ref<HoveredTimelineStatement | null>(null)
+const expandedPatternBandId = ref<PatternLabelKey | null>(null)
 let gridSketch: p5 | null = null
 let swarmSketch: p5 | null = null
 let sketchesMounted = false
@@ -135,6 +136,10 @@ function createSwarmSketch() {
   emit('statement-press', null)
 
   return createStrategyBeeswarmSketch(plotHost.value, {
+    expandedBandId: expandedPatternBandId.value,
+    setExpandedBandId: (label) => {
+      expandedPatternBandId.value = label
+    },
     setPressedStatement: (payload) => {
       emit('pattern-press', payload)
     },

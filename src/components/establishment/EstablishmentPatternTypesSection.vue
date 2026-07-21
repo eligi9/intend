@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VerticalLineGrid from '../common/VerticalLineGrid.vue'
 
-const gridAreaCount = 7
+const gridLineCount = 8
 const gridLabels: string[] = []
 const patternTypes = [
   {
@@ -31,8 +31,8 @@ const patternTypes = [
   <section class="establishment-pattern-types" aria-labelledby="pattern-types-title">
     <VerticalLineGrid
       class="establishment-pattern-types__grid"
-      :area-count="gridAreaCount"
       :labels="gridLabels"
+      :line-count="gridLineCount"
     />
 
     <div class="establishment-pattern-types__inner">

@@ -7,7 +7,7 @@ defineProps<{
   record: IntentRecord
 }>()
 
-const gridAreaCount = 7
+const gridLineCount = 8
 const gridLabels: string[] = []
 </script>
 
@@ -15,8 +15,8 @@ const gridLabels: string[] = []
   <section class="establishment-statement-interlude" aria-label="Example statement">
     <VerticalLineGrid
       class="establishment-statement-interlude__grid"
-      :area-count="gridAreaCount"
       :labels="gridLabels"
+      :line-count="gridLineCount"
     />
 
     <div class="establishment-statement-interlude__inner">

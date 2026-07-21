@@ -30,6 +30,8 @@ export interface HoveredTimelineStatement {
 }
 
 export interface StrategyBeeswarmSketchState {
+  expandedBandId: PatternLabelKey | null
+  setExpandedBandId: (label: PatternLabelKey | null) => void
   setPressedStatement: (payload: HoveredBeeswarmStatement | null) => void
   selectedLabels: PatternLabelKey[]
   setHoveredStatement: (payload: HoveredBeeswarmStatement | null) => void

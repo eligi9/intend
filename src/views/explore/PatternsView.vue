@@ -76,9 +76,10 @@ function closeDetail() {
   >
     <MirroredLineGrid
       class="strategy-view__line-grid"
+      highlight-center
       :max-value="maxStatementsPerSide"
       :marker="gridMarker"
-      scale-label="Number of Statements"
+      scale-label="Number of statements"
       :step-size="countStep"
     />
 

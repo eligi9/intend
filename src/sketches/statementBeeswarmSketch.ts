@@ -27,9 +27,9 @@ interface StatementNode extends SimulationNodeDatum {
   y: number
 }
 
-const CORE_RADIUS = 5
-const RING_STROKE = 2
-const RING_GAP = 2
+const CORE_RADIUS = 6
+const RING_STROKE = 3
+const RING_GAP = 1
 const HOVER_SCALE = 1.15
 const EDGE_GAP = 2
 const DIMMED_OPACITY_TOKEN = '--opacity-dimmed'
@@ -197,11 +197,12 @@ function drawNode(
   p.noFill()
   activeLabels.forEach((label, index) => {
     const color = ringColors[label] ?? colors.text
-    const radius = CORE_RADIUS + (index + 1) * (RING_STROKE + RING_GAP)
+    const outerRadius = CORE_RADIUS + (index + 1) * (RING_STROKE + RING_GAP)
+    const strokeRadius = outerRadius - RING_STROKE / 2
 
     p.stroke(color[0], color[1], color[2], highlighted ? 255 : dimmedAlpha)
-    p.strokeWeight(RING_STROKE)
-    p.circle(node.x, node.y, radius * 2 * scale)
+    p.strokeWeight(RING_STROKE * scale)
+    p.circle(node.x, node.y, strokeRadius * 2 * scale)
   })
 
   p.noStroke()

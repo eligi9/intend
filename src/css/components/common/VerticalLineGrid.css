@@ -32,7 +32,7 @@
 
 .vertical-line-grid__scale-label {
   position: absolute;
-  right: 3rem;
+  right: var(--layout-scale-label-inline-end);
   bottom: var(--vertical-line-grid-scale-label-bottom, 3rem);
   color: var(--color-legend-label);
   font-size: var(--font-size-0);

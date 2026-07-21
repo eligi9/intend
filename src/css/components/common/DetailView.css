@@ -29,6 +29,18 @@
   box-shadow: var(--overlay-shadow);
 }
 
+.detail-view--left {
+  right: auto;
+  left: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  direction: rtl;
+}
+
+.detail-view--left > .detail {
+  direction: ltr;
+}
+
 .detail {
   --detail-section-gap: var(--layout-section-gap);
 
@@ -136,12 +148,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-self: start;
-}
-
-.detail__filters {
-  display: flex;
-  justify-content: center;
-  width: 100%;
 }
 
 .detail__content {

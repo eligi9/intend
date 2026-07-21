@@ -30,11 +30,15 @@ const props = withDefaults(
 )
 
 const ringStrokeByVariant = {
-  default: 2,
+  default: 3,
   detail: 4,
 } as const
+const ringGapByVariant = {
+  default: 1,
+  detail: 2,
+} as const
 const ringStroke = computed(() => ringStrokeByVariant[props.variant])
-const ringGap = 2
+const ringGap = computed(() => ringGapByVariant[props.variant])
 const maxRingCount = strategyDisplayOrder.length
 const rings = computed(() => {
   const usedLabels = new Set(props.author.usedTopLevelStrategyLabels)
@@ -48,7 +52,7 @@ const rings = computed(() => {
     }))
 })
 const totalRingSpace = computed(
-  () => props.showRings ? maxRingCount * (ringStroke.value + ringGap) : 0,
+  () => props.showRings ? maxRingCount * (ringStroke.value + ringGap.value) : 0,
 )
 const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
 

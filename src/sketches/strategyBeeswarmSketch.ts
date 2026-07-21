@@ -14,7 +14,11 @@ import {
   type CanvasBaseColors,
   type RgbColor,
 } from '../utils/colorTokens'
-import { readCssLengthTokenInPixels, readCssToken } from '../utils/cssTokens'
+import {
+  readCssLengthTokenInPixels,
+  readCssNumberToken,
+  readCssToken,
+} from '../utils/cssTokens'
 import { intentLabelNames, strategyColors } from '../utils/intentLabels'
 import { getPatternAnnotation, isPatternActive } from '../utils/intentRecordPatterns'
 import { setupResizableP5Canvas } from '../utils/p5Canvas'
@@ -55,6 +59,8 @@ interface BandToggleButton {
 const DOT_RADIUS = 5
 const HOVERED_DOT_RADIUS = 7
 const DOT_EDGE_PADDING = HOVERED_DOT_RADIUS + 2
+const SUBDUED_DOT_SCALE = 0.5
+const DIMMED_OPACITY_TOKEN = '--opacity-dimmed'
 
 const strategyGroups = intentTaxonomy.map((group) => ({
   childLabels: group.childLabels,
@@ -66,15 +72,21 @@ export function createStrategyBeeswarmSketch(
   state: StrategyBeeswarmSketchState,
 ) {
   const colors = readCanvasBaseColors()
-  const fontFamily = readCssToken('--font-sans')
   const pointColors = readStrategyPointColors()
+  const buttonFontFamily = readCssToken('--font-sans')
+  const dimmedAlpha = Math.round(readCssNumberToken(DIMMED_OPACITY_TOKEN) * 255)
   let cleanupCanvas: (() => void) | null = null
-  let expandedBandId: PatternLabelKey | null = null
+  let expandedBandId = state.expandedBandId
   let layoutKey = ''
   let nodes: BeeswarmNode[] = []
+  let patternLabelFont: p5.Font
   let simulation: Simulation<BeeswarmNode, undefined> | null = null
 
   const sketch = (p: p5) => {
+    p.preload = () => {
+      patternLabelFont = p.loadFont('/fonts/Montserrat-Medium.ttf')
+    }
+
     cleanupCanvas = setupResizableP5Canvas(p, container, {
       fallbackHeightRatio: 0.46,
       minHeight: 280,
@@ -97,13 +109,16 @@ export function createStrategyBeeswarmSketch(
       if (nextLayoutKey !== layoutKey) {
         layoutKey = nextLayoutKey
         nodes = createBeeswarmNodes(timelinePoints, bands, p.width, expandedBandId)
-        simulation = createBeeswarmSimulation(nodes)
+        simulation = createBeeswarmSimulation(nodes, expandedBandId)
       }
 
       tickSimulation(simulation, nodes, p.width)
 
-      const hoveredPoint = checkHover(p, nodes)
-      const hoveredToggle = checkBandToggleHover(p, createBandToggleButtons(p, bands))
+      const hoveredPoint = checkHover(p, nodes, expandedBandId)
+      const hoveredToggle = checkBandToggleHover(
+        p,
+        createBandToggleButtons(p, bands, expandedBandId),
+      )
 
       p.cursor(hoveredPoint || hoveredToggle ? p.HAND : p.ARROW)
       state.setHoveredStatement(createHoverPayload(hoveredPoint, p, colors, pointColors))
@@ -117,7 +132,8 @@ export function createStrategyBeeswarmSketch(
         pointColors,
         expandedBandId,
         hoveredToggle?.band.id ?? null,
-        fontFamily,
+        patternLabelFont,
+        buttonFontFamily,
       )
       nodes.forEach((node) =>
         drawNode(
@@ -128,22 +144,27 @@ export function createStrategyBeeswarmSketch(
           colors,
           pointColors,
           expandedBandId,
+          dimmedAlpha,
         ),
       )
     }
 
     p.mousePressed = () => {
-      const pressedPoint = checkHover(p, nodes)
+      const pressedPoint = checkHover(p, nodes, expandedBandId)
       if (pressedPoint) {
         state.setPressedStatement(createHoverPayload(pressedPoint, p, colors, pointColors))
         return
       }
 
       const bands = createBeeswarmBands(getSwarmTop(), getSwarmBottom(p), expandedBandId)
-      const pressedToggle = checkBandToggleHover(p, createBandToggleButtons(p, bands))
+      const pressedToggle = checkBandToggleHover(
+        p,
+        createBandToggleButtons(p, bands, expandedBandId),
+      )
       if (!pressedToggle) return
 
       expandedBandId = expandedBandId === pressedToggle.band.id ? null : pressedToggle.band.id
+      state.setExpandedBandId(expandedBandId)
       layoutKey = ''
     }
 
@@ -237,13 +258,14 @@ function drawBands(
   pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
   expandedBandId: PatternLabelKey | null,
   hoveredBandId: PatternLabelKey | null,
-  fontFamily: string,
+  patternLabelFont: p5.Font,
+  buttonFontFamily: string,
 ) {
   const labelInset = readCssLengthTokenInPixels('--space-1')
 
-  p.textFont(fontFamily)
+  p.textFont(patternLabelFont)
   p.textAlign(p.RIGHT, p.TOP)
-  p.textSize(readCssLengthTokenInPixels('--font-size-1'))
+  p.textSize(readCssLengthTokenInPixels('--font-size-0'))
   p.textStyle(p.BOLD)
 
   bands.forEach((band) => {
@@ -287,15 +309,29 @@ function drawBands(
       })
     }
 
-    drawBandToggleButton(p, band, color, expanded, toggleHovered, subdued, selected, labelInset)
+    drawBandToggleButton(
+      p,
+      band,
+      color,
+      expanded,
+      toggleHovered,
+      subdued,
+      selected,
+      labelInset,
+      expandedBandId === null || expanded,
+      buttonFontFamily,
+    )
     p.textAlign(p.RIGHT, p.TOP)
   })
 
   p.textStyle(p.NORMAL)
 }
 
-function createBeeswarmSimulation(nodes: BeeswarmNode[]) {
-  const radius = 5.4
+function createBeeswarmSimulation(
+  nodes: BeeswarmNode[],
+  expandedBandId: PatternLabelKey | null,
+) {
+  const collisionRadius = 7.5
 
   const simulation = forceSimulation<BeeswarmNode>(nodes)
     .alpha(1)
@@ -303,7 +339,16 @@ function createBeeswarmSimulation(nodes: BeeswarmNode[]) {
     .velocityDecay(0.28)
     .force('x', forceX<BeeswarmNode>((node) => node.targetX).strength(0.22))
     .force('y', forceY<BeeswarmNode>((node) => node.targetY).strength(0.11))
-    .force('collide', forceCollide<BeeswarmNode>(radius + 1.2).strength(1).iterations(5))
+    .force(
+      'collide',
+      forceCollide<BeeswarmNode>((node) =>
+        expandedBandId !== null && node.strategyLabel !== expandedBandId
+          ? collisionRadius * SUBDUED_DOT_SCALE
+          : collisionRadius,
+      )
+        .strength(1)
+        .iterations(5),
+    )
     .stop()
 
   return simulation
@@ -328,12 +373,26 @@ function clampNode(node: BeeswarmNode, maxX: number) {
   node.y = Math.min(node.bandMaxY, Math.max(node.bandMinY, node.y))
 }
 
-function checkHover(p: p5, nodes: BeeswarmNode[]) {
-  return nodes.find((node) => p.dist(p.mouseX, p.mouseY, node.x, node.y) <= HOVERED_DOT_RADIUS + 3.5) ?? null
+function checkHover(
+  p: p5,
+  nodes: BeeswarmNode[],
+  expandedBandId: PatternLabelKey | null,
+) {
+  return nodes.find(
+    (node) =>
+      (expandedBandId === null || node.strategyLabel === expandedBandId) &&
+      p.dist(p.mouseX, p.mouseY, node.x, node.y) <= HOVERED_DOT_RADIUS + 3.5,
+  ) ?? null
 }
 
-function createBandToggleButtons(p: p5, bands: BeeswarmBand[]) {
-  return bands.map((band) => createBandToggleButton(p, band))
+function createBandToggleButtons(
+  p: p5,
+  bands: BeeswarmBand[],
+  expandedBandId: PatternLabelKey | null,
+) {
+  return bands
+    .filter((band) => expandedBandId === null || band.id === expandedBandId)
+    .map((band) => createBandToggleButton(p, band))
 }
 
 function createBandToggleButton(p: p5, band: BeeswarmBand): BandToggleButton {
@@ -369,32 +428,37 @@ function drawBandToggleButton(
   subdued: boolean,
   selected: boolean,
   labelInset: number,
+  showButton: boolean,
+  buttonFontFamily: string,
 ) {
-  p.push()
-  const button = createBandToggleButton(p, band)
-  const active = expanded || hovered
-  const radius = readCssLengthTokenInPixels('--space-1')
-  const centerX = (button.minX + button.maxX) / 2
-  const centerY = (button.minY + button.maxY) / 2
+  if (showButton) {
+    p.push()
+    const button = createBandToggleButton(p, band)
+    const active = expanded || hovered
+    const radius = readCssLengthTokenInPixels('--space-1')
+    const centerX = (button.minX + button.maxX) / 2
+    const centerY = (button.minY + button.maxY) / 2
 
-  p.stroke(color[0], color[1], color[2], active ? 255 : 153)
-  p.strokeWeight(1)
-  p.fill(active ? color[0] : 255, active ? color[1] : 255, active ? color[2] : 255)
-  p.rect(
-    button.minX,
-    button.minY,
-    button.maxX - button.minX,
-    button.maxY - button.minY,
-    radius,
-  )
+    p.stroke(color[0], color[1], color[2], active ? 255 : 153)
+    p.strokeWeight(1)
+    p.fill(active ? color[0] : 255, active ? color[1] : 255, active ? color[2] : 255)
+    p.rect(
+      button.minX,
+      button.minY,
+      button.maxX - button.minX,
+      button.maxY - button.minY,
+      radius,
+    )
 
-  p.noStroke()
-  p.fill(active ? 255 : color[0], active ? 255 : color[1], active ? 255 : color[2])
-  p.textAlign(p.CENTER, p.CENTER)
-  p.textSize(readCssLengthTokenInPixels('--font-size-0'))
-  p.textStyle(p.BOLD)
-  p.text(expanded ? '▼' : '▶', centerX, centerY)
-  p.pop()
+    p.noStroke()
+    p.fill(active ? 255 : color[0], active ? 255 : color[1], active ? 255 : color[2])
+    p.textFont(buttonFontFamily)
+    p.textAlign(p.CENTER, p.CENTER)
+    p.textSize(readCssLengthTokenInPixels('--font-size-0'))
+    p.textStyle(p.BOLD)
+    p.text(expanded ? '▼' : '▶', centerX, centerY)
+    p.pop()
+  }
 
   if (!expanded) {
     p.fill(color[0], color[1], color[2], subdued ? 60 : selected ? 180 : 92)
@@ -451,18 +515,25 @@ function drawNode(
   colors: CanvasBaseColors,
   pointColors: Partial<Record<PatternLabelKey, RgbColor>>,
   expandedBandId: PatternLabelKey | null,
+  dimmedAlpha: number,
 ) {
   const hovered = hoveredNode?.id === node.id
   const sameSubLabel = !hoveredNode || node.subLabel === hoveredNode.subLabel
   const selected = selectedLabels.length === 0 || selectedLabels.includes(node.strategyLabel)
   const inSubduedBand = expandedBandId !== null && node.strategyLabel !== expandedBandId
   const highlighted = selected && sameSubLabel && !inSubduedBand
-  const color = highlighted ? getPointColor(node.strategyLabel, colors, pointColors) : colors.text
+  const dimmedByHover = hoveredNode !== null && !sameSubLabel
+  const color = highlighted || dimmedByHover
+    ? getPointColor(node.strategyLabel, colors, pointColors)
+    : colors.text
+  const scale = inSubduedBand ? SUBDUED_DOT_SCALE : 1
+  const radius = hovered ? HOVERED_DOT_RADIUS : DOT_RADIUS
+  const strokeWeight = hovered ? 3.5 : 3
 
   p.noFill()
-  p.stroke(color[0], color[1], color[2], highlighted ? 235 : 42)
-  p.strokeWeight(hovered ? 2.5 : 2)
-  p.circle(node.x, node.y, hovered ? HOVERED_DOT_RADIUS * 2 : DOT_RADIUS * 2)
+  p.stroke(color[0], color[1], color[2], highlighted ? 235 : dimmedAlpha)
+  p.strokeWeight(strokeWeight * scale)
+  p.circle(node.x, node.y, radius * 2 * scale)
 }
 
 function getDeterministicOffset(value: string, amplitude: number) {
