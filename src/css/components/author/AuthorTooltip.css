@@ -1,55 +1,79 @@
 .author-tooltip {
-  --tooltip-panel-inline-size: clamp(19rem, 30vw, 24rem);
-  --tooltip-panel-max-inline-size: calc(100vw - 3rem);
-  --tooltip-panel-padding: var(--space-2);
-  --tooltip-panel-gap: var(--space-2);
+  --tooltip-panel-background: var(--color-white);
 }
 
 .author-tooltip :deep(.tooltip__panel) {
   z-index: 40;
 }
 
-.author-tooltip__heading {
+.author-tooltip__content {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+}
+
+.author-tooltip__meta {
+  display: grid;
+  color: var(--color-black-60);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-snug);
+  margin-bottom: var(--space-2);
+}
+
+.author-tooltip__meta strong {
+  color: var(--color-black-80);
+  font-size: var(--font-size-1);
+}
+
+.author-tooltip__title {
+  color: var(--color-text);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-1);
+}
+
+.author-tooltip__title--section {
+  margin-top: var(--space-2);
+}
+
+.author-tooltip__labels {
   display: grid;
   gap: var(--space-1);
+  width: 100%;
   min-width: 0;
 }
 
-.author-tooltip__name {
-  color: var(--color-text);
-  font-size: var(--text-body-size);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-1);
+.author-tooltip__label {
+  display: inline;
+  justify-self: start;
+  width: fit-content;
+  padding-block: 0;
+  padding-inline: var(--space-1);
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-1);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-line-height);
+  box-shadow: 0 0 0 0.125rem var(--color-black-40);
+  box-decoration-break: clone;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  -webkit-box-decoration-break: clone;
 }
 
-.author-tooltip__position {
-  min-width: 0;
-  color: rgba(var(--color-text-rgb), 0.78);
-  font-size: var(--text-caption-size);
-  font-weight: var(--font-weight-light);
-  line-height: var(--text-caption-line-height);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.author-tooltip__label--pattern {
+  color: var(--color-white);
+  background: var(--author-tooltip-label-color);
+  box-shadow: 0 0 0 0.125rem var(--author-tooltip-label-color);
 }
 
-.author-tooltip__strategies {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
-  inline-size: 100%;
-  min-inline-size: min(18rem, 100%);
+.author-tooltip__label small {
+  font: inherit;
 }
 
-.author-tooltip__strategies--single {
-  inline-size: fit-content;
-  min-inline-size: 0;
-}
-
-.author-tooltip__strategies--empty {
-  color: rgba(var(--color-text-rgb), 0.68);
-}
-
-.author-tooltip__badge {
-  flex: 0 0 auto;
+.author-tooltip__labels--empty {
+  color: var(--color-black-60);
+  font-size: var(--font-size-0);
 }

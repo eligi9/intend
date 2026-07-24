@@ -1,7 +1,59 @@
 import type { AuthorInstance, AuthorProfile } from '../types/authorData'
 import type { IntentRecord } from '../types/intentData'
+import { getActivePatternAnnotations } from './intentRecordPatterns'
 import { intentTaxonomy } from './intentTaxonomy'
 import { getTopLevelStrategies } from './statementPatterns'
+
+const measureCategoryDisplayOrder = [
+  'Destruction',
+  'Aid Control / Deprivation',
+  'Forced Displacement',
+  'Physical Harm',
+  'Occupation / Settlement',
+] as const
+
+function getMostUsedContentCategory(statements: IntentRecord[]) {
+  return measureCategoryDisplayOrder.reduce<AuthorInstance['mostUsedContentCategory']>(
+    (mostUsedCategory, label) => {
+      const statementCount = statements.filter((statement) =>
+        statement.measure_categories.includes(label),
+      ).length
+
+      if (statementCount === 0 || statementCount <= (mostUsedCategory?.statementCount ?? 0)) {
+        return mostUsedCategory
+      }
+
+      return { label, statementCount }
+    },
+    null,
+  )
+}
+
+function getMostUsedPattern(statements: IntentRecord[]) {
+  const patternCounts = new Map<string, number>()
+
+  statements.forEach((statement) => {
+    getActivePatternAnnotations(statement).forEach((pattern) => {
+      patternCounts.set(pattern.key, (patternCounts.get(pattern.key) ?? 0) + 1)
+    })
+  })
+
+  return intentTaxonomy
+    .flatMap((group) => group.subLabels)
+    .reduce<AuthorInstance['mostUsedPattern']>((mostUsedPattern, pattern) => {
+      const statementCount = patternCounts.get(pattern.labelKey) ?? 0
+
+      if (statementCount === 0 || statementCount <= (mostUsedPattern?.statementCount ?? 0)) {
+        return mostUsedPattern
+      }
+
+      return {
+        label: pattern.label,
+        labelKey: pattern.labelKey,
+        statementCount,
+      }
+    }, null)
+}
 
 function calculateAge(dateOfBirth: string | null, referenceDate = new Date()) {
   if (!dateOfBirth) return null
@@ -45,6 +97,8 @@ export function createAuthorInstance(
   return {
     ...author,
     age: calculateAge(author.dateOfBirth, referenceDate),
+    mostUsedContentCategory: getMostUsedContentCategory(statements),
+    mostUsedPattern: getMostUsedPattern(statements),
     statementCount: statements.length,
     usedTopLevelStrategies,
     usedTopLevelStrategyLabels: usedTopLevelStrategies.map((strategy) => strategy.labelKey),

@@ -43,7 +43,7 @@
 
 .statement-tooltip__meta {
   color: var(--color-black-60);
-  font-size: var(--font-size-0);
+  font-size: var(--font-size-1);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-snug);
   margin-bottom: var(--space-2);

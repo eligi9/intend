@@ -36,35 +36,12 @@ const {
 
 usePageScrollLock()
 
-const normalizeText = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim()
-
-function removePartyParenthetical(position: string | null | undefined, party: string | null | undefined) {
-  if (!position) return null
-  if (!party) return position.trim()
-
-  const normalizedParty = normalizeText(party)
-
-  if (!normalizedParty) return position.trim()
-
-  return position
-    .replace(/\s*\(([^)]*)\)/g, (match, content: string) =>
-      normalizeText(content).includes(normalizedParty) ? '' : match,
-    )
-    .replace(/\s{2,}/g, ' ')
-    .replace(/\s+,/g, ',')
-    .trim()
-}
-
 const statementSideOverlaySide = computed<OverlaySide>(() =>
   props.side === 'left' ? 'right' : 'left',
 )
 const authorPositionSubline = computed(
   () =>
-    removePartyParenthetical(props.author?.position, props.author?.party) ??
+    props.author?.position ??
     props.records[0]?.speakerPosition ??
     props.records[0]?.sector ??
     'Position unbekannt',

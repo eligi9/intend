@@ -1,6 +1,21 @@
-import type { PatternLabelKey, TopLevelStrategyUsage } from './intentData'
+import type {
+  MeasureCategory,
+  PatternLabelKey,
+  TopLevelStrategyUsage,
+} from './intentData'
 
 type AuthorRoleGroup = 'executive_officials' | 'legislators' | 'others'
+
+interface AuthorPatternUsage {
+  label: string
+  labelKey: PatternLabelKey
+  statementCount: number
+}
+
+interface AuthorContentCategoryUsage {
+  label: MeasureCategory
+  statementCount: number
+}
 
 interface AuthorImage {
   url: string
@@ -29,7 +44,6 @@ export interface AuthorProfile {
   gender: string | null
   position: string | null
   sector: string | null
-  party: string | null
   roleGroup: AuthorRoleGroup
   image: AuthorImage | null
   notes?: string | null
@@ -46,6 +60,8 @@ export interface AuthorDataset {
 
 export interface AuthorInstance extends AuthorProfile {
   age: number | null
+  mostUsedContentCategory: AuthorContentCategoryUsage | null
+  mostUsedPattern: AuthorPatternUsage | null
   statementCount: number
   usedTopLevelStrategies: TopLevelStrategyUsage[]
   usedTopLevelStrategyLabels: PatternLabelKey[]

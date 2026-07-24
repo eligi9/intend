@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { AuthorInstance } from '../../types/authorData'
-import { strategyColors } from '../../utils/intentLabels'
+import { getStatementPatternColor } from '../../utils/statementPatterns'
 import Tooltip from '../common/Tooltip.vue'
-import StrategyBadge from '../strategy/StrategyBadge.vue'
 
 const props = defineProps<{
   author: AuthorInstance
 }>()
 
-const strategyBadges = computed(() =>
-  props.author.usedTopLevelStrategies.map((strategy) => ({
-    ...strategy,
-    color: strategyColors[strategy.labelKey] ?? 'var(--color-neutral)',
-  })),
+const mostUsedPatternColor = computed(() =>
+  props.author.mostUsedPattern
+    ? getStatementPatternColor(props.author.mostUsedPattern.labelKey)
+    : 'var(--color-neutral)',
 )
 </script>
 
@@ -22,28 +20,42 @@ const strategyBadges = computed(() =>
     <slot />
 
     <template #panel>
-      <span class="author-tooltip__heading">
-        <strong class="author-tooltip__name">{{ author.name }}</strong>
-        <span class="author-tooltip__position">{{ author.position ?? 'Position unbekannt' }}</span>
-      </span>
+      <span class="author-tooltip__content">
+        <span class="author-tooltip__meta">
+          <strong>{{ author.name }}</strong>
+          <span>{{ author.position ?? 'Position unknown' }}</span>
+        </span>
 
-      <span
-        v-if="strategyBadges.length > 0"
-        class="author-tooltip__strategies"
-        :class="{ 'author-tooltip__strategies--single': strategyBadges.length === 1 }"
-      >
-        <StrategyBadge
-          v-for="strategy in strategyBadges"
-          :key="strategy.labelKey"
-          :label="strategy.label"
-          :color="strategy.color"
-          :count="strategy.statementCount"
-          class="author-tooltip__badge"
-        />
-      </span>
+        <strong class="author-tooltip__title">Most Used Content Category</strong>
 
-      <span v-else class="author-tooltip__strategies author-tooltip__strategies--empty">
-        No pattern
+        <span v-if="author.mostUsedContentCategory" class="author-tooltip__labels">
+          <span class="author-tooltip__label">
+            {{ author.mostUsedContentCategory.label }}
+            <small>({{ author.mostUsedContentCategory.statementCount }})</small>
+          </span>
+        </span>
+
+        <span v-else class="author-tooltip__labels author-tooltip__labels--empty">
+          No content category
+        </span>
+
+        <strong class="author-tooltip__title author-tooltip__title--section">
+          Most Used Pattern
+        </strong>
+
+        <span v-if="author.mostUsedPattern" class="author-tooltip__labels">
+          <span
+            class="author-tooltip__label author-tooltip__label--pattern"
+            :style="{ '--author-tooltip-label-color': mostUsedPatternColor }"
+          >
+            {{ author.mostUsedPattern.label }}
+            <small>({{ author.mostUsedPattern.statementCount }})</small>
+          </span>
+        </span>
+
+        <span v-else class="author-tooltip__labels author-tooltip__labels--empty">
+          No pattern
+        </span>
       </span>
     </template>
   </Tooltip>
