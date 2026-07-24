@@ -8148,15 +8148,17 @@
       "meaning_bj": null,
       "status_bj": "The statement elevates soldiers and commanders by praising their “courage” and their understanding of the “necessity of fighting,” positioning them as the actors who can restore strength and overcome shame.",
       "hope_for_victory_bj": "The statement creates clear victory confidence by saying “let the soldiers and commanders win” and explicitly declaring that “we will win.”",
-      "rhetorical_foreclosure": "no",
+      "rhetorical_foreclosure": "yes",
       "no_alternative_framing": "no",
-      "humanity_as_weakness": "no",
+      "humanity_as_weakness": "yes",
       "external_criticism_rejection": "no",
       "no_alternative_framing_anchor": [],
-      "humanity_as_weakness_anchor": [],
+      "humanity_as_weakness_anchor": [
+        "How long will we bow our heads and endure the shame?"
+      ],
       "external_criticism_rejection_anchor": [],
       "no_alternative_framing_bj": null,
-      "humanity_as_weakness_bj": null,
+      "humanity_as_weakness_bj": "The statement presents restraint as humiliating weakness and calls for harsher action.",
       "external_criticism_rejection_bj": null,
       "measures": [
         "Stop everything immediately bring back a total blockade. Return instructions to open fire in the north of the Gaza Strip against all incoming Gazans."
