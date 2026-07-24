@@ -23,7 +23,7 @@
       "statement": "\"Destroy a neighborhood in Gaza every day the abductees are in their hands. If we blink, we run out of global credit. Every day that the abductees are with them, a neighborhood must be destroyed on its inhabitants and I will be called cruel. It is a Middle Eastern language.\"",
       "speakerPosition": "Member of the Israeli Knesset (Otza Yehudit - Jewish Power)",
       "enemy_image": "yes",
-      "homogenization": "yes",
+      "homogenization": "no",
       "immutability": "no",
       "essentialization": "yes",
       "dehumanization": "no",
@@ -439,7 +439,7 @@
       "threat_construction_bj": null,
       "just_cause": "yes",
       "security_rationale": "no",
-      "selfdefence_counterterrorism": "no",
+      "selfdefence_counterterrorism": "yes",
       "retaliation": "no",
       "security_rationale_anchor": [],
       "selfdefence_counterterrorism_anchor": [
@@ -447,7 +447,7 @@
       ],
       "retaliation_anchor": [],
       "security_rationale_bj": null,
-      "selfdefence_counterterrorism_bj": "The statement makes starvation and bombing food reserves appear justified as pressure against Hamas.",
+      "selfdefence_counterterrorism_bj": "The statement justifies starving civilians and bombing supplies as a way to weaken Hamas.",
       "retaliation_bj": null,
       "individual_needs": "no",
       "meaning": "no",
@@ -1268,12 +1268,12 @@
       ],
       "humanity_as_weakness_anchor": [],
       "external_criticism_rejection_anchor": [
-        "This is an anti-moral BDS campaign that turns the victim into the aggressor and permits the blood of the settlers",
-        "If the price is the imposition of American sanctions on me - so be it."
+        "The 'settler violence' campaign is an anti-Semitic lie spread by the enemies of Israel with the aim of discrediting the pioneer settlers and the settlement enterprise and harming them, and through them discrediting the entire State of Israel.",
+        "This is an anti-moral BDS campaign that turns the victim into the aggressor and permits the blood of the settlers."
       ],
       "no_alternative_framing_bj": "The statement presents sustainable peace as possible only when Arab statehood aspirations are “dashed,” making the strengthening of Jewish settlement appear necessary.",
       "humanity_as_weakness_bj": null,
-      "external_criticism_rejection_bj": "The statement frames accusations of settler violence, BDS, and American sanctions as antisemitic and anti-moral attacks, thereby making external accountability appear illegitimate.",
+      "external_criticism_rejection_bj": "The statement rejects criticism of settler violence by calling it an antisemitic lie and an immoral BDS campaign that attacks settlers and Israel.",
       "measures": [
         "strengthen and develop Jewish settlement in all parts of the Land of Israel"
       ],
@@ -1602,8 +1602,8 @@
         "We’ll turn you into ruins like we’re doing in the Gaza Strip if the terror you inflict on the settlements continues."
       ],
       "security_rationale_bj": null,
-      "selfdefence_counterterrorism_bj": "The statement makes turning the target into ruins appear justified as counterterrorism by linking it to the terror inflicted on the settlements.",
-      "retaliation_bj": "The statement makes turning the target into ruins appear justified as retaliation for the terror inflicted on the settlements.",
+      "selfdefence_counterterrorism_bj": "The statement justifies destruction as a way to stop continuing terror against the settlements.",
+      "retaliation_bj": "The statement threatens destruction as punishment for continued attacks on the settlements.",
       "individual_needs": "no",
       "meaning": "no",
       "status": "no",
@@ -2862,17 +2862,19 @@
       "speakerPosition": "Minister of Intelligence",
       "enemy_image": "no",
       "homogenization": "no",
-      "immutability": "no",
+      "immutability": "yes",
       "essentialization": "no",
       "dehumanization": "no",
       "threat_construction": "no",
       "homogenization_anchor": [],
-      "immutability_anchor": [],
+      "immutability_anchor": [
+        "Gaza has long been thought of as a problem without an answer."
+      ],
       "essentialization_anchor": [],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [],
       "homogenization_bj": null,
-      "immutability_bj": null,
+      "immutability_bj": "The statement suggests immutability by presenting Gaza as a long-standing problem with no answer, implying that the situation cannot be changed or resolved.",
       "essentialization_bj": null,
       "dehumanization_bj": null,
       "threat_construction_bj": null,
@@ -2964,16 +2966,18 @@
       "meaning_bj": null,
       "status_bj": null,
       "hope_for_victory_bj": null,
-      "rhetorical_foreclosure": "no",
+      "rhetorical_foreclosure": "yes",
       "no_alternative_framing": "no",
       "humanity_as_weakness": "no",
-      "external_criticism_rejection": "no",
+      "external_criticism_rejection": "yes",
       "no_alternative_framing_anchor": [],
       "humanity_as_weakness_anchor": [],
-      "external_criticism_rejection_anchor": [],
+      "external_criticism_rejection_anchor": [
+        "this madness that is those in the State Prosecutor's Office who think soldiers can be arrested for things they do to 'Nukhba' terrorists"
+      ],
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
-      "external_criticism_rejection_bj": null,
+      "external_criticism_rejection_bj": "The statement rejects legal criticism of soldiers by calling possible arrests “madness.”",
       "measures": [
         "soldiers can be arrested for things they do to 'Nukhba' terrorists"
       ],
@@ -3200,10 +3204,10 @@
       "essentialization_bj": null,
       "dehumanization_bj": null,
       "threat_construction_bj": null,
-      "just_cause": "yes",
+      "just_cause": "no",
       "security_rationale": "no",
       "selfdefence_counterterrorism": "no",
-      "retaliation": "yes",
+      "retaliation": "no",
       "security_rationale_anchor": [],
       "selfdefence_counterterrorism_anchor": [],
       "retaliation_anchor": [],
@@ -4684,7 +4688,7 @@
       "threat_construction_bj": "The statement portrays areas without Jewish settlement as sources of terrorism, murder, and rockets, making Palestinian presence appear as a security threat.",
       "just_cause": "yes",
       "security_rationale": "yes",
-      "selfdefence_counterterrorism": "yes",
+      "selfdefence_counterterrorism": "no",
       "retaliation": "no",
       "security_rationale_anchor": [
         "where there are no Jews, terrorism, murder, and rockets take hold"
@@ -5467,18 +5471,18 @@
       "dehumanization": "no",
       "threat_construction": "no",
       "homogenization_anchor": [
-        "It's time to shatter the 'uninvolved' bluff!"
+        "It's time to shatter the 'uninvolved' bluff!",
+        "in the language of the 'non-involved' terrorists"
       ],
       "immutability_anchor": [],
       "essentialization_anchor": [
-        "over absolute evil",
-        "in the language of the 'non-involved' terrorists"
+        "over absolute evil"
       ],
       "dehumanization_anchor": [],
       "threat_construction_anchor": [],
-      "homogenization_bj": "The statement homogenizes the “uninvolved” by calling them “non-involved terrorists,” erasing the distinction between civilians, supporters, and combatants.",
+      "homogenization_bj": "The statement homogenizes Palestinians by denying that people can be uninvolved and by referring to Arabic as the language of “non-involved terrorists.”",
       "immutability_bj": null,
-      "essentialization_bj": "The statement essentializes the targeted group by calling the “non-involved” terrorists and “absolute evil,” and by denying equal moral value to the grief of mothers of “martyrs.”",
+      "essentialization_bj": "The statement essentializes the targeted group by describing it as “absolute evil,” presenting evil as its defining nature.",
       "dehumanization_bj": null,
       "threat_construction_bj": null,
       "just_cause": "no",
@@ -5496,29 +5500,30 @@
       "status": "yes",
       "hope_for_victory": "yes",
       "meaning_anchor": [
-        "emissaries of God in IDF uniforms",
-        "complete victory over absolute evil, God willing"
+        "until the complete victory over absolute evil, God willing."
       ],
       "status_anchor": [
         "the mother of a heroic IDF soldier",
-        "our heroic fighters, emissaries of God in IDF uniforms"
+        "We will continue to back our heroic fighters, emissaries of God in IDF uniforms"
       ],
       "hope_for_victory_anchor": [
         "complete victory over absolute evil"
       ],
-      "meaning_bj": "The statement gives the fight a larger moral and religious meaning by framing IDF fighters as “emissaries of God” and the war as a struggle until “complete victory over absolute evil.”",
-      "status_bj": "The statement elevates IDF soldiers and fighters by calling them “heroic” and “emissaries of God in IDF uniforms,” giving them a glorified and sacred position within the in-group.",
+      "meaning_bj": "The statement gives the war a larger moral and religious meaning by presenting victory as a victory over “absolute evil” and invoking God.",
+      "status_bj": "The statement gives IDF soldiers elevated status by calling them heroic, describing them as emissaries of God, and emphasizing support for them and their mothers.",
       "hope_for_victory_bj": "The statement creates a clear victory frame by promising continued support for the fighters “until the complete victory over absolute evil, God willing.”",
       "rhetorical_foreclosure": "no",
       "no_alternative_framing": "no",
       "humanity_as_weakness": "no",
-      "external_criticism_rejection": "no",
+      "external_criticism_rejection": "yes",
       "no_alternative_framing_anchor": [],
       "humanity_as_weakness_anchor": [],
-      "external_criticism_rejection_anchor": [],
+      "external_criticism_rejection_anchor": [
+        "For years, the left in the State of Israel has brainwashed some of us with the message that the mother of a heroic IDF soldier and the mother of a damned \"martyr\" are experiencing the same pain."
+      ],
       "no_alternative_framing_bj": null,
       "humanity_as_weakness_bj": null,
-      "external_criticism_rejection_bj": null,
+      "external_criticism_rejection_bj": "The statement rejects the left’s comparison of Israeli and Palestinian mothers’ grief by dismissing it as brainwashing.",
       "measures": [],
       "measure_categories": []
     },
@@ -9694,7 +9699,7 @@
       "statement": "\"Gaza is the city of evil, we will turn all the places in which Hamas deploys and hides into ruins. I am telling the people of Gaza – get out of there now. We will act everywhere and with full power”",
       "speakerPosition": "Prime Minister",
       "enemy_image": "yes",
-      "homogenization": "yes",
+      "homogenization": "no",
       "immutability": "no",
       "essentialization": "yes",
       "dehumanization": "no",
@@ -10312,17 +10317,15 @@
       "retaliation_bj": null,
       "individual_needs": "yes",
       "meaning": "yes",
-      "status": "yes",
+      "status": "no",
       "hope_for_victory": "no",
       "meaning_anchor": [
         "This is a battle not only of Israel against these barbarians, it’s a battle of civilization against barbarism"
       ],
-      "status_anchor": [
-        "This is a battle not only of Israel against these barbarians, it’s a battle of civilization against barbarism"
-      ],
+      "status_anchor": [],
       "hope_for_victory_anchor": [],
       "meaning_bj": "The statement gives the conflict a larger moral and civilizational purpose by framing it as a battle of “civilization against barbarism,” beyond a mere military confrontation.",
-      "status_bj": "The statement elevates the own side by associating it with “civilization,” positioning those who fight or support the fight as defenders of a morally superior order.",
+      "status_bj": null,
       "hope_for_victory_bj": null,
       "rhetorical_foreclosure": "no",
       "no_alternative_framing": "no",
