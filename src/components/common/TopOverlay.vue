@@ -45,7 +45,10 @@ const wrappedText = computed(() => wrapTextAtCharacterLimit(props.text, 50))
         aria-live="polite"
       >
         <div class="top-overlay__inner">
-          <h3>{{ title }}</h3>
+          <div class="top-overlay__heading">
+            <slot name="title-prefix" />
+            <h3>{{ title }}</h3>
+          </div>
           <p v-if="text">{{ wrappedText }}</p>
           <span v-if="meta">{{ meta }}</span>
         </div>

@@ -16,12 +16,14 @@ const strategyDisplayOrder: PatternLabelKey[] = [
 const props = withDefaults(
   defineProps<{
     author: AuthorInstance
+    backgroundColor?: string
     showTooltip?: boolean
     showRings?: boolean
     size?: number
     variant?: 'default' | 'detail'
   }>(),
   {
+    backgroundColor: 'transparent',
     showTooltip: true,
     showRings: true,
     size: 148,
@@ -55,6 +57,11 @@ const totalRingSpace = computed(
   () => props.showRings ? maxRingCount * (ringStroke.value + ringGap.value) : 0,
 )
 const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
+const backgroundSize = computed(
+  () =>
+    imageSize.value +
+    (props.showRings ? rings.value.length * (ringStroke.value + ringGap.value) * 2 : 0),
+)
 
 const outerRingColor = computed(() =>
   rings.value.length ? rings.value[rings.value.length - 1].color : 'var(--color-neutral)',
@@ -70,6 +77,8 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
         class="author-portrait"
         :style="{
           '--author-portrait-size': `${size}px`,
+          '--author-background-color': backgroundColor,
+          '--author-background-size': `${backgroundSize}px`,
           '--author-image-size': `${imageSize}px`,
           '--author-ring-gap': `${ringGap}px`,
           '--author-ring-stroke': `${ringStroke}px`,
@@ -77,6 +86,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
           '--author-image-shadow-color': 'var(--author-view-background, var(--app-background))',
         }"
       >
+        <span class="author-portrait__background" aria-hidden="true" />
         <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">
           <span
             v-for="ring in rings"
@@ -107,6 +117,8 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
       class="author-portrait"
       :style="{
         '--author-portrait-size': `${size}px`,
+        '--author-background-color': backgroundColor,
+        '--author-background-size': `${backgroundSize}px`,
         '--author-image-size': `${imageSize}px`,
         '--author-ring-gap': `${ringGap}px`,
         '--author-ring-stroke': `${ringStroke}px`,
@@ -114,6 +126,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
         '--author-image-shadow-color': 'var(--author-view-background, var(--app-background))',
       }"
     >
+      <span class="author-portrait__background" aria-hidden="true" />
       <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">
         <span
           v-for="ring in rings"

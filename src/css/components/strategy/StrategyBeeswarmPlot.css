@@ -54,3 +54,11 @@
   width: 1px;
   height: 1px;
 }
+
+.strategy-beeswarm__hovered-author-portrait {
+  --author-view-background: var(--color-white);
+
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+}

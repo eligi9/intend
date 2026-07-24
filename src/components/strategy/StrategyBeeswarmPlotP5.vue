@@ -15,6 +15,8 @@ import {
   createStrategyTimelineDomain,
   getMonthDivisionCount,
 } from '../../utils/strategyTimelineDomain'
+import { useAuthorStore } from '../../stores/authorStore'
+import AuthorPortrait from '../author/AuthorPortrait.vue'
 import TopOverlay from '../common/TopOverlay.vue'
 import StatementTooltip from '../statement/StatementTooltip.vue'
 import PatternTooltip from './PatternTooltip.vue'
@@ -36,6 +38,7 @@ const emit = defineEmits<{
   'statement-press': [statement: HoveredTimelineStatement | null]
 }>()
 
+const authorStore = useAuthorStore()
 const gridHost = ref<HTMLElement | null>(null)
 const plotHost = ref<HTMLElement | null>(null)
 const hoveredPattern = ref<HoveredBeeswarmStatement | null>(null)
@@ -84,6 +87,12 @@ const topOverlay = computed<TimelineTopOverlay | null>(() => {
   }
 
   return null
+})
+
+const hoveredTimelineAuthor = computed(() => {
+  if (props.mode !== 'statements' || !hoveredTimelineStatement.value) return null
+
+  return authorStore.getAuthorInstance(hoveredTimelineStatement.value.author)
 })
 
 function getTimeDomain() {
@@ -254,7 +263,19 @@ onBeforeUnmount(() => {
       :text-color="topOverlay?.textColor"
       :title="topOverlay?.title ?? ''"
       :visible="topOverlay !== null"
-    />
+    >
+      <template v-if="hoveredTimelineAuthor" #title-prefix>
+        <span class="strategy-beeswarm__hovered-author-portrait">
+          <AuthorPortrait
+            :author="hoveredTimelineAuthor"
+            background-color="var(--color-white)"
+            :show-tooltip="false"
+            :size="148"
+            variant="detail"
+          />
+        </span>
+      </template>
+    </TopOverlay>
   </section>
 </template>
 
