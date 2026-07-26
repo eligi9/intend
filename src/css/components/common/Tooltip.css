@@ -32,11 +32,11 @@
 }
 
 .tooltip--right .tooltip__panel {
-  left: calc(100% + 0.875rem);
+  left: calc(100% + var(--tooltip-panel-offset, 0.875rem));
 }
 
 .tooltip--left .tooltip__panel {
-  right: calc(100% + 0.875rem);
+  right: calc(100% + var(--tooltip-panel-offset, 0.875rem));
 }
 
 .tooltip__panel::after {

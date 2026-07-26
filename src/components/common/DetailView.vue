@@ -8,7 +8,7 @@ import ImageCreditsView from '../../views/ImageCreditsView.vue'
 import { usePageScrollLock } from '../../composables/usePageScrollLock'
 import { useCompactStickyHeader } from '../../composables/useCompactStickyHeader'
 import { useDetailStatementScroll } from '../../composables/useDetailStatementScroll'
-import StatementPatternCard from './StatementPatternCard.vue'
+import StatementContainer from './StatementContainer.vue'
 import ViewHeadline from './ViewHeadline.vue'
 
 const props = withDefaults(
@@ -24,8 +24,6 @@ const props = withDefaults(
 )
 
 const detailView = ref<HTMLElement | null>(null)
-const hoveredBadgeStatementId = ref<string | null>(null)
-const hoveredContextStatementId = ref<string | null>(null)
 const showImageCredits = ref(false)
 const {
   compactHeaderContent,
@@ -46,25 +44,18 @@ const authorPositionSubline = computed(
     props.records[0]?.sector ??
     'Position unbekannt',
 )
-useDetailStatementScroll({
+const {
+  clearFocusedStatement,
+  focusedStatementId,
+} = useDetailStatementScroll({
   container: detailView,
   targetStatementId: toRef(props, 'targetStatementId'),
 })
 
-function setContextHovered(statementId: string, visible: boolean) {
-  hoveredContextStatementId.value = visible
-    ? statementId
-    : hoveredContextStatementId.value === statementId
-      ? null
-      : hoveredContextStatementId.value
-}
-
-function setBadgeHovered(statementId: string, visible: boolean) {
-  hoveredBadgeStatementId.value = visible
-    ? statementId
-    : hoveredBadgeStatementId.value === statementId
-      ? null
-      : hoveredBadgeStatementId.value
+function clearFocusOnButtonInteraction(event: Event) {
+  if (event.target instanceof Element && event.target.closest('button')) {
+    clearFocusedStatement()
+  }
 }
 
 function openImageCredits() {
@@ -83,9 +74,11 @@ function closeImageCredits() {
     class="detail-view"
     :class="`detail-view--${side}`"
     aria-label="Detail"
+    @focusin.capture="clearFocusOnButtonInteraction"
+    @pointerdown.capture="clearFocusOnButtonInteraction"
     @scroll.stop="handleDetailScroll"
-    @touchmove.stop
-    @wheel.stop
+    @touchmove.stop="clearFocusedStatement"
+    @wheel.stop="clearFocusedStatement"
   >
     <section
       class="detail"
@@ -129,23 +122,12 @@ function closeImageCredits() {
         </div>
       </header>
 
-      <section class="detail__content" aria-label="Statements">
-        <StatementPatternCard
-          v-for="statement in records"
-          :key="statement.id"
-          :data-statement-id="statement.id"
-          :class="{
-            'detail__statement--dimmed':
-              (hoveredBadgeStatementId !== null && hoveredBadgeStatementId !== statement.id) ||
-              (hoveredContextStatementId !== null && hoveredContextStatementId !== statement.id),
-          }"
-          :record="statement"
-          :overlay-side="statementSideOverlaySide"
-          :show-context-button="true"
-          @badge-hover-change="setBadgeHovered(statement.id, $event)"
-          @context-hover-change="setContextHovered(statement.id, $event)"
-        />
-      </section>
+      <StatementContainer
+        :focused-statement-id="focusedStatementId"
+        :overlay-side="statementSideOverlaySide"
+        :records="records"
+        @interaction-start="clearFocusedStatement"
+      />
     </section>
 
     <Teleport to="body">

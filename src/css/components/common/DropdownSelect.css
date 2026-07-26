@@ -23,12 +23,16 @@
   padding-inline: var(--space-2) var(--space-7);
   border: 0.0625rem solid rgba(var(--color-text-rgb), 0.22);
   border-radius: var(--space-1);
-  color: var(--color-text);
+  color: rgba(var(--color-text-rgb), 0.42);
   background: var(--color-white);
   font-size: var(--font-size-0);
   font-weight: var(--font-weight-bold);
   line-height: var(--control-line-height);
   cursor: pointer;
+}
+
+.dropdown-select--selected select {
+  color: var(--color-text);
 }
 
 .dropdown-select__clear {

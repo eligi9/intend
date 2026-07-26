@@ -13,7 +13,7 @@ import {
   type RgbColor,
 } from '../utils/colorTokens'
 import { strategyColors } from '../utils/intentLabels'
-import { setupResizableP5Canvas } from '../utils/p5Canvas'
+import { setP5Cursor, setupResizableP5Canvas } from '../utils/p5Canvas'
 import { readCssNumberToken } from '../utils/cssTokens'
 import { getActiveMainLabels } from '../utils/sort'
 import { createTimelinePoints } from '../utils/timelineScale'
@@ -77,7 +77,7 @@ export function createStatementBeeswarmSketch(
 
       const hoveredNode = checkHover(p, nodes)
 
-      p.cursor(hoveredNode ? p.HAND : p.ARROW)
+      setP5Cursor(p, container, Boolean(hoveredNode))
       state.setHoveredStatement(createHoverPayload(hoveredNode, p))
       p.clear()
       nodes.forEach((node) =>

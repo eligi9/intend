@@ -18,6 +18,7 @@ const props = withDefaults(
     showContextButton?: boolean
     showDate?: boolean
     showSource?: boolean
+    underlineDate?: boolean
   }>(),
   {
     anchorColor: 'var(--color-highlight)',
@@ -27,6 +28,7 @@ const props = withDefaults(
     showContextButton: true,
     showDate: true,
     showSource: true,
+    underlineDate: true,
   },
 )
 
@@ -47,7 +49,9 @@ const anchorHighlights = computed(() => {
 })
 const statementMetaItems = computed(() =>
   [
-    props.showDate ? { interactive: false, text: props.record.date, underlined: true } : null,
+    props.showDate
+      ? { interactive: false, text: props.record.date, underlined: props.underlineDate }
+      : null,
     props.showAuthor ? { interactive: true, text: props.record.author, underlined: true } : null,
     props.showSource && props.record.source
       ? { interactive: false, text: props.record.source, underlined: false }

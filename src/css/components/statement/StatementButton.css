@@ -3,6 +3,7 @@
   --tooltip-panel-max-inline-size: calc(100vw - var(--space-4));
   --tooltip-panel-padding: var(--space-2);
   --tooltip-panel-gap: var(--space-2);
+  --tooltip-panel-offset: var(--space-3);
 
   width: max-content;
   height: max-content;
@@ -27,16 +28,18 @@
   color: var(--color-text);
   background: transparent;
   outline: none;
+  transform-origin: center;
   transition:
     opacity 160ms ease,
-  transform 160ms ease;
+    transform 160ms ease;
+  will-change: transform;
 }
 
 .statement-button:hover,
 .statement-button:focus-visible,
 .statement-button-tooltip:hover .statement-button,
 .statement-button-tooltip:focus-within .statement-button {
-  transform: translateY(-0.125rem);
+  transform: scale(1.5);
 }
 
 .statement-button:focus-visible {

@@ -95,8 +95,8 @@ function closeActiveDetail() {
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      subline="Click to read, or use filters to create your own selection."
-      title="How do statements frame proposed actions?"
+      subline="Hover to preview. Click to explore the statement’s patterns."
+      title="How many rhetorical frames do statements use?"
       @select="emit('section-select', $event)"
     />
 
@@ -110,12 +110,15 @@ function closeActiveDetail() {
       :columns="24"
       :labels="[1, 5, 10, 15, 20]"
       :padding-inline-cells="2"
-      scale-label="Number of statements"
+      scale-label="Number of Statements"
     />
 
-    <section class="statement-view__groups" aria-label="Statements by number of categories used">
+    <section
+      class="statement-view__groups"
+      aria-label="Statements by number of rhetorical functions"
+    >
       <span class="statement-view__category-scale-label" aria-hidden="true">
-        Amount of<br />categories used
+        Number of<br />Frames Used
       </span>
 
       <section
@@ -123,7 +126,7 @@ function closeActiveDetail() {
         :key="segment.patternCount"
         v-show="segment.records.length > 0"
         class="statement-view__group"
-        :aria-label="`${segment.patternCount} categories used`"
+        :aria-label="`${segment.patternCount} rhetorical functions`"
       >
         <span class="statement-view__group-count" aria-hidden="true">
           {{ segment.patternCount }}
@@ -153,8 +156,7 @@ function closeActiveDetail() {
         v-if="canShowSelection"
         class="statement-selection-button"
         color="var(--color-black)"
-        label="Show selection"
-        min-width="8rem"
+        label="Show Selection"
         @select="openSelectionDetail"
       />
     </section>

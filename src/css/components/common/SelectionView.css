@@ -1,9 +1,5 @@
 @import './DetailView.css';
 
-.detail--selection {
-  --detail-section-gap: var(--space-4);
-}
-
 .detail--selection .detail__header {
   justify-content: center;
   padding-block-start: 0;

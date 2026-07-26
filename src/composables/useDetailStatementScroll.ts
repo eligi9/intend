@@ -1,4 +1,4 @@
-import { nextTick, onMounted, watch, type Ref } from 'vue'
+import { nextTick, onMounted, ref, watch, type Ref } from 'vue'
 
 interface DetailStatementScrollOptions {
   container: Ref<HTMLElement | null>
@@ -9,6 +9,8 @@ export function useDetailStatementScroll({
   container,
   targetStatementId,
 }: DetailStatementScrollOptions) {
+  const focusedStatementId = ref<string | null>(targetStatementId.value ?? null)
+
   async function scrollToTargetStatement() {
     const statementId = targetStatementId.value
     if (!statementId) return
@@ -21,7 +23,10 @@ export function useDetailStatementScroll({
       const target = Array.from(
         scrollContainer.querySelectorAll<HTMLElement>('[data-statement-id]'),
       ).find((element) => element.dataset.statementId === statementId)
-      if (!target) return
+      if (!target) {
+        clearFocusedStatement()
+        return
+      }
 
       const header = scrollContainer.querySelector<HTMLElement>('.detail__header')
       const containerBounds = scrollContainer.getBoundingClientRect()
@@ -36,10 +41,19 @@ export function useDetailStatementScroll({
     }))
   }
 
-  watch(targetStatementId, scrollToTargetStatement)
+  function clearFocusedStatement() {
+    focusedStatementId.value = null
+  }
+
+  watch(targetStatementId, (statementId) => {
+    focusedStatementId.value = statementId ?? null
+    scrollToTargetStatement()
+  })
   onMounted(scrollToTargetStatement)
 
   return {
+    clearFocusedStatement,
+    focusedStatementId,
     scrollToTargetStatement,
   }
 }

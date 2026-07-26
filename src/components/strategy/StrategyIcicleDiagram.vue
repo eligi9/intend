@@ -204,7 +204,23 @@ onUnmounted(() => {
         :steps="verticalScaleSteps"
       />
 
-      <div class="strategy-icicle__side strategy-icicle__side--left" aria-label="Main label counts">
+      <span
+        class="strategy-icicle__side-label strategy-icicle__side-label--left"
+        aria-hidden="true"
+      >
+        Rhetorical Functions
+      </span>
+      <span
+        class="strategy-icicle__side-label strategy-icicle__side-label--right"
+        aria-hidden="true"
+      >
+        Rhetorical Patterns
+      </span>
+
+      <div
+        class="strategy-icicle__side strategy-icicle__side--left"
+        aria-label="Rhetorical Functions"
+      >
         <StrategyIcicleButton
           v-for="mainSegment in mainSegments"
           :key="mainSegment.id"
@@ -220,7 +236,10 @@ onUnmounted(() => {
         />
       </div>
 
-      <div class="strategy-icicle__side strategy-icicle__side--right" aria-label="Sublabel counts">
+      <div
+        class="strategy-icicle__side strategy-icicle__side--right"
+        aria-label="Rhetorical Patterns"
+      >
         <StrategyIcicleButton
           v-for="child in subSegments"
           :key="child.id"

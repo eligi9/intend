@@ -8,7 +8,7 @@
   border-radius: 0;
   color: rgba(var(--color-text-rgb), 0.82);
   background: transparent;
-  font-size: var(--text-body-size);
+  font-size: var(--font-size-2);
   font-weight: var(--font-weight-regular);
   letter-spacing: 0;
   line-height: var(--button-line-height);
@@ -22,27 +22,37 @@
   left: 0;
   height: 0.125rem;
   background: currentColor;
+  box-shadow: 0 0 0 transparent;
   content: '';
-  opacity: 0;
-  transform: scaleX(0.72);
+  opacity: 1;
+  transform: scaleX(1);
   transform-origin: center;
   transition:
     opacity 140ms ease,
-    transform 140ms ease;
+    transform 140ms ease,
+    box-shadow 140ms ease;
 }
 
-.explore-nav-button:hover,
+.explore-nav-button:not(.explore-nav-button--active):hover,
 .explore-nav-button:focus-visible,
 .explore-nav-button--active {
   color: var(--color-text);
   background: transparent;
 }
 
-.explore-nav-button:hover::after,
-.explore-nav-button:focus-visible::after,
-.explore-nav-button--active::after {
+.explore-nav-button:not(.explore-nav-button--active):hover::after,
+.explore-nav-button:focus-visible::after {
   opacity: 1;
   transform: scaleX(1);
+}
+
+.explore-nav-button:not(.explore-nav-button--active):hover::after {
+  box-shadow: 0 0.25rem 0 currentColor;
+}
+
+.explore-nav-button--active::after {
+  opacity: 0;
+  transform: scaleX(0.72);
 }
 
 .explore-nav-button:focus-visible {
@@ -52,6 +62,6 @@
 
 @media (max-width: 48.75rem) {
   .explore-nav-button {
-    font-size: var(--text-body-size);
+    font-size: var(--font-size-2);
   }
 }

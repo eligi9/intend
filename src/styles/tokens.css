@@ -129,6 +129,7 @@
   --overlay-meta-size: var(--text-caption-size);
   --overlay-shadow: 0 0 3rem rgba(0, 0, 0, 0.7);
   --floating-panel-shadow: 0 var(--space-2) var(--space-5) rgba(var(--color-shadow-rgb), 1);
+  --floating-panel-shadow-2x-compensated: 0 var(--space-1) 1.25rem rgba(var(--color-shadow-rgb), 1);
   --button-line-height: var(--line-height-tight);
   --control-line-height: var(--line-height-tight);
   --diagram-label-size: clamp(var(--font-size--2), 0.8vw, var(--font-size--1));

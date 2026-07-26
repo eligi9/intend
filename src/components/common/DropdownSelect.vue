@@ -14,7 +14,10 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="dropdown-select">
+  <div
+    class="dropdown-select"
+    :class="{ 'dropdown-select--selected': Boolean(modelValue) }"
+  >
     <select
       :aria-label="selectLabel"
       :value="modelValue"
@@ -25,6 +28,7 @@ const emit = defineEmits<{
         :key="option.value"
         :value="option.value"
         :disabled="option.value === ''"
+        :hidden="option.value === ''"
       >
         {{ option.label }}
       </option>

@@ -99,11 +99,38 @@
   z-index: 30;
   background: transparent;
   outline: none;
-  transform: translateY(-0.125rem);
 }
 
 .author-view__item:focus-within {
   z-index: 30;
+}
+
+.author-view__item :deep(.author-tooltip) {
+  --tooltip-panel-offset: calc(
+    (var(--author-grid-cell-size) - 0.5rem) / 2 + var(--space-3)
+  );
+}
+
+.author-view__item :deep(.author-portrait) {
+  transform-origin: center;
+  transition: transform 160ms ease;
+  will-change: transform;
+}
+
+.author-view__item :deep(.author-portrait__background) {
+  transition: box-shadow 160ms ease;
+}
+
+.author-view__item:hover :deep(.author-portrait),
+.author-view__item:focus-visible :deep(.author-portrait),
+.author-view__item:focus-within :deep(.author-portrait) {
+  transform: scale(1.7);
+}
+
+.author-view__item:hover :deep(.author-portrait__background),
+.author-view__item:focus-visible :deep(.author-portrait__background),
+.author-view__item:focus-within :deep(.author-portrait__background) {
+  box-shadow: var(--floating-panel-shadow-2x-compensated);
 }
 
 .author-view__item:focus-visible {

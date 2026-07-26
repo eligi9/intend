@@ -21,7 +21,7 @@ import {
 } from '../utils/cssTokens'
 import { intentLabelNames, strategyColors } from '../utils/intentLabels'
 import { getPatternAnnotation, isPatternActive } from '../utils/intentRecordPatterns'
-import { setupResizableP5Canvas } from '../utils/p5Canvas'
+import { setP5Cursor, setupResizableP5Canvas } from '../utils/p5Canvas'
 import { createTimelinePoints } from '../utils/timelineScale'
 
 interface BeeswarmNode extends SimulationNodeDatum {
@@ -117,7 +117,7 @@ export function createStrategyBeeswarmSketch(
       const hoveredPoint = checkHover(p, nodes, expandedBandId)
       const hoveredBand = checkBandHover(p, bands)
 
-      p.cursor(hoveredPoint || hoveredBand ? p.HAND : p.ARROW)
+      setP5Cursor(p, container, Boolean(hoveredPoint || hoveredBand))
       state.setHoveredStatement(createHoverPayload(hoveredPoint, p, colors, pointColors))
 
       p.clear()

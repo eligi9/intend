@@ -5,7 +5,7 @@
     {
       "label": "Enemy Image",
       "labelKey": "enemy_image",
-      "description": "Enemy Image describes how language can portray an outgroup as an enemy. The group appears dangerous, immoral, or fundamentally different. This can make violence against them seem more acceptable, reduce moral hesitation, and mobilize the ingroup.",
+      "description": "Enemy Image describes argumentative and rhetorical patterns that portray an outgroup as homogeneous, fundamentally different, threatening, or in a generally negative light.",
       "subLabels": [
         {
           "labelKey": "homogenization",

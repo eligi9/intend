@@ -8,7 +8,7 @@ import {
   type RgbaColor,
 } from '../utils/colorTokens'
 import { readCssLengthTokenInPixels, readCssToken } from '../utils/cssTokens'
-import { setupResizableP5Canvas } from '../utils/p5Canvas'
+import { setP5Cursor, setupResizableP5Canvas } from '../utils/p5Canvas'
 
 const EVENT_LABEL_PADDING_X = 8
 const EVENT_LABEL_WIDTH = 108
@@ -81,7 +81,7 @@ export function createStrategyTimelineGridSketch(
       hoveredTimelineEvent = hoveredEvent
 
       p.textFont(eventTypography.fontFamily)
-      p.cursor(hoveredEvent ? p.HAND : p.ARROW)
+      setP5Cursor(p, container, Boolean(hoveredEvent?.event.sourceUrl))
       state.setHoveredEvent(createHoverPayload(hoveredEvent, p.width, p.height))
       p.clear()
       p.background(...colors.background)

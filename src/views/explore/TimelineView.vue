@@ -28,6 +28,7 @@ const emit = defineEmits<{
 const statementStore = useStatementStore()
 const authorDetailStore = useAuthorDetailStore()
 const { filteredRecords, records } = storeToRefs(statementStore)
+const { authorName: openAuthorName } = storeToRefs(authorDetailStore)
 const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
 const timelineDomain = computed(() => createStrategyTimelineDomain(records.value, timelineEvents))
 const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
@@ -71,8 +72,16 @@ function closeDetail() {
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      subline="All coded statements over time, filterable by top-level pattern."
-      title="Timeline"
+      :subline="
+        beeswarmMode === 'strategies'
+          ? 'Compare pattern categories. Expand a category to see its individual patterns.'
+          : 'Hover events for details. Hover a statement to highlight all statements by the same author.'
+      "
+      :title="
+        beeswarmMode === 'strategies'
+          ? 'How are patterns distributed over time?'
+          : 'How are statements distributed over time?'
+      "
       @select="emit('section-select', $event)"
     />
 
@@ -82,7 +91,7 @@ function closeDetail() {
           :events="timelineEvents"
           :mode="beeswarmMode"
           :statements="filteredRecords"
-          :suppress-top-overlay="Boolean(selectedPattern)"
+          :suppress-top-overlay="Boolean(selectedPattern || openAuthorName)"
           :time-domain="timelineDomain"
           @pattern-press="showPatternDetail"
           @statement-press="showAuthorDetail"

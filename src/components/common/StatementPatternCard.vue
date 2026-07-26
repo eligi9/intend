@@ -19,11 +19,13 @@ const props = withDefaults(
     overlaySide?: OverlaySide
     showAuthor?: boolean
     showContextButton?: boolean
+    underlineDate?: boolean
   }>(),
   {
     overlaySide: 'left',
     showAuthor: false,
     showContextButton: true,
+    underlineDate: true,
   },
 )
 
@@ -81,6 +83,7 @@ watch(hoveredLabel, (label) => {
       :overlay-side="overlaySide"
       :show-author="showAuthor"
       :show-context-button="showContextButton"
+      :underline-date="underlineDate"
       @context-hover-change="emit('contextHoverChange', $event)"
     />
 

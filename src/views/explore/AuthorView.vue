@@ -35,18 +35,19 @@ const visibleAuthorNames = computed(
   () => new Set(filteredRecords.value.map((record) => record.author)),
 )
 const otherPoliticalAndStateActors = computed(() =>
-  sortAuthorsByPatternCount(
+  sortAuthorsBySelectionAndPatternCount(
     authorInstances.value.filter((author) => author.roleGroup !== 'executive_officials'),
   ),
 )
 const executiveLeadership = computed(() =>
-  sortAuthorsByPatternCount(
+  sortAuthorsBySelectionAndPatternCount(
     authorInstances.value.filter((author) => author.roleGroup === 'executive_officials'),
   ),
 )
 
-function sortAuthorsByPatternCount(authors: AuthorInstance[]) {
+function sortAuthorsBySelectionAndPatternCount(authors: AuthorInstance[]) {
   return [...authors].sort((first, second) =>
+    Number(isAuthorVisible(second)) - Number(isAuthorVisible(first)) ||
     second.usedTopLevelStrategyCount - first.usedTopLevelStrategyCount ||
     first.name.localeCompare(second.name),
   )
@@ -72,7 +73,7 @@ function showAuthorDetail(authorName: string) {
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      subline="What do they demand, and how do they justify it?"
+      subline="Hover to preview. Click to explore the author’s statements."
       title="Who made these statements?"
       @select="emit('section-select', $event)"
     />
@@ -88,7 +89,7 @@ function showAuthorDetail(authorName: string) {
       :labels="[1, 5, 10]"
       :offset-cells="1"
       :padding-inline-cells="2"
-      scale-label="Number of authors"
+      scale-label="Number of Authors"
     />
 
     <ViewGrid
@@ -116,7 +117,11 @@ function showAuthorDetail(authorName: string) {
             :aria-label="`${author.name} Details anzeigen`"
             @click="showAuthorDetail(author.name)"
           >
-            <AuthorPortrait :author="author" :size="authorPortraitSize" />
+            <AuthorPortrait
+              :author="author"
+              background-color="var(--color-white)"
+              :size="authorPortraitSize"
+            />
           </button>
         </ViewGrid>
       </section>
@@ -150,7 +155,11 @@ function showAuthorDetail(authorName: string) {
             :aria-label="`${author.name} Details anzeigen`"
             @click="showAuthorDetail(author.name)"
           >
-            <AuthorPortrait :author="author" :size="authorPortraitSize" />
+            <AuthorPortrait
+              :author="author"
+              background-color="var(--color-white)"
+              :size="authorPortraitSize"
+            />
           </button>
         </ViewGrid>
       </section>

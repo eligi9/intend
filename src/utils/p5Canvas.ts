@@ -44,3 +44,18 @@ export function setupResizableP5Canvas(
     resizeObserver.disconnect()
   }
 }
+
+export function setP5Cursor(
+  p: p5,
+  container: HTMLElement,
+  interactive: boolean,
+) {
+  const canvas = container.querySelector('canvas')
+  const cursor = interactive ? 'pointer' : 'default'
+
+  if (canvas && canvas.dataset.cursor !== cursor) {
+    canvas.dataset.cursor = cursor
+  }
+
+  p.cursor(interactive ? p.HAND : p.ARROW)
+}

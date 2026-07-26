@@ -1,5 +1,6 @@
 .author-tooltip {
   --tooltip-panel-background: var(--color-white);
+  --tooltip-panel-shadow: var(--floating-panel-shadow);
 }
 
 .author-tooltip :deep(.tooltip__panel) {

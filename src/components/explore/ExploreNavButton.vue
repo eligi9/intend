@@ -14,6 +14,7 @@ const emit = defineEmits<{
     type="button"
     class="explore-nav-button"
     :class="{ 'explore-nav-button--active': active }"
+    :disabled="active"
     @click="emit('select')"
   >
     {{ label }}

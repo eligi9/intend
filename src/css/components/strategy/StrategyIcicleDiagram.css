@@ -51,6 +51,29 @@
   align-items: stretch;
 }
 
+.strategy-icicle__side-label {
+  position: absolute;
+  z-index: 5;
+  top: -1.75rem;
+  color: var(--color-legend-label);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-black);
+  line-height: var(--line-height-0);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.strategy-icicle__side-label--left {
+  right: calc(50% + var(--space-3));
+  text-align: right;
+}
+
+.strategy-icicle__side-label--right {
+  left: calc(50% + var(--space-3));
+  text-align: left;
+}
+
 .strategy-icicle__sub-label {
   min-width: 0;
   max-width: 18rem;
@@ -77,6 +100,11 @@
 
   .strategy-icicle__diagram {
     height: 45rem;
+  }
+
+  .strategy-icicle__side-label {
+    top: -1.5rem;
+    font-size: var(--font-size--1);
   }
 
   .strategy-icicle__sub-label {

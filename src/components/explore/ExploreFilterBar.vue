@@ -25,7 +25,7 @@ const props = withDefaults(
 const statementStore = useStatementStore()
 const { filters } = storeToRefs(statementStore)
 const measureCategoryOptions: { label: string; value: '' | MeasureCategory }[] = [
-  { label: 'All content types', value: '' },
+  { label: 'Content Categories', value: '' },
   { label: 'Destruction', value: 'Destruction' },
   { label: 'Aid Control / Deprivation', value: 'Aid Control / Deprivation' },
   { label: 'Forced Displacement', value: 'Forced Displacement' },

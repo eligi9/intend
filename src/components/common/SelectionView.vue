@@ -4,7 +4,7 @@ import { usePageScrollLock } from '../../composables/usePageScrollLock'
 import { useCompactStickyHeader } from '../../composables/useCompactStickyHeader'
 import { useDetailStatementScroll } from '../../composables/useDetailStatementScroll'
 import type { IntentRecord } from '../../types/intentData'
-import StatementPatternCard from './StatementPatternCard.vue'
+import StatementContainer from './StatementContainer.vue'
 import ViewHeadline from './ViewHeadline.vue'
 
 interface SelectionFilterLabel {
@@ -28,8 +28,6 @@ const props = defineProps<{
 }>()
 
 const detailView = ref<HTMLElement | null>(null)
-const hoveredBadgeStatementId = ref<string | null>(null)
-const hoveredContextStatementId = ref<string | null>(null)
 const {
   compactHeaderContent,
   compactHeaderHeight,
@@ -41,7 +39,10 @@ const {
 })
 
 usePageScrollLock()
-useDetailStatementScroll({
+const {
+  clearFocusedStatement,
+  focusedStatementId,
+} = useDetailStatementScroll({
   container: detailView,
   targetStatementId: toRef(props, 'targetStatementId'),
 })
@@ -72,20 +73,10 @@ const selectionTerms = computed<SelectionTerm[]>(() => {
   return terms
 })
 
-function setContextHovered(statementId: string, visible: boolean) {
-  hoveredContextStatementId.value = visible
-    ? statementId
-    : hoveredContextStatementId.value === statementId
-      ? null
-      : hoveredContextStatementId.value
-}
-
-function setBadgeHovered(statementId: string, visible: boolean) {
-  hoveredBadgeStatementId.value = visible
-    ? statementId
-    : hoveredBadgeStatementId.value === statementId
-      ? null
-      : hoveredBadgeStatementId.value
+function clearFocusOnButtonInteraction(event: Event) {
+  if (event.target instanceof Element && event.target.closest('button')) {
+    clearFocusedStatement()
+  }
 }
 
 </script>
@@ -95,9 +86,11 @@ function setBadgeHovered(statementId: string, visible: boolean) {
     ref="detailView"
     class="detail-view"
     aria-label="Selection detail"
+    @focusin.capture="clearFocusOnButtonInteraction"
+    @pointerdown.capture="clearFocusOnButtonInteraction"
     @scroll.stop="handleDetailScroll"
-    @touchmove.stop
-    @wheel.stop
+    @touchmove.stop="clearFocusedStatement"
+    @wheel.stop="clearFocusedStatement"
   >
     <section
       class="detail detail--selection"
@@ -139,23 +132,13 @@ function setBadgeHovered(statementId: string, visible: boolean) {
         </div>
       </header>
 
-      <section class="detail__content" aria-label="Selected statements">
-        <StatementPatternCard
-          v-for="statement in records"
-          :key="statement.id"
-          :data-statement-id="statement.id"
-          :class="{
-            'detail__statement--dimmed':
-              (hoveredBadgeStatementId !== null && hoveredBadgeStatementId !== statement.id) ||
-              (hoveredContextStatementId !== null && hoveredContextStatementId !== statement.id),
-          }"
-          :record="statement"
-          :show-author="true"
-          :show-context-button="true"
-          @badge-hover-change="setBadgeHovered(statement.id, $event)"
-          @context-hover-change="setContextHovered(statement.id, $event)"
-        />
-      </section>
+      <StatementContainer
+        aria-label="Selected statements"
+        :focused-statement-id="focusedStatementId"
+        :records="records"
+        :show-author="true"
+        @interaction-start="clearFocusedStatement"
+      />
     </section>
   </aside>
 </template>

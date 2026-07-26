@@ -46,6 +46,15 @@ const detailRecords = computed(() => {
       : isPatternGroupActive(record, segment.id),
   )
 })
+const detailLabels = computed(() => {
+  const segment = detailSegment.value
+  if (!segment) return []
+
+  return (segment.parent ? [segment.parent, segment] : [segment]).map((label) => ({
+    color: label.color,
+    label: label.label,
+  }))
+})
 
 function handleSegmentHover(segment: StrategyIcicleSegment | null) {
   if (detailSegment.value) return
@@ -79,14 +88,14 @@ function closeDetail() {
       highlight-center
       :max-value="maxStatementsPerSide"
       :marker="gridMarker"
-      scale-label="Number of statements"
+      scale-label="Number of Statements"
       :step-size="countStep"
     />
 
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      subline="Explore pattern hierarchy and frequency. Hover for explanation, click for coded statements."
+      subline="Hover for an explanation. Click to explore statements containing the pattern."
       title="How are patterns organized?"
       @select="emit('section-select', $event)"
     />
@@ -144,9 +153,9 @@ function closeDetail() {
       <Transition name="detail-overlay">
         <SelectionView
           v-if="detailSegment"
-          :header-color="detailSegment.color"
+          :labels="detailLabels"
           :records="detailRecords"
-          :title="detailSegment.label"
+          title="Selection"
         />
       </Transition>
     </Teleport>

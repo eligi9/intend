@@ -110,3 +110,27 @@ input[type='search']::-webkit-search-results-decoration {
   min-height: 100vh;
   background: var(--app-background);
 }
+
+.app-shell,
+.app-shell * {
+  cursor: default !important;
+}
+
+.app-shell :is(
+    a[href],
+    button:not(:disabled),
+    select:not(:disabled),
+    [role='button']:not([aria-disabled='true']),
+    [data-cursor='pointer']
+  ),
+.app-shell :is(
+    a[href],
+    button:not(:disabled),
+    [role='button']:not([aria-disabled='true'])
+  ) * {
+  cursor: pointer !important;
+}
+
+.app-shell input[type='search'] {
+  cursor: text !important;
+}

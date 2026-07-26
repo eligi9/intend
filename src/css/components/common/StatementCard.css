@@ -48,15 +48,39 @@
 }
 
 .statement-card__meta-author {
-  display: inline;
+  position: relative;
+  display: inline-block;
   min-height: 0;
-  padding: 0;
+  padding: 0 0 0.25rem;
   border: 0;
   border-radius: 0;
   color: inherit;
   background: transparent;
   font: inherit;
+  text-decoration: none;
+  vertical-align: baseline;
   cursor: pointer;
+}
+
+.statement-card__meta-author::before,
+.statement-card__meta-author::after {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 0.0625rem;
+  background: currentColor;
+  content: '';
+  pointer-events: none;
+}
+
+.statement-card__meta-author::before {
+  bottom: 0.1875rem;
+}
+
+.statement-card__meta-author::after {
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 140ms ease;
 }
 
 .statement-card__meta-author:hover,
@@ -64,6 +88,10 @@
   color: var(--color-text);
   background: transparent;
   outline: none;
+}
+
+.statement-card__meta-author:hover::after {
+  opacity: 1;
 }
 
 .statement-card__quote {
