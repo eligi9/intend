@@ -7,6 +7,7 @@ import VerticalLineGrid from '../components/common/VerticalLineGrid.vue'
 import EstablishmentPatternTypesSection from '../components/establishment/EstablishmentPatternTypesSection.vue'
 import EstablishmentStatementSection from '../components/establishment/EstablishmentStatementSection.vue'
 import EstablishmentStatementInterlude from '../components/establishment/EstablishmentStatementInterlude.vue'
+import ExploreNavButton from '../components/explore/ExploreNavButton.vue'
 import { pageScrollLockEventName } from '../composables/usePageScrollLock'
 import landingCopy from '../content/landingCopy.json'
 import { useStatementStore } from '../stores/statementStore'
@@ -162,13 +163,12 @@ onBeforeUnmount(() => {
           :line-count="establishmentGridLineCount"
         />
 
-        <button
-          type="button"
+        <ExploreNavButton
           class="establishment-view__explore-button"
-          @click="openExplore"
-        >
-          Explore Statements
-        </button>
+          :active="false"
+          label="Explore Statements"
+          @select="openExplore"
+        />
       </section>
 
       <EstablishmentStatementSection

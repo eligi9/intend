@@ -15,12 +15,12 @@
         {
           "labelKey": "immutability",
           "label": "Immutability",
-          "description": "Immutability describes linguistic patterns that present an outgroup as unchangeable in its nature, ideology, or threat. The group appears as if it cannot reform, coexist peacefully, or be reached through compromise. If an outgroup is portrayed as permanently dangerous or hostile, peaceful solutions can seem naive, impossible, or even risky. This can make harder measures appear more necessary or justified."
+          "description": "Immutability presents an outgroup as unchangeable in its nature, ideology, or threat. The group seems impossible to reform, live with peacefully, or negotiate with. When a group is seen as a permanent danger, peaceful solutions can seem naive, impossible, or even risky."
         },
         {
           "labelKey": "essentialization",
           "label": "Essentialization",
-          "description": "Essentialization means that an outgroup is presented as having a negative nature. It is not only about individual actions, but about how the whole group is described. The group is linked to certain traits, behaviors, or values. This makes it appear fundamentally different from the ingroup. Essentialization can also be indirect. For example, cruel or abusive treatment of children can create a very negative image of the whole group, because children stand for innocence and vulnerability. Such portrayals can make violence against the outgroup seem more acceptable or necessary."
+          "description": "Essentialization portrays the outgroup as evil, immoral, or fundamentally different from the ingroup. If a group is to be severely harmed, it must not be perceived as similar to the ingroup, because shared similarities foster empathy."
         },
         {
           "labelKey": "dehumanization",
@@ -52,7 +52,7 @@
         {
           "labelKey": "retaliation",
           "label": "Retaliation",
-          "description": "Retaliation describes how harmful measures are justified as a response to harm caused by the outgroup. The central logic is: because “they” have harmed us, our response seems deserved, understandable, or necessary. Unlike Self-Defense / Counter-Terrorism, the focus is not mainly on protection from a threat or fighting terrorism. Instead, the measure is framed as a reaction, punishment, or pressure in response to what the outgroup has done."
+          "description": "Retaliation presents harmful measures as revenge, a necessary reaction, or punishment for past suffering and harm caused by an outgroup."
         }
       ]
     },
@@ -64,7 +64,7 @@
         {
           "labelKey": "meaning",
           "label": "Meaning",
-          "description": "Meaning is coded for statements in which actions, measures, or willingness to sacrifice are presented as part of a larger meaning-making cause. This can include historical narratives, religious goals or prophecies, or morally significant acts such as saving the nation, religion, or civilization."
+          "description": "Meaning frames actions, policies, or sacrifices as part of a larger meaning making cause. It elevates their importance by linking them to historical, religious, or national stories, presenting them as important for the community or the nation."
         },
         {
           "labelKey": "status",
@@ -86,7 +86,7 @@
         {
           "labelKey": "no_alternative_framing",
           "label": "No Alternatives",
-          "description": "No Alternatives describes how language can make a measure appear unavoidable. By suggesting that there is “no choice” or “no other way,” the statement closes down alternatives and makes the action seem necessary rather than debatable."
+          "description": "No Alternatives presents a measure as unavoidable. By suggesting that there is “no choice” or “no other way,” it dismisses alternatives and frames the action as a necessity rather than a debatable choice."
         },
         {
           "labelKey": "humanity_as_weakness",

@@ -136,6 +136,7 @@ function clearFocusOnButtonInteraction(event: Event) {
         aria-label="Selected statements"
         :focused-statement-id="focusedStatementId"
         :records="records"
+        :scope-author-detail-to-records="true"
         :show-author="true"
         @interaction-start="clearFocusedStatement"
       />

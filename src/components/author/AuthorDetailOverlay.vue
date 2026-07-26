@@ -19,7 +19,9 @@ const records = computed(() => {
   if (!recordIds.value) return statementStore.getStatementsForAuthor(authorName.value)
 
   const selectedIds = new Set(recordIds.value)
-  return statementStore.records.filter((record) => selectedIds.has(record.id))
+  return statementStore.records.filter(
+    (record) => record.author === authorName.value && selectedIds.has(record.id),
+  )
 })
 </script>
 

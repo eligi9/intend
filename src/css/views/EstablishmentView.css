@@ -36,34 +36,5 @@
 }
 
 .establishment-view__explore-button {
-  position: relative;
   z-index: 1;
-  appearance: none;
-  border: 0.0625rem solid rgba(var(--color-white-rgb), 0.34);
-  border-radius: 0;
-  padding: var(--space-2) var(--space-3);
-  color: var(--color-white);
-  background: rgba(var(--color-white-rgb), 0.06);
-  font: inherit;
-  font-size: var(--text-body-size);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0;
-  line-height: var(--button-line-height);
-  cursor: pointer;
-  transition:
-    background 160ms ease,
-    border-color 160ms ease,
-    transform 160ms ease;
-}
-
-.establishment-view__explore-button:hover,
-.establishment-view__explore-button:focus-visible {
-  border-color: rgba(var(--color-white-rgb), 0.62);
-  background: rgba(var(--color-white-rgb), 0.12);
-  transform: translateY(-0.0625rem);
-}
-
-.establishment-view__explore-button:focus-visible {
-  outline: 0.125rem solid rgba(var(--color-white-rgb), 0.72);
-  outline-offset: 0.25rem;
 }

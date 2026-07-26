@@ -1,30 +1,25 @@
 <script setup lang="ts">
+import { intentTaxonomy } from '../../utils/intentTaxonomy'
 import VerticalLineGrid from '../common/VerticalLineGrid.vue'
 
 const gridLineCount = 8
 const gridLabels: string[] = []
-const patternTypes = [
-  {
-    className: 'establishment-pattern-types__card--enemy-image',
-    description: 'portray an outgroup as dangerous, immoral, or fundamentally different. This can make violence against them seem more acceptable, reduce moral hesitation, and can lead to mobilization.',
-    title: 'Enemy Image',
-  },
-  {
-    className: 'establishment-pattern-types__card--just-cause',
-    description: 'faming violent or harmful measures as rational, necessary, or morally justified. By linking a measure to a specific cause, these statements depict violence as logical answer.',
-    title: 'Just Cause',
-  },
-  {
-    className: 'establishment-pattern-types__card--individual-needs',
-    description: 'addresses personal and collective needs, for example the individual’s status within the ingroup or the status of the ingroup compared to other groups. This can encourage support, by making people feel needed or part of a meaningful collective mission.',
-    title: 'Individual Needs',
-  },
-  {
-    className: 'establishment-pattern-types__card--rhetorical-foreclosure',
-    description: 'exclude or devalue alternatives, criticism, or moral concerns. This narrows the space for doubt, reflection, and opposition.',
-    title: 'Rhetorical Foreclosure',
-  },
-]
+const patternTypes = intentTaxonomy.map((patternType) => {
+  const firstSentenceEnd = patternType.description.indexOf('.')
+
+  return {
+    className: `establishment-pattern-types__card--${patternType.parentLabel.replace(/_/g, '-')}`,
+    descriptionFirstSentence:
+      firstSentenceEnd >= 0
+        ? patternType.description.slice(0, firstSentenceEnd + 1)
+        : patternType.description,
+    descriptionRemainder:
+      firstSentenceEnd >= 0
+        ? patternType.description.slice(firstSentenceEnd + 1).trim()
+        : '',
+    title: patternType.label,
+  }
+})
 </script>
 
 <template>
@@ -49,7 +44,14 @@ const patternTypes = [
           :class="patternType.className"
         >
           <h3>{{ patternType.title }}</h3>
-          <p>{{ patternType.description }}</p>
+          <p>
+            <span>{{ patternType.descriptionFirstSentence }}</span>
+            <template v-if="patternType.descriptionRemainder">
+              <br />
+              <br />
+              <span>{{ patternType.descriptionRemainder }}</span>
+            </template>
+          </p>
         </article>
       </div>
     </div>

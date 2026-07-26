@@ -16,6 +16,7 @@ import StatementRepresentation from '../statement/StatementRepresentation.vue'
 
 const props = withDefaults(
   defineProps<{
+    authorDetailRecordIds?: readonly string[]
     record: IntentRecord
     overlaySide?: OverlaySide
     showAuthor?: boolean
@@ -118,6 +119,7 @@ function closePatternOverlay() {
     <StatementCard
       :anchor-color="activeBadge?.color"
       :anchor-texts="activeAnchors"
+      :author-detail-record-ids="authorDetailRecordIds"
       :record="record"
       :overlay-side="overlaySide"
       :show-author="showAuthor"

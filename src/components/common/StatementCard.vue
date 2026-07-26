@@ -12,6 +12,7 @@ const props = withDefaults(
   defineProps<{
     anchorColor?: string
     anchorTexts?: readonly string[]
+    authorDetailRecordIds?: readonly string[]
     overlaySide?: OverlaySide
     record: IntentRecord
     showAuthor?: boolean
@@ -94,6 +95,13 @@ function setContextVisible(visible: boolean) {
   emit('contextHoverChange', visible)
 }
 
+function openAuthorDetail() {
+  authorDetailStore.openAuthorDetail(props.record.author, {
+    recordIds: props.authorDetailRecordIds,
+    side: 'left',
+  })
+}
+
 onBeforeUnmount(() => {
   emit('contextHoverChange', false)
 })
@@ -113,7 +121,7 @@ onBeforeUnmount(() => {
             v-if="item.interactive"
             type="button"
             class="statement-card__meta-author statement-card__meta-underlined"
-            @click.stop="authorDetailStore.openAuthorDetail(record.author, { side: 'left' })"
+            @click.stop="openAuthorDetail"
           >
             {{ item.text }}
           </button>
