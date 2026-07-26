@@ -20,7 +20,7 @@ const emit = defineEmits<{
 }>()
 
 function select() {
-  if (props.interactionType === 'click') emit('select')
+  emit('select')
 }
 
 function setInteraction(active: boolean) {
@@ -37,7 +37,7 @@ function setInteraction(active: boolean) {
       [`strategy-button--${interactionType}`]: true,
     }"
     :style="{ '--strategy-button-color': color, minWidth }"
-    :aria-pressed="interactionType === 'click' ? active : undefined"
+    :aria-pressed="active"
     @click.stop="select"
     @mouseenter="setInteraction(true)"
     @mouseleave="setInteraction(false)"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
 import type { OverlaySide } from '../../types/overlay'
 import {
@@ -7,8 +7,9 @@ import {
   getStatementPatternBadges,
   getStatementPatternBriefJustification,
 } from '../../utils/statementPatterns'
+import { intentSubLabelDescriptions } from '../../utils/intentTaxonomy'
 import { getDisplayLabel } from '../../utils/statementHighlights'
-import SideOverlay from './SideOverlay.vue'
+import SideOverlayPattern from './SideOverlayPattern.vue'
 import StatementCard from './StatementCard.vue'
 import StrategyBadgeContainer from './StrategyBadgeContainer.vue'
 import StatementRepresentation from '../statement/StatementRepresentation.vue'
@@ -35,25 +36,59 @@ const emit = defineEmits<{
 }>()
 
 const hoveredLabel = ref<PatternLabelKey | null>(null)
+const selectedLabel = ref<PatternLabelKey | null>(null)
 const badges = computed(() => getStatementPatternBadges(props.record))
-const hoveredBadge = computed(
-  () => badges.value.find((badge) => badge.label === hoveredLabel.value) ?? null,
+const activeLabel = computed(() => hoveredLabel.value)
+const activeBadge = computed(
+  () => badges.value.find((badge) => badge.label === activeLabel.value) ?? null,
 )
-const hoveredAnchors = computed(() =>
-  hoveredLabel.value ? getStatementPatternAnchors(props.record, hoveredLabel.value) : [],
+const activeAnchors = computed(() =>
+  activeLabel.value ? getStatementPatternAnchors(props.record, activeLabel.value) : [],
 )
-const hoveredExplanation = computed(() =>
-  hoveredLabel.value
-    ? getStatementPatternBriefJustification(props.record, hoveredLabel.value)
+const activeExplanation = computed(() =>
+  activeLabel.value
+    ? getStatementPatternBriefJustification(props.record, activeLabel.value)
     : null,
 )
+const activeDefinition = computed(() =>
+  activeLabel.value ? intentSubLabelDescriptions[activeLabel.value] ?? '' : '',
+)
+const definitionIsVisible = computed(
+  () => selectedLabel.value !== null && selectedLabel.value === activeLabel.value,
+)
 const explanationBackground = computed(() =>
-  hoveredBadge.value ? hoveredBadge.value.color : undefined,
+  activeBadge.value ? activeBadge.value.color : undefined,
 )
 
-watch(hoveredLabel, (label) => {
+watch(activeLabel, (label) => {
+  if (!label) {
+    selectedLabel.value = null
+  }
+
   emit('badgeHoverChange', Boolean(label))
 })
+
+async function toggleSelectedLabel(label: PatternLabelKey) {
+  if (selectedLabel.value === label) {
+    selectedLabel.value = null
+    return
+  }
+
+  if (hoveredLabel.value !== label) {
+    hoveredLabel.value = label
+  }
+
+  await nextTick()
+
+  if (hoveredLabel.value === label) {
+    selectedLabel.value = label
+  }
+}
+
+function closePatternOverlay() {
+  hoveredLabel.value = null
+  selectedLabel.value = null
+}
 </script>
 
 <template>
@@ -61,13 +96,17 @@ watch(hoveredLabel, (label) => {
     class="statement-pattern-card"
     :class="{ 'statement-pattern-card--without-badges': badges.length === 0 }"
   >
-    <SideOverlay
+    <SideOverlayPattern
+      :key="activeBadge?.label ?? 'no-pattern'"
       :color="explanationBackground"
+      :definition="activeDefinition"
+      :expanded="definitionIsVisible"
+      label="Why?"
       :side="overlaySide"
-      :text="hoveredExplanation ?? ''"
-      :title="hoveredBadge ? `Why ${getDisplayLabel(hoveredBadge.label)}?` : ''"
-      :visible="Boolean(hoveredBadge && hoveredExplanation)"
-      @close="hoveredLabel = null"
+      :text="activeExplanation ?? ''"
+      :title="activeBadge ? getDisplayLabel(activeBadge.label) : ''"
+      :visible="Boolean(activeBadge && activeExplanation)"
+      @close="closePatternOverlay"
     />
 
     <StatementRepresentation
@@ -77,8 +116,8 @@ watch(hoveredLabel, (label) => {
     />
 
     <StatementCard
-      :anchor-color="hoveredBadge?.color"
-      :anchor-texts="hoveredAnchors"
+      :anchor-color="activeBadge?.color"
+      :anchor-texts="activeAnchors"
       :record="record"
       :overlay-side="overlaySide"
       :show-author="showAuthor"
@@ -91,6 +130,8 @@ watch(hoveredLabel, (label) => {
       v-if="badges.length > 0"
       v-model:hovered-label="hoveredLabel"
       :badges="badges"
+      :selected-label="selectedLabel"
+      @toggle-label="toggleSelectedLabel"
     />
   </div>
 </template>
