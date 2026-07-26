@@ -5,7 +5,7 @@
     {
       "label": "Enemy Image",
       "labelKey": "enemy_image",
-      "description": "Enemy Image describes argumentative and rhetorical patterns that portray an outgroup as homogeneous, fundamentally different, threatening, or in a generally negative light.",
+      "description": "Enemy Image portrays an outgroup as a threatening collective that is fundamentally different or less than human. This can affect the ingroup’s general perception of the outgroup and lead to desensitization, enabling participation in violence without remorse.",
       "subLabels": [
         {
           "labelKey": "homogenization",
@@ -37,7 +37,7 @@
     {
       "label": "Just Cause",
       "labelKey": "just_cause",
-      "description": "Just Cause describes linguistic patterns that frame violent or harmful measures as rational, necessary, or morally justified. By linking a measure to a specific cause, these statements create a logic of justification in which violence can appear legitimate rather than arbitrary.",
+      "description": "Just Cause frames violent or harmful measures as rational, necessary, or morally justified. By linking a measure to a specific cause, these patterns create a logic of justification in which violence can appear legitimate rather than arbitrary.",
       "subLabels": [
         {
           "labelKey": "security_rationale",
@@ -59,7 +59,7 @@
     {
       "label": "Individual Needs",
       "labelKey": "individual_needs",
-      "description": "Individual Needs describes rhetorical patterns that appeal to personal needs within the ingroup. These patterns can encourage support, participation, or sacrifice by making people feel needed, respected, hopeful, or part of a meaningful collective mission.",
+      "description": "Individual Needs appeals to the ingroup’s personal needs. By making people feel needed, respected, hopeful, or part of a meaningful project, these patterns can encourage support and participation.",
       "subLabels": [
         {
           "labelKey": "meaning",
@@ -81,7 +81,7 @@
     {
       "label": "Rhetorical Foreclosure",
       "labelKey": "rhetorical_foreclosure",
-      "description": "Rhetorical Foreclosure describes linguistic patterns that exclude or devalue alternatives, criticism, or moral concerns. This narrows the space for doubt, reflection, and opposition. In conflict situations, this strategy can be especially effective because people may question messages less critically and place more trust in authorities.",
+      "description": "Rhetorical Foreclosure narrows the ingroup’s perspective by dismissing alternatives, criticism, and moral concerns. In conflict situations, this can be effective because people might question information less critically and place more trust in authorities.",
       "subLabels": [
         {
           "labelKey": "no_alternative_framing",

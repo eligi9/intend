@@ -20,6 +20,7 @@ withDefaults(
 )
 
 defineEmits<{
+  hover: [key: string | null]
   select: [key: string]
 }>()
 </script>
@@ -37,6 +38,10 @@ defineEmits<{
         :active="item.active"
         :min-width="item.minWidth"
         interaction-type="click"
+        @blur="$emit('hover', null)"
+        @focus="$emit('hover', item.key)"
+        @mouseenter="$emit('hover', item.key)"
+        @mouseleave="$emit('hover', null)"
         @select="$emit('select', item.key)"
       />
     </div>
