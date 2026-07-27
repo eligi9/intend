@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import gsap from 'gsap'
-import VerticalLineGrid from '../../components/common/VerticalLineGrid.vue'
 import EstablishmentFeaturedStatement from '../../components/establishment/EstablishmentFeaturedStatement.vue'
 import EstablishmentHeroSection from '../../components/establishment/EstablishmentHeroSection.vue'
 import EstablishmentIntroSection from '../../components/establishment/EstablishmentIntroSection.vue'
 import { useStatementStore } from '../../stores/statementStore'
+import {
+  getAcceleratedContainerScrollOffset,
+  getNaturalViewportTop,
+} from '../../utils/scrollMotion'
 
 interface EstablishmentIntroSectionExpose {
   getIntroCopyElement: () => HTMLElement | null
@@ -20,25 +23,29 @@ const rootElement = ref<HTMLElement | null>(null)
 const headingElement = ref<HTMLElement | null>(null)
 const introSection = ref<EstablishmentIntroSectionExpose | null>(null)
 const statementStore = useStatementStore()
-const introGridLineCount = 8
-const introGridLabels: string[] = []
+const primaryStatementScrollCompensation = 0.4
+const headingHoldViewportRatio = 0.5
+let motionMedia: ReturnType<typeof gsap.matchMedia> | null = null
+let prefersReducedMotion = false
 const primaryFeaturedRecord = computed(() =>
   statementStore.records.find((record) => record.id === 'decisionmakers-0024'),
 )
 const secondaryFeaturedRecord = computed(() =>
-  statementStore.records.find((record) => record.id === 'legislators-0039'),
+  statementStore.records.find((record) => record.id === 'legislators-0005'),
 )
-
-function clampProgress(value: number) {
-  return Math.min(Math.max(value, 0), 1)
-}
 
 function getHeadingPositions() {
   const initialY = window.innerHeight * 0.61803398875
-  const secondPageUpperRowCenter = window.innerHeight * 0.38197 / 2
-  const secondPageY = secondPageUpperRowCenter
 
-  return { initialY, secondPageY }
+  return { initialY }
+}
+
+function getHeadingY(introRootTop: number, initialY: number) {
+  const headingHoldDistance = window.innerHeight * headingHoldViewportRatio
+  const scrollDistance = window.innerHeight - introRootTop
+  const distanceAfterHold = Math.max(0, scrollDistance - headingHoldDistance)
+
+  return initialY - distanceAfterHold
 }
 
 function updateScrollState() {
@@ -50,25 +57,68 @@ function updateScrollState() {
     return
   }
 
-  const { initialY, secondPageY } = getHeadingPositions()
-  const introFadeDistance = window.innerHeight * 0.95
-  const introRootRect = introRoot.getBoundingClientRect()
-  const introRect = introCopy.getBoundingClientRect()
-  const releaseLine = window.innerHeight / 3
-  const releaseDistance = Math.max(0, releaseLine - introRect.top)
-  const headingArrivalProgress = clampProgress(1 - introRootRect.top / window.innerHeight)
-  const introProgress = clampProgress(releaseDistance / introFadeDistance)
-  const arrivingHeadingY = initialY + (secondPageY - initialY) * headingArrivalProgress
-  const headingY = introRootRect.top < 0
-    ? secondPageY + introRootRect.top
-    : arrivingHeadingY
+  const { initialY } = getHeadingPositions()
+  const rootRect = rootElement.value.getBoundingClientRect()
+  const naturalIntroRootTop = getNaturalViewportTop(introRoot)
+  const containerAcceleratedOffset = prefersReducedMotion
+    ? 0
+    : getAcceleratedContainerScrollOffset(introRoot)
+  const headingY =
+    getHeadingY(naturalIntroRootTop, initialY) + containerAcceleratedOffset
 
   gsap.set(heading, { autoAlpha: 1, y: headingY })
+  gsap.set(introRoot, { y: containerAcceleratedOffset })
+  const primaryStatement = rootElement.value.querySelector<HTMLElement>(
+    '.establishment-featured-statement--primary',
+  )
+
+  if (primaryStatement) {
+    gsap.set(primaryStatement, {
+      y: Math.max(0, -rootRect.top) * primaryStatementScrollCompensation,
+    })
+  }
+
   gsap.set(introCopy, {
-    autoAlpha: 1 - introProgress,
-    y: -52 * introProgress,
+    autoAlpha: 1,
+    y: 0,
   })
 }
+
+onMounted(() => {
+  motionMedia = gsap.matchMedia()
+  motionMedia.add(
+    {
+      reduceMotion: '(prefers-reduced-motion: reduce)',
+    },
+    (context) => {
+      prefersReducedMotion = Boolean(context.conditions?.reduceMotion)
+      updateScrollState()
+    },
+    rootElement.value ?? undefined,
+  )
+})
+
+onBeforeUnmount(() => {
+  const introCopy = introSection.value?.getIntroCopyElement()
+  const introRoot = introSection.value?.getIntroRootElement()
+
+  if (headingElement.value) {
+    gsap.killTweensOf(headingElement.value)
+  }
+
+  if (introCopy) {
+    gsap.killTweensOf(introCopy)
+    gsap.set(introCopy, { clearProps: 'transform' })
+  }
+
+  if (introRoot) {
+    gsap.killTweensOf(introRoot)
+    gsap.set(introRoot, { clearProps: 'transform' })
+  }
+
+  motionMedia?.revert()
+  motionMedia = null
+})
 
 defineExpose({
   updateScrollState,
@@ -77,38 +127,37 @@ defineExpose({
 
 <template>
   <section ref="rootElement" class="establishment-intro-view">
-    <VerticalLineGrid
-      class="establishment-intro-view__grid"
-      :labels="introGridLabels"
-      :line-count="introGridLineCount"
-    />
+    <div class="establishment-intro-view__hero-container">
+      <EstablishmentFeaturedStatement
+        v-if="secondaryFeaturedRecord"
+        class="establishment-featured-statement--secondary"
+        highlight-label="no_alternative_framing"
+        :record="secondaryFeaturedRecord"
+      />
 
-    <EstablishmentFeaturedStatement
-      v-if="secondaryFeaturedRecord"
-      class="establishment-featured-statement--secondary"
-      :record="secondaryFeaturedRecord"
-    />
+      <EstablishmentFeaturedStatement
+        v-if="primaryFeaturedRecord"
+        class="establishment-featured-statement--primary"
+        :record="primaryFeaturedRecord"
+      />
 
-    <div
-      ref="headingElement"
-      class="establishment-view__sticky-heading"
-      aria-labelledby="landing-title"
-    >
-      <div class="establishment-view__sticky-heading-inner">
-        <div class="establishment-view__content">
-          <EstablishmentFeaturedStatement
-            v-if="primaryFeaturedRecord"
-            :record="primaryFeaturedRecord"
-          />
-          <h1 id="landing-title">Incitement to<br />Genocide</h1>
-          <p class="establishment-view__subtitle">
-            How can language make violence seem justified?
-          </p>
+      <div
+        ref="headingElement"
+        class="establishment-view__sticky-heading"
+        aria-labelledby="landing-title"
+      >
+        <div class="establishment-view__sticky-heading-inner">
+          <div class="establishment-view__content">
+            <h1 id="landing-title">Incitement to<br />Genocide</h1>
+            <p class="establishment-view__subtitle">
+              How can language make violence seem justified?
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <EstablishmentHeroSection />
+      <EstablishmentHeroSection />
+    </div>
 
     <EstablishmentIntroSection
       ref="introSection"

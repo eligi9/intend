@@ -17,6 +17,7 @@ import { isPatternActive, isPatternGroupActive } from '../../utils/intentRecordP
 defineProps<ExploreHeaderProps>()
 
 const emit = defineEmits<{
+  'establishment-select': []
   'section-select': [section: ExploreViewSection]
 }>()
 
@@ -97,6 +98,7 @@ function closeDetail() {
       :sections="sections"
       subline="Hover for an explanation. Click to explore statements containing the pattern."
       title="How are patterns organized?"
+      @establishment-select="emit('establishment-select')"
       @select="emit('section-select', $event)"
     />
 

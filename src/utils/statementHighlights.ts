@@ -14,6 +14,7 @@ interface HighlightRange {
 
 interface NormalizedText {
   endMap: number[]
+  source: string
   startMap: number[]
   text: string
 }
@@ -22,6 +23,49 @@ export function splitStatementText(text: string, anchors: AnchorHighlight[]) {
   const ranges = findHighlightRanges(text, anchors)
 
   return ranges.flatMap((range) => splitRangeByBrackets(text, range))
+}
+
+export function splitStatementTextExcludingMeasures(
+  text: string,
+  anchors: AnchorHighlight[],
+  measures: readonly string[],
+  maxAnchors = Number.POSITIVE_INFINITY,
+) {
+  const measureRanges = findHighlightRanges(
+    text,
+    measures.map((measure) => ({
+      color: 'measure',
+      text: measure,
+    })),
+  ).filter((range) => range.color !== null)
+  const candidates = anchors
+    .flatMap((anchor) =>
+      findHighlightRanges(text, [anchor])
+        .filter(
+          (anchorRange) =>
+            anchorRange.color !== null &&
+            !measureRanges.some((measureRange) => rangesOverlap(anchorRange, measureRange)),
+        )
+        .map((range) => ({ anchor, range })),
+    )
+    .sort(
+      (first, second) =>
+        first.range.start - second.range.start ||
+        second.range.end - second.range.start - (first.range.end - first.range.start),
+    )
+  const seenAnchors = new Set<string>()
+  const nonOverlappingAnchors = candidates
+    .filter(({ anchor }) => {
+      const key = `${anchor.color}\u0000${normalizePlainText(anchor.text)}`
+      if (seenAnchors.has(key)) return false
+
+      seenAnchors.add(key)
+      return true
+    })
+    .slice(0, maxAnchors)
+    .map(({ anchor }) => anchor)
+
+  return splitStatementText(text, nonOverlappingAnchors)
 }
 
 export function splitMeasureText(text: string, measures: readonly string[]) {
@@ -40,6 +84,10 @@ export function splitMeasureText(text: string, measures: readonly string[]) {
   }))
 }
 
+function rangesOverlap(first: HighlightRange, second: HighlightRange) {
+  return first.start < second.end && second.start < first.end
+}
+
 export function getDisplayLabel(label: PatternLabelKey) {
   return intentLabelNames[label]
 }
@@ -47,10 +95,16 @@ export function getDisplayLabel(label: PatternLabelKey) {
 function findHighlightRanges(text: string, anchors: AnchorHighlight[]) {
   const normalizedStatement = normalizeText(text)
   const normalizedAnchors = anchors
-    .map((anchor) => ({
-      color: anchor.color,
-      text: normalizePlainText(anchor.text),
-    }))
+    .map((anchor) => {
+      const trimmedText = anchor.text.trim()
+
+      return {
+        color: anchor.color,
+        includeLeadingQuote: isIgnoredQuote(trimmedText[0]),
+        includeTrailingQuote: isIgnoredQuote(trimmedText[trimmedText.length - 1]),
+        text: normalizePlainText(trimmedText),
+      }
+    })
     .filter((anchor) => anchor.text.length > 0)
     .sort((first, second) => second.text.length - first.text.length)
 
@@ -84,7 +138,12 @@ function findHighlightRanges(text: string, anchors: AnchorHighlight[]) {
 
 function findNextMatch(
   statement: NormalizedText,
-  anchors: { color: string; text: string }[],
+  anchors: {
+    color: string
+    includeLeadingQuote: boolean
+    includeTrailingQuote: boolean
+    text: string
+  }[],
   cursor: number,
 ) {
   return anchors.reduce<HighlightRange | null>((nearest, anchor) => {
@@ -92,9 +151,19 @@ function findNextMatch(
     if (matchIndex === -1) return nearest
 
     const matchEndIndex = matchIndex + anchor.text.length - 1
-    const start = statement.startMap[matchIndex]
-    const end = statement.endMap[matchEndIndex]
-    if (start === undefined || end === undefined) return nearest
+    const mappedStart = statement.startMap[matchIndex]
+    const mappedEnd = statement.endMap[matchEndIndex]
+    if (mappedStart === undefined || mappedEnd === undefined) return nearest
+    const start =
+      anchor.includeLeadingQuote &&
+      mappedStart > 0 &&
+      isIgnoredQuote(statement.source[mappedStart - 1])
+        ? mappedStart - 1
+        : mappedStart
+    const end =
+      anchor.includeTrailingQuote && isIgnoredQuote(statement.source[mappedEnd])
+        ? mappedEnd + 1
+        : mappedEnd
 
     if (!nearest || start < nearest.start) {
       return { color: anchor.color, start, end }
@@ -147,6 +216,7 @@ function normalizeText(text: string): NormalizedText {
 
   return {
     endMap,
+    source: text,
     startMap,
     text: normalized.trimEnd(),
   }

@@ -16,6 +16,7 @@ import type { ExploreHeaderProps, ExploreViewSection } from '../../types/explore
 defineProps<ExploreHeaderProps>()
 
 const emit = defineEmits<{
+  'establishment-select': []
   'section-select': [section: ExploreViewSection]
 }>()
 
@@ -75,6 +76,7 @@ function showAuthorDetail(authorName: string) {
       :sections="sections"
       subline="Hover to preview. Click to explore the author’s statements."
       title="Who made these statements?"
+      @establishment-select="emit('establishment-select')"
       @select="emit('section-select', $event)"
     />
 

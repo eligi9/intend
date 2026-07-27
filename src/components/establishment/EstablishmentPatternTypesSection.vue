@@ -1,9 +1,12 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import gsap from 'gsap'
 import { intentTaxonomy } from '../../utils/intentTaxonomy'
-import VerticalLineGrid from '../common/VerticalLineGrid.vue'
+import { getAcceleratedContainerScrollOffset } from '../../utils/scrollMotion'
 
-const gridLineCount = 8
-const gridLabels: string[] = []
+const rootElement = ref<HTMLElement | null>(null)
+let motionMedia: ReturnType<typeof gsap.matchMedia> | null = null
+let prefersReducedMotion = false
 const patternTypes = intentTaxonomy.map((patternType) => {
   const firstSentenceEnd = patternType.description.indexOf('.')
 
@@ -13,27 +16,63 @@ const patternTypes = intentTaxonomy.map((patternType) => {
       firstSentenceEnd >= 0
         ? patternType.description.slice(0, firstSentenceEnd + 1)
         : patternType.description,
-    descriptionRemainder:
-      firstSentenceEnd >= 0
-        ? patternType.description.slice(firstSentenceEnd + 1).trim()
-        : '',
     title: patternType.label,
+    titleLines: patternType.label.split(' '),
   }
+})
+
+function updateScrollState() {
+  if (!rootElement.value) return
+
+  const acceleration = prefersReducedMotion
+    ? 0
+    : getAcceleratedContainerScrollOffset(rootElement.value)
+
+  gsap.set(rootElement.value, { y: acceleration })
+}
+
+onMounted(() => {
+  motionMedia = gsap.matchMedia()
+  motionMedia.add(
+    {
+      reduceMotion: '(prefers-reduced-motion: reduce)',
+    },
+    (context) => {
+      prefersReducedMotion = Boolean(context.conditions?.reduceMotion)
+      updateScrollState()
+    },
+    rootElement.value ?? undefined,
+  )
+})
+
+onBeforeUnmount(() => {
+  if (rootElement.value) {
+    gsap.killTweensOf(rootElement.value)
+    gsap.set(rootElement.value, { clearProps: 'transform' })
+  }
+
+  motionMedia?.revert()
+  motionMedia = null
+})
+
+defineExpose({
+  updateScrollState,
 })
 </script>
 
 <template>
-  <section class="establishment-pattern-types" aria-labelledby="pattern-types-title">
-    <VerticalLineGrid
-      class="establishment-pattern-types__grid"
-      :labels="gridLabels"
-      :line-count="gridLineCount"
-    />
-
+  <section
+    ref="rootElement"
+    class="establishment-pattern-types"
+    aria-labelledby="pattern-types-title"
+  >
     <div class="establishment-pattern-types__inner">
       <header class="establishment-pattern-types__header">
-        <h2 id="pattern-types-title">Pattern Types</h2>
-        <p>Which main rhetorical pattern types are we looking for?</p>
+        <h2 id="pattern-types-title">Rhetorical Frames</h2>
+        <p class="establishment-pattern-types__description">
+          Statements were analyzed across four categories that either legitimize violence or drive
+          mobilization.
+        </p>
       </header>
 
       <div class="establishment-pattern-types__body">
@@ -43,14 +82,16 @@ const patternTypes = intentTaxonomy.map((patternType) => {
           class="establishment-pattern-types__card"
           :class="patternType.className"
         >
-          <h3>{{ patternType.title }}</h3>
+          <h3>
+            <span
+              v-for="(titleLine, index) in patternType.titleLines"
+              :key="`${patternType.title}-${index}`"
+            >
+              {{ titleLine }}
+            </span>
+          </h3>
           <p>
             <span>{{ patternType.descriptionFirstSentence }}</span>
-            <template v-if="patternType.descriptionRemainder">
-              <br />
-              <br />
-              <span>{{ patternType.descriptionRemainder }}</span>
-            </template>
           </p>
         </article>
       </div>

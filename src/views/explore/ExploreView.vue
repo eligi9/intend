@@ -7,6 +7,10 @@ import PatternsView from './PatternsView.vue'
 import StatementView from './StatementView.vue'
 import TimelineView from './TimelineView.vue'
 
+const emit = defineEmits<{
+  exit: []
+}>()
+
 const activeView = ref<ExploreViewSection>('statements')
 
 const exploreSections: ExploreHeaderSection[] = [
@@ -40,24 +44,28 @@ function showView(section: ExploreViewSection) {
         v-if="activeView === 'statements'"
         :active-section="activeView"
         :sections="exploreSections"
+        @establishment-select="emit('exit')"
         @section-select="showView"
       />
       <AuthorView
         v-else-if="activeView === 'authors'"
         :active-section="activeView"
         :sections="exploreSections"
+        @establishment-select="emit('exit')"
         @section-select="showView"
       />
       <PatternsView
         v-else-if="activeView === 'patterns'"
         :active-section="activeView"
         :sections="exploreSections"
+        @establishment-select="emit('exit')"
         @section-select="showView"
       />
       <TimelineView
         v-else
         :active-section="activeView"
         :sections="exploreSections"
+        @establishment-select="emit('exit')"
         @section-select="showView"
       />
     </div>

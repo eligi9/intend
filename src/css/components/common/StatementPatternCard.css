@@ -18,6 +18,10 @@
   justify-self: center;
 }
 
+.statement-pattern-card--without-representation {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .statement-pattern-card > .statement-card {
   grid-column: 1;
   grid-row: 1;

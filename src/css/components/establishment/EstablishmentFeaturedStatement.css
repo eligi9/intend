@@ -1,6 +1,6 @@
 .establishment-featured-statement {
   position: absolute;
-  bottom: calc(100% + var(--space-6));
+  bottom: calc(100% + var(--space-10));
   right: calc(100% - 21.428571vw);
   left: auto;
   display: grid;
@@ -17,10 +17,18 @@
 
 .establishment-featured-statement--secondary {
   z-index: 2;
-  top: var(--space-9);
+  top: var(--establishment-intro-fold-y);
   right: auto;
   bottom: auto;
   left: 64.285714vw;
+}
+
+.establishment-featured-statement--primary {
+  z-index: 2;
+  top: 20vh;
+  right: auto;
+  bottom: auto;
+  left: var(--establishment-intro-column-width);
 }
 
 .establishment-featured-statement__meta,
@@ -47,6 +55,19 @@
 
 .establishment-featured-statement__quote-layer {
   display: block;
+}
+
+.establishment-featured-statement__quote-layer--anchors {
+  position: relative;
+  z-index: 1;
+}
+
+.establishment-featured-statement__quote-part--highlighted {
+  color: var(--color-white);
+}
+
+.establishment-featured-statement__quote-part--muted {
+  opacity: 0.5;
 }
 
 .establishment-featured-statement__quote-layer--measures {

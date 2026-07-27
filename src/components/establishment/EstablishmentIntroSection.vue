@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   paragraphs: readonly string[]
 }>()
 
 const introCopyElement = ref<HTMLElement | null>(null)
 const introRootElement = ref<HTMLElement | null>(null)
+const paragraphColumns = computed(() => [
+  props.paragraphs.slice(0, 2),
+  props.paragraphs.slice(2),
+])
 
 function splitLinkedText(text: string) {
   const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g
@@ -51,26 +55,36 @@ defineExpose({
   >
     <div class="establishment-view__intro-inner">
       <div class="establishment-view__text">
+        <h2 class="establishment-view__intro-heading-placeholder" aria-hidden="true">
+          Incitement to<br />Genocide
+        </h2>
+
         <div
           ref="introCopyElement"
           class="establishment-view__copy"
         >
-          <p v-for="paragraph in paragraphs" :key="paragraph">
-            <template
-              v-for="(segment, index) in splitLinkedText(paragraph)"
-              :key="`${paragraph}-${index}`"
-            >
-              <a
-                v-if="segment.href"
-                :href="segment.href"
-                target="_blank"
-                rel="noreferrer"
+          <div
+            v-for="(paragraphsInColumn, columnIndex) in paragraphColumns"
+            :key="`copy-column-${columnIndex}`"
+            class="establishment-view__copy-column"
+          >
+            <p v-for="paragraph in paragraphsInColumn" :key="paragraph">
+              <template
+                v-for="(segment, index) in splitLinkedText(paragraph)"
+                :key="`${paragraph}-${index}`"
               >
-                {{ segment.text }}
-              </a>
-              <template v-else>{{ segment.text }}</template>
-            </template>
-          </p>
+                <a
+                  v-if="segment.href"
+                  :href="segment.href"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {{ segment.text }}
+                </a>
+                <template v-else>{{ segment.text }}</template>
+              </template>
+            </p>
+          </div>
         </div>
       </div>
     </div>

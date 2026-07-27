@@ -19,6 +19,7 @@ import { getMainLabelCount, sortStatementsBySize } from '../../utils/sort'
 defineProps<ExploreHeaderProps>()
 
 const emit = defineEmits<{
+  'establishment-select': []
   'section-select': [section: ExploreViewSection]
 }>()
 
@@ -97,6 +98,7 @@ function closeActiveDetail() {
       :sections="sections"
       subline="Hover to preview. Click to explore the statement’s patterns."
       title="How many rhetorical frames do statements use?"
+      @establishment-select="emit('establishment-select')"
       @select="emit('section-select', $event)"
     />
 

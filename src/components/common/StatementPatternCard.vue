@@ -21,12 +21,14 @@ const props = withDefaults(
     overlaySide?: OverlaySide
     showAuthor?: boolean
     showContextButton?: boolean
+    showRepresentation?: boolean
     underlineDate?: boolean
   }>(),
   {
     overlaySide: 'left',
     showAuthor: false,
     showContextButton: true,
+    showRepresentation: true,
     underlineDate: true,
   },
 )
@@ -95,7 +97,10 @@ function closePatternOverlay() {
 <template>
   <div
     class="statement-pattern-card"
-    :class="{ 'statement-pattern-card--without-badges': badges.length === 0 }"
+    :class="{
+      'statement-pattern-card--without-badges': badges.length === 0,
+      'statement-pattern-card--without-representation': !showRepresentation,
+    }"
   >
     <SideOverlayPattern
       :key="activeBadge?.label ?? 'no-pattern'"
@@ -111,6 +116,7 @@ function closePatternOverlay() {
     />
 
     <StatementRepresentation
+      v-if="showRepresentation"
       class="statement-pattern-card__representation"
       size="large"
       :statement="record"

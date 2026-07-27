@@ -22,6 +22,7 @@ import { createStrategyTimelineDomain } from '../../utils/strategyTimelineDomain
 defineProps<ExploreHeaderProps>()
 
 const emit = defineEmits<{
+  'establishment-select': []
   'section-select': [section: ExploreViewSection]
 }>()
 
@@ -82,6 +83,7 @@ function closeDetail() {
           ? 'How are patterns distributed over time?'
           : 'How are statements distributed over time?'
       "
+      @establishment-select="emit('establishment-select')"
       @select="emit('section-select', $event)"
     />
 
