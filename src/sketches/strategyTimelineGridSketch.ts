@@ -8,6 +8,12 @@ import {
 } from '../utils/colorTokens'
 import { readCssLengthTokenInPixels, readCssToken } from '../utils/cssTokens'
 import { setP5Cursor, setupResizableP5Canvas } from '../utils/p5Canvas'
+import {
+  formatIsoDateRange,
+  formatTimelineMonthLabel,
+  getCalendarMonthOffset,
+  parseIsoDate,
+} from '../utils/time'
 
 const EVENT_LABEL_PADDING_X = 8
 const EVENT_LABEL_WIDTH = 108
@@ -142,7 +148,7 @@ function drawDivisions(
     p.push()
     p.translate(x + 4, Math.max(0, p.height - filterHeight - filterGap))
     p.rotate(-p.HALF_PI)
-    p.text(formatMonthLabel(labelDate), 0, 0)
+    p.text(formatTimelineMonthLabel(labelDate), 0, 0)
     p.pop()
   }
 
@@ -237,13 +243,13 @@ function getPositionedEvents(
 
   return state.events
     .map((event) => {
-      const date = parseEventDate(event.date)
+      const date = parseIsoDate(event.date)
       if (!date) return null
       const monthOffset = getCalendarMonthOffset(state.startDate, date)
       const x = clamp(monthOffset, 0, state.divisions) * divisionWidth
 
       return {
-        date: formatIsoDate(event.date, event.endDate),
+        date: formatIsoDateRange(event.date, event.endDate),
         event,
         label: event.label,
         x,
@@ -350,51 +356,6 @@ function getEventLabelHeight(labelLines: string[], fontSizes: EventTypography) {
   return fontSizes.date + fontSizes.gap + labelTextHeight
 }
 
-function getCalendarMonthOffset(startDate: Date, date: Date) {
-  const monthOffset =
-    (date.getFullYear() - startDate.getFullYear()) * 12 +
-    date.getMonth() -
-    startDate.getMonth()
-  const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
-  const dayOffset = (date.getDate() - 1) / daysInMonth
-
-  return monthOffset + dayOffset
-}
-
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))
-}
-
-function parseEventDate(value: string) {
-  const [year, month, day] = value.split('-').map(Number)
-
-  if (!Number.isFinite(day) || !Number.isFinite(month) || !Number.isFinite(year)) {
-    return null
-  }
-
-  return new Date(year, month - 1, day)
-}
-
-function formatIsoDate(date: string, endDate?: string) {
-  const start = formatEventDate(date)
-  return endDate ? `${start} - ${formatEventDate(endDate)}` : start
-}
-
-function formatMonthLabel(date: Date) {
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  if (date.getMonth() !== 0) return month
-
-  return `${month}/${String(date.getFullYear()).slice(-2)}`
-}
-
-function formatEventDate(date: string) {
-  const parsed = parseEventDate(date)
-
-  if (!parsed) return date
-
-  return new Intl.DateTimeFormat('en-GB', {
-    day: '2-digit',
-    month: '2-digit',
-    year: '2-digit',
-  }).format(parsed)
 }
