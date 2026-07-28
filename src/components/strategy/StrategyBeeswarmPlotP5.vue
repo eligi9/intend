@@ -11,10 +11,8 @@ import type {
   HoveredTimelineStatement,
 } from '../../types/strategyBeeswarm'
 import type { HoveredTimelineEvent, TimelineDomain, TimelineEvent } from '../../types/timeline'
-import {
-  createStrategyTimelineDomain,
-  getMonthDivisionCount,
-} from '../../utils/strategyTimelineDomain'
+import { createStrategyTimelineDomain } from '../../utils/strategyTimelineDomain'
+import { getCalendarMonthCount } from '../../utils/time'
 import { useAuthorStore } from '../../stores/authorStore'
 import AuthorPortrait from '../author/AuthorPortrait.vue'
 import TopOverlay from '../common/TopOverlay.vue'
@@ -105,7 +103,7 @@ function createGridSketch() {
   const domain = getTimeDomain()
 
   return createStrategyTimelineGridSketch(gridHost.value, {
-    divisions: getMonthDivisionCount(domain),
+    divisions: getCalendarMonthCount(domain.startDate, domain.endDate),
     endDate: domain.endDate,
     events: props.events ?? [],
     setHoveredEvent: (payload) => {
