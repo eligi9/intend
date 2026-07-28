@@ -1,144 +1,172 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
-import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
+import GridColumnLabels from '../../components/common/GridColumnLabels.vue'
+import ViewGrid from '../../components/common/ViewGrid.vue'
+import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
+import { useInitialViewportGridCell } from '../../composables/useInitialViewportGridCell'
+import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import { useAuthorStore } from '../../stores/authorStore'
+import { useStatementStore } from '../../stores/statementStore'
 import type { AuthorInstance } from '../../types/authorData'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
-import type { PatternLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
-import { toggleArrayItem } from '../../utils/arrays'
-import { strategyColors } from '../../utils/intentLabels'
-import AuthorDetailView from './AuthorDetailView.vue'
 
 defineProps<ExploreHeaderProps>()
 
 const emit = defineEmits<{
+  'establishment-select': []
   'section-select': [section: ExploreViewSection]
 }>()
 
 const authorStore = useAuthorStore()
+const authorDetailStore = useAuthorDetailStore()
+const statementStore = useStatementStore()
 const { authorInstances } = storeToRefs(authorStore)
+const { filteredRecords } = storeToRefs(statementStore)
 
-const selectedGender = ref<string | null>(null)
-const selectedPatternLabels = ref<PatternLabelKey[]>([])
-const selectedAuthorId = ref<string | null>(null)
-const authorPortraitSize = 92
+const {
+  cellSize: authorGridCellSize,
+  cellSizePx: authorGridCellSizePx,
+} = useInitialViewportGridCell({ columns: 16 })
+const authorPortraitSize = computed(() => Math.max(0, authorGridCellSizePx.value - 8))
 
-const genders = computed(() => {
-  const availableGenders = new Set(authorInstances.value.map((author) => author.gender ?? 'unknown'))
-
-  return ['female', 'male'].filter((gender) => availableGenders.has(gender))
-})
-const genderFilterLabels = computed(() =>
-  genders.value.map((gender) => ({
-    active: selectedGender.value === gender,
-    color: 'var(--color-neutral)',
-    key: gender,
-    label: getGenderLabel(gender),
-  })),
+const visibleAuthorNames = computed(
+  () => new Set(filteredRecords.value.map((record) => record.author)),
 )
-const patternFilterLabels = computed(() =>
-  intentTaxonomy.map((group) => ({
-    active: selectedPatternLabels.value.includes(group.parentLabel),
-    color: strategyColors[group.parentLabel] ?? 'var(--color-neutral)',
-    key: group.parentLabel,
-    label: group.label,
-  })),
+const otherPoliticalAndStateActors = computed(() =>
+  sortAuthorsBySelectionAndPatternCount(
+    authorInstances.value.filter((author) => author.roleGroup !== 'executive_officials'),
+  ),
+)
+const executiveLeadership = computed(() =>
+  sortAuthorsBySelectionAndPatternCount(
+    authorInstances.value.filter((author) => author.roleGroup === 'executive_officials'),
+  ),
 )
 
-function toggleGender(gender: string) {
-  selectedGender.value = selectedGender.value === gender ? null : gender
-}
-
-function togglePatternLabel(label: PatternLabelKey) {
-  selectedPatternLabels.value = toggleArrayItem(selectedPatternLabels.value, label)
-}
-
-function togglePatternLabelByKey(label: string) {
-  togglePatternLabel(label as PatternLabelKey)
-}
-
-function getGenderLabel(gender: string) {
-  if (gender === 'female') return 'Female'
-  return 'Male'
+function sortAuthorsBySelectionAndPatternCount(authors: AuthorInstance[]) {
+  return [...authors].sort((first, second) =>
+    Number(isAuthorVisible(second)) - Number(isAuthorVisible(first)) ||
+    second.usedTopLevelStrategyCount - first.usedTopLevelStrategyCount ||
+    first.name.localeCompare(second.name),
+  )
 }
 
 function isAuthorVisible(author: AuthorInstance) {
-  const matchesGender = !selectedGender.value || (author.gender ?? 'unknown') === selectedGender.value
-  const matchesPatterns = selectedPatternLabels.value.every((label) =>
-    author.usedTopLevelStrategyLabels.includes(label),
-  )
-
-  return matchesGender && matchesPatterns
+  return visibleAuthorNames.value.has(author.name)
 }
 
-function showAuthorDetail(authorId: string) {
-  selectedAuthorId.value = authorId
-}
+function showAuthorDetail(authorName: string) {
+  const filteredAuthorRecordIds = filteredRecords.value
+    .filter((record) => record.author === authorName)
+    .map((record) => record.id)
 
-function closeAuthorDetail() {
-  selectedAuthorId.value = null
+  authorDetailStore.openAuthorDetail(authorName, {
+    recordIds: filteredAuthorRecordIds,
+  })
 }
 </script>
 
 <template>
-  <section class="author-view">
+  <section class="author-view" :style="{ '--author-grid-cell-size': authorGridCellSize }">
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      title="Authors"
+      subline="Hover to preview. Click to explore the author’s statements."
+      title="Who made these statements?"
+      @establishment-select="emit('establishment-select')"
       @select="emit('section-select', $event)"
     />
 
-    <section class="author-filter-overlay" aria-label="Autoren Filter">
-      <section class="author-filters">
-        <FilterButtonContainer
-          title="Geschlecht"
-          :labels="genderFilterLabels"
-          @select="toggleGender"
-        />
-        <FilterButtonContainer
-          title="Mobilization Pattern"
-          :labels="patternFilterLabels"
-          @select="togglePatternLabelByKey"
-        />
+    <ExploreFilterBar
+      aria-label="Autoren Filter"
+      select-label="Filter authors by content category"
+    />
+
+    <GridColumnLabels
+      :cell-size-px="authorGridCellSizePx"
+      :columns="14"
+      :labels="[1, 5, 10]"
+      :offset-cells="1"
+      :padding-inline-cells="2"
+      scale-label="Number of Authors"
+    />
+
+    <ViewGrid
+      class="author-view__background-grid"
+      aria-hidden="true"
+      cell-size="var(--author-grid-cell-size)"
+    />
+
+    <section class="author-view__groups" aria-label="Authors by role">
+      <section class="author-view__group" aria-label="Government ministers">
+        <ViewGrid
+          class="author-view__authors"
+          cell-size="var(--author-grid-cell-size)"
+          :padding-block-start-cells="2"
+          :padding-inline-cells="3"
+          :show-lines="false"
+        >
+          <button
+            v-for="author in executiveLeadership"
+            :key="author.id"
+            type="button"
+            class="author-view__item"
+            :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
+            :disabled="!isAuthorVisible(author)"
+            :aria-label="`${author.name} Details anzeigen`"
+            @click="showAuthorDetail(author.name)"
+          >
+            <AuthorPortrait
+              :author="author"
+              background-color="var(--color-white)"
+              :size="authorPortraitSize"
+            />
+          </button>
+        </ViewGrid>
+      </section>
+
+      <section
+        class="author-view__group author-view__group--parliament"
+        aria-label="Other political and state officials"
+      >
+        <span class="author-view__group-divider-label author-view__group-divider-label--above">
+          Cabinet &amp;<br />
+          Executive Leadership
+        </span>
+        <span class="author-view__group-divider-label author-view__group-divider-label--below">
+          Other Political &amp;<br />
+          State Officials
+        </span>
+
+        <ViewGrid
+          class="author-view__authors"
+          cell-size="var(--author-grid-cell-size)"
+          :padding-inline-cells="3"
+          :show-lines="false"
+        >
+          <button
+            v-for="author in otherPoliticalAndStateActors"
+            :key="author.id"
+            type="button"
+            class="author-view__item"
+            :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
+            :disabled="!isAuthorVisible(author)"
+            :aria-label="`${author.name} Details anzeigen`"
+            @click="showAuthorDetail(author.name)"
+          >
+            <AuthorPortrait
+              :author="author"
+              background-color="var(--color-white)"
+              :size="authorPortraitSize"
+            />
+          </button>
+        </ViewGrid>
       </section>
     </section>
 
-    <section class="author-view__authors" aria-label="Autoren">
-      <button
-        v-for="author in authorInstances"
-        :key="author.id"
-        type="button"
-        class="author-view__item"
-        :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
-        :aria-label="`${author.name} Details anzeigen`"
-        @click="showAuthorDetail(author.id)"
-      >
-        <AuthorPortrait :author="author" :size="authorPortraitSize" />
-      </button>
-    </section>
-
-    <button
-      v-if="selectedAuthorId"
-      type="button"
-      class="author-view__scrim"
-      aria-label="Autor Detailansicht schliessen"
-      @click="closeAuthorDetail"
-    />
-
-    <Teleport to="body">
-      <Transition name="author-detail-overlay">
-        <AuthorDetailView
-          v-if="selectedAuthorId"
-          :author-id="selectedAuthorId"
-          @close="closeAuthorDetail"
-        />
-      </Transition>
-    </Teleport>
   </section>
 </template>
 

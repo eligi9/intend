@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import landingCopy from '../../content/landingCopy.json'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
+import type { NoteStartCorner, Point } from '../../types/geometry'
 import type { PatternLabelKey } from '../../types/intentData'
 import {
   getStatementPatternAnchors,
@@ -12,13 +13,6 @@ import {
 import AuthorPortrait from '../author/AuthorPortrait.vue'
 import EstablishmentNote from './EstablishmentNote.vue'
 import StatementCard from '../common/StatementCard.vue'
-
-type NoteStartCorner = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
-
-interface Point {
-  x: number
-  y: number
-}
 
 const emit = defineEmits<{
   enter: []

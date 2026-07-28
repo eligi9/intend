@@ -1,32 +1,35 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import FilterButtonContainer from '../../components/common/FilterButtonContainer.vue'
+import GridColumnLabels from '../../components/common/GridColumnLabels.vue'
+import SelectionView from '../../components/common/SelectionView.vue'
+import StrategyButton from '../../components/common/StrategyButton.vue'
+import VerticalLineGrid from '../../components/common/VerticalLineGrid.vue'
+import ViewGrid from '../../components/common/ViewGrid.vue'
+import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StatementButton from '../../components/statement/StatementButton.vue'
-import StatementDetailView from '../../components/statement/StatementDetailView.vue'
-import { useAuthorStore } from '../../stores/authorStore'
+import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
-import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
-import { toggleArrayItem } from '../../utils/arrays'
+import { intentTaxonomy } from '../../utils/intentTaxonomy'
 import { strategyColors } from '../../utils/intentLabels'
+import { getMainLabelCount, sortStatementsBySize } from '../../utils/sort'
 
 defineProps<ExploreHeaderProps>()
 
 const emit = defineEmits<{
+  'establishment-select': []
   'section-select': [section: ExploreViewSection]
 }>()
 
 const statementStore = useStatementStore()
-const authorStore = useAuthorStore()
+const authorDetailStore = useAuthorDetailStore()
 const { filteredRecords, filters } = storeToRefs(statementStore)
-const selectedStatement = ref<IntentRecord | null>(null)
+const selectionDetailIsOpen = ref(false)
+const statementGridLineCount = 25
+const statementGridLabels: string[] = []
 
-const selectedAuthor = computed(() =>
-  selectedStatement.value ? authorStore.getAuthorInstance(selectedStatement.value.author) : null,
-)
 const patternFilterLabels = computed(() =>
   intentTaxonomy.map((group) => ({
     active: filters.value.labelsAll.includes(group.parentLabel),
@@ -35,17 +38,56 @@ const patternFilterLabels = computed(() =>
     label: group.label,
   })),
 )
+const sortedRecords = computed(() => sortStatementsBySize(filteredRecords.value))
+const statementSegments = computed(() =>
+  [4, 3, 2, 1, 0]
+    .map((patternCount) => ({
+      patternCount,
+      records: sortedRecords.value.filter(
+        (record) => getMainLabelCount(record) === patternCount,
+      ),
+    })),
+)
+const hasActiveStatementFilters = computed(
+  () =>
+    filters.value.query.trim().length > 0 ||
+    filters.value.labelsAll.length > 0 ||
+    filters.value.measureCategories.length > 0,
+)
+const canShowSelection = computed(
+  () => hasActiveStatementFilters.value && sortedRecords.value.length > 0,
+)
+const activePatternFilterLabels = computed(() =>
+  [
+    ...patternFilterLabels.value
+    .filter((label) => label.active)
+    .map((label) => ({
+      color: label.color,
+      label: label.label,
+    })),
+    ...filters.value.measureCategories.map((category) => ({
+      color: 'rgba(var(--color-text-rgb), 0.74)',
+      label: category,
+    })),
+  ],
+)
+const selectionTitle = 'Selection'
+const selectionSearchTerm = computed(() => filters.value.query.trim())
 
-function togglePatternLabel(label: PatternLabelKey) {
-  statementStore.setLabelsAll(toggleArrayItem(filters.value.labelsAll, label))
+function openStatementDetail(statementId: string, authorName: string) {
+  authorDetailStore.openAuthorDetail(authorName, { recordIds: [statementId] })
 }
 
-function togglePatternLabelByKey(label: string) {
-  togglePatternLabel(label as PatternLabelKey)
+function openSelectionDetail() {
+  selectionDetailIsOpen.value = true
 }
 
-function closeStatementDetail() {
-  selectedStatement.value = null
+function closeSelectionDetail() {
+  selectionDetailIsOpen.value = false
+}
+
+function closeActiveDetail() {
+  closeSelectionDetail()
 }
 </script>
 
@@ -54,61 +96,95 @@ function closeStatementDetail() {
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      title="Statements"
+      subline="Hover to preview. Click to explore the statement’s patterns."
+      title="How many rhetorical frames do statements use?"
+      @establishment-select="emit('establishment-select')"
       @select="emit('section-select', $event)"
     />
 
-    <section class="statement-view__content" aria-label="Statements">
-      <button
-        v-if="selectedStatement"
-        type="button"
-        class="statement-view__scrim"
-        aria-label="Statement Detailansicht schliessen"
-        @click="closeStatementDetail"
-      />
+    <VerticalLineGrid
+      class="statement-view__line-grid"
+      :labels="statementGridLabels"
+      :line-count="statementGridLineCount"
+    />
 
-      <div class="statement-view__grid">
-        <StatementButton
-          v-for="statement in filteredRecords"
-          :key="statement.id"
-          :statement="statement"
-          @click="selectedStatement = statement"
-        />
-      </div>
+    <GridColumnLabels
+      :columns="24"
+      :labels="[1, 5, 10, 15, 20]"
+      :padding-inline-cells="2"
+      scale-label="Number of Statements"
+    />
+
+    <section
+      class="statement-view__groups"
+      aria-label="Statements by number of rhetorical functions"
+    >
+      <span class="statement-view__category-scale-label" aria-hidden="true">
+        Number of<br />Frames Used
+      </span>
+
+      <section
+        v-for="segment in statementSegments"
+        :key="segment.patternCount"
+        v-show="segment.records.length > 0"
+        class="statement-view__group"
+        :aria-label="`${segment.patternCount} rhetorical functions`"
+      >
+        <span class="statement-view__group-count" aria-hidden="true">
+          {{ segment.patternCount }}
+        </span>
+
+        <ViewGrid
+          class="statement-view__statements"
+          cell-size="var(--statement-grid-cell-size)"
+          :padding-inline-cells="2"
+          :show-lines="false"
+        >
+          <StatementButton
+            v-for="statement in segment.records"
+            :key="statement.id"
+            :statement="statement"
+            @click="openStatementDetail(statement.id, statement.author)"
+          />
+        </ViewGrid>
+      </section>
 
       <div v-if="filteredRecords.length === 0" class="statement-view__empty">
         <strong>Keine Statements gefunden</strong>
         <span>Filter zurücksetzen oder Suchbegriff ändern.</span>
       </div>
+
+      <StrategyButton
+        v-if="canShowSelection"
+        class="statement-selection-button"
+        color="var(--color-black)"
+        label="Show Selection"
+        @select="openSelectionDetail"
+      />
     </section>
 
-    <section class="statement-filter-overlay" aria-label="Statement Filter">
-      <section class="statement-filters">
-        <div class="statement-search-filter">
-          <small>Search</small>
-          <input
-            :value="filters.query"
-            type="search"
-            placeholder="Autor, Kontext oder Statement"
-            @input="statementStore.setQuery(($event.target as HTMLInputElement).value)"
-          />
-        </div>
+    <ExploreFilterBar select-label="Filter statements by content category" />
 
-        <FilterButtonContainer
-          title="Mobilization Pattern"
-          :labels="patternFilterLabels"
-          @select="togglePatternLabelByKey"
-        />
-      </section>
-    </section>
+    <button
+      v-if="selectionDetailIsOpen"
+      type="button"
+      class="statement-view__scrim"
+      aria-label="Statement Detailansicht schliessen"
+      @click.stop="closeActiveDetail"
+      @mousedown.stop
+      @mouseup.stop
+      @pointerdown.stop
+      @pointerup.stop
+    />
 
     <Teleport to="body">
-      <Transition name="statement-detail-overlay">
-        <StatementDetailView
-          v-if="selectedStatement"
-          :author="selectedAuthor"
-          :statement="selectedStatement"
-          @close="closeStatementDetail"
+      <Transition name="detail-overlay">
+        <SelectionView
+          v-if="selectionDetailIsOpen"
+          :records="sortedRecords"
+          :title="selectionTitle"
+          :search-term="selectionSearchTerm"
+          :labels="activePatternFilterLabels"
         />
       </Transition>
     </Teleport>

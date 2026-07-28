@@ -1,5 +1,11 @@
-export type BinaryLabel = 'yes' | 'no' | null
-export type AnchorTexts = string[]
+type BinaryLabel = 'yes' | 'no' | null
+type AnchorTexts = string[]
+export type MeasureCategory =
+  | 'Destruction'
+  | 'Aid Control / Deprivation'
+  | 'Forced Displacement'
+  | 'Physical Harm'
+  | 'Occupation / Settlement'
 
 export type PatternLabelKey =
   | 'enemy_image'
@@ -21,6 +27,28 @@ export type PatternLabelKey =
   | 'humanity_as_weakness'
   | 'external_criticism_rejection'
 
+export interface PatternAnnotation {
+  active: BinaryLabel
+  anchors: AnchorTexts
+  justification: string | null
+  key: PatternLabelKey
+  label: string
+}
+
+export interface PatternGroupAnnotation {
+  active: BinaryLabel
+  key: PatternLabelKey
+  label: string
+  subLabels: PatternAnnotation[]
+}
+
+export interface TopLevelStrategyUsage {
+  label: string
+  labelKey: PatternLabelKey
+  statementCount: number
+  statementIds: string[]
+}
+
 export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
   id: string
   sourceFile: 'legislators' | 'decisionmakers'
@@ -31,7 +59,8 @@ export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
   source: string | null
   statement: string
   measures: string[]
-  position: string | null
+  measure_categories: MeasureCategory[]
+  speakerPosition: string | null
   homogenization_anchor: AnchorTexts
   immutability_anchor: AnchorTexts
   essentialization_anchor: AnchorTexts
@@ -60,7 +89,10 @@ export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
   no_alternative_framing_bj: string | null
   humanity_as_weakness_bj: string | null
   external_criticism_rejection_bj: string | null
+  patterns: PatternGroupAnnotation[]
 }
+
+export type RawIntentRecord = Omit<IntentRecord, 'patterns'>
 
 export interface IntentDataset {
   name: string
@@ -80,7 +112,6 @@ export interface IntentDataset {
 
 export interface IntentFilters {
   query: string
-  authors: string[]
-  labelsAny: PatternLabelKey[]
   labelsAll: PatternLabelKey[]
+  measureCategories: MeasureCategory[]
 }

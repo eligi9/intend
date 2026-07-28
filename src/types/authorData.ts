@@ -1,6 +1,23 @@
-import type { PatternLabelKey, IntentRecord } from './intentData'
+import type {
+  MeasureCategory,
+  PatternLabelKey,
+  TopLevelStrategyUsage,
+} from './intentData'
 
-export interface AuthorImage {
+type AuthorRoleGroup = 'executive_officials' | 'legislators' | 'others'
+
+interface AuthorPatternUsage {
+  label: string
+  labelKey: PatternLabelKey
+  statementCount: number
+}
+
+interface AuthorContentCategoryUsage {
+  label: MeasureCategory
+  statementCount: number
+}
+
+interface AuthorImage {
   url: string
   sourceUrl: string
   wikidataImageProperty: string
@@ -27,7 +44,7 @@ export interface AuthorProfile {
   gender: string | null
   position: string | null
   sector: string | null
-  party: string | null
+  roleGroup: AuthorRoleGroup
   image: AuthorImage | null
   notes?: string | null
   externalIds?: Record<string, string>
@@ -41,18 +58,12 @@ export interface AuthorDataset {
   authors: AuthorProfile[]
 }
 
-export interface AuthorTopLevelStrategyUsage {
-  label: string
-  labelKey: PatternLabelKey
-  statementCount: number
-  statementIds: string[]
-}
-
 export interface AuthorInstance extends AuthorProfile {
   age: number | null
-  statements: IntentRecord[]
+  mostUsedContentCategory: AuthorContentCategoryUsage | null
+  mostUsedPattern: AuthorPatternUsage | null
   statementCount: number
-  usedTopLevelStrategies: AuthorTopLevelStrategyUsage[]
+  usedTopLevelStrategies: TopLevelStrategyUsage[]
   usedTopLevelStrategyLabels: PatternLabelKey[]
   usedTopLevelStrategyCount: number
   topLevelStrategyCount: number

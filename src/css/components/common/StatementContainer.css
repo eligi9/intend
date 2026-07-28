@@ -1,0 +1,26 @@
+.statement-container {
+  --statement-container-spacing: var(--layout-section-gap);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--statement-container-spacing);
+  box-sizing: border-box;
+  width: min(58rem, 100%);
+  margin-inline: auto;
+  padding-block-start: var(--statement-container-spacing);
+}
+
+.statement-container :deep(.statement-card__quote) {
+  max-width: 50ch;
+}
+
+.statement-container > .statement-pattern-card {
+  transition:
+    opacity 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.statement-container__statement--dimmed {
+  opacity: var(--opacity-dimmed);
+  filter: blur(0.1875rem);
+}

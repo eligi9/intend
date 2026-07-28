@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FilterButton from './FilterButton.vue'
+import StrategyButton from './StrategyButton.vue'
 
 interface FilterButtonContainerItem {
   active?: boolean
@@ -20,6 +20,7 @@ withDefaults(
 )
 
 defineEmits<{
+  hover: [key: string | null]
   select: [key: string]
 }>()
 </script>
@@ -29,14 +30,19 @@ defineEmits<{
     <small v-if="title">{{ title }}</small>
 
     <div class="filter-button-container__buttons">
-      <FilterButton
+      <StrategyButton
         v-for="item in labels"
         :key="item.key"
         :label="item.label"
         :color="item.color"
         :active="item.active"
         :min-width="item.minWidth"
-        @click="$emit('select', item.key)"
+        interaction-type="click"
+        @blur="$emit('hover', null)"
+        @focus="$emit('hover', item.key)"
+        @mouseenter="$emit('hover', item.key)"
+        @mouseleave="$emit('hover', null)"
+        @select="$emit('select', item.key)"
       />
     </div>
   </section>

@@ -11,11 +11,11 @@
   z-index: 2;
   top: 0;
   left: 2.5rem;  
-  color: rgba(var(--color-text-rgb), 0.74);
-  font-size: clamp(0.5rem, 0.72vw, 0.625rem);
-  font-weight: 900;
+  color: var(--color-legend-label);
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-black);
   letter-spacing: 0;
-  line-height: 1.08;
+  line-height: var(--line-height-0);
   white-space: normal;
   transform: translateY(-0.15rem);
 }
@@ -25,18 +25,18 @@
   left: 0;
   width: 1.5rem;
   height: 0.0625rem;
-  background: rgba(var(--color-text-rgb), 0.58);
+  background: var(--color-grid-line);
 }
 
 .vertical-scale__tick-label {
   position: absolute;
   left: 0.5rem;
   top: 0;
-  color: rgba(var(--color-text-rgb), 0.74);
-  font-size: clamp(0.5rem, 0.72vw, 0.625rem);
-  font-weight: 800;
+  color: var(--color-grid-legend);
+  font-size: var(--font-size--1);
+  font-weight: var(--font-weight-extra-bold);
   font-variant-numeric: tabular-nums;
-  line-height: 1;
+  line-height: var(--line-height--1);
   white-space: nowrap;
   transform: translateY(calc(-100% - 0.22rem));
 }

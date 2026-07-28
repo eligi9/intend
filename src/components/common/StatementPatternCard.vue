@@ -1,67 +1,145 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
+import type { OverlaySide } from '../../types/overlay'
 import {
   getStatementPatternAnchors,
   getStatementPatternBadges,
   getStatementPatternBriefJustification,
 } from '../../utils/statementPatterns'
+import { intentSubLabelDescriptions } from '../../utils/intentTaxonomy'
 import { getDisplayLabel } from '../../utils/statementHighlights'
+import SideOverlayPattern from './SideOverlayPattern.vue'
 import StatementCard from './StatementCard.vue'
 import StrategyBadgeContainer from './StrategyBadgeContainer.vue'
-import TopOverlay from './TopOverlay.vue'
+import StatementRepresentation from '../statement/StatementRepresentation.vue'
 
-const props = defineProps<{
-  record: IntentRecord
-  showContextButton?: boolean
+const props = withDefaults(
+  defineProps<{
+    authorDetailRecordIds?: readonly string[]
+    record: IntentRecord
+    overlaySide?: OverlaySide
+    showAuthor?: boolean
+    showContextButton?: boolean
+    showRepresentation?: boolean
+    underlineDate?: boolean
+  }>(),
+  {
+    overlaySide: 'left',
+    showAuthor: false,
+    showContextButton: true,
+    showRepresentation: true,
+    underlineDate: true,
+  },
+)
+
+const emit = defineEmits<{
+  contextHoverChange: [visible: boolean]
+  badgeHoverChange: [visible: boolean]
 }>()
 
 const hoveredLabel = ref<PatternLabelKey | null>(null)
+const selectedLabel = ref<PatternLabelKey | null>(null)
 const badges = computed(() => getStatementPatternBadges(props.record))
-const hoveredBadge = computed(
-  () => badges.value.find((badge) => badge.label === hoveredLabel.value) ?? null,
+const activeLabel = computed(() => hoveredLabel.value)
+const activeBadge = computed(
+  () => badges.value.find((badge) => badge.label === activeLabel.value) ?? null,
 )
-const hoveredAnchors = computed(() =>
-  hoveredLabel.value ? getStatementPatternAnchors(props.record, hoveredLabel.value) : [],
+const activeAnchors = computed(() =>
+  activeLabel.value ? getStatementPatternAnchors(props.record, activeLabel.value) : [],
 )
-const hoveredExplanation = computed(() =>
-  hoveredLabel.value
-    ? getStatementPatternBriefJustification(props.record, hoveredLabel.value)
+const activeExplanation = computed(() =>
+  activeLabel.value
+    ? getStatementPatternBriefJustification(props.record, activeLabel.value)
     : null,
 )
-const explanationBackground = computed(() =>
-  hoveredBadge.value
-    ? `color-mix(in srgb, ${hoveredBadge.value.color} 72%, var(--app-background))`
-    : undefined,
+const activeDefinition = computed(() =>
+  activeLabel.value ? intentSubLabelDescriptions[activeLabel.value] ?? '' : '',
 )
+const definitionIsVisible = computed(
+  () => selectedLabel.value !== null && selectedLabel.value === activeLabel.value,
+)
+const explanationBackground = computed(() =>
+  activeBadge.value ? activeBadge.value.color : undefined,
+)
+
+watch(activeLabel, (label) => {
+  if (!label) {
+    selectedLabel.value = null
+  }
+
+  emit('badgeHoverChange', Boolean(label))
+})
+
+async function toggleSelectedLabel(label: PatternLabelKey) {
+  if (selectedLabel.value === label) {
+    selectedLabel.value = null
+    return
+  }
+
+  if (hoveredLabel.value !== label) {
+    hoveredLabel.value = label
+  }
+
+  await nextTick()
+
+  if (hoveredLabel.value === label) {
+    selectedLabel.value = label
+  }
+}
+
+function closePatternOverlay() {
+  hoveredLabel.value = null
+  selectedLabel.value = null
+}
 </script>
 
 <template>
   <div
     class="statement-pattern-card"
-    :class="{ 'statement-pattern-card--without-badges': badges.length === 0 }"
+    :class="{
+      'statement-pattern-card--without-badges': badges.length === 0,
+      'statement-pattern-card--without-representation': !showRepresentation,
+    }"
   >
-    <TopOverlay
-      :background="explanationBackground"
-      heading-color="var(--text-white)"
-      min-height="33vh"
-      :text="hoveredExplanation ?? ''"
-      text-color="var(--text-white)"
-      :title="hoveredBadge ? `Why ${getDisplayLabel(hoveredBadge.label)}?` : ''"
-      :visible="Boolean(hoveredBadge && hoveredExplanation)"
+    <SideOverlayPattern
+      :key="activeBadge?.label ?? 'no-pattern'"
+      :color="explanationBackground"
+      :definition="activeDefinition"
+      :expanded="definitionIsVisible"
+      label="Why?"
+      :side="overlaySide"
+      :text="activeExplanation ?? ''"
+      :title="activeBadge ? getDisplayLabel(activeBadge.label) : ''"
+      :visible="Boolean(activeBadge && activeExplanation)"
+      @close="closePatternOverlay"
+    />
+
+    <StatementRepresentation
+      v-if="showRepresentation"
+      class="statement-pattern-card__representation"
+      size="large"
+      :statement="record"
     />
 
     <StatementCard
-      :anchor-color="hoveredBadge?.color"
-      :anchor-texts="hoveredAnchors"
+      :anchor-color="activeBadge?.color"
+      :anchor-texts="activeAnchors"
+      :author-detail-record-ids="authorDetailRecordIds"
       :record="record"
+      :overlay-side="overlaySide"
+      :show-author="showAuthor"
       :show-context-button="showContextButton"
+      :underline-date="underlineDate"
+      @context-hover-change="emit('contextHoverChange', $event)"
     />
 
     <StrategyBadgeContainer
       v-if="badges.length > 0"
       v-model:hovered-label="hoveredLabel"
       :badges="badges"
+      :selected-label="selectedLabel"
+      @toggle-label="toggleSelectedLabel"
     />
   </div>
 </template>

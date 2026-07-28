@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   active: boolean
+  ariaLabel?: string
   label: string
 }>()
 
@@ -14,6 +15,8 @@ const emit = defineEmits<{
     type="button"
     class="explore-nav-button"
     :class="{ 'explore-nav-button--active': active }"
+    :aria-label="ariaLabel"
+    :disabled="active"
     @click="emit('select')"
   >
     {{ label }}

@@ -10,22 +10,18 @@ const intentAuthorDataset = authorDataset as AuthorDataset
 export const useAuthorStore = defineStore('authors', () => {
   const statementStore = useStatementStore()
 
-  const authorProfiles = computed(() => intentAuthorDataset.authors)
   const authorInstances = computed(() =>
-    authorProfiles.value.map((author) =>
-      createAuthorInstance(author, statementStore.statementsByAuthor[author.name] ?? []),
+    intentAuthorDataset.authors.map((author) =>
+      createAuthorInstance(author, statementStore.getStatementsForAuthor(author.name)),
     ),
   )
-  const authorProfileCount = computed(() => authorProfiles.value.length)
 
   function getAuthorInstance(authorName: string) {
     return authorInstances.value.find((author) => author.name === authorName) ?? null
   }
 
   return {
-    authorProfiles,
     authorInstances,
-    authorProfileCount,
     getAuthorInstance,
   }
 })

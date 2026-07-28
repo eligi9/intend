@@ -26,9 +26,39 @@
 }
 
 .strategy-beeswarm__canvas--strategies {
-  block-size: 60vh;
+  block-size: 61.8vh;
 }
 
 .strategy-beeswarm__canvas--statements {
   block-size: 40vh;
+}
+
+.strategy-beeswarm__timeline-tooltip {
+  --tooltip-panel-inline-size: min(28rem, calc(100vw - var(--space-4)));
+  --tooltip-panel-max-inline-size: calc(100vw - var(--space-4));
+  --tooltip-panel-top: auto;
+  --tooltip-panel-bottom: 0;
+  --tooltip-panel-transform: scale(0.98);
+  --tooltip-panel-visible-transform: scale(1);
+
+  position: absolute;
+  z-index: 3;
+  right: var(--space-4);
+  bottom: calc(var(--space-10) + var(--space-2));
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.strategy-beeswarm__timeline-tooltip-anchor {
+  width: 1px;
+  height: 1px;
+}
+
+.strategy-beeswarm__hovered-author-portrait {
+  --author-view-background: var(--color-white);
+
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
 }

@@ -1,60 +1,39 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
-import { intentTaxonomy } from '../../types/intentTaxonomy'
-import { strategyColors } from '../../utils/intentLabels'
+import type { IntentRecord } from '../../types/intentData'
+import StatementRepresentation from './StatementRepresentation.vue'
+import StatementTooltip from './StatementTooltip.vue'
 
 const props = defineProps<{
   statement: IntentRecord
 }>()
 
-const mainPatternOrder: PatternLabelKey[] = [
-  'enemy_image',
-  'rhetorical_foreclosure',
-  'just_cause',
-  'individual_needs',
-]
+const measureAnchors = computed(() => props.statement.measures ?? [])
 
-const mainPatterns = computed(() => {
-  return mainPatternOrder.flatMap((labelKey) => {
-    const group = intentTaxonomy.find((item) => item.parentLabel === labelKey)
-    const active =
-      props.statement[labelKey] === 'yes' ||
-      Boolean(group?.childLabels.some((label) => props.statement[label] === 'yes'))
+const ariaLabel = computed(() => {
+  const measures = measureAnchors.value.length
+    ? ` Konkrete Measures: ${measureAnchors.value.join(', ')}.`
+    : ''
 
-    return active
-      ? [{
-          color: strategyColors[labelKey],
-          labelKey,
-        }]
-      : []
-  })
+  return `${props.statement.author}, ${props.statement.date}: ${props.statement.statement}.${measures}`
 })
-
-const ringSize = (index: number) => `${42 + (index + 1) * 14}%`
-
-const ariaLabel = computed(
-  () => `${props.statement.author}, ${props.statement.date}: ${props.statement.statement}`,
-)
 </script>
 
 <template>
-  <button
-    class="statement-button"
-    type="button"
-    :aria-label="ariaLabel"
+  <StatementTooltip
+    class="statement-button-tooltip"
+    :focusable="false"
+    :record="statement"
   >
-    <span class="statement-button__rings" aria-hidden="true">
-      <span
-        v-for="(pattern, index) in mainPatterns"
-        :key="pattern.labelKey"
-        class="statement-button__ring"
-        :style="{ '--ring-color': pattern.color, '--ring-size': ringSize(index) }"
-      />
-    </span>
+    <button
+      class="statement-button"
+      type="button"
+      :aria-label="ariaLabel"
+    >
+      <StatementRepresentation :statement="statement" />
+    </button>
 
-    <span class="statement-button__core" aria-hidden="true" />
-  </button>
+  </StatementTooltip>
 </template>
 
 <style scoped>

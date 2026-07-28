@@ -11,6 +11,7 @@ defineProps<{
 }>()
 
 defineEmits<{
+  'establishment-select': []
   select: [section: ExploreViewSection]
 }>()
 </script>
@@ -30,6 +31,13 @@ defineEmits<{
         :label="section.label"
         :active="activeSection === section.key"
         @select="$emit('select', section.key)"
+      />
+
+      <ExploreNavButton
+        :active="false"
+        aria-label="Open establishment view"
+        label="?"
+        @select="$emit('establishment-select')"
       />
     </nav>
   </header>

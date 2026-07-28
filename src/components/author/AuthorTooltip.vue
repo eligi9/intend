@@ -1,81 +1,64 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { useFloatingPlacement } from '../../composables/useFloatingPlacement'
+import { computed } from 'vue'
 import type { AuthorInstance } from '../../types/authorData'
-import { strategyColors } from '../../utils/intentLabels'
-import StrategyBadge from '../strategy/StrategyBadge.vue'
+import { getStatementPatternColor } from '../../utils/statementPatterns'
+import Tooltip from '../common/Tooltip.vue'
 
 const props = defineProps<{
   author: AuthorInstance
 }>()
 
-const tooltipRoot = ref<HTMLElement | null>(null)
-const { placement, updatePlacement } = useFloatingPlacement(tooltipRoot)
-
-const ageLabel = computed(() => (props.author.age === null ? 'unknown' : props.author.age))
-const genderLabel = computed(() => {
-  if (props.author.gender === 'female') return 'female'
-  if (props.author.gender === 'male') return 'male'
-  return 'unknown'
-})
-const strategyBadges = computed(() =>
-  props.author.usedTopLevelStrategies.map((strategy) => ({
-    ...strategy,
-    color: strategyColors[strategy.labelKey] ?? 'var(--color-neutral)',
-  })),
+const mostUsedPatternColor = computed(() =>
+  props.author.mostUsedPattern
+    ? getStatementPatternColor(props.author.mostUsedPattern.labelKey)
+    : 'var(--color-neutral)',
 )
 </script>
 
 <template>
-  <span
-    ref="tooltipRoot"
-    class="author-tooltip"
-    :class="`author-tooltip--${placement}`"
-    tabindex="0"
-    @mouseenter="updatePlacement"
-    @focusin="updatePlacement"
-  >
+  <Tooltip class="author-tooltip">
     <slot />
 
-    <span class="author-tooltip__panel" role="tooltip">
-      <span class="author-tooltip__heading">
-        <strong class="author-tooltip__name">{{ author.name }}</strong>
-        <span class="author-tooltip__position">{{ author.position ?? 'Position unbekannt' }}</span>
-      </span>
-
-      <span class="author-tooltip__facts">
-        <span class="author-tooltip__fact-labels">
-          <span>age:</span>
-          <span>sex:</span>
-          <span>partie:</span>
+    <template #panel>
+      <span class="author-tooltip__content">
+        <span class="author-tooltip__meta">
+          <strong>{{ author.name }}</strong>
+          <span>{{ author.position ?? 'Position unknown' }}</span>
         </span>
-        <span class="author-tooltip__fact-values">
-          <span>{{ ageLabel }}</span>
-          <span>{{ genderLabel }}</span>
-          <span>{{ author.party ?? 'unknown' }}</span>
+
+        <strong class="author-tooltip__title">Most Used Content Category</strong>
+
+        <span v-if="author.mostUsedContentCategory" class="author-tooltip__labels">
+          <span class="author-tooltip__label">
+            {{ author.mostUsedContentCategory.label }}
+            <small>({{ author.mostUsedContentCategory.statementCount }})</small>
+          </span>
+        </span>
+
+        <span v-else class="author-tooltip__labels author-tooltip__labels--empty">
+          No content category
+        </span>
+
+        <strong class="author-tooltip__title author-tooltip__title--section">
+          Most Used Pattern
+        </strong>
+
+        <span v-if="author.mostUsedPattern" class="author-tooltip__labels">
+          <span
+            class="author-tooltip__label author-tooltip__label--pattern"
+            :style="{ '--author-tooltip-label-color': mostUsedPatternColor }"
+          >
+            {{ author.mostUsedPattern.label }}
+            <small>({{ author.mostUsedPattern.statementCount }})</small>
+          </span>
+        </span>
+
+        <span v-else class="author-tooltip__labels author-tooltip__labels--empty">
+          No pattern
         </span>
       </span>
-
-      <span
-        v-if="strategyBadges.length > 0"
-        class="author-tooltip__strategies"
-        :class="{ 'author-tooltip__strategies--single': strategyBadges.length === 1 }"
-      >
-        <StrategyBadge
-          v-for="strategy in strategyBadges"
-          :key="strategy.labelKey"
-          :label="strategy.label"
-          :color="strategy.color"
-          :count="strategy.statementCount"
-          class="author-tooltip__badge"
-        />
-      </span>
-
-      <span v-else class="author-tooltip__strategies author-tooltip__strategies--empty">
-        No pattern
-      </span>
-    </span>
-  </span>
+    </template>
+  </Tooltip>
 </template>
 
 <style scoped>

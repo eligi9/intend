@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import AuthorDetailOverlay from '../../components/author/AuthorDetailOverlay.vue'
 import type { ExploreHeaderSection, ExploreViewSection } from '../../types/exploreView'
 import AuthorView from './AuthorView.vue'
 import PatternsView from './PatternsView.vue'
 import StatementView from './StatementView.vue'
 import TimelineView from './TimelineView.vue'
+
+const emit = defineEmits<{
+  exit: []
+}>()
 
 const activeView = ref<ExploreViewSection>('statements')
 
@@ -39,27 +44,33 @@ function showView(section: ExploreViewSection) {
         v-if="activeView === 'statements'"
         :active-section="activeView"
         :sections="exploreSections"
+        @establishment-select="emit('exit')"
         @section-select="showView"
       />
       <AuthorView
         v-else-if="activeView === 'authors'"
         :active-section="activeView"
         :sections="exploreSections"
+        @establishment-select="emit('exit')"
         @section-select="showView"
       />
       <PatternsView
         v-else-if="activeView === 'patterns'"
         :active-section="activeView"
         :sections="exploreSections"
+        @establishment-select="emit('exit')"
         @section-select="showView"
       />
       <TimelineView
         v-else
         :active-section="activeView"
         :sections="exploreSections"
+        @establishment-select="emit('exit')"
         @section-select="showView"
       />
     </div>
+
+    <AuthorDetailOverlay />
   </section>
 </template>
 

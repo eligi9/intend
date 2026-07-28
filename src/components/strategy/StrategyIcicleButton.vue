@@ -35,8 +35,6 @@ const segmentState = computed(() =>
       '--strategy-icicle-button-height': `${segment.heightPercent}%`,
       '--strategy-icicle-button-width': `${segment.widthPercent}%`,
     }"
-    @mouseenter="emit('hover', segment)"
-    @mouseleave="emit('leave', segment)"
   >
     <button
       type="button"
@@ -48,8 +46,10 @@ const segmentState = computed(() =>
       ]"
       :aria-label="accessibilityLabel"
       @blur="emit('leave', segment)"
-      @click="emit('select', segment)"
+      @click.stop="emit('select', segment)"
       @focus="emit('hover', segment)"
+      @mouseenter="emit('hover', segment)"
+      @mouseleave="emit('leave', segment)"
     >
       <span v-if="label">{{ label }}</span>
     </button>

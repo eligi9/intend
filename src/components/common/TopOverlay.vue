@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { wrapTextAtCharacterLimit } from '../../utils/textWrap'
 
 const props = withDefaults(
   defineProps<{
@@ -14,11 +15,11 @@ const props = withDefaults(
   }>(),
   {
     background: 'var(--color-text)',
-    headingColor: 'var(--text-black)',
+    headingColor: 'var(--color-text)',
     meta: '',
     minHeight: '20vh',
     text: '',
-    textColor: 'var(--text-black)',
+    textColor: 'var(--color-text)',
   },
 )
 
@@ -30,23 +31,30 @@ const overlayStyle = computed(() => {
     '--top-overlay-text-color': props.textColor,
   }
 })
+
+const wrappedText = computed(() => wrapTextAtCharacterLimit(props.text, 50))
 </script>
 
 <template>
-  <Transition name="top-overlay">
-    <aside
-      v-if="visible"
-      class="top-overlay"
-      :style="overlayStyle"
-      aria-live="polite"
-    >
-      <div class="top-overlay__inner">
-        <h3>{{ title }}</h3>
-        <p v-if="text">{{ text }}</p>
-        <span v-if="meta">{{ meta }}</span>
-      </div>
-    </aside>
-  </Transition>
+  <Teleport to="body">
+    <Transition name="top-overlay">
+      <aside
+        v-if="visible"
+        class="top-overlay"
+        :style="overlayStyle"
+        aria-live="polite"
+      >
+        <div class="top-overlay__inner">
+          <div class="top-overlay__heading">
+            <slot name="title-prefix" />
+            <h3>{{ title }}</h3>
+          </div>
+          <p v-if="text">{{ wrappedText }}</p>
+          <span v-if="meta">{{ meta }}</span>
+        </div>
+      </aside>
+    </Transition>
+  </Teleport>
 </template>
 
 <style scoped>

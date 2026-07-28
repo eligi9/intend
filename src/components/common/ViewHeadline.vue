@@ -6,10 +6,12 @@ const props = withDefaults(
     level?: 1 | 2 | 3
     subline?: string | null
     title: string
+    titleSuffix?: string | null
   }>(),
   {
     level: 2,
     subline: null,
+    titleSuffix: null,
   },
 )
 
@@ -20,6 +22,9 @@ const headingTag = computed(() => `h${props.level}`)
   <div class="view-headline">
     <component :is="headingTag" class="view-headline__title">
       {{ title }}
+      <span v-if="titleSuffix" class="view-headline__title-suffix">
+        {{ titleSuffix }}
+      </span>
     </component>
     <p v-if="subline" class="view-headline__subline">
       {{ subline }}

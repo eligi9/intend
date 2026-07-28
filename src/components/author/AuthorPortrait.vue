@@ -4,7 +4,6 @@ import type { AuthorInstance } from '../../types/authorData'
 import type { PatternLabelKey } from '../../types/intentData'
 import { strategyColors } from '../../utils/intentLabels'
 import AuthorTooltip from './AuthorTooltip.vue'
-import AuthorFallbackIcon from '../icons/AuthorFallbackIcon.vue'
 
 const strategyDisplayOrder: PatternLabelKey[] = [
   'enemy_image',
@@ -16,29 +15,32 @@ const strategyDisplayOrder: PatternLabelKey[] = [
 const props = withDefaults(
   defineProps<{
     author: AuthorInstance
+    backgroundColor?: string
     showTooltip?: boolean
     showRings?: boolean
     size?: number
+    variant?: 'default' | 'detail'
   }>(),
   {
+    backgroundColor: 'transparent',
     showTooltip: true,
     showRings: true,
     size: 148,
+    variant: 'default',
   },
 )
 
-const ringStroke = computed(() => Math.max(2, Math.round(props.size * 0.03)))
-const ringGap = computed(() => Math.max(2, Math.round(ringStroke.value * 0.6)))
+const ringStrokeByVariant = {
+  default: 3,
+  detail: 4,
+} as const
+const ringGapByVariant = {
+  default: 1,
+  detail: 2,
+} as const
+const ringStroke = computed(() => ringStrokeByVariant[props.variant])
+const ringGap = computed(() => ringGapByVariant[props.variant])
 const maxRingCount = strategyDisplayOrder.length
-const totalRingSpace = computed(
-  () => props.showRings ? maxRingCount * (ringStroke.value + ringGap.value) : 0,
-)
-const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
-
-const outerRingColor = computed(() =>
-  rings.value.length ? rings.value[rings.value.length - 1].color : 'var(--color-neutral)',
-)
-
 const rings = computed(() => {
   const usedLabels = new Set(props.author.usedTopLevelStrategyLabels)
 
@@ -50,6 +52,19 @@ const rings = computed(() => {
       index,
     }))
 })
+const totalRingSpace = computed(
+  () => props.showRings ? maxRingCount * (ringStroke.value + ringGap.value) : 0,
+)
+const imageSize = computed(() => Math.max(32, props.size - totalRingSpace.value * 2))
+const backgroundSize = computed(
+  () =>
+    imageSize.value +
+    (props.showRings ? rings.value.length * (ringStroke.value + ringGap.value) * 2 : 0),
+)
+
+const outerRingColor = computed(() =>
+  rings.value.length ? rings.value[rings.value.length - 1].color : 'var(--color-neutral)',
+)
 
 const imageAlt = computed(() => `Portrait von ${props.author.name}`)
 </script>
@@ -61,13 +76,16 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
         class="author-portrait"
         :style="{
           '--author-portrait-size': `${size}px`,
+          '--author-background-color': backgroundColor,
+          '--author-background-size': `${backgroundSize}px`,
           '--author-image-size': `${imageSize}px`,
           '--author-ring-gap': `${ringGap}px`,
           '--author-ring-stroke': `${ringStroke}px`,
           '--author-shadow-color': `${outerRingColor}`,
-          '--author-image-shadow-color': 'var(--author-view-background, var(--bg-black))',
+          '--author-image-shadow-color': 'var(--author-view-background, var(--app-background))',
         }"
       >
+        <span class="author-portrait__background" aria-hidden="true" />
         <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">
           <span
             v-for="ring in rings"
@@ -85,9 +103,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
             :alt="imageAlt"
             draggable="false"
           />
-          <span v-else class="author-portrait__fallback">
-            <AuthorFallbackIcon :gender="author.gender" />
-          </span>
+          <span v-else class="author-portrait__fallback" aria-hidden="true" />
         </span>
       </figure>
     </AuthorTooltip>
@@ -98,13 +114,16 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
       class="author-portrait"
       :style="{
         '--author-portrait-size': `${size}px`,
+        '--author-background-color': backgroundColor,
+        '--author-background-size': `${backgroundSize}px`,
         '--author-image-size': `${imageSize}px`,
         '--author-ring-gap': `${ringGap}px`,
         '--author-ring-stroke': `${ringStroke}px`,
         '--author-shadow-color': `${outerRingColor}`,
-        '--author-image-shadow-color': 'var(--author-view-background, var(--bg-black))',
+        '--author-image-shadow-color': 'var(--author-view-background, var(--app-background))',
       }"
     >
+      <span class="author-portrait__background" aria-hidden="true" />
       <span v-if="showRings" class="author-portrait__rings" aria-hidden="true">
         <span
           v-for="ring in rings"
@@ -122,9 +141,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
           :alt="imageAlt"
           draggable="false"
         />
-        <span v-else class="author-portrait__fallback">
-          <AuthorFallbackIcon :gender="author.gender" />
-        </span>
+        <span v-else class="author-portrait__fallback" aria-hidden="true" />
       </span>
     </figure>
   </template>

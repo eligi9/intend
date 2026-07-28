@@ -1,40 +1,41 @@
 :root {
-  --color-background: #181818;
-  --color-background-rgb: 24, 24, 24;
-  --color-background-soft: #262626;
-  --color-background-elevated: #202020;
-  --color-background-elevated-rgb: 32, 32, 32;
-  --color-surface-raised: #383838;
-  --color-surface-raised-rgb: 56, 56, 56;
-  --color-tooltip-background: #161616;
-  --color-tooltip-background-rgb: 22, 22, 22;
+  --font-sans: Montserrat, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Noto Serif", Georgia, "Times New Roman", serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
-  --color-text: #f5f3ee;
-  --color-text-rgb: 245, 243, 238;
-  --color-text-soft: #f2f2f2;
-  --color-text-soft-rgb: 242, 242, 242;
-  --color-white: #FFFFFF;
+  --color-background: #ffffff;
+  --color-background-rgb: 255, 255, 255;
+  --color-background-soft: #cccccc;
+  --color-text: #000000;
+  --color-text-rgb: 0, 0, 0;
+  --color-black-20: rgba(0, 0, 0, 0.2);
+  --color-black-40: rgba(0, 0, 0, 0.4);
+  --color-black-60: rgba(0, 0, 0, 0.6);
+  --color-black-80: rgba(0, 0, 0, 0.8);
+  --color-black: #000000;
+  --color-grid-line: var(--color-black-20);
+  --color-grid-legend: var(--color-black-40);
+  --color-legend-label: var(--color-black-60);
+  --color-event-line-inactive: var(--color-black-60);
+  --color-event-line-active: var(--color-black);
+  --color-text-soft: #222222;
+  --color-text-soft-rgb: 34, 34, 34;
+  --color-white: #ffffff;
   --color-white-rgb: 255, 255, 255;
 
-  --color-ink: #20242b;
-  --color-ink-rgb: 32, 36, 43;
-  --color-paper: #FFFFFF;
-  --color-paper-rgb: 255, 255, 255;
-
-  --color-accent: #00736f;
-  --color-accent-rgb: 0, 115, 111;
-  --color-link: #9dd9d4;
   --color-highlight: #f0c95a;
 
   --color-neutral: #858b94;
   --color-neutral-rgb: 133, 139, 148;
   --color-neutral-light: #d8d8d8;
-  --color-neutral-light-rgb: 216, 216, 216;
   --color-neutral-muted: #6f7278;
 
-  --color-scrollbar-thumb: #747474;
-  --color-scrollbar-thumb-hover: #8a8a8a;
+  --color-scrollbar-thumb: #b5b5b0;
+  --color-scrollbar-thumb-hover: #90908a;
   --color-shadow-rgb: 0, 0, 0;
+
+  --opacity-dimmed: 0.15;
+  --opacity-dimmed-core: 0.1;
 
   --color-landing-blue: #5f87ff;
   --color-landing-blue-rgb: 95, 135, 255;
@@ -42,48 +43,117 @@
   --color-measure-highlight: #c4cbc8;
 
   --color-portrait-surface: #f0efeb;
-  --color-tooltip-muted: rgb(170, 167, 161);
 
-  --bg-black: var(--color-background);
-  --bg-black-rgb: var(--color-background-rgb);
-  --bg-grey: var(--color-surface-raised);
-  --bg-grey-rgb: var(--color-surface-raised-rgb);
-  --bg-white: var(--color-paper);
-  --bg-white-rgb: var(--color-paper-rgb);
+  --space-half: 0.25rem;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-5: 2.5rem;
+  --space-6: 3rem;
+  --space-7: 3.5rem;
+  --space-8: 4rem;
+  --space-9: 4.5rem;
+  --space-10: 5rem;
+  --space-11: 5.5rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
 
-  --text-black: var(--color-ink);
-  --text-black-rgb: var(--color-ink-rgb);
-  --text-black-muted: rgba(var(--text-black-rgb), 0.58);
-  --text-white: var(--color-text);
-  --text-white-rgb: var(--color-text-rgb);
-  --text-white-muted: rgba(var(--text-white-rgb), 0.58);
+  --layout-view-inline: var(--space-6);
+  --layout-overlay-padding: clamp(var(--space-3), 4vw, var(--space-7));
+  --layout-section-gap: clamp(var(--space-4), 4vw, var(--space-8));
+  --layout-panel-gap: var(--space-3);
+  --layout-control-gap: var(--space-1);
+  --layout-control-padding: var(--space-1);
+  --layout-scale-label-inline-end: var(--space-6);
 
-  --overlay-title-size: clamp(1.75rem, 3.4vw, 3.25rem);
-  --overlay-text-size: clamp(1.1875rem, 1.7vw, 1.75rem);
-  --overlay-meta-size: 0.85rem;
-  --statement-card-quote-size: clamp(1.1875rem, 1.45vw, 1.375rem);
+  --font-scale-ratio: 1.25;
+  --font-size-1: 1rem;
+  --font-size-0: calc(var(--font-size-1) / var(--font-scale-ratio));
+  --font-size--1: calc(var(--font-size-0) / var(--font-scale-ratio));
+  --font-size--2: calc(var(--font-size--1) / var(--font-scale-ratio));
+  --font-size-2: calc(var(--font-size-1) * var(--font-scale-ratio));
+  --font-size-3: calc(var(--font-size-2) * var(--font-scale-ratio));
+  --font-size-4: calc(var(--font-size-3) * var(--font-scale-ratio));
+  --font-size-5: calc(var(--font-size-4) * var(--font-scale-ratio));
+  --font-size-6: calc(var(--font-size-5) * var(--font-scale-ratio));
+  --font-size-7: calc(var(--font-size-6) * var(--font-scale-ratio));
+
+  --font-weight-light: 200;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-strong: 750;
+  --font-weight-extra-bold: 800;
+  --font-weight-heavy: 850;
+  --font-weight-black: 900;
+  --font-weight-display: 950;
+
+  --line-height-tight: 1;
+  --line-height-snug: 1.2;
+  --line-height-note: 1.32;
+  --line-height-reading: 1.58;
+  --line-height--2: 0.75rem;
+  --line-height--1: 0.75rem;
+  --line-height-0: 1rem;
+  --line-height-1: 1.5rem;
+  --line-height-2: 2rem;
+  --line-height-3: 1.5rem;
+  --line-height-4: 2rem;
+  --line-height-5: 2.5rem;
+  --line-height-6: 3rem;
+  --line-height-7: 3.75rem;
+
+  --text-caption-size: var(--font-size-0);
+  --text-label-size: var(--font-size-0);
+  --text-body-size: var(--font-size-1);
+  --text-lead-size: var(--font-size-2);
+  --text-title-size: var(--font-size-3);
+  --text-display-size: var(--font-size-4);
+  --text-hero-size: var(--font-size-5);
+  --text-caption-line-height: var(--line-height-0);
+  --text-label-line-height: var(--line-height-0);
+  --text-body-size-line-height: var(--line-height-1);
+  --text-lead-line-height: var(--line-height-2);
+  --text-title-line-height: var(--line-height-3);
+  --text-display-line-height: var(--line-height-4);
+  --text-hero-line-height: var(--line-height-5);
+  --text-body-weight: var(--font-weight-medium);
+  --text-lead-weight: var(--font-weight-medium);
+  --text-heading-line-height: 0.95;
+  --text-body-line-height: 1.5;
+  --text-body-max-width: 50ch;
+  --overlay-title-size: var(--font-size-4);
+  --overlay-text-size: var(--text-lead-size);
+  --overlay-text-max-width: 50ch;
+  --overlay-meta-size: var(--text-caption-size);
+  --overlay-shadow: 0 0 3rem rgba(0, 0, 0, 0.7);
+  --floating-panel-shadow: 0 var(--space-2) var(--space-5) rgba(var(--color-shadow-rgb), 1);
+  --floating-panel-shadow-2x-compensated: 0 var(--space-1) 1.25rem rgba(var(--color-shadow-rgb), 1);
+  --button-line-height: var(--line-height-tight);
+  --control-line-height: var(--line-height-tight);
+  --diagram-label-size: clamp(var(--font-size--2), 0.8vw, var(--font-size--1));
+  --diagram-main-label-size: clamp(var(--font-size--1), 0.9vw, var(--font-size-0));
+  --diagram-main-label-line-height: 1.05;
+  --note-text-size: clamp(var(--font-size-0), 0.98vw, var(--font-size-1));
+  --statement-card-quote-size: var(--font-size-2);
   --statement-pattern-card-inline-padding: 5vw;
-  --top-overlay-text-size: var(--overlay-text-size);
-  --top-overlay-meta-size: var(--overlay-meta-size);
-  --side-overlay-title-size: var(--overlay-title-size);
-  --side-overlay-text-size: var(--overlay-text-size);
 
-  --app-background: var(--bg-black);
-  --app-background-rgb: var(--bg-black-rgb);
+  --app-background: var(--color-background);
 
   /* Figma source: Just Cause */
   /* --intent-color-just-cause: #d772ff; */
-  --intent-color-just-cause: #AF6CCC;
+  --intent-color-just-cause: #9454B2;
 
   /* Figma source: Enemy Image */
   /* --intent-color-enemy-image: #ff657c; */
-  --intent-color-enemy-image: #D95F6F;
+  --intent-color-enemy-image: #C44C5C;
 
   /* Figma source: Individuals Needs */
   /* --intent-color-individual-needs: #658cff; */
-  --intent-color-individual-needs: #6387E9;
+  --intent-color-individual-needs: #4F70D1;
 
   /* Figma source: Rhetroical Foreclosure */
   /* --intent-color-rhetorical-foreclosure: #93ba79; */
-  --intent-color-rhetorical-foreclosure: #66A031;
+  --intent-color-rhetorical-foreclosure: #548C18;
 }

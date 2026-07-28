@@ -1,36 +1,55 @@
-import type { IntentRecord, PatternLabelKey } from '../types/intentData'
-import { intentTaxonomy } from '../types/intentTaxonomy'
-import { splitAnchors, subLabelColors } from './intentLabels'
+import type { IntentRecord, PatternLabelKey, TopLevelStrategyUsage } from '../types/intentData'
+import { intentTaxonomy } from './intentTaxonomy'
+import {
+  getActivePatternAnnotations,
+  getPatternAnnotation,
+  isPatternGroupActive,
+} from './intentRecordPatterns'
+import { subLabelColors } from './intentLabels'
 
-export interface StatementPatternBadge {
+interface StatementPatternBadge {
   color: string
   label: PatternLabelKey
 }
 
-const statementPatternLabels = intentTaxonomy.flatMap((group) => group.childLabels)
-
 export function getStatementPatternBadges(record: IntentRecord): StatementPatternBadge[] {
-  return statementPatternLabels
-    .filter((label) => record[label] === 'yes' || getStatementPatternAnchors(record, label).length > 0)
-    .map((label) => ({
-      color: getStatementPatternColor(label),
-      label,
+  return getActivePatternAnnotations(record)
+    .map((annotation) => ({
+      color: getStatementPatternColor(annotation.key),
+      label: annotation.key,
     }))
 }
 
 export function getStatementPatternAnchors(record: IntentRecord, label: PatternLabelKey) {
-  return splitAnchors(record[`${label}_anchor` as keyof IntentRecord])
+  return getPatternAnnotation(record, label)?.anchors ?? []
 }
 
 export function getStatementPatternBriefJustification(
   record: IntentRecord,
   label: PatternLabelKey,
 ) {
-  const value = record[`${label}_bj` as keyof IntentRecord]
-
-  return typeof value === 'string' && value.length > 0 ? value : null
+  return getPatternAnnotation(record, label)?.justification ?? null
 }
 
 export function getStatementPatternColor(label: PatternLabelKey) {
   return subLabelColors.get(label) ?? 'var(--color-neutral)'
+}
+
+export function getTopLevelStrategies(
+  records: readonly IntentRecord[],
+): TopLevelStrategyUsage[] {
+  return intentTaxonomy.flatMap((group) => {
+    const matchingRecords = records.filter((record) =>
+      isPatternGroupActive(record, group.parentLabel),
+    )
+
+    if (matchingRecords.length === 0) return []
+
+    return {
+      label: group.label,
+      labelKey: group.parentLabel,
+      statementCount: matchingRecords.length,
+      statementIds: matchingRecords.map((record) => record.id),
+    }
+  })
 }

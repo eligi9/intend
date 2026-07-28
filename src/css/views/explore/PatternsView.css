@@ -1,10 +1,10 @@
 .strategy-view {
-  --strategy-view-inline-padding: clamp(1.75rem, 3vw, 2.75rem);
+  --strategy-view-inline-padding: var(--layout-view-inline);
 
   position: relative;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 0.875rem;
+  gap: 0;
   height: 100%;
   min-height: 100%;
   overflow: hidden;
@@ -22,26 +22,50 @@
 }
 
 .strategy-view__content {
-  position: relative;
+  position: static;
   z-index: 1;
   display: grid;
   min-height: 0;
   overflow: hidden;
 }
 
+.strategy-view__line-grid {
+  --mirrored-line-grid-marker-bottom: calc(var(--space-8) + var(--space-1));
+  --vertical-line-grid-label-bottom: calc(var(--space-8) + var(--space-1));
+  --vertical-line-grid-scale-label-bottom: calc(
+    var(--space-8) + var(--space-1) + var(--space-3)
+  );
+}
+
 .strategy-view__structure {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
   display: grid;
-  align-self: center;
-  justify-self: stretch;
   min-width: 0;
   min-height: 0;
   width: 100%;
-  height: 80%;
+  height: 60vh;
+  transform: translate(-50%, -50%);
+}
+
+.strategy-view__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 10000;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: rgba(var(--color-shadow-rgb), 0.22);
+  backdrop-filter: blur(0.1875rem);
+  cursor: default;
 }
 
 @media (max-width: 48.75rem) {
   .strategy-view {
-    --strategy-view-inline-padding: 1.25rem;
+    --strategy-view-inline-padding: var(--space-3);
   }
 
   .strategy-view--structure {
@@ -49,9 +73,12 @@
   }
 
   .strategy-view__structure {
+    position: relative;
+    top: auto;
+    left: auto;
     grid-template-columns: 1fr;
-    align-self: start;
     height: auto;
+    transform: none;
   }
 
 }

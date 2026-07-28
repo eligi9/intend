@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
+import SelectionView from '../../components/common/SelectionView.vue'
+import StrategyButton from '../../components/common/StrategyButton.vue'
+import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
 import ExploreHeader from '../../components/explore/ExploreHeader.vue'
 import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
+import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
 import type {
@@ -12,32 +16,56 @@ import type {
   HoveredTimelineStatement,
 } from '../../types/strategyBeeswarm'
 import type { TimelineEvent } from '../../types/timeline'
+import { isPatternActive } from '../../utils/intentRecordPatterns'
+import { createStrategyTimelineDomain } from '../../utils/strategyTimelineDomain'
 
 defineProps<ExploreHeaderProps>()
 
 const emit = defineEmits<{
+  'establishment-select': []
   'section-select': [section: ExploreViewSection]
 }>()
 
 const statementStore = useStatementStore()
-const { records } = storeToRefs(statementStore)
+const authorDetailStore = useAuthorDetailStore()
+const { filteredRecords, records } = storeToRefs(statementStore)
+const { authorName: openAuthorName } = storeToRefs(authorDetailStore)
 const timelineEvents = strategyTimelineEventsDataset.events as TimelineEvent[]
+const timelineDomain = computed(() => createStrategyTimelineDomain(records.value, timelineEvents))
 const beeswarmMode = ref<BeeswarmDisplayMode>('statements')
-const hoveredPattern = ref<HoveredBeeswarmStatement | null>(null)
-const hoveredStatement = ref<HoveredTimelineStatement | null>(null)
+const selectedPattern = ref<HoveredBeeswarmStatement | null>(null)
 
-watch(beeswarmMode, () => {
-  hoveredPattern.value = null
-  hoveredStatement.value = null
+const selectedPatternRecords = computed(() => {
+  const pattern = selectedPattern.value
+
+  return pattern
+    ? records.value.filter((record) => isPatternActive(record, pattern.label))
+    : []
 })
+function showAuthorDetail(statement: HoveredTimelineStatement | null) {
+  if (!statement) return
 
-function showHoveredPattern(pattern: HoveredBeeswarmStatement | null) {
-  hoveredPattern.value = pattern
+  const filteredAuthorRecordIds = filteredRecords.value
+    .filter((record) => record.author === statement.record.author)
+    .map((record) => record.id)
+
+  selectedPattern.value = null
+  authorDetailStore.openAuthorDetail(statement.record.author, {
+    recordIds: filteredAuthorRecordIds,
+    targetStatementId: statement.record.id,
+  })
 }
 
-function showHoveredStatement(statement: HoveredTimelineStatement | null) {
-  hoveredStatement.value = statement
+function showPatternDetail(statement: HoveredBeeswarmStatement | null) {
+  if (!statement) return
+
+  selectedPattern.value = statement
 }
+
+function closeDetail() {
+  selectedPattern.value = null
+}
+
 </script>
 
 <template>
@@ -45,8 +73,17 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
     <ExploreHeader
       :active-section="activeSection"
       :sections="sections"
-      subline="All coded statements over time, filterable by top-level pattern."
-      title="Timeline"
+      :subline="
+        beeswarmMode === 'strategies'
+          ? 'Compare pattern categories. Expand a category to see its individual patterns.'
+          : 'Hover events for details. Hover a statement to highlight all statements by the same author.'
+      "
+      :title="
+        beeswarmMode === 'strategies'
+          ? 'How are patterns distributed over time?'
+          : 'How are statements distributed over time?'
+      "
+      @establishment-select="emit('establishment-select')"
       @select="emit('section-select', $event)"
     />
 
@@ -55,70 +92,61 @@ function showHoveredStatement(statement: HoveredTimelineStatement | null) {
         <StrategyBeeswarmPlotP5
           :events="timelineEvents"
           :mode="beeswarmMode"
-          :statements="records"
-          :selected-labels="[]"
-          @pattern-hover="showHoveredPattern"
-          @statement-hover="showHoveredStatement"
+          :statements="filteredRecords"
+          :suppress-top-overlay="Boolean(selectedPattern || openAuthorName)"
+          :time-domain="timelineDomain"
+          @pattern-press="showPatternDetail"
+          @statement-press="showAuthorDetail"
         />
       </div>
 
-      <Transition name="timeline-view-statement-hover">
-        <aside
-          v-if="beeswarmMode === 'statements' && hoveredStatement"
-          class="timeline-view__statement-hover"
-          aria-label="Hovered statement"
-        >
-          <p>{{ hoveredStatement.statement }}</p>
-          <span>
-            {{ hoveredStatement.author }} · {{ hoveredStatement.date }}
-            <template v-if="hoveredStatement.source">
-              · {{ hoveredStatement.source }}
-            </template>
-          </span>
-        </aside>
-      </Transition>
-
-      <Transition name="timeline-view-statement-hover">
-        <aside
-          v-if="beeswarmMode === 'strategies' && hoveredPattern"
-          class="timeline-view__statement-hover timeline-view__statement-hover--pattern"
-          :style="{ '--timeline-view-pattern-color': hoveredPattern.color }"
-          aria-label="Hovered pattern anchor"
-        >
-          <strong>Anchor</strong>
-          <p
-            v-for="(anchor, index) in hoveredPattern.anchorText ?? []"
-            :key="`${anchor}-${index}`"
-          >
-            "{{ anchor }}"
-          </p>
-          <span>
-            {{ hoveredPattern.author }} · {{ hoveredPattern.date }}
-            <template v-if="hoveredPattern.source">
-              · {{ hoveredPattern.source }}
-            </template>
-          </span>
-          <small>Note: These are shortened excerpts.</small>
-        </aside>
-      </Transition>
-
       <div class="timeline-view__switch" aria-label="Timeline display">
-        <button
-          type="button"
-          :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'statements' }"
-          @click="beeswarmMode = 'statements'"
-        >
-          Statements
-        </button>
-        <button
-          type="button"
-          :class="{ 'timeline-view__switch-button--active': beeswarmMode === 'strategies' }"
-          @click="beeswarmMode = 'strategies'"
-        >
-          Patterns
-        </button>
+        <StrategyButton
+          :active="beeswarmMode === 'statements'"
+          color="var(--color-black)"
+          label="Statements"
+          min-width="6rem"
+          @select="beeswarmMode = 'statements'"
+        />
+        <StrategyButton
+          :active="beeswarmMode === 'strategies'"
+          color="var(--color-black)"
+          label="Patterns"
+          min-width="6rem"
+          @select="beeswarmMode = 'strategies'"
+        />
       </div>
     </section>
+
+    <ExploreFilterBar
+      aria-label="Timeline Filter"
+      select-label="Filter timeline by content category"
+      :z-index="30"
+    />
+
+    <button
+      v-if="selectedPattern"
+      type="button"
+      class="timeline-view__scrim"
+      aria-label="Detail view schliessen"
+      @click.stop="closeDetail"
+      @mousedown.stop
+      @mouseup.stop
+      @pointerdown.stop
+      @pointerup.stop
+    />
+
+    <Teleport to="body">
+      <Transition name="detail-overlay">
+        <SelectionView
+          v-if="selectedPattern"
+          :header-color="selectedPattern.color"
+          :records="selectedPatternRecords"
+          :target-statement-id="selectedPattern.record.id"
+          :title="selectedPattern.strategy"
+        />
+      </Transition>
+    </Teleport>
   </section>
 </template>
 

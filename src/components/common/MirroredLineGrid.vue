@@ -4,6 +4,7 @@ import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
 import VerticalLineGrid from './VerticalLineGrid.vue'
 
 const props = defineProps<{
+  highlightCenter?: boolean
   maxValue: number
   marker?: MirroredLineGridMarker | null
   scaleLabel: string
@@ -11,6 +12,7 @@ const props = defineProps<{
 }>()
 
 const areaCount = computed(() => Math.round((props.maxValue * 2) / props.stepSize))
+const lineCount = computed(() => areaCount.value + 1)
 
 const gridLabels = computed(() =>
   Array.from({ length: areaCount.value + 1 }, (_, index) => {
@@ -43,8 +45,9 @@ function getXPercent(value: number) {
 <template>
   <div class="mirrored-line-grid" aria-hidden="true">
     <VerticalLineGrid
-      :area-count="areaCount"
+      :highlight-center="props.highlightCenter"
       :labels="gridLabels"
+      :line-count="lineCount"
       :scale-label="props.scaleLabel"
     />
 

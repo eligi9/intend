@@ -2,14 +2,14 @@
   --establishment-stage-width: min(100vw, calc(100vh * 1512 / 982));
   --establishment-stage-height: min(100vh, calc(100vw * 982 / 1512));
   --establishment-heading-start: calc(645 / 982 * var(--establishment-stage-height));
-  --establishment-heading-stick-top: clamp(2.625rem, 9vh, 5.5rem);
+  --establishment-heading-stick-top: clamp(var(--space-5), 9vh, var(--space-11));
   --establishment-measure-highlight-color: var(--color-measure-highlight);
 
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
   color: var(--color-text-soft);
-  background: var(--bg-black);
+  background: var(--app-background);
 }
 
 .establishment-view__panel {
@@ -17,4 +17,94 @@
   z-index: 1;
   height: 100vh;
   min-height: 0;
+}
+
+.establishment-view__grid {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.establishment-view__frame-graphic {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  box-sizing: border-box;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.establishment-view__frame-graphic-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-column: 3 / 4;
+  gap: var(--space-1);
+  padding-inline-end: var(--space-2);
+}
+
+.establishment-view__frame-graphic-copy h2,
+.establishment-view__frame-graphic-copy p {
+  margin: 0;
+}
+
+.establishment-view__frame-graphic-copy h2 {
+  color: var(--color-text);
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: var(--text-heading-line-height);
+}
+
+.establishment-view__frame-graphic-copy p {
+  color: var(--color-text);
+  font-size: var(--font-size-1);
+  font-weight: var(--text-body-weight);
+  letter-spacing: 0;
+  line-height: var(--text-body-line-height);
+}
+
+.establishment-view__frame-graphic-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  grid-column: 4 / 6;
+  justify-self: center;
+  width: 75%;
+  height: auto;
+  max-height: calc(100vh - var(--space-10));
+  object-fit: contain;
+}
+
+.establishment-view__explore-button {
+  position: absolute;
+  z-index: 2;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 48.75rem) {
+  .establishment-view__frame-graphic {
+    grid-template-rows: auto auto;
+    grid-template-columns: 1.25rem repeat(5, minmax(0, 1fr)) 1.25rem;
+    align-content: center;
+    row-gap: var(--space-5);
+    padding: var(--space-3);
+  }
+
+  .establishment-view__frame-graphic-copy {
+    grid-row: 1;
+    grid-column: 2 / 7;
+    padding-inline-end: 0;
+  }
+
+  .establishment-view__frame-graphic-image {
+    grid-row: 2;
+    grid-column: 2 / 7;
+    width: min(70%, 18rem);
+    max-height: calc(100vh - var(--space-6));
+  }
 }
