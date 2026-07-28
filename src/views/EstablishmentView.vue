@@ -12,7 +12,6 @@ import ExploreNavButton from '../components/explore/ExploreNavButton.vue'
 import { pageScrollLockEventName } from '../composables/usePageScrollLock'
 import landingCopy from '../content/landingCopy.json'
 import { useStatementStore } from '../stores/statementStore'
-import { resolvePublicAssetPath } from '../utils/assetPaths'
 import { getAcceleratedContainerScrollOffset } from '../utils/scrollMotion'
 import ExploreView from './explore/ExploreView.vue'
 import EstablishmentIntroView from './establishment/EstablishmentIntroView.vue'
@@ -44,9 +43,6 @@ const showExplore = ref(false)
 const showStatementSection = false
 const establishmentGridLineCount = 8
 const establishmentGridLabels: string[] = []
-const rhetoricalFramesOverviewImage = resolvePublicAssetPath(
-  '/images/rhetorical-frames-overview.png',
-)
 const interludeRecord = computed(() =>
   statementStore.records.find((record) => record.id === 'legislators-0005'),
 )
@@ -375,7 +371,7 @@ onBeforeUnmount(() => {
 
         <img
           class="establishment-view__frame-graphic-image"
-          :src="rhetoricalFramesOverviewImage"
+          src="/images/rhetorical-frames-overview.png"
           alt="Diagram showing Enemy Image, Just Cause, and Individual Needs frame categories"
           width="490"
           height="654"

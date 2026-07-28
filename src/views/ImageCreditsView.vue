@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import authorDataset from '../../data/author-dataset.json'
 import type { AuthorDataset } from '../types/authorData'
-import { resolvePublicAssetPath } from '../utils/assetPaths'
 
 const emit = defineEmits<{
   close: []
@@ -59,7 +58,7 @@ const imageCredits = (authorDataset as AuthorDataset).authors.flatMap((author) =
         >
           <img
             class="image-credits-view__image"
-            :src="resolvePublicAssetPath(image.url)"
+            :src="image.url"
             :alt="`Portrait of ${authorName}`"
             draggable="false"
           />

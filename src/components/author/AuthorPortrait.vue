@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import type { AuthorInstance } from '../../types/authorData'
 import type { PatternLabelKey } from '../../types/intentData'
-import { resolvePublicAssetPath } from '../../utils/assetPaths'
 import { strategyColors } from '../../utils/intentLabels'
 import AuthorTooltip from './AuthorTooltip.vue'
 
@@ -68,9 +67,6 @@ const outerRingColor = computed(() =>
 )
 
 const imageAlt = computed(() => `Portrait von ${props.author.name}`)
-const imageUrl = computed(() =>
-  props.author.image ? resolvePublicAssetPath(props.author.image.url) : '',
-)
 </script>
 
 <template>
@@ -103,7 +99,7 @@ const imageUrl = computed(() =>
           <img
             v-if="author.image"
             class="author-portrait__image"
-            :src="imageUrl"
+            :src="author.image.url"
             :alt="imageAlt"
             draggable="false"
           />
@@ -141,7 +137,7 @@ const imageUrl = computed(() =>
         <img
           v-if="author.image"
           class="author-portrait__image"
-          :src="imageUrl"
+          :src="author.image.url"
           :alt="imageAlt"
           draggable="false"
         />
