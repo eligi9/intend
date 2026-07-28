@@ -5,7 +5,7 @@
     {
       "id": "hamas-led-attack-israel",
       "date": "2023-10-07",
-      "label": "Hamas-led attack",
+      "label": "Oct. 7 attack",
       "description": "Hamas-led attack on Israel, also known as Operation Al-Aqsa Flood; beginning of the war in Israel and Gaza.",
       "category": "attack",
       "sourceName": "United Nations",
@@ -14,16 +14,34 @@
     {
       "id": "world-court-orders-israel-prevent-genocide",
       "date": "2024-01-26",
-      "label": "World Court order",
-      "description": "The International Court of Justice ordered Israel to take measures to prevent genocide in Gaza.",
+      "label": "ICJ order",
+      "description": "The International Court of Justice ordered Israel to take measures to prevent genocide in Gaza, including preventing and punishing direct and public incitement to genocide.",
       "category": "court",
       "sourceName": "Human Rights Watch",
       "sourceUrl": "https://www.hrw.org/news/2024/01/26/gaza-world-court-orders-israel-prevent-genocide"
     },
     {
+      "id": "rafah-offensive-begins",
+      "date": "2024-05-06",
+      "label": "Rafah offensive",
+      "description": "Israel began its Rafah offensive and moved to capture the Palestinian side of the Rafah crossing, a main entry point for humanitarian aid into Gaza.",
+      "category": "offensive",
+      "sourceName": "Axios",
+      "sourceUrl": "https://www.axios.com/2024/05/06/israel-gaza-rafah-invasion-hamas-hostage-deal"
+    },
+    {
+      "id": "icj-rules-israeli-settlements-illegal",
+      "date": "2024-07-19",
+      "label": "ICJ settlements",
+      "description": "The International Court of Justice said Israel's occupation of Palestinian territories is illegal and called for an end to settlement activity and annexation.",
+      "category": "court",
+      "sourceName": "Axios",
+      "sourceUrl": "https://www.axios.com/2024/07/19/icj-rules-israeli-settlements-illegal-annexation"
+    },
+    {
       "id": "gaza-occupation-plan-announced",
       "date": "2025-05-05",
-      "label": "Gaza occupation plan",
+      "label": "Occupation plan",
       "description": "The Guardian reported on the announcement of Israel's plan to expand military operations in Gaza and establish a sustained presence.",
       "category": "occupation-plan",
       "sourceName": "The Guardian",

@@ -1,0 +1,104 @@
+.top-overlay {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  left: 0;
+  inset-block-start: 0;
+  inset-inline: 0;
+  display: grid;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: var(--top-overlay-min-height);
+  padding: var(--space-4) var(--space-9);
+  color: var(--top-overlay-text-color);
+  background: var(--top-overlay-background);
+  box-shadow: var(--overlay-shadow);
+  pointer-events: none;
+}
+
+.top-overlay__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.618fr) minmax(0, 1fr);
+  column-gap: var(--space-2);
+  row-gap: var(--space-2);
+  align-items: start;
+  width: min(72rem, 100%);
+}
+
+.top-overlay h3,
+.top-overlay p,
+.top-overlay span {
+  margin: 0;
+}
+
+.top-overlay__heading {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: center;
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.top-overlay h3 {
+  color: var(--top-overlay-heading-color);
+  font-family: var(--font-sans);
+  font-size: var(--overlay-title-size);
+  font-weight: var(--font-weight-display);
+  line-height: var(--line-height-4);
+  text-align: left;
+}
+
+.top-overlay p {
+  grid-column: 2;
+  max-width: var(--overlay-text-max-width);
+  font-family: var(--font-sans);
+  font-size: var(--overlay-text-size);
+  font-weight: var(--text-lead-weight);
+  line-height: var(--text-lead-line-height);
+  white-space: pre-line;
+}
+
+.top-overlay span {
+  grid-column: 2;
+  font-size: var(--overlay-meta-size);
+  font-weight: var(--font-weight-heavy);
+}
+
+@media (max-width: 48.75rem) {
+  .top-overlay__inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .top-overlay h3,
+  .top-overlay p,
+  .top-overlay span {
+    grid-column: 1;
+  }
+
+  .top-overlay__heading {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+  }
+
+  .top-overlay h3 {
+    text-align: left;
+  }
+}
+
+.top-overlay-enter-active,
+.top-overlay-leave-active {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.top-overlay-enter-from,
+.top-overlay-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+}

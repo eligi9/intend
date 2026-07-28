@@ -1,0 +1,41 @@
+.statement-pattern-card {
+  --statement-pattern-card-representation-column-size: 66px;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    var(--statement-pattern-card-representation-column-size);
+  gap: var(--statement-pattern-card-gap, var(--space-2));
+  align-items: stretch;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.statement-pattern-card__representation {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+}
+
+.statement-pattern-card--without-representation {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.statement-pattern-card > .statement-card {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.statement-pattern-card + .statement-pattern-card {
+  padding-block-start: var(--space-9);
+  border-block-start: 2px solid rgba(var(--color-text-rgb), 0.2);
+}
+
+.statement-pattern-card :deep(.strategy-badge-container) {
+  grid-column: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  justify-self: end;
+}

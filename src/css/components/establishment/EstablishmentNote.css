@@ -1,0 +1,54 @@
+.establishment-note {
+  position: absolute;
+  width: min(20.625rem, 26vw);
+  color: var(--color-text);
+}
+
+.establishment-note__line {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  color: rgba(var(--color-text-rgb), 0.72);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.establishment-note__line path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.3;
+  vector-effect: non-scaling-stroke;
+}
+
+.establishment-note__text {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  color: rgba(var(--color-text-rgb), 0.9);
+  font-family: var(--font-mono);
+  font-size: var(--note-text-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-note);
+  text-shadow: 0 0.125rem 1.125rem rgba(var(--color-shadow-rgb), 0.72);
+  transform-origin: center center;
+  will-change: opacity, transform;
+}
+
+.establishment-note__text--typing::after {
+  display: inline-block;
+  width: 0.66em;
+  color: rgba(var(--color-text-rgb), 0.76);
+  content: "|";
+  animation: establishment-note-caret 0.72s steps(1, end) infinite;
+}
+
+@keyframes establishment-note-caret {
+  50% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,47 @@
+.statement-button-tooltip {
+  --tooltip-panel-inline-size: min(28rem, calc(100vw - var(--space-4)));
+  --tooltip-panel-max-inline-size: calc(100vw - var(--space-4));
+  --tooltip-panel-padding: var(--space-2);
+  --tooltip-panel-gap: var(--space-2);
+  --tooltip-panel-offset: var(--space-3);
+
+  width: max-content;
+  height: max-content;
+}
+
+.statement-button-tooltip:hover,
+.statement-button-tooltip:focus-within {
+  z-index: 30;
+}
+
+.statement-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: max-content;
+  height: max-content;
+  min-height: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--color-text);
+  background: transparent;
+  outline: none;
+  transform-origin: center;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+  will-change: transform;
+}
+
+.statement-button:hover,
+.statement-button:focus-visible,
+.statement-button-tooltip:hover .statement-button,
+.statement-button-tooltip:focus-within .statement-button {
+  transform: scale(1.5);
+}
+
+.statement-button:focus-visible {
+  box-shadow: 0 0 0 0.1875rem rgba(var(--color-text-rgb), 0.28);
+}

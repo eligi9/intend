@@ -1,0 +1,30 @@
+.explore-view {
+  position: relative;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  min-width: 0;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--app-background);
+}
+
+.explore-view__content {
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 48.75rem) {
+  .explore-view {
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .explore-view__content {
+    height: auto;
+    overflow: visible;
+  }
+
+}

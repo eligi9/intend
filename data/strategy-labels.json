@@ -5,66 +5,66 @@
     {
       "label": "Enemy Image",
       "labelKey": "enemy_image",
-      "description": "Enemy Image describes how language can portray an outgroup as an enemy. The group appears dangerous, immoral, or fundamentally different. This can make violence against them seem more acceptable, reduce moral hesitation, and mobilize the ingroup.",
+      "description": "Enemy Image portrays an outgroup as a threatening collective that is fundamentally different or less than human. This can affect the ingroup’s general perception of the outgroup and lead to desensitization, enabling participation in violence without remorse.",
       "subLabels": [
         {
           "labelKey": "homogenization",
           "label": "Homogenization",
-          "description": "Homogenization describes statements in which an outgroup is presented as one uniform mass and individual differences disappear."
+          "description": "Homogenization describes how language can make an outgroup appear as one single, uniform group. Individual differences become less visible. As a result, the actions, traits, or perceived threat of some individuals may be projected onto the whole group. This can blur the distinction between civilians and combatants."
         },
         {
           "labelKey": "immutability",
           "label": "Immutability",
-          "description": "Immutability describes statements in which a group is presented as unchangeable, permanently hostile, or unable to reform."
+          "description": "Immutability presents an outgroup as unchangeable in its nature, ideology, or threat. The group seems impossible to reform, live with peacefully, or negotiate with. When a group is seen as a permanent danger, peaceful solutions can seem naive, impossible, or even risky."
         },
         {
           "labelKey": "essentialization",
           "label": "Essentialization",
-          "description": "Essentialization means that an outgroup is presented as having a negative nature. It is not only about individual actions, but about how the whole group is described. The group is linked to certain traits, behaviors, or values. This makes it appear fundamentally different from the ingroup. Essentialization can also be indirect. For example, cruel or abusive treatment of children can create a very negative image of the whole group, because children stand for innocence and vulnerability. Such portrayals can make violence against the outgroup seem more acceptable or necessary."
+          "description": "Essentialization portrays the outgroup as evil, immoral, or fundamentally different from the ingroup. If a group is to be severely harmed, it must not be perceived as similar to the ingroup, because shared similarities foster empathy."
         },
         {
           "labelKey": "dehumanization",
           "label": "Dehumanization",
-          "description": "Dehumanization describes statements in which people are linguistically removed from the sphere of human dignity and protection."
+          "description": "Dehumanization describes language that presents an outgroup as less than fully human. This can happen when people are compared to animals, pests, diseases, objects, or described as inferior. For example, they may be called “vermin” or described as a “disease.” Their suffering may then seem less important or less real. Violence against them can appear less disturbing, more acceptable, or easier to justify. In this way, dehumanization can help mobilize the ingroup by reducing moral hesitation."
         },
         {
           "labelKey": "threat_construction",
           "label": "Threat Depiction",
-          "description": "Threat depiction describes statements that mark a group, person, or situation as an acute threat."
+          "description": "Threat Depiction describes how language can present an outgroup as a threat to the ingroup, its safety, values, territory, or future. The threat is often linked to a demanded action or measure. This can make certain responses appear necessary, protective, or justified. Once an outgroup is framed as dangerous, people may interpret later information through this threat image. Details that confirm the threat can seem more believable, while contradicting information may receive less attention."
         }
       ]
     },
     {
       "label": "Just Cause",
       "labelKey": "just_cause",
-      "description": "Presents coercive, violent, or restrictive action as justified by security, self-defence, counterterrorism, or retaliation.",
+      "description": "Just Cause frames violent or harmful measures as rational, necessary, or morally justified. By linking a measure to a specific cause, these patterns create a logic of justification in which violence can appear legitimate rather than arbitrary.",
       "subLabels": [
         {
           "labelKey": "security_rationale",
-          "label": "Security rationale",
-          "description": "Security rationale describes statements that legitimize measures through security, protection, or risk prevention."
+          "label": "Security Rationale",
+          "description": "Security Rationale describes how language can present violent, harmful, or controlling measures as necessary for the security and protection of the ingroup. The focus is not mainly on depicting a threat, but on using security as a reason for action. In this way, such measures can appear reasonable, defensive, or legitimate."
         },
         {
           "labelKey": "selfdefence_counterterrorism",
-          "label": "Self-defence / counterterrorism",
-          "description": "Self-defence / counterterrorism describes statements that frame actions as self-defence or counterterrorism."
+          "label": "Self-Defense / Counter-Terrorism",
+          "description": "Self-Defense / Counter-Terrorism describes how language can justify violent or harmful measures by framing them as self-defense or counter-terrorism. The focus is not on depicting a threat alone, but on how this threat is used to justify a concrete action. As a result, the measure can appear legitimate, necessary or even defensive."
         },
         {
           "labelKey": "retaliation",
           "label": "Retaliation",
-          "description": "Retaliation describes statements in which violence or coercion is justified as an answer, reprisal, or necessary response."
+          "description": "Retaliation presents harmful measures as revenge, a necessary reaction, or punishment for past suffering and harm caused by an outgroup."
         }
       ]
     },
     {
       "label": "Individual Needs",
       "labelKey": "individual_needs",
-      "description": "Links support for action to psychological needs such as meaning, status, belonging, confidence, or the promise of victory.",
+      "description": "Individual Needs appeals to the ingroup’s personal needs. By making people feel needed, respected, hopeful, or part of a meaningful project, these patterns can encourage support and participation.",
       "subLabels": [
         {
           "labelKey": "meaning",
           "label": "Meaning",
-          "description": "Meaning describes statements that charge actions with purpose, mission, or historical significance."
+          "description": "Meaning frames actions, policies, or sacrifices as part of a larger meaning making cause. It elevates their importance by linking them to historical, religious, or national stories, presenting them as important for the community or the nation."
         },
         {
           "labelKey": "status",
@@ -73,30 +73,30 @@
         },
         {
           "labelKey": "hope_for_victory",
-          "label": "Hope for victory",
-          "description": "Hope for victory describes statements that mobilize support through the prospect of victory, strength, or successful enforcement."
+          "label": "Hope for Victory",
+          "description": "Hope for Victory describes how language can make victory or success seem possible and close. This can give the ingroup hope, help people keep going, and prevent defeatism."
         }
       ]
     },
     {
       "label": "Rhetorical Foreclosure",
       "labelKey": "rhetorical_foreclosure",
-      "description": "Closes down alternatives by portraying restraint, compromise, humanitarian concern, or external criticism as weakness, betrayal, or impossibility.",
+      "description": "Rhetorical Foreclosure narrows the ingroup’s perspective by dismissing alternatives, criticism, and moral concerns. In conflict situations, this can be effective because people might question information less critically and place more trust in authorities.",
       "subLabels": [
         {
           "labelKey": "no_alternative_framing",
-          "label": "No alternative framing",
-          "description": "No alternative framing describes statements in which alternatives are excluded or presented as impossible."
+          "label": "No Alternatives",
+          "description": "No Alternatives presents a measure as unavoidable. By suggesting that there is “no choice” or “no other way,” it dismisses alternatives and frames the action as a necessity rather than a debatable choice."
         },
         {
           "labelKey": "humanity_as_weakness",
-          "label": "Humanity as weakness",
-          "description": "Humanity as weakness describes statements in which humanitarian restraint is framed as weakness or danger."
+          "label": "Humanity as Weakness",
+          "description": "Humanity as Weakness describes statements that present humanity, mercy, empathy, or restraint as weak, insufficient, or irresponsible. This pattern devalues compassion and makes harshness appear more appropriate or necessary than humanity."
         },
         {
           "labelKey": "external_criticism_rejection",
-          "label": "External criticism rejection",
-          "description": "External criticism rejection describes statements that reject external criticism as illegitimate, hostile, or fundamentally irrelevant."
+          "label": "External Criticism Rejection",
+          "description": "External Criticism Rejection describes statements that dismiss outside criticism as illegitimate, hostile, or antisemitic. This can make external pressure or moral objections appear invalid and protect the ingroup from outside influence."
         }
       ]
     }

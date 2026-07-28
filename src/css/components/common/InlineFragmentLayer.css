@@ -1,0 +1,21 @@
+.inline-fragment-layer {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+}
+
+.inline-fragment-layer__box {
+  position: absolute;
+  display: block;
+}
+
+.inline-fragment-layer__box--fill {
+  background: var(--inline-fragment-color);
+}
+
+.inline-fragment-layer__box--outline {
+  box-shadow:
+    0 0 0 var(--inline-fragment-stroke-width)
+    var(--inline-fragment-color);
+}

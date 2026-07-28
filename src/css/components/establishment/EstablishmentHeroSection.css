@@ -1,0 +1,12 @@
+.establishment-view__hero {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.establishment-view__stage {
+  position: relative;
+  width: var(--establishment-stage-width);
+  aspect-ratio: 1512 / 982;
+  overflow: hidden;
+}

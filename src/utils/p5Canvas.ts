@@ -6,7 +6,7 @@ interface CanvasSizeOptions {
   minWidth?: number
 }
 
-export function getP5CanvasSize(container: HTMLElement, options: CanvasSizeOptions) {
+function getP5CanvasSize(container: HTMLElement, options: CanvasSizeOptions) {
   const bounds = container.getBoundingClientRect()
   const minWidth = options.minWidth ?? 320
 
@@ -43,4 +43,19 @@ export function setupResizableP5Canvas(
   return () => {
     resizeObserver.disconnect()
   }
+}
+
+export function setP5Cursor(
+  p: p5,
+  container: HTMLElement,
+  interactive: boolean,
+) {
+  const canvas = container.querySelector('canvas')
+  const cursor = interactive ? 'pointer' : 'default'
+
+  if (canvas && canvas.dataset.cursor !== cursor) {
+    canvas.dataset.cursor = cursor
+  }
+
+  p.cursor(interactive ? p.HAND : p.ARROW)
 }

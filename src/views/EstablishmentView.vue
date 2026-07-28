@@ -1,55 +1,65 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import type { VirtualScrollData } from 'lenis'
 import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
-import EstablishmentHeroSection from '../components/EstablishmentHeroSection.vue'
-import EstablishmentIntroSection from '../components/EstablishmentIntroSection.vue'
-import EstablishmentStatementSection from '../components/EstablishmentStatementSection.vue'
+import VerticalLineGrid from '../components/common/VerticalLineGrid.vue'
+import EstablishmentPatternTypesSection from '../components/establishment/EstablishmentPatternTypesSection.vue'
+import EstablishmentStatementSection from '../components/establishment/EstablishmentStatementSection.vue'
+import EstablishmentStatementInterlude from '../components/establishment/EstablishmentStatementInterlude.vue'
+import ExploreNavButton from '../components/explore/ExploreNavButton.vue'
+import { pageScrollLockEventName } from '../composables/usePageScrollLock'
 import landingCopy from '../content/landingCopy.json'
-import { useAuthorStore } from '../stores/authorStore'
 import { useStatementStore } from '../stores/statementStore'
+import { getAcceleratedContainerScrollOffset } from '../utils/scrollMotion'
+import ExploreView from './explore/ExploreView.vue'
+import EstablishmentIntroView from './establishment/EstablishmentIntroView.vue'
 
-interface EstablishmentIntroSectionExpose {
-  getIntroCopyElement: () => HTMLElement | null
-  getIntroVisualElement: () => HTMLElement | null
+interface EstablishmentIntroViewExpose {
+  updateScrollState: () => void
+}
+
+interface EstablishmentPatternTypesSectionExpose {
+  updateScrollState: () => void
+}
+
+interface EstablishmentStatementInterludeExpose {
+  updateScrollState: () => void
 }
 
 interface EstablishmentStatementSectionExpose {
-  getStatementElement: () => HTMLElement | null
-  getNotesElement: () => HTMLElement | null
-  getAuthorMarkElement: () => HTMLElement | null
+  updateScrollState: () => void
 }
 
-const emit = defineEmits<{
-  enter: []
-}>()
-
-const statementStore = useStatementStore()
-const authorStore = useAuthorStore()
 const viewRoot = ref<HTMLElement | null>(null)
-const headingElement = ref<HTMLElement | null>(null)
-const introSection = ref<EstablishmentIntroSectionExpose | null>(null)
+const statementStore = useStatementStore()
+const introSection = ref<EstablishmentIntroViewExpose | null>(null)
+const patternTypesSection = ref<EstablishmentPatternTypesSectionExpose | null>(null)
+const statementInterlude = ref<EstablishmentStatementInterludeExpose | null>(null)
 const statementSection = ref<EstablishmentStatementSectionExpose | null>(null)
-const featuredRecord = computed(() => statementStore.records.find((record) => record.id === 'legislators-0117') ?? statementStore.records[0])
-const featuredAuthor = computed(() => (featuredRecord.value ? authorStore.getAuthorInstance(featuredRecord.value.author) : null))
-const statementNotes = computed(() => landingCopy.statementNotes)
-const statementTarget = ref({ x: 0, y: 0 })
-const noteProgresses = ref([0, 0, 0])
-const statementHighlightProgress = ref(0)
-const noteStartCorners = ['bottom-right', 'bottom-left', 'top-left'] as const
-const mobilizationHighlightLabels = ['no_alternative_framing'] as const
+const frameGraphicSection = ref<HTMLElement | null>(null)
+const showExplore = ref(false)
+const showStatementSection = false
+const establishmentGridLineCount = 8
+const establishmentGridLabels: string[] = []
+const interludeRecord = computed(() =>
+  statementStore.records.find((record) => record.id === 'legislators-0005'),
+)
 let locomotiveScroll: LocomotiveScroll | null = null
-let gsapContext: gsap.Context | null = null
-let updateLandingScrollState: (() => void) | null = null
 let scrollAnimationFrame = 0
-let statementPopTween: gsap.core.Tween | null = null
-let statementIsVisible = false
-let authorMarkTween: gsap.core.Tween | null = null
-let authorMarkIsVisible = false
+let overlayScrollLocked = false
+let motionMedia: ReturnType<typeof gsap.matchMedia> | null = null
+let prefersReducedMotion = false
+let pagedScrollDelta = 0
+let pagedScrollLocked = false
+let pagedScrollDeltaResetTimer = 0
+let pagedScrollUnlockTimer = 0
+const pagedScrollThreshold = 24
+const pagedScrollDuration = 1.25
+const pagedScrollCooldown = 180
+const pagedScrollEase = gsap.parseEase('power2.inOut')
 
-gsap.registerPlugin(ScrollTrigger)
 gsap.ticker.lagSmoothing(0)
 
 function requestLandingScrollUpdate() {
@@ -59,193 +69,199 @@ function requestLandingScrollUpdate() {
 
   scrollAnimationFrame = window.requestAnimationFrame(() => {
     scrollAnimationFrame = 0
-    updateLandingScrollState?.()
+    updateScrollSections()
   })
 }
 
 function updateLandingScrollFromTicker() {
-  updateLandingScrollState?.()
+  updateScrollSections()
 }
 
-function getHeadingPositions(heading: HTMLElement) {
-  const stageHeight = Math.min(window.innerHeight, window.innerWidth * 982 / 1512)
-  const initialY = 645 / 982 * stageHeight
-  const upperThirdCenter = window.innerHeight / 6
-  const stickY = Math.max(0, upperThirdCenter - heading.offsetHeight / 2)
-
-  return { initialY, stickY }
+function updateScrollSections() {
+  introSection.value?.updateScrollState()
+  patternTypesSection.value?.updateScrollState()
+  statementInterlude.value?.updateScrollState()
+  updateFrameGraphicScrollState()
+  statementSection.value?.updateScrollState()
 }
 
-function updateStatementTarget(statement: HTMLElement) {
-  const rect = statement.getBoundingClientRect()
+function updateFrameGraphicScrollState() {
+  if (!frameGraphicSection.value) return
 
-  statementTarget.value = {
-    x: rect.left + rect.width / 2,
-    y: rect.top + rect.height / 2,
+  const acceleration = prefersReducedMotion
+    ? 0
+    : getAcceleratedContainerScrollOffset(frameGraphicSection.value)
+
+  gsap.set(frameGraphicSection.value, { y: acceleration })
+}
+
+function resetPagedScrollDelta() {
+  pagedScrollDelta = 0
+
+  if (pagedScrollDeltaResetTimer) {
+    window.clearTimeout(pagedScrollDeltaResetTimer)
+    pagedScrollDeltaResetTimer = 0
   }
 }
 
-function handleNoteAnimationEnd() {
-  // Hook for sequencing later annotation steps from outside the note component.
+function unlockPagedScrollAfterCooldown() {
+  if (pagedScrollUnlockTimer) {
+    window.clearTimeout(pagedScrollUnlockTimer)
+  }
+
+  pagedScrollUnlockTimer = window.setTimeout(() => {
+    pagedScrollLocked = false
+    pagedScrollUnlockTimer = 0
+  }, pagedScrollCooldown)
 }
 
-function createScrollAnimations() {
-  const introCopy = introSection.value?.getIntroCopyElement()
-  const introVisual = introSection.value?.getIntroVisualElement()
-  const statement = statementSection.value?.getStatementElement()
-  const notes = statementSection.value?.getNotesElement()
-  const authorMark = statementSection.value?.getAuthorMarkElement()
+function getPagedScrollTarget(direction: -1 | 1) {
+  if (!viewRoot.value) return null
+
+  const viewportHeight = window.innerHeight
+  const pageCount = Math.max(1, Math.round(viewRoot.value.offsetHeight / viewportHeight))
+  const currentPage = window.scrollY / viewportHeight
+  const targetPage = direction > 0
+    ? Math.floor(currentPage + 0.001) + 1
+    : Math.ceil(currentPage - 0.001) - 1
+
+  return Math.min(Math.max(targetPage, 0), pageCount - 1) * viewportHeight
+}
+
+function scrollByViewportStep(direction: -1 | 1) {
+  const target = getPagedScrollTarget(direction)
+
+  if (target === null || Math.abs(target - window.scrollY) < 1) {
+    return
+  }
+
+  pagedScrollLocked = true
+  resetPagedScrollDelta()
+
+  locomotiveScroll?.scrollTo(target, {
+    duration: pagedScrollDuration,
+    easing: pagedScrollEase,
+    immediate: prefersReducedMotion,
+    lock: true,
+    onComplete: unlockPagedScrollAfterCooldown,
+  })
+}
+
+function handlePagedVirtualScroll({ deltaY, event }: VirtualScrollData) {
+  if (showExplore.value || (event instanceof WheelEvent && event.ctrlKey)) {
+    return true
+  }
+
+  if (event.cancelable && deltaY !== 0) {
+    event.preventDefault()
+  }
+
+  if (overlayScrollLocked || pagedScrollLocked || deltaY === 0) {
+    return false
+  }
+
+  pagedScrollDelta += deltaY
+
+  if (pagedScrollDeltaResetTimer) {
+    window.clearTimeout(pagedScrollDeltaResetTimer)
+  }
+
+  pagedScrollDeltaResetTimer = window.setTimeout(resetPagedScrollDelta, 120)
+
+  if (Math.abs(pagedScrollDelta) >= pagedScrollThreshold) {
+    scrollByViewportStep(pagedScrollDelta > 0 ? 1 : -1)
+  }
+
+  return false
+}
+
+function handlePagedScrollKeydown(event: KeyboardEvent) {
+  if (showExplore.value || overlayScrollLocked || event.defaultPrevented) {
+    return
+  }
+
+  const target = event.target
 
   if (
-    !viewRoot.value ||
-    !headingElement.value ||
-    !introCopy ||
-    !introVisual ||
-    !statement ||
-    !notes ||
-    !authorMark
+    target instanceof HTMLElement &&
+    (target.isContentEditable ||
+      ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName))
   ) {
     return
   }
 
-  const root = viewRoot.value
-  const heading = headingElement.value
+  const direction =
+    event.key === 'ArrowDown' ||
+    event.key === 'PageDown' ||
+    (event.key === ' ' && !event.shiftKey)
+      ? 1
+      : event.key === 'ArrowUp' ||
+          event.key === 'PageUp' ||
+          (event.key === ' ' && event.shiftKey)
+        ? -1
+        : null
 
-  gsapContext?.revert()
-  gsapContext = gsap.context(() => {
-    const { initialY, stickY } = getHeadingPositions(heading)
-    const introFadeDistance = window.innerHeight * 0.95
-    const headingFadeDistance = window.innerHeight * 0.34
-    const statementStartDistance = introFadeDistance * 0.92
-    const notesStartDistance = statementStartDistance + window.innerHeight * 0.38
-    const noteTimelineUnit = window.innerHeight * 0.72
-    const clampProgress = (value: number) => Math.min(Math.max(value, 0), 1)
-    const noteProgressAt = (progress: number, start: number, duration: number) => clampProgress((progress - start) / duration)
+  if (direction === null) {
+    return
+  }
 
-    gsap.set(statement, { autoAlpha: 0, pointerEvents: 'none', xPercent: -50, yPercent: -50, scale: 1 })
-    gsap.set(notes, { autoAlpha: 0 })
-    gsap.set(authorMark, { autoAlpha: 0, xPercent: -170, yPercent: -50, scale: 0.92 })
+  event.preventDefault()
 
-    const showStatement = () => {
-      if (statementIsVisible) {
-        return
-      }
+  if (!pagedScrollLocked) {
+    scrollByViewportStep(direction)
+  }
+}
 
-      statementIsVisible = true
-      statementPopTween?.kill()
-      statementPopTween = gsap.fromTo(statement, {
-        autoAlpha: 0,
-        pointerEvents: 'auto',
-        xPercent: -50,
-        yPercent: -50,
-        scale: 0.5,
-      }, {
-        autoAlpha: 1,
-        duration: 1,
-        scale: 1,
-        ease: 'elastic.out(1, 0.5)',
-      })
-    }
-    const hideStatement = () => {
-      if (!statementIsVisible) {
-        return
-      }
+function scrollToExplore() {
+  document.getElementById('explore')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  })
+}
 
-      statementIsVisible = false
-      statementPopTween?.kill()
-      statementPopTween = null
-      gsap.set(statement, { autoAlpha: 0, pointerEvents: 'none', xPercent: -50, yPercent: -50, scale: 1 })
-    }
-    const showAuthorMark = () => {
-      if (authorMarkIsVisible) {
-        return
-      }
+async function openExplore() {
+  showExplore.value = true
 
-      authorMarkIsVisible = true
-      authorMarkTween?.kill()
-      authorMarkTween = gsap.to(authorMark, {
-        autoAlpha: 1,
-        duration: 0.72,
-        ease: 'power3.out',
-        scale: 1,
-        xPercent: -50,
-        yPercent: -50,
-      })
-    }
-    const hideAuthorMark = () => {
-      if (!authorMarkIsVisible) {
-        return
-      }
+  await nextTick()
+  window.scrollTo({ top: 0, left: 0 })
+  locomotiveScroll?.resize()
+}
 
-      authorMarkIsVisible = false
-      authorMarkTween?.kill()
-      authorMarkTween = gsap.to(authorMark, {
-        autoAlpha: 0,
-        duration: 0.2,
-        ease: 'power2.out',
-        scale: 0.92,
-        xPercent: -170,
-        yPercent: -50,
-      })
-    }
-    const updateScrollState = () => {
-      const scroll = window.scrollY
-      const textRect = introCopy.getBoundingClientRect()
-      const releaseLine = window.innerHeight / 3
-      const releaseDistance = Math.max(0, releaseLine - textRect.top)
-      const headingProgress = clampProgress(releaseDistance / headingFadeDistance)
-      const headingY = releaseDistance > 0
-        ? stickY - releaseDistance * 1.2
-        : Math.max(stickY, initialY - scroll)
-      const introProgress = clampProgress(releaseDistance / introFadeDistance)
-      const shouldShowStatement = releaseDistance >= statementStartDistance
-      const notesProgress = Math.max(0, (releaseDistance - notesStartDistance) / noteTimelineUnit)
-      const firstNoteProgress = noteProgressAt(notesProgress, 0, 1.6)
-      const shouldShowAuthorMark = notesProgress >= 2.1
-      const markerProgress = noteProgressAt(notesProgress, 2.8, 0.35)
-      const secondNoteProgress = noteProgressAt(notesProgress, 3.2, 1.6)
-      const thirdNoteProgress = noteProgressAt(notesProgress, 5.3, 1.6)
+async function closeExplore() {
+  showExplore.value = false
 
-      updateStatementTarget(statement)
-      noteProgresses.value = [firstNoteProgress, secondNoteProgress, thirdNoteProgress]
-      statementHighlightProgress.value = markerProgress
-      gsap.set(heading, { autoAlpha: 1 - headingProgress, y: headingY })
-      gsap.set([introCopy, introVisual], {
-        autoAlpha: 1 - introProgress,
-        y: -52 * introProgress,
-      })
-      gsap.set(notes, {
-        autoAlpha: Math.max(firstNoteProgress, secondNoteProgress, thirdNoteProgress),
-      })
-      if (shouldShowStatement) {
-        showStatement()
-      } else {
-        hideStatement()
-      }
-      if (shouldShowAuthorMark) {
-        showAuthorMark()
-      } else {
-        hideAuthorMark()
-      }
-    }
+  await nextTick()
+  window.scrollTo({ top: 0, left: 0 })
+  locomotiveScroll?.resize()
+  updateScrollSections()
+}
 
-    updateLandingScrollState = updateScrollState
-    updateScrollState()
+function handleOverlayScrollLock(event: Event) {
+  overlayScrollLocked = Boolean((event as CustomEvent<{ locked: boolean }>).detail?.locked)
 
-    ScrollTrigger.create({
-      id: 'establishment-sequence',
-      trigger: document.documentElement,
-      start: 'top top',
-      end: 'max',
-      scrub: true,
-      invalidateOnRefresh: true,
-      onRefresh: updateScrollState,
-      onUpdate: updateScrollState,
-    })
-  }, root)
+  if (overlayScrollLocked) {
+    locomotiveScroll?.stop()
+    return
+  }
+
+  locomotiveScroll?.start()
 }
 
 onMounted(() => {
+  motionMedia = gsap.matchMedia()
+  motionMedia.add(
+    {
+      reduceMotion: '(prefers-reduced-motion: reduce)',
+    },
+    (context) => {
+      prefersReducedMotion = Boolean(context.conditions?.reduceMotion)
+      updateFrameGraphicScrollState()
+    },
+    viewRoot.value ?? undefined,
+  )
+
+  window.addEventListener(pageScrollLockEventName, handleOverlayScrollLock)
+  window.addEventListener('keydown', handlePagedScrollKeydown)
   window.addEventListener('scroll', requestLandingScrollUpdate, { passive: true })
   window.addEventListener('resize', requestLandingScrollUpdate)
   window.visualViewport?.addEventListener('resize', requestLandingScrollUpdate)
@@ -259,6 +275,7 @@ onMounted(() => {
         duration: 1.15,
         smoothWheel: true,
         syncTouch: false,
+        virtualScroll: handlePagedVirtualScroll,
       },
       rafRootMargin: '120% 120% 120% 120%',
       initCustomTicker: (render) => {
@@ -267,83 +284,115 @@ onMounted(() => {
       destroyCustomTicker: (render) => {
         gsap.ticker.remove(render)
       },
-      scrollCallback: () => {
-        updateLandingScrollState?.()
-        ScrollTrigger.update()
-      },
+      scrollCallback: updateScrollSections,
     })
 
-    locomotiveScroll.lenisInstance?.on('scroll', ScrollTrigger.update)
-    createScrollAnimations()
+    if (overlayScrollLocked) {
+      locomotiveScroll.stop()
+    }
+
+    updateScrollSections()
     gsap.ticker.add(updateLandingScrollFromTicker)
 
     window.setTimeout(() => {
       locomotiveScroll?.resize()
-      ScrollTrigger.refresh()
-      updateLandingScrollState?.()
+      updateScrollSections()
     }, 0)
   })
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener(pageScrollLockEventName, handleOverlayScrollLock)
+  window.removeEventListener('keydown', handlePagedScrollKeydown)
   window.removeEventListener('scroll', requestLandingScrollUpdate)
   window.removeEventListener('resize', requestLandingScrollUpdate)
   window.visualViewport?.removeEventListener('resize', requestLandingScrollUpdate)
-  gsapContext?.revert()
-  gsapContext = null
-  updateLandingScrollState = null
-  statementPopTween?.kill()
-  statementPopTween = null
-  statementIsVisible = false
-  authorMarkTween?.kill()
-  authorMarkTween = null
-  authorMarkIsVisible = false
   gsap.ticker.remove(updateLandingScrollFromTicker)
   if (scrollAnimationFrame) {
     window.cancelAnimationFrame(scrollAnimationFrame)
   }
+
+  resetPagedScrollDelta()
+
+  if (pagedScrollUnlockTimer) {
+    window.clearTimeout(pagedScrollUnlockTimer)
+    pagedScrollUnlockTimer = 0
+  }
+
   locomotiveScroll?.destroy()
   locomotiveScroll = null
+
+  if (frameGraphicSection.value) {
+    gsap.killTweensOf(frameGraphicSection.value)
+    gsap.set(frameGraphicSection.value, { clearProps: 'transform' })
+  }
+
+  motionMedia?.revert()
+  motionMedia = null
 })
 </script>
 
 <template>
   <div ref="viewRoot" class="establishment-view">
-    <div
-      ref="headingElement"
-      class="establishment-view__sticky-heading"
-      aria-labelledby="landing-title"
-    >
-      <div class="establishment-view__sticky-heading-inner">
-        <div class="establishment-view__content">
-          <h1 id="landing-title">Incitement to Genocide</h1>
-          <p class="establishment-view__subtitle">
-            How can language make violence seem justified?
+    <ExploreView v-if="showExplore" @exit="closeExplore" />
+
+    <template v-else>
+      <VerticalLineGrid
+        class="establishment-view__grid"
+        :labels="establishmentGridLabels"
+        :line-count="establishmentGridLineCount"
+      />
+
+      <EstablishmentIntroView
+        ref="introSection"
+        :paragraphs="landingCopy.intro.paragraphs"
+      />
+
+      <EstablishmentPatternTypesSection ref="patternTypesSection" />
+
+      <EstablishmentStatementInterlude
+        v-if="interludeRecord"
+        ref="statementInterlude"
+        :record="interludeRecord"
+      />
+
+      <section
+        ref="frameGraphicSection"
+        class="establishment-view__frame-graphic"
+        aria-label="Overview of rhetorical frame categories"
+      >
+        <div class="establishment-view__frame-graphic-copy">
+          <h2>Visual Legend</h2>
+          <p>
+            Each statement is represented by a black circle. Every argumentative frame used adds a
+            colored outer ring.
           </p>
         </div>
-      </div>
-    </div>
 
-    <EstablishmentHeroSection />
+        <img
+          class="establishment-view__frame-graphic-image"
+          src="/images/rhetorical-frames-overview.png"
+          alt="Diagram showing Enemy Image, Just Cause, and Individual Needs frame categories"
+          width="490"
+          height="654"
+          loading="lazy"
+          decoding="async"
+        />
 
-    <EstablishmentIntroSection
-      ref="introSection"
-      :paragraphs="landingCopy.intro.paragraphs"
-    />
+        <ExploreNavButton
+          class="establishment-view__explore-button"
+          :active="false"
+          label="Explore Statements"
+          @select="openExplore"
+        />
+      </section>
 
-    <EstablishmentStatementSection
-      ref="statementSection"
-      :featured-record="featuredRecord"
-      :featured-author="featuredAuthor"
-      :statement-notes="statementNotes"
-      :statement-target="statementTarget"
-      :note-progresses="noteProgresses"
-      :note-start-corners="noteStartCorners"
-      :statement-highlight-progress="statementHighlightProgress"
-      :mobilization-highlight-labels="mobilizationHighlightLabels"
-      @enter="emit('enter')"
-      @note-animation-end="handleNoteAnimationEnd"
-    />
+      <EstablishmentStatementSection
+        v-if="showStatementSection"
+        ref="statementSection"
+        @enter="scrollToExplore"
+      />
+    </template>
   </div>
 </template>
 

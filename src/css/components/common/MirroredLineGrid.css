@@ -1,0 +1,32 @@
+.mirrored-line-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mirrored-line-grid__marker {
+  position: absolute;
+  z-index: 180;
+  top: 0;
+  bottom: 0;
+  left: var(--marker-x);
+  width: 0.125rem;
+  background: var(--color-event-line-active);
+  transform: translateX(-50%);
+}
+
+.mirrored-line-grid__marker-value {
+  position: absolute;
+  bottom: var(--mirrored-line-grid-marker-bottom, 1rem);
+  left: 50%;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999rem;
+  color: var(--color-background);
+  background: rgba(var(--color-text-rgb), 0.92);
+  font-size: var(--diagram-label-size);
+  font-weight: var(--font-weight-black);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+  transform: translateX(-50%);
+}

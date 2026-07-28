@@ -1,14 +1,22 @@
 import { forceCollide, forceSimulation, forceX, forceY } from 'd3-force'
 import type { Simulation, SimulationNodeDatum } from 'd3-force'
 import p5 from 'p5'
-import { baseColorRgb } from '../types/designTokens'
-import type { IntentRecord } from '../types/intentData'
+import type { PatternLabelKey, IntentRecord } from '../types/intentData'
 import type {
   HoveredTimelineStatement,
   StatementBeeswarmSketchState,
 } from '../types/strategyBeeswarm'
-import { setupResizableP5Canvas } from '../utils/p5Canvas'
-import { createTimelineModel } from '../utils/timelineScale'
+import {
+  readCanvasBaseColors,
+  readCssColorRgb,
+  type CanvasBaseColors,
+  type RgbColor,
+} from '../utils/colorTokens'
+import { strategyColors } from '../utils/intentLabels'
+import { setP5Cursor, setupResizableP5Canvas } from '../utils/p5Canvas'
+import { readCssNumberToken } from '../utils/cssTokens'
+import { getActiveMainLabels } from '../utils/sort'
+import { createTimelinePoints } from '../utils/timelineScale'
 
 interface StatementNode extends SimulationNodeDatum {
   id: string
@@ -19,14 +27,22 @@ interface StatementNode extends SimulationNodeDatum {
   y: number
 }
 
-const DOT_RADIUS = 6
-const HOVERED_DOT_RADIUS = 7.5
-const DOT_EDGE_PADDING = HOVERED_DOT_RADIUS + 2
+const CORE_RADIUS = 6
+const RING_STROKE = 3
+const RING_GAP = 1
+const HOVER_SCALE = 1.15
+const EDGE_GAP = 2
+const DIMMED_OPACITY_TOKEN = '--opacity-dimmed'
+const DIMMED_CORE_OPACITY_TOKEN = '--opacity-dimmed-core'
 
 export function createStatementBeeswarmSketch(
   container: HTMLElement,
   state: StatementBeeswarmSketchState,
 ) {
+  const colors = readCanvasBaseColors()
+  const ringColors = readStatementRingColors()
+  const dimmedAlpha = Math.round(readCssNumberToken(DIMMED_OPACITY_TOKEN) * 255)
+  const dimmedCoreAlpha = Math.round(readCssNumberToken(DIMMED_CORE_OPACITY_TOKEN) * 255)
   let cleanupCanvas: (() => void) | null = null
   let layoutKey = ''
   let nodes: StatementNode[] = []
@@ -44,16 +60,16 @@ export function createStatementBeeswarmSketch(
     })(p.remove.bind(p))
 
     p.draw = () => {
-      const timeline = createTimelineModel(
+      const timelinePoints = createTimelinePoints(
         state.statements,
         state.timeDomain.startDate,
         state.timeDomain.endDate,
       )
-      const nextLayoutKey = createLayoutKey(p, timeline.points.length)
+      const nextLayoutKey = createLayoutKey(p, timelinePoints.length)
 
       if (nextLayoutKey !== layoutKey) {
         layoutKey = nextLayoutKey
-        nodes = createStatementNodes(timeline.points, p.width, p.height)
+        nodes = createStatementNodes(timelinePoints, p.width, p.height)
         simulation = createStatementSimulation(nodes)
       }
 
@@ -61,10 +77,19 @@ export function createStatementBeeswarmSketch(
 
       const hoveredNode = checkHover(p, nodes)
 
-      p.cursor(hoveredNode ? p.HAND : p.ARROW)
+      setP5Cursor(p, container, Boolean(hoveredNode))
       state.setHoveredStatement(createHoverPayload(hoveredNode, p))
       p.clear()
-      nodes.forEach((node) => drawNode(p, node, hoveredNode))
+      nodes.forEach((node) =>
+        drawNode(p, node, hoveredNode, colors, ringColors, dimmedAlpha, dimmedCoreAlpha),
+      )
+    }
+
+    p.mousePressed = () => {
+      const pressedNode = checkHover(p, nodes)
+      if (!pressedNode) return
+
+      state.setPressedStatement(createHoverPayload(pressedNode, p))
     }
   }
 
@@ -72,7 +97,7 @@ export function createStatementBeeswarmSketch(
 }
 
 function createStatementNodes(
-  timelinePoints: ReturnType<typeof createTimelineModel>['points'],
+  timelinePoints: ReturnType<typeof createTimelinePoints>,
   width: number,
   height: number,
 ) {
@@ -95,7 +120,12 @@ function createStatementSimulation(nodes: StatementNode[]) {
     .velocityDecay(0.28)
     .force('x', forceX<StatementNode>((node) => node.targetX).strength(0.22))
     .force('y', forceY<StatementNode>((node) => node.targetY).strength(0.11))
-    .force('collide', forceCollide<StatementNode>(DOT_RADIUS + 1.6).strength(1).iterations(5))
+    .force(
+      'collide',
+      forceCollide<StatementNode>((node) => getOuterRadius(node.record) + 1.6)
+        .strength(1)
+        .iterations(5),
+    )
     .stop()
 }
 
@@ -115,12 +145,16 @@ function tickSimulation(
 }
 
 function clampNode(node: StatementNode, width: number, height: number) {
-  node.x = Math.min(width - DOT_EDGE_PADDING, Math.max(DOT_EDGE_PADDING, node.x))
-  node.y = Math.min(height - DOT_EDGE_PADDING, Math.max(DOT_EDGE_PADDING, node.y))
+  const edgePadding = getOuterRadius(node.record) * HOVER_SCALE + EDGE_GAP
+
+  node.x = Math.min(width - edgePadding, Math.max(edgePadding, node.x))
+  node.y = Math.min(height - edgePadding, Math.max(edgePadding, node.y))
 }
 
 function checkHover(p: p5, nodes: StatementNode[]) {
-  return nodes.find((node) => p.dist(p.mouseX, p.mouseY, node.x, node.y) <= HOVERED_DOT_RADIUS + 3.5) ?? null
+  return nodes.find(
+    (node) => p.dist(p.mouseX, p.mouseY, node.x, node.y) <= getOuterRadius(node.record) + 3.5,
+  ) ?? null
 }
 
 function createHoverPayload(
@@ -133,6 +167,7 @@ function createHoverPayload(
     author: node.record.author,
     date: node.record.date,
     id: node.id,
+    record: node.record,
     source: node.record.source,
     statement: node.record.statement,
     xRatio: node.x / p.width,
@@ -144,15 +179,45 @@ function createLayoutKey(p: p5, pointCount: number) {
   return `${p.width}:${p.height}:${pointCount}`
 }
 
-function drawNode(p: p5, node: StatementNode, hoveredNode: StatementNode | null) {
+function drawNode(
+  p: p5,
+  node: StatementNode,
+  hoveredNode: StatementNode | null,
+  colors: CanvasBaseColors,
+  ringColors: Partial<Record<PatternLabelKey, RgbColor>>,
+  dimmedAlpha: number,
+  dimmedCoreAlpha: number,
+) {
   const hovered = hoveredNode?.id === node.id
   const sameAuthor = hoveredNode?.record.author === node.record.author
   const highlighted = !hoveredNode || sameAuthor
+  const scale = hovered ? HOVER_SCALE : 1
+  const activeLabels = getActiveMainLabels(node.record)
 
-  p.stroke(...baseColorRgb.background, highlighted ? 230 : 70)
-  p.strokeWeight(hovered ? 2.5 : 1.8)
-  p.fill(...baseColorRgb.text, highlighted ? 235 : 36)
-  p.circle(node.x, node.y, hovered ? HOVERED_DOT_RADIUS * 2 : DOT_RADIUS * 2)
+  p.noFill()
+  activeLabels.forEach((label, index) => {
+    const color = ringColors[label] ?? colors.text
+    const outerRadius = CORE_RADIUS + (index + 1) * (RING_STROKE + RING_GAP)
+    const strokeRadius = outerRadius - RING_STROKE / 2
+
+    p.stroke(color[0], color[1], color[2], highlighted ? 255 : dimmedAlpha)
+    p.strokeWeight(RING_STROKE * scale)
+    p.circle(node.x, node.y, strokeRadius * 2 * scale)
+  })
+
+  p.noStroke()
+  p.fill(...colors.text, highlighted ? 255 : dimmedCoreAlpha)
+  p.circle(node.x, node.y, CORE_RADIUS * 2 * scale)
+}
+
+function getOuterRadius(record: IntentRecord) {
+  return CORE_RADIUS + getActiveMainLabels(record).length * (RING_STROKE + RING_GAP)
+}
+
+function readStatementRingColors() {
+  return Object.fromEntries(
+    Object.entries(strategyColors).map(([label, color]) => [label, readCssColorRgb(color)]),
+  ) as Partial<Record<PatternLabelKey, RgbColor>>
 }
 
 function getDeterministicOffset(value: string, amplitude: number) {
