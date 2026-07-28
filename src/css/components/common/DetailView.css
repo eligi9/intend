@@ -133,15 +133,10 @@
 }
 
 .detail__author-fallback {
-  display: grid;
-  place-items: center;
   width: 148px;
   min-height: 148px;
   border-radius: 50%;
-  color: var(--color-neutral-muted);
   background: var(--color-portrait-surface);
-  font-size: var(--font-size-6);
-  font-weight: var(--font-weight-black);
 }
 
 .detail :deep(.strategy-badge-container) {

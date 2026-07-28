@@ -4,7 +4,6 @@ import type { AuthorInstance } from '../../types/authorData'
 import type { PatternLabelKey } from '../../types/intentData'
 import { strategyColors } from '../../utils/intentLabels'
 import AuthorTooltip from './AuthorTooltip.vue'
-import AuthorFallbackIcon from '../icons/AuthorFallbackIcon.vue'
 
 const strategyDisplayOrder: PatternLabelKey[] = [
   'enemy_image',
@@ -104,9 +103,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
             :alt="imageAlt"
             draggable="false"
           />
-          <span v-else class="author-portrait__fallback">
-            <AuthorFallbackIcon :gender="author.gender" />
-          </span>
+          <span v-else class="author-portrait__fallback" aria-hidden="true" />
         </span>
       </figure>
     </AuthorTooltip>
@@ -144,9 +141,7 @@ const imageAlt = computed(() => `Portrait von ${props.author.name}`)
           :alt="imageAlt"
           draggable="false"
         />
-        <span v-else class="author-portrait__fallback">
-          <AuthorFallbackIcon :gender="author.gender" />
-        </span>
+        <span v-else class="author-portrait__fallback" aria-hidden="true" />
       </span>
     </figure>
   </template>

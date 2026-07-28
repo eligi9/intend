@@ -95,9 +95,7 @@ function closeImageCredits() {
               :show-tooltip="false"
               variant="detail"
             />
-            <div v-else class="detail__author-fallback" aria-hidden="true">
-              ?
-            </div>
+            <div v-else class="detail__author-fallback" aria-hidden="true" />
 
             <div class="detail__headline-block">
               <ViewHeadline
