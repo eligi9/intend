@@ -1,0 +1,95 @@
+.author-representation {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--author-representation-size);
+  height: var(--author-representation-size);
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.author-representation__rings {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.author-representation__ring {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.author-representation__background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--author-background-size);
+  height: var(--author-background-size);
+  border-radius: 50%;
+  background: var(--author-background-color);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.author-representation__ring::before {
+  content: '';
+  display: block;
+  width: calc(
+    var(--author-image-size) +
+    ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
+    ((var(--ring-index) + 1) * var(--author-ring-gap) * 2)
+  );
+  height: calc(
+    var(--author-image-size) +
+    ((var(--ring-index) + 1) * var(--author-ring-stroke) * 2) +
+    ((var(--ring-index) + 1) * var(--author-ring-gap) * 2)
+  );
+  border: var(--author-ring-stroke) solid var(--ring-color);
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.author-representation__image-shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--author-image-size);
+  height: var(--author-image-size);
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--color-portrait-surface);
+  background: transparent;
+}
+
+.author-representation__image-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    transparent 72%,
+    color-mix(in srgb, var(--author-image-shadow-color) 24%, transparent) 82%,
+    var(--author-image-shadow-color) 100%
+  );
+}
+
+.author-representation__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--author-image-position, 50% 50%);
+  user-select: none;
+  filter: grayscale(1) contrast(1.18) brightness(0.98);
+}
+
+.author-representation__fallback {
+  width: 100%;
+  height: 100%;
+  background: var(--color-portrait-surface);
+}

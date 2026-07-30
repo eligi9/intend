@@ -29,11 +29,6 @@ export function formatShortIsoDate(value: string) {
   return date ? shortDateFormatter.format(date) : value
 }
 
-export function formatIsoDateRange(startDate: string, endDate?: string) {
-  const start = formatShortIsoDate(startDate)
-  return endDate ? `${start} - ${formatShortIsoDate(endDate)}` : start
-}
-
 export function formatTimelineMonthLabel(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, '0')
   return date.getMonth() === 0

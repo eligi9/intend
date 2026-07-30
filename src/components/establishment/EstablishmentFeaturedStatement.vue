@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useInlineFragmentRects } from '../../composables/useInlineFragmentRects'
-import type { IntentRecord, PatternLabelKey } from '../../types/intentData'
+import type { Statement, PatternLabelKey } from '../../types/intentData'
 import {
   splitMeasureText,
   splitStatementTextExcludingMeasures,
@@ -10,11 +10,11 @@ import {
   getStatementPatternAnchors,
   getStatementPatternBadges,
 } from '../../utils/statementPatterns'
-import InlineFragmentLayer from '../common/InlineFragmentLayer.vue'
+import InlineFragmentLayer from '../statement/InlineFragmentLayer.vue'
 
 const props = defineProps<{
   highlightLabel?: PatternLabelKey
-  record: IntentRecord
+  record: Statement
 }>()
 
 const quoteElement = ref<HTMLElement | null>(null)

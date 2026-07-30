@@ -1,0 +1,38 @@
+.custom-button {
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  min-width: 0;
+  min-height: var(--space-4);
+  padding-block: 0;
+  padding-inline: var(--space-1);
+  border: 1px solid color-mix(in srgb, var(--custom-button-color) 60%, transparent);
+  border-radius: var(--space-1);
+  color: var(--custom-button-color);
+  background: var(--color-white);
+  cursor: pointer;
+  font-size: var(--font-size-0);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0;
+  line-height: var(--button-line-height);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.custom-button:hover,
+.custom-button:focus-visible,
+.custom-button--active {
+  border-color: var(--custom-button-color);
+  color: var(--color-white);
+  background: var(--custom-button-color);
+}
+
+.custom-button:focus-visible {
+  outline: 0.125rem solid var(--custom-button-color);
+  outline-offset: var(--space-half);
+}
+
+.custom-button span {
+  min-width: 0;
+  font: inherit;
+}

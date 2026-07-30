@@ -1,0 +1,47 @@
+.detail-author-wrapper__scrim {
+  position: fixed;
+  z-index: 11900;
+  inset: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: rgba(var(--color-shadow-rgb), 0.22);
+  backdrop-filter: blur(0.1875rem);
+  cursor: default;
+}
+
+.detail-author-wrapper__detail {
+  z-index: 12000;
+}
+
+.detail-author-left-enter-active,
+.detail-author-left-leave-active,
+.detail-author-right-enter-active,
+.detail-author-right-leave-active {
+  transition:
+    opacity 180ms ease,
+    transform 240ms ease;
+}
+
+.detail-author-left-enter-from,
+.detail-author-left-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.detail-author-right-enter-from,
+.detail-author-right-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.detail-author-scrim-enter-active,
+.detail-author-scrim-leave-active {
+  transition: opacity 180ms ease;
+}
+
+.detail-author-scrim-enter-from,
+.detail-author-scrim-leave-to {
+  opacity: 0;
+}

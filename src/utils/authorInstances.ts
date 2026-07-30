@@ -1,6 +1,6 @@
 import type { AuthorInstance, AuthorProfile } from '../types/authorData'
-import type { IntentRecord } from '../types/intentData'
-import { getActivePatternAnnotations } from './intentRecordPatterns'
+import type { Statement } from '../types/intentData'
+import { getActiveSubPatterns } from './intentRecordPatterns'
 import { intentTaxonomy } from './intentTaxonomy'
 import { getTopLevelStrategies } from './statementPatterns'
 
@@ -12,11 +12,11 @@ const measureCategoryDisplayOrder = [
   'Occupation / Settlement',
 ] as const
 
-function getMostUsedContentCategory(statements: IntentRecord[]) {
+function getMostUsedContentCategory(statements: Statement[]) {
   return measureCategoryDisplayOrder.reduce<AuthorInstance['mostUsedContentCategory']>(
     (mostUsedCategory, label) => {
       const statementCount = statements.filter((statement) =>
-        statement.measure_categories.includes(label),
+        statement.measureCategories.includes(label),
       ).length
 
       if (statementCount === 0 || statementCount <= (mostUsedCategory?.statementCount ?? 0)) {
@@ -29,11 +29,11 @@ function getMostUsedContentCategory(statements: IntentRecord[]) {
   )
 }
 
-function getMostUsedPattern(statements: IntentRecord[]) {
+function getMostUsedPattern(statements: Statement[]) {
   const patternCounts = new Map<string, number>()
 
   statements.forEach((statement) => {
-    getActivePatternAnnotations(statement).forEach((pattern) => {
+    getActiveSubPatterns(statement).forEach((pattern) => {
       patternCounts.set(pattern.key, (patternCounts.get(pattern.key) ?? 0) + 1)
     })
   })
@@ -78,8 +78,8 @@ function calculateAge(dateOfBirth: string | null, referenceDate = new Date()) {
   return age
 }
 
-export function groupStatementsByAuthor(records: IntentRecord[]) {
-  return records.reduce<Record<string, IntentRecord[]>>((index, record) => {
+export function groupStatementsByAuthor(records: Statement[]) {
+  return records.reduce<Record<string, Statement[]>>((index, record) => {
     index[record.author] ??= []
     index[record.author].push(record)
     return index
@@ -88,7 +88,7 @@ export function groupStatementsByAuthor(records: IntentRecord[]) {
 
 export function createAuthorInstance(
   author: AuthorProfile,
-  statements: IntentRecord[],
+  statements: Statement[],
   referenceDate = new Date(),
 ): AuthorInstance {
   const usedTopLevelStrategies = getTopLevelStrategies(statements)

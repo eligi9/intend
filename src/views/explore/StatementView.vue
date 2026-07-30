@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import GridColumnLabels from '../../components/common/GridColumnLabels.vue'
-import SelectionView from '../../components/common/SelectionView.vue'
-import StrategyButton from '../../components/common/StrategyButton.vue'
-import VerticalLineGrid from '../../components/common/VerticalLineGrid.vue'
-import ViewGrid from '../../components/common/ViewGrid.vue'
-import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
-import ExploreHeader from '../../components/explore/ExploreHeader.vue'
-import StatementButton from '../../components/statement/StatementButton.vue'
+import GridColumnLabels from '../../components/grid/GridColumnLabels.vue'
+import SelectionView from '../../components/detail/SelectionView.vue'
+import CustomButton from '../../components/button/CustomButton.vue'
+import VerticalLineGrid from '../../components/grid/VerticalLineGrid.vue'
+import ViewGrid from '../../components/grid/ViewGrid.vue'
+import AppHeader from '../../components/ui/AppHeader.vue'
+import FilterBar from '../../components/ui/FilterBar.vue'
+import StatementButton from '../../components/button/StatementButton.vue'
 import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import { useStatementStore } from '../../stores/statementStore'
-import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
+import type { AppHeaderProps, ExploreViewSection } from '../../types/exploreView'
 import { intentTaxonomy } from '../../utils/intentTaxonomy'
 import { strategyColors } from '../../utils/intentLabels'
 import { getMainLabelCount, sortStatementsBySize } from '../../utils/sort'
 
-defineProps<ExploreHeaderProps>()
+defineProps<AppHeaderProps>()
 
 const emit = defineEmits<{
   'establishment-select': []
@@ -93,7 +93,7 @@ function closeActiveDetail() {
 
 <template>
   <section class="statement-view">
-    <ExploreHeader
+    <AppHeader
       :active-section="activeSection"
       :sections="sections"
       subline="Hover to preview. Click to explore the statement’s patterns."
@@ -154,7 +154,7 @@ function closeActiveDetail() {
         <span>Filter zurücksetzen oder Suchbegriff ändern.</span>
       </div>
 
-      <StrategyButton
+      <CustomButton
         v-if="canShowSelection"
         class="statement-selection-button"
         color="var(--color-black)"
@@ -163,7 +163,7 @@ function closeActiveDetail() {
       />
     </section>
 
-    <ExploreFilterBar select-label="Filter statements by content category" />
+    <FilterBar select-label="Filter statements by content category" />
 
     <button
       v-if="selectionDetailIsOpen"

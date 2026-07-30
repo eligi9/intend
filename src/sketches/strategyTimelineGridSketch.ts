@@ -9,7 +9,7 @@ import {
 import { readCssLengthTokenInPixels, readCssToken } from '../utils/cssTokens'
 import { setP5Cursor, setupResizableP5Canvas } from '../utils/p5Canvas'
 import {
-  formatIsoDateRange,
+  formatShortIsoDate,
   formatTimelineMonthLabel,
   getCalendarMonthOffset,
   parseIsoDate,
@@ -249,7 +249,7 @@ function getPositionedEvents(
       const x = clamp(monthOffset, 0, state.divisions) * divisionWidth
 
       return {
-        date: formatIsoDateRange(event.date, event.endDate),
+        date: formatShortIsoDate(event.date),
         event,
         label: event.label,
         x,

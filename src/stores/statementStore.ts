@@ -2,18 +2,17 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import dataset from '../../data/intent-dataset.json'
 import type {
-  IntentDataset,
   IntentFilters,
   MeasureCategory,
   PatternLabelKey,
-  IntentRecord,
-  RawIntentRecord,
+  RawIntentDataset,
+  Statement,
 } from '../types/intentData'
 import { groupStatementsByAuthor } from '../utils/authorInstances'
 import { matchesIntentFilters } from '../utils/intentFilters'
 import { normalizeIntentRecords } from '../utils/intentRecordPatterns'
 
-const intentDataset = dataset as Omit<IntentDataset, 'records'> & { records: RawIntentRecord[] }
+const intentDataset = dataset as RawIntentDataset
 
 const emptyFilters = (): IntentFilters => ({
   query: '',
@@ -22,7 +21,7 @@ const emptyFilters = (): IntentFilters => ({
 })
 
 export const useStatementStore = defineStore('statements', () => {
-  const records = ref<IntentRecord[]>(normalizeIntentRecords(intentDataset.records))
+  const records = ref<Statement[]>(normalizeIntentRecords(intentDataset.records))
   const filters = ref<IntentFilters>(emptyFilters())
 
   const statementsByAuthor = computed(() => groupStatementsByAuthor(records.value))

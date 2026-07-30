@@ -1,5 +1,3 @@
-type BinaryLabel = 'yes' | 'no' | null
-type AnchorTexts = string[]
 export type MeasureCategory =
   | 'Destruction'
   | 'Aid Control / Deprivation'
@@ -27,19 +25,11 @@ export type PatternLabelKey =
   | 'humanity_as_weakness'
   | 'external_criticism_rejection'
 
-export interface PatternAnnotation {
-  active: BinaryLabel
-  anchors: AnchorTexts
+export interface Pattern {
+  anchors: string[]
   justification: string | null
   key: PatternLabelKey
-  label: string
-}
-
-export interface PatternGroupAnnotation {
-  active: BinaryLabel
-  key: PatternLabelKey
-  label: string
-  subLabels: PatternAnnotation[]
+  parentKey: PatternLabelKey | null
 }
 
 export interface TopLevelStrategyUsage {
@@ -49,11 +39,26 @@ export interface TopLevelStrategyUsage {
   statementIds: string[]
 }
 
-export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
+export interface Statement {
+  id: string
+  author: string
+  date: string
+  context: string | null
+  source: string | null
+  statement: string
+  measures: string[]
+  measureCategories: MeasureCategory[]
+  patterns: Pattern[]
+}
+
+type RawPatternValues = Record<PatternLabelKey, string | null>
+type RawPatternAnchors = Partial<Record<`${PatternLabelKey}_anchor`, string[]>>
+type RawPatternJustifications = Partial<Record<`${PatternLabelKey}_bj`, string | null>>
+
+export type RawIntentRecord = {
   id: string
   sourceFile: 'legislators' | 'decisionmakers'
   author: string
-  sector: 'Legislators' | 'Decision Makers' | string
   date: string
   context: string | null
   source: string | null
@@ -61,53 +66,14 @@ export interface IntentRecord extends Record<PatternLabelKey, BinaryLabel> {
   measures: string[]
   measure_categories: MeasureCategory[]
   speakerPosition: string | null
-  homogenization_anchor: AnchorTexts
-  immutability_anchor: AnchorTexts
-  essentialization_anchor: AnchorTexts
-  dehumanization_anchor: AnchorTexts
-  threat_construction_anchor: AnchorTexts
-  homogenization_bj: string | null
-  immutability_bj: string | null
-  essentialization_bj: string | null
-  dehumanization_bj: string | null
-  threat_construction_bj: string | null
-  security_rationale_anchor: AnchorTexts
-  selfdefence_counterterrorism_anchor: AnchorTexts
-  retaliation_anchor: AnchorTexts
-  security_rationale_bj: string | null
-  selfdefence_counterterrorism_bj: string | null
-  retaliation_bj: string | null
-  meaning_anchor: AnchorTexts
-  status_anchor: AnchorTexts
-  hope_for_victory_anchor: AnchorTexts
-  meaning_bj: string | null
-  status_bj: string | null
-  hope_for_victory_bj: string | null
-  no_alternative_framing_anchor: AnchorTexts
-  humanity_as_weakness_anchor: AnchorTexts
-  external_criticism_rejection_anchor: AnchorTexts
-  no_alternative_framing_bj: string | null
-  humanity_as_weakness_bj: string | null
-  external_criticism_rejection_bj: string | null
-  patterns: PatternGroupAnnotation[]
-}
+} & RawPatternValues &
+  RawPatternAnchors &
+  RawPatternJustifications
 
-export type RawIntentRecord = Omit<IntentRecord, 'patterns'>
-
-export interface IntentDataset {
+export interface RawIntentDataset {
   name: string
   generatedAt: string
-  sources: {
-    legislators: {
-      path: string
-      count: number
-    }
-    decisionmakers: {
-      path: string
-      count: number
-    }
-  }
-  records: IntentRecord[]
+  records: RawIntentRecord[]
 }
 
 export interface IntentFilters {

@@ -1,0 +1,125 @@
+.icicle-button-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 0 var(--icicle-button-height);
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.icicle-button-row--left {
+  justify-content: flex-end;
+}
+
+.icicle-button-row--right {
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.icicle-button-row:not(:last-child)::after {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.0625rem;
+  background: rgba(var(--color-background-rgb), 0.82);
+  content: '';
+  pointer-events: none;
+}
+
+.icicle-button {
+  --icicle-fill-scale: 1;
+
+  appearance: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: var(--icicle-button-width);
+  height: 100%;
+  padding: 0 var(--space-1);
+  border: 0;
+  border-radius: 0.25rem;
+  color: var(--color-white);
+  background: transparent;
+  box-sizing: border-box;
+  cursor: pointer;
+  opacity: 1;
+  overflow: hidden;
+  transition: opacity 160ms ease;
+}
+
+.icicle-button::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--icicle-button-color);
+  content: '';
+  pointer-events: none;
+  transform: scaleX(var(--icicle-fill-scale));
+}
+
+.icicle-button:hover,
+.icicle-button:focus-visible,
+.icicle-button--selected {
+  z-index: 2;
+}
+
+.icicle-button:focus-visible {
+  outline: 0.125rem solid rgba(var(--color-text-rgb), 0.92);
+  outline-offset: 0.125rem;
+}
+
+.icicle-button--left {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.icicle-button--left::before {
+  transform-origin: right center;
+}
+
+.icicle-button--right {
+  flex: 0 0 auto;
+  padding: 0;
+}
+
+.icicle-button--right::before {
+  transform-origin: left center;
+}
+
+.icicle-button--dimmed {
+  opacity: 0.33;
+}
+
+.icicle-button--related {
+  opacity: 0.66;
+}
+
+.icicle-button-row--dimmed :slotted(.icicle__sub-label) {
+  opacity: 0.33;
+}
+
+.icicle-button-row--related :slotted(.icicle__sub-label) {
+  opacity: 0.66;
+}
+
+.icicle-button-row--active :slotted(.icicle__sub-label),
+.icicle-button-row--neutral :slotted(.icicle__sub-label) {
+  opacity: 1;
+}
+
+.icicle-button span {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: var(--diagram-main-label-size);
+  font-weight: var(--font-weight-black);
+  line-height: var(--diagram-main-label-line-height);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

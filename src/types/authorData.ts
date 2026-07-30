@@ -43,7 +43,6 @@ export interface AuthorProfile {
   dateOfBirth: string | null
   gender: string | null
   position: string | null
-  sector: string | null
   roleGroup: AuthorRoleGroup
   image: AuthorImage | null
   notes?: string | null
