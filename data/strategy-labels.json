@@ -10,7 +10,7 @@
         {
           "labelKey": "homogenization",
           "label": "Homogenization",
-          "description": "Homogenization describes how language can make an outgroup appear as one single, uniform group. Individual differences become less visible. As a result, the actions, traits, or perceived threat of some individuals may be projected onto the whole group. This can blur the distinction between civilians and combatants."
+          "description": "Homogenization presents an outgroup as a single, undifferentiated collective. This blurs the line between civilians and combatants and can make the moral consequences of violence easier to ignore. People may then be treated as “military targets,” while their deaths are dismissed as “collateral damage.”"
         },
         {
           "labelKey": "immutability",
@@ -25,7 +25,7 @@
         {
           "labelKey": "dehumanization",
           "label": "Dehumanization",
-          "description": "Dehumanization describes language that presents an outgroup as less than fully human. This can happen when people are compared to animals, pests, diseases, objects, or described as inferior. For example, they may be called “vermin” or described as a “disease.” Their suffering may then seem less important or less real. Violence against them can appear less disturbing, more acceptable, or easier to justify. In this way, dehumanization can help mobilize the ingroup by reducing moral hesitation."
+          "description": "Dehumanization presents an outgroup as less than fully human by comparing its members to animals, diseases, or objects. When people are depicted as less than human, their emotions and physical needs may appear less important. This can help mobilize the ingroup by reducing moral hesitation."
         },
         {
           "labelKey": "threat_construction",
