@@ -1,4 +1,4 @@
-import type { IntentRecord, PatternLabelKey } from '../types/intentData'
+import type { Statement, PatternLabelKey } from '../types/intentData'
 import {
   getActivePatternGroups,
   isPatternGroupActive,
@@ -11,7 +11,7 @@ const statementMainLabelOrder: PatternLabelKey[] = [
   'individual_needs',
 ]
 
-export function sortStatementsBySize(records: readonly IntentRecord[]) {
+export function sortStatementsBySize(records: readonly Statement[]) {
   return [...records].sort((first, second) => {
     const sizeDifference = getMainLabelCount(second) - getMainLabelCount(first)
 
@@ -23,15 +23,15 @@ export function sortStatementsBySize(records: readonly IntentRecord[]) {
   })
 }
 
-export function getMainLabelCount(record: IntentRecord) {
+export function getMainLabelCount(record: Statement) {
   return getActivePatternGroups(record).length
 }
 
-export function getActiveMainLabels(record: IntentRecord) {
+export function getActiveMainLabels(record: Statement) {
   return statementMainLabelOrder.filter((labelKey) => isPatternGroupActive(record, labelKey))
 }
 
-function getMainLabelSortSignature(record: IntentRecord) {
+function getMainLabelSortSignature(record: Statement) {
   const activeLabels = getActiveMainLabels(record)
 
   return statementMainLabelOrder
@@ -39,7 +39,7 @@ function getMainLabelSortSignature(record: IntentRecord) {
     .join('')
 }
 
-function compareStatementsByMainLabelOrder(first: IntentRecord, second: IntentRecord) {
+function compareStatementsByMainLabelOrder(first: Statement, second: Statement) {
   const firstOrderIndex = getFirstMainLabelOrderIndex(first)
   const secondOrderIndex = getFirstMainLabelOrderIndex(second)
 
@@ -53,7 +53,7 @@ function compareStatementsByMainLabelOrder(first: IntentRecord, second: IntentRe
   return secondSignature.localeCompare(firstSignature)
 }
 
-function getFirstMainLabelOrderIndex(record: IntentRecord) {
+function getFirstMainLabelOrderIndex(record: Statement) {
   const activeLabels = getActiveMainLabels(record)
   const firstIndex = statementMainLabelOrder.findIndex((labelKey) => activeLabels.includes(labelKey))
 

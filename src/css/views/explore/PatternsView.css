@@ -16,7 +16,7 @@
   --strategy-view-inline-padding: 0;
 }
 
-.strategy-view--structure > .explore-header {
+.strategy-view--structure > .app-header {
   position: relative;
   z-index: 220;
 }

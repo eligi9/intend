@@ -1,7 +1,7 @@
 import { forceCollide, forceSimulation, forceX, forceY } from 'd3-force'
 import type { Simulation, SimulationNodeDatum } from 'd3-force'
 import p5 from 'p5'
-import type { PatternLabelKey, IntentRecord } from '../types/intentData'
+import type { PatternLabelKey, Statement } from '../types/intentData'
 import type {
   HoveredBeeswarmStatement,
   StrategyBeeswarmSketchState,
@@ -20,7 +20,7 @@ import {
   readCssToken,
 } from '../utils/cssTokens'
 import { intentLabelNames, strategyColors } from '../utils/intentLabels'
-import { getPatternAnnotation, isPatternActive } from '../utils/intentRecordPatterns'
+import { getPattern, isPatternActive } from '../utils/intentRecordPatterns'
 import { setP5Cursor, setupResizableP5Canvas } from '../utils/p5Canvas'
 import { createTimelinePoints } from '../utils/timelineScale'
 
@@ -29,7 +29,7 @@ interface BeeswarmNode extends SimulationNodeDatum {
   bandMinY: number
   date: Date
   id: string
-  record: IntentRecord
+  record: Statement
   subLabel: PatternLabelKey
   strategyLabel: PatternLabelKey
   strategyName: string
@@ -523,14 +523,14 @@ function getDeterministicOffset(value: string, amplitude: number) {
   return ((hash % 101) / 100 - 0.5) * amplitude
 }
 
-function getAnchorText(record: IntentRecord, label: PatternLabelKey) {
-  const anchors = getPatternAnnotation(record, label)?.anchors ?? []
+function getAnchorText(record: Statement, label: PatternLabelKey) {
+  const anchors = getPattern(record, label)?.anchors ?? []
 
   return anchors.length > 0 ? anchors : null
 }
 
 // Converts one record into all active sublabel dots that should appear in the plot.
-function getActiveStrategyPoints(record: IntentRecord) {
+function getActiveStrategyPoints(record: Statement) {
   return strategyGroups.flatMap((group) =>
     group.childLabels
       .filter((label) => isPatternActive(record, label))

@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
-import AuthorPortrait from '../../components/author/AuthorPortrait.vue'
-import GridColumnLabels from '../../components/common/GridColumnLabels.vue'
-import ViewGrid from '../../components/common/ViewGrid.vue'
-import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
-import ExploreHeader from '../../components/explore/ExploreHeader.vue'
+import AuthorButton from '../../components/button/AuthorButton.vue'
+import GridColumnLabels from '../../components/grid/GridColumnLabels.vue'
+import ViewGrid from '../../components/grid/ViewGrid.vue'
+import AppHeader from '../../components/ui/AppHeader.vue'
+import FilterBar from '../../components/ui/FilterBar.vue'
 import { useInitialViewportGridCell } from '../../composables/useInitialViewportGridCell'
 import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import { useAuthorStore } from '../../stores/authorStore'
 import { useStatementStore } from '../../stores/statementStore'
 import type { AuthorInstance } from '../../types/authorData'
-import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
+import type { AppHeaderProps, ExploreViewSection } from '../../types/exploreView'
 
-defineProps<ExploreHeaderProps>()
+defineProps<AppHeaderProps>()
 
 const emit = defineEmits<{
   'establishment-select': []
@@ -30,7 +30,7 @@ const {
   cellSize: authorGridCellSize,
   cellSizePx: authorGridCellSizePx,
 } = useInitialViewportGridCell({ columns: 16 })
-const authorPortraitSize = computed(() => Math.max(0, authorGridCellSizePx.value - 8))
+const authorRepresentationSize = computed(() => Math.max(0, authorGridCellSizePx.value - 8))
 
 const visibleAuthorNames = computed(
   () => new Set(filteredRecords.value.map((record) => record.author)),
@@ -71,7 +71,7 @@ function showAuthorDetail(authorName: string) {
 
 <template>
   <section class="author-view" :style="{ '--author-grid-cell-size': authorGridCellSize }">
-    <ExploreHeader
+    <AppHeader
       :active-section="activeSection"
       :sections="sections"
       subline="Hover to preview. Click to explore the author’s statements."
@@ -80,7 +80,7 @@ function showAuthorDetail(authorName: string) {
       @select="emit('section-select', $event)"
     />
 
-    <ExploreFilterBar
+    <FilterBar
       aria-label="Autoren Filter"
       select-label="Filter authors by content category"
     />
@@ -109,22 +109,17 @@ function showAuthorDetail(authorName: string) {
           :padding-inline-cells="3"
           :show-lines="false"
         >
-          <button
+          <AuthorButton
             v-for="author in executiveLeadership"
             :key="author.id"
-            type="button"
             class="author-view__item"
             :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
+            :author="author"
+            background-color="var(--color-white)"
             :disabled="!isAuthorVisible(author)"
-            :aria-label="`${author.name} Details anzeigen`"
-            @click="showAuthorDetail(author.name)"
-          >
-            <AuthorPortrait
-              :author="author"
-              background-color="var(--color-white)"
-              :size="authorPortraitSize"
-            />
-          </button>
+            :size="authorRepresentationSize"
+            @select="showAuthorDetail(author.name)"
+          />
         </ViewGrid>
       </section>
 
@@ -147,22 +142,17 @@ function showAuthorDetail(authorName: string) {
           :padding-inline-cells="3"
           :show-lines="false"
         >
-          <button
+          <AuthorButton
             v-for="author in otherPoliticalAndStateActors"
             :key="author.id"
-            type="button"
             class="author-view__item"
             :class="{ 'author-view__item--muted': !isAuthorVisible(author) }"
+            :author="author"
+            background-color="var(--color-white)"
             :disabled="!isAuthorVisible(author)"
-            :aria-label="`${author.name} Details anzeigen`"
-            @click="showAuthorDetail(author.name)"
-          >
-            <AuthorPortrait
-              :author="author"
-              background-color="var(--color-white)"
-              :size="authorPortraitSize"
-            />
-          </button>
+            :size="authorRepresentationSize"
+            @select="showAuthorDetail(author.name)"
+          />
         </ViewGrid>
       </section>
     </section>

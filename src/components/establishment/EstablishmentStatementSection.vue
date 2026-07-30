@@ -10,9 +10,9 @@ import {
   getStatementPatternAnchors,
   getStatementPatternColor,
 } from '../../utils/statementPatterns'
-import AuthorPortrait from '../author/AuthorPortrait.vue'
+import AuthorRepresentation from '../representation/AuthorRepresentation.vue'
 import EstablishmentNote from './EstablishmentNote.vue'
-import StatementCard from '../common/StatementCard.vue'
+import StatementCard from '../statement/StatementCard.vue'
 
 const emit = defineEmits<{
   enter: []
@@ -271,7 +271,7 @@ defineExpose({
       class="establishment-view__author-mark"
       aria-hidden="true"
     >
-      <AuthorPortrait
+      <AuthorRepresentation
         v-if="featuredAuthor"
         :author="featuredAuthor"
         :show-rings="false"

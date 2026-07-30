@@ -4,12 +4,12 @@ export type ExploreViewSection =
   | 'patterns'
   | 'timeline'
 
-export interface ExploreHeaderSection {
+export interface AppHeaderSection {
   key: ExploreViewSection
   label: string
 }
 
-export interface ExploreHeaderProps {
+export interface AppHeaderProps {
   activeSection: ExploreViewSection
-  sections: readonly ExploreHeaderSection[]
+  sections: readonly AppHeaderSection[]
 }

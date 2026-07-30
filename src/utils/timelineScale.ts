@@ -1,16 +1,16 @@
-import type { IntentRecord } from '../types/intentData'
+import type { Statement } from '../types/intentData'
 import { parseDayFirstDate } from './time'
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000
 
 export function createTimelinePoints(
-  statements: IntentRecord[],
+  statements: Statement[],
   startDate = new Date(2023, 9, 7),
   endDateOverride?: Date,
 ) {
   const parsedStatements = statements
     .map((record) => ({ record, date: parseDayFirstDate(record.date) }))
-    .filter((item): item is { record: IntentRecord; date: Date } => item.date !== null)
+    .filter((item): item is { record: Statement; date: Date } => item.date !== null)
     .sort((first, second) => first.date.getTime() - second.date.getTime())
 
   const latestStatementDate = parsedStatements[parsedStatements.length - 1]?.date
