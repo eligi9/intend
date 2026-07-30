@@ -1,0 +1,59 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useAuthorDetailStore } from '../../stores/authorDetailStore'
+import { useAuthorStore } from '../../stores/authorStore'
+import { useStatementStore } from '../../stores/statementStore'
+import DetailView from './DetailView.vue'
+
+const authorDetailStore = useAuthorDetailStore()
+const authorStore = useAuthorStore()
+const statementStore = useStatementStore()
+const { authorName, recordIds, side, targetStatementId } = storeToRefs(authorDetailStore)
+
+const author = computed(() =>
+  authorName.value ? authorStore.getAuthorInstance(authorName.value) : null,
+)
+const records = computed(() => {
+  if (!authorName.value) return []
+  if (!recordIds.value) return statementStore.getStatementsForAuthor(authorName.value)
+
+  const selectedIds = new Set(recordIds.value)
+  return statementStore.records.filter(
+    (record) => record.author === authorName.value && selectedIds.has(record.id),
+  )
+})
+</script>
+
+<template>
+  <Teleport to="body">
+    <Transition name="detail-author-scrim">
+      <button
+        v-if="authorName"
+        type="button"
+        class="detail-author-wrapper__scrim"
+        aria-label="Author detail view schliessen"
+        @click.stop="authorDetailStore.closeAuthorDetail"
+        @mousedown.stop
+        @mouseup.stop
+        @pointerdown.stop
+        @pointerup.stop
+      />
+    </Transition>
+
+    <Transition :name="`detail-author-${side}`">
+      <DetailView
+        v-if="authorName"
+        class="detail-author-wrapper__detail"
+        :author="author"
+        :records="records"
+        :side="side"
+        :target-statement-id="targetStatementId"
+      />
+    </Transition>
+  </Teleport>
+</template>
+
+<style scoped>
+@import '../../css/components/detail/DetailAuthorWrapper.css';
+</style>

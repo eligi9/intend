@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import AuthorDetailOverlay from '../../components/author/AuthorDetailOverlay.vue'
-import type { ExploreHeaderSection, ExploreViewSection } from '../../types/exploreView'
+import DetailAuthorWrapper from '../../components/detail/DetailAuthorWrapper.vue'
+import type { AppHeaderSection, ExploreViewSection } from '../../types/exploreView'
 import AuthorView from './AuthorView.vue'
 import PatternsView from './PatternsView.vue'
 import StatementView from './StatementView.vue'
@@ -13,7 +13,7 @@ const emit = defineEmits<{
 
 const activeView = ref<ExploreViewSection>('statements')
 
-const exploreSections: ExploreHeaderSection[] = [
+const exploreSections: AppHeaderSection[] = [
   {
     key: 'statements',
     label: 'Statements',
@@ -70,7 +70,7 @@ function showView(section: ExploreViewSection) {
       />
     </div>
 
-    <AuthorDetailOverlay />
+    <DetailAuthorWrapper />
   </section>
 </template>
 

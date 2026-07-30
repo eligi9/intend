@@ -6,7 +6,6 @@ export interface TimelineDomain {
 export interface TimelineEvent {
   date: string
   description: string
-  endDate?: string
   id: string
   label: string
   sourceName: string

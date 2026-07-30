@@ -1,4 +1,4 @@
-import type { IntentRecord } from '../types/intentData'
+import type { Statement } from '../types/intentData'
 import type { TimelineDomain, TimelineEvent } from '../types/timeline'
 import {
   getEndOfCalendarMonth,
@@ -9,15 +9,12 @@ import {
 const TIMELINE_START_DATE = new Date(2023, 9, 1)
 
 export function createStrategyTimelineDomain(
-  statements: IntentRecord[],
+  statements: Statement[],
   events: TimelineEvent[],
 ): TimelineDomain {
   const dates = [
     ...statements.map((statement) => parseDayFirstDate(statement.date)),
-    ...events.flatMap((event) => [
-      parseIsoDate(event.date),
-      event.endDate ? parseIsoDate(event.endDate) : null,
-    ]),
+    ...events.map((event) => parseIsoDate(event.date)),
   ].filter((date): date is Date => date !== null)
   const latestDate = dates.reduce<Date>(
     (latest, date) => (date > latest ? date : latest),

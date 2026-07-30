@@ -1,7 +1,7 @@
 import { forceCollide, forceSimulation, forceX, forceY } from 'd3-force'
 import type { Simulation, SimulationNodeDatum } from 'd3-force'
 import p5 from 'p5'
-import type { PatternLabelKey, IntentRecord } from '../types/intentData'
+import type { PatternLabelKey, Statement } from '../types/intentData'
 import type {
   HoveredTimelineStatement,
   StatementBeeswarmSketchState,
@@ -20,7 +20,7 @@ import { createTimelinePoints } from '../utils/timelineScale'
 
 interface StatementNode extends SimulationNodeDatum {
   id: string
-  record: IntentRecord
+  record: Statement
   targetX: number
   targetY: number
   x: number
@@ -210,7 +210,7 @@ function drawNode(
   p.circle(node.x, node.y, CORE_RADIUS * 2 * scale)
 }
 
-function getOuterRadius(record: IntentRecord) {
+function getOuterRadius(record: Statement) {
   return CORE_RADIUS + getActiveMainLabels(record).length * (RING_STROKE + RING_GAP)
 }
 
