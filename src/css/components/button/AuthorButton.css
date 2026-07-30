@@ -1,0 +1,22 @@
+.author-button {
+  appearance: none;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.author-button:focus-visible {
+  outline: 0.1875rem solid rgba(var(--color-text-rgb), 0.28);
+  outline-offset: 0;
+}
+
+.author-button:disabled {
+  cursor: default;
+}

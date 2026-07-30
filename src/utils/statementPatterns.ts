@@ -1,8 +1,8 @@
-import type { IntentRecord, PatternLabelKey, TopLevelStrategyUsage } from '../types/intentData'
+import type { Statement, PatternLabelKey, TopLevelStrategyUsage } from '../types/intentData'
 import { intentTaxonomy } from './intentTaxonomy'
 import {
-  getActivePatternAnnotations,
-  getPatternAnnotation,
+  getActiveSubPatterns,
+  getPattern,
   isPatternGroupActive,
 } from './intentRecordPatterns'
 import { subLabelColors } from './intentLabels'
@@ -12,23 +12,23 @@ interface StatementPatternBadge {
   label: PatternLabelKey
 }
 
-export function getStatementPatternBadges(record: IntentRecord): StatementPatternBadge[] {
-  return getActivePatternAnnotations(record)
+export function getStatementPatternBadges(record: Statement): StatementPatternBadge[] {
+  return getActiveSubPatterns(record)
     .map((annotation) => ({
       color: getStatementPatternColor(annotation.key),
       label: annotation.key,
     }))
 }
 
-export function getStatementPatternAnchors(record: IntentRecord, label: PatternLabelKey) {
-  return getPatternAnnotation(record, label)?.anchors ?? []
+export function getStatementPatternAnchors(record: Statement, label: PatternLabelKey) {
+  return getPattern(record, label)?.anchors ?? []
 }
 
 export function getStatementPatternBriefJustification(
-  record: IntentRecord,
+  record: Statement,
   label: PatternLabelKey,
 ) {
-  return getPatternAnnotation(record, label)?.justification ?? null
+  return getPattern(record, label)?.justification ?? null
 }
 
 export function getStatementPatternColor(label: PatternLabelKey) {
@@ -36,7 +36,7 @@ export function getStatementPatternColor(label: PatternLabelKey) {
 }
 
 export function getTopLevelStrategies(
-  records: readonly IntentRecord[],
+  records: readonly Statement[],
 ): TopLevelStrategyUsage[] {
   return intentTaxonomy.flatMap((group) => {
     const matchingRecords = records.filter((record) =>

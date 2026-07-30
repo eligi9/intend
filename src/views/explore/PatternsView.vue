@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import MirroredLineGrid from '../../components/common/MirroredLineGrid.vue'
-import SelectionView from '../../components/common/SelectionView.vue'
-import SideOverlay from '../../components/common/SideOverlay.vue'
-import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
-import ExploreHeader from '../../components/explore/ExploreHeader.vue'
-import StrategyIcicleDiagram from '../../components/strategy/StrategyIcicleDiagram.vue'
+import MirroredLineGrid from '../../components/grid/MirroredLineGrid.vue'
+import SelectionView from '../../components/detail/SelectionView.vue'
+import SideOverlay from '../../components/overlay/SideOverlay.vue'
+import AppHeader from '../../components/ui/AppHeader.vue'
+import FilterBar from '../../components/ui/FilterBar.vue'
+import IcicleDiagram from '../../components/diagram/IcicleDiagram.vue'
 import { useStatementStore } from '../../stores/statementStore'
-import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
+import type { AppHeaderProps, ExploreViewSection } from '../../types/exploreView'
 import { intentSubLabelDescriptions } from '../../utils/intentTaxonomy'
 import type { MirroredLineGridMarker } from '../../types/mirroredLineGrid'
-import type { StrategyIcicleSegment } from '../../types/strategyIcicle'
+import type { IcicleSegment } from '../../types/icicle'
 import { isPatternActive, isPatternGroupActive } from '../../utils/intentRecordPatterns'
 
-defineProps<ExploreHeaderProps>()
+defineProps<AppHeaderProps>()
 
 const emit = defineEmits<{
   'establishment-select': []
@@ -25,8 +25,8 @@ const statementStore = useStatementStore()
 const { filteredRecords } = storeToRefs(statementStore)
 const maxStatementsPerSide = 80
 const countStep = 10
-const selectedSegment = ref<StrategyIcicleSegment | null>(null)
-const detailSegment = ref<StrategyIcicleSegment | null>(null)
+const selectedSegment = ref<IcicleSegment | null>(null)
+const detailSegment = ref<IcicleSegment | null>(null)
 const gridMarker = ref<MirroredLineGridMarker | null>(null)
 const selectedSubpatternDescription = computed(() => {
   const segment = selectedSegment.value
@@ -57,13 +57,13 @@ const detailLabels = computed(() => {
   }))
 })
 
-function handleSegmentHover(segment: StrategyIcicleSegment | null) {
+function handleSegmentHover(segment: IcicleSegment | null) {
   if (detailSegment.value) return
 
   selectedSegment.value = segment
 }
 
-function handleSegmentClick(segment: StrategyIcicleSegment) {
+function handleSegmentClick(segment: IcicleSegment) {
   selectedSegment.value = null
   gridMarker.value = null
   detailSegment.value = segment
@@ -93,7 +93,7 @@ function closeDetail() {
       :step-size="countStep"
     />
 
-    <ExploreHeader
+    <AppHeader
       :active-section="activeSection"
       :sections="sections"
       subline="Hover for an explanation. Click to explore statements containing the pattern."
@@ -107,7 +107,7 @@ function closeDetail() {
         class="strategy-view__structure"
         aria-label="Pattern label structure"
       >
-        <StrategyIcicleDiagram
+        <IcicleDiagram
           :records="filteredRecords"
           @grid-marker-change="gridMarker = $event"
           @segment-click="handleSegmentClick"
@@ -116,7 +116,7 @@ function closeDetail() {
       </section>
     </div>
 
-    <ExploreFilterBar
+    <FilterBar
       aria-label="Pattern Filter"
       select-label="Filter patterns by content category"
       :z-index="200"

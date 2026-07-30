@@ -1,0 +1,64 @@
+.beeswarm-plot {
+  position: relative;
+  display: grid;
+  min-inline-size: 0;
+  block-size: 100%;
+  overflow: hidden;
+  background: var(--app-background);
+}
+
+.beeswarm-plot__grid-canvas {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.beeswarm-plot__canvas {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  inline-size: 100%;
+  overflow: hidden;
+}
+
+.beeswarm-plot__canvas--strategies {
+  block-size: 61.8vh;
+}
+
+.beeswarm-plot__canvas--statements {
+  block-size: 40vh;
+}
+
+.beeswarm-plot__timeline-tooltip {
+  --tooltip-panel-inline-size: min(28rem, calc(100vw - var(--space-4)));
+  --tooltip-panel-max-inline-size: calc(100vw - var(--space-4));
+  --tooltip-panel-top: auto;
+  --tooltip-panel-bottom: 0;
+  --tooltip-panel-transform: scale(0.98);
+  --tooltip-panel-visible-transform: scale(1);
+
+  position: absolute;
+  z-index: 3;
+  right: var(--space-4);
+  bottom: calc(var(--space-10) + var(--space-2));
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.beeswarm-plot__timeline-tooltip-anchor {
+  width: 1px;
+  height: 1px;
+}
+
+.beeswarm-plot__hovered-author-representation {
+  --author-view-background: var(--color-white);
+
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+}

@@ -2,14 +2,14 @@
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import strategyTimelineEventsDataset from '../../../data/strategy-timeline-events.json'
-import SelectionView from '../../components/common/SelectionView.vue'
-import StrategyButton from '../../components/common/StrategyButton.vue'
-import ExploreFilterBar from '../../components/explore/ExploreFilterBar.vue'
-import ExploreHeader from '../../components/explore/ExploreHeader.vue'
-import StrategyBeeswarmPlotP5 from '../../components/strategy/StrategyBeeswarmPlotP5.vue'
+import SelectionView from '../../components/detail/SelectionView.vue'
+import CustomButton from '../../components/button/CustomButton.vue'
+import AppHeader from '../../components/ui/AppHeader.vue'
+import FilterBar from '../../components/ui/FilterBar.vue'
+import BeeswarmPlot from '../../components/diagram/BeeswarmPlot.vue'
 import { useAuthorDetailStore } from '../../stores/authorDetailStore'
 import { useStatementStore } from '../../stores/statementStore'
-import type { ExploreHeaderProps, ExploreViewSection } from '../../types/exploreView'
+import type { AppHeaderProps, ExploreViewSection } from '../../types/exploreView'
 import type {
   BeeswarmDisplayMode,
   HoveredBeeswarmStatement,
@@ -19,7 +19,7 @@ import type { TimelineEvent } from '../../types/timeline'
 import { isPatternActive } from '../../utils/intentRecordPatterns'
 import { createStrategyTimelineDomain } from '../../utils/strategyTimelineDomain'
 
-defineProps<ExploreHeaderProps>()
+defineProps<AppHeaderProps>()
 
 const emit = defineEmits<{
   'establishment-select': []
@@ -70,7 +70,7 @@ function closeDetail() {
 
 <template>
   <section class="timeline-view" aria-label="Pattern timeline">
-    <ExploreHeader
+    <AppHeader
       :active-section="activeSection"
       :sections="sections"
       :subline="
@@ -89,7 +89,7 @@ function closeDetail() {
 
     <section class="timeline-view__content" aria-label="All statements timeline">
       <div class="timeline-view__plot">
-        <StrategyBeeswarmPlotP5
+        <BeeswarmPlot
           :events="timelineEvents"
           :mode="beeswarmMode"
           :statements="filteredRecords"
@@ -101,14 +101,14 @@ function closeDetail() {
       </div>
 
       <div class="timeline-view__switch" aria-label="Timeline display">
-        <StrategyButton
+        <CustomButton
           :active="beeswarmMode === 'statements'"
           color="var(--color-black)"
           label="Statements"
           min-width="6rem"
           @select="beeswarmMode = 'statements'"
         />
-        <StrategyButton
+        <CustomButton
           :active="beeswarmMode === 'strategies'"
           color="var(--color-black)"
           label="Patterns"
@@ -118,7 +118,7 @@ function closeDetail() {
       </div>
     </section>
 
-    <ExploreFilterBar
+    <FilterBar
       aria-label="Timeline Filter"
       select-label="Filter timeline by content category"
       :z-index="30"

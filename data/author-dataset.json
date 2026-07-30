@@ -10,7 +10,6 @@
       "dateOfBirth": "1988-01-12",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q113389177",
@@ -44,7 +43,6 @@
       "dateOfBirth": "1973",
       "gender": "male",
       "position": "Mayor of Sderot",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q16131854",
@@ -77,7 +75,6 @@
       "dateOfBirth": "1981-09-12",
       "gender": "male",
       "position": "Minister of Diaspora Affairs",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q105581659",
@@ -111,7 +108,6 @@
       "dateOfBirth": "1979-04-24",
       "gender": "male",
       "position": "Minister of Heritage",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q115005935",
@@ -145,7 +141,6 @@
       "dateOfBirth": "1971-06-05",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q97816805",
@@ -179,7 +174,6 @@
       "dateOfBirth": "1980-07-05",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63197463",
@@ -213,7 +207,6 @@
       "dateOfBirth": "1952-12-14",
       "gender": "male",
       "position": "Minister of Agriculture and Rural Development",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q790699",
@@ -247,7 +240,6 @@
       "dateOfBirth": "1958-07-05",
       "gender": "male",
       "position": "Member of the Israeli Knesset, Former Minister of Finance, and Deputy Prime Minister",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q58311",
@@ -281,7 +273,6 @@
       "dateOfBirth": "1949-10-21",
       "gender": "male",
       "position": "Prime Minister",
-      "sector": "Decision Makers",
       "notes": null,
       "externalIds": {
         "wikidata": "Q43723",
@@ -315,7 +306,6 @@
       "dateOfBirth": "1959-06-09",
       "gender": "male",
       "position": "War Cabinet Minister",
-      "sector": "Decision Makers",
       "notes": null,
       "externalIds": {
         "wikidata": "Q557436",
@@ -349,7 +339,6 @@
       "dateOfBirth": "1981-02-27",
       "gender": "male",
       "position": "Minister of Finance",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q18759744",
@@ -383,7 +372,6 @@
       "dateOfBirth": "1964-11-25",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q12404410",
@@ -417,7 +405,6 @@
       "dateOfBirth": "1971-05-08",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q2919440",
@@ -451,7 +438,6 @@
       "dateOfBirth": "1963-08-13",
       "gender": "male",
       "position": "Israeli Ambassador to Austria",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q123815364",
@@ -467,7 +453,6 @@
       "dateOfBirth": "1971-01-10",
       "gender": "female",
       "position": "Member of the Israeli Knesset, former Minister of Information",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q18822566",
@@ -501,7 +486,6 @@
       "dateOfBirth": "1974-02-24",
       "gender": "female",
       "position": "Minister of Intelligence",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q445611",
@@ -535,7 +519,6 @@
       "dateOfBirth": "1973-02-13",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q115005812",
@@ -569,7 +552,6 @@
       "dateOfBirth": "1980-10-27",
       "gender": "female",
       "position": "Minister of Environmental Protection",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63181940",
@@ -603,7 +585,6 @@
       "dateOfBirth": "1960-09-22",
       "gender": "male",
       "position": "President",
-      "sector": "Decision Makers",
       "notes": null,
       "externalIds": {
         "wikidata": "Q983258",
@@ -637,7 +618,6 @@
       "dateOfBirth": "1955-09-21",
       "gender": "male",
       "position": "Minister of Energy",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q487304",
@@ -671,7 +651,6 @@
       "dateOfBirth": null,
       "gender": null,
       "position": "Israeli Officials",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {},
       "image": null,
@@ -683,7 +662,6 @@
       "dateOfBirth": "1976-05-06",
       "gender": "male",
       "position": "Minister of National Security",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q12403861",
@@ -717,7 +695,6 @@
       "dateOfBirth": "1960-01-22",
       "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63166467",
@@ -751,7 +728,6 @@
       "dateOfBirth": "1979-07-30",
       "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q115092610",
@@ -785,7 +761,6 @@
       "dateOfBirth": "1972-03-21",
       "gender": "male",
       "position": "Coordinator of Government Activities in the Territories",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q16129259",
@@ -819,7 +794,6 @@
       "dateOfBirth": "1986-05-03",
       "gender": "female",
       "position": "Minister of Women Empowerment",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q25490011",
@@ -853,7 +827,6 @@
       "dateOfBirth": null,
       "gender": null,
       "position": "Government",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {},
       "image": null,
@@ -865,7 +838,6 @@
       "dateOfBirth": "1969-01-06",
       "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q106226075",
@@ -899,7 +871,6 @@
       "dateOfBirth": "1951-06-21",
       "gender": "male",
       "position": "Members of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q3701621",
@@ -933,7 +904,6 @@
       "dateOfBirth": null,
       "gender": null,
       "position": "Ministry of Intelligence",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {},
       "image": null,
@@ -945,7 +915,6 @@
       "dateOfBirth": "1983-12-26",
       "gender": "male",
       "position": "Minister of Interior",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63200127",
@@ -979,7 +948,6 @@
       "dateOfBirth": "1972-09-14",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q113289336",
@@ -1013,7 +981,6 @@
       "dateOfBirth": "1969-10-23",
       "gender": "male",
       "position": "Deputy Speaker of Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q104051298",
@@ -1047,7 +1014,6 @@
       "dateOfBirth": "1977-05-30",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q20898016",
@@ -1081,7 +1047,6 @@
       "dateOfBirth": "1982-01-04",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q115051874",
@@ -1115,7 +1080,6 @@
       "dateOfBirth": "1953-10-02",
       "gender": "male",
       "position": "Member of the Israeli Knesset and Former Minister of National Security",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q3593286",
@@ -1149,7 +1113,6 @@
       "dateOfBirth": "1960-03-15",
       "gender": "female",
       "position": "Minister of Settlements and National Missions",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q3593944",
@@ -1183,7 +1146,6 @@
       "dateOfBirth": "1975-11-03",
       "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "genderSource": "https://en.wikipedia.org/wiki/Tally_Gotliv",
@@ -1217,7 +1179,6 @@
       "dateOfBirth": "1971-04-16",
       "gender": "male",
       "position": "Minister of Strategic Affairs",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q7363705",
@@ -1251,7 +1212,6 @@
       "dateOfBirth": "1982-04-06",
       "gender": "male",
       "position": "Minister of Communications",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q63124881",
@@ -1285,7 +1245,6 @@
       "dateOfBirth": "1980-08-13",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q105127281",
@@ -1319,7 +1278,6 @@
       "dateOfBirth": "1978-12-02",
       "gender": "female",
       "position": "Israeli Ambassador to the UK",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q445606",
@@ -1353,7 +1311,6 @@
       "dateOfBirth": "1990-10-03",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "genderSource": "https://www.jewishpress.com/news/israel/the-knesset/mk-tzvi-sukkot-announces-the-end-of-his-term-in-the-knesset/2025/01/19/",
@@ -1387,7 +1344,6 @@
       "dateOfBirth": "1963-11-05",
       "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q1396120",
@@ -1421,7 +1377,6 @@
       "dateOfBirth": "1973-05-23",
       "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q19634043",
@@ -1455,7 +1410,6 @@
       "dateOfBirth": "1958-11-08",
       "gender": "male",
       "position": "Minister of Defense",
-      "sector": "Decision Makers",
       "notes": null,
       "externalIds": {
         "wikidata": "Q723506",
@@ -1489,7 +1443,6 @@
       "dateOfBirth": "1968-12-06",
       "gender": "male",
       "position": "Minister of Education",
-      "sector": "Legislators",
       "notes": null,
       "externalIds": {
         "wikidata": "Q18785311",

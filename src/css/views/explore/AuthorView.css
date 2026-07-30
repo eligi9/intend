@@ -72,6 +72,9 @@
 
 .author-view__item {
   --author-representation-inline-padding: var(--space-half);
+  --tooltip-panel-offset: calc(
+    (var(--author-grid-cell-size) - 0.5rem) / 2 + var(--space-3)
+  );
 
   position: relative;
   z-index: 0;
@@ -105,36 +108,26 @@
   z-index: 30;
 }
 
-.author-view__item :deep(.author-tooltip) {
-  --tooltip-panel-offset: calc(
-    (var(--author-grid-cell-size) - 0.5rem) / 2 + var(--space-3)
-  );
-}
-
-.author-view__item :deep(.author-portrait) {
+.author-view__item :deep(.author-representation) {
   transform-origin: center;
   transition: transform 160ms ease;
   will-change: transform;
 }
 
-.author-view__item :deep(.author-portrait__background) {
+.author-view__item :deep(.author-representation__background) {
   transition: box-shadow 160ms ease;
 }
 
-.author-view__item:hover :deep(.author-portrait),
-.author-view__item:focus-visible :deep(.author-portrait),
-.author-view__item:focus-within :deep(.author-portrait) {
+.author-view__item:hover :deep(.author-representation),
+.author-view__item:focus-visible :deep(.author-representation),
+.author-view__item:focus-within :deep(.author-representation) {
   transform: scale(1.7);
 }
 
-.author-view__item:hover :deep(.author-portrait__background),
-.author-view__item:focus-visible :deep(.author-portrait__background),
-.author-view__item:focus-within :deep(.author-portrait__background) {
+.author-view__item:hover :deep(.author-representation__background),
+.author-view__item:focus-visible :deep(.author-representation__background),
+.author-view__item:focus-within :deep(.author-representation__background) {
   box-shadow: var(--floating-panel-shadow-2x-compensated);
-}
-
-.author-view__item:focus-visible {
-  box-shadow: 0 0 0 0.1875rem rgba(var(--color-text-rgb), 0.28);
 }
 
 .author-view__item--muted {

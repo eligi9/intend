@@ -1,0 +1,18 @@
+.pattern-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: var(--pattern-button-container-align, flex-start);
+  align-self: center;
+  gap: var(--space-1);
+  justify-self: var(--pattern-button-container-justify, start);
+  max-width: 100%;
+}
+
+@media (max-width: 48.75rem) {
+  .pattern-button-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-top: var(--space-2);
+  }
+}

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import gsap from 'gsap'
-import type { IntentRecord } from '../../types/intentData'
+import type { Statement } from '../../types/intentData'
 import { getAcceleratedContainerScrollOffset } from '../../utils/scrollMotion'
-import StatementPatternCard from '../common/StatementPatternCard.vue'
+import StatementPatternCard from '../statement/StatementPatternCard.vue'
 
 defineProps<{
-  record: IntentRecord
+  record: Statement
 }>()
 
 const rootElement = ref<HTMLElement | null>(null)

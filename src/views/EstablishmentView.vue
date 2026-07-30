@@ -4,11 +4,11 @@ import gsap from 'gsap'
 import type { VirtualScrollData } from 'lenis'
 import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/locomotive-scroll.css'
-import VerticalLineGrid from '../components/common/VerticalLineGrid.vue'
+import VerticalLineGrid from '../components/grid/VerticalLineGrid.vue'
 import EstablishmentPatternTypesSection from '../components/establishment/EstablishmentPatternTypesSection.vue'
 import EstablishmentStatementSection from '../components/establishment/EstablishmentStatementSection.vue'
 import EstablishmentStatementInterlude from '../components/establishment/EstablishmentStatementInterlude.vue'
-import ExploreNavButton from '../components/explore/ExploreNavButton.vue'
+import TextButton from '../components/button/TextButton.vue'
 import { pageScrollLockEventName } from '../composables/usePageScrollLock'
 import landingCopy from '../content/landingCopy.json'
 import { useStatementStore } from '../stores/statementStore'
@@ -379,7 +379,7 @@ onBeforeUnmount(() => {
           decoding="async"
         />
 
-        <ExploreNavButton
+        <TextButton
           class="establishment-view__explore-button"
           :active="false"
           label="Explore Statements"
