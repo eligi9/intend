@@ -55,29 +55,6 @@ function getMostUsedPattern(statements: Statement[]) {
     }, null)
 }
 
-function calculateAge(dateOfBirth: string | null, referenceDate = new Date()) {
-  if (!dateOfBirth) return null
-
-  const [year, month = '1', day = '1'] = dateOfBirth.split('-')
-  const birthYear = Number(year)
-  const birthMonth = Number(month)
-  const birthDay = Number(day)
-
-  if (!Number.isFinite(birthYear)) return null
-
-  let age = referenceDate.getFullYear() - birthYear
-  const hasMonthAndDay = dateOfBirth.split('-').length === 3
-  if (!hasMonthAndDay) return age
-
-  const birthdayPassed =
-    referenceDate.getMonth() + 1 > birthMonth ||
-    (referenceDate.getMonth() + 1 === birthMonth && referenceDate.getDate() >= birthDay)
-
-  if (!birthdayPassed) age -= 1
-
-  return age
-}
-
 export function groupStatementsByAuthor(records: Statement[]) {
   return records.reduce<Record<string, Statement[]>>((index, record) => {
     index[record.author] ??= []
@@ -89,14 +66,12 @@ export function groupStatementsByAuthor(records: Statement[]) {
 export function createAuthorInstance(
   author: AuthorProfile,
   statements: Statement[],
-  referenceDate = new Date(),
 ): AuthorInstance {
   const usedTopLevelStrategies = getTopLevelStrategies(statements)
   const topLevelStrategyCount = intentTaxonomy.length
 
   return {
     ...author,
-    age: calculateAge(author.dateOfBirth, referenceDate),
     mostUsedContentCategory: getMostUsedContentCategory(statements),
     mostUsedPattern: getMostUsedPattern(statements),
     statementCount: statements.length,

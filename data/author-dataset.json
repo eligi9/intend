@@ -7,15 +7,7 @@
     {
       "id": "almog-cohen",
       "name": "Almog Cohen",
-      "dateOfBirth": "1988-01-12",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q113389177",
-        "genderSource": "https://www.wikidata.org/wiki/Q113389177",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q113389177"
-      },
       "image": {
         "url": "/images/authors/almog-cohen.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Almog_Cohen.jpg",
@@ -40,14 +32,7 @@
     {
       "id": "alon-davidi",
       "name": "Alon Davidi",
-      "dateOfBirth": "1973",
-      "gender": "male",
       "position": "Mayor of Sderot",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q16131854",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q16131854"
-      },
       "image": {
         "url": "/images/authors/alon-davidi.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alon_Davidi.jpg",
@@ -72,15 +57,7 @@
     {
       "id": "amichai-chikli",
       "name": "Amichai Chikli",
-      "dateOfBirth": "1981-09-12",
-      "gender": "male",
       "position": "Minister of Diaspora Affairs",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q105581659",
-        "genderSource": "https://www.wikidata.org/wiki/Q105581659",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q105581659"
-      },
       "image": {
         "url": "/images/authors/amichai-chikli.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:עמיחי_שיקלי_צילום_ראובן_קפוצ׳ינסקי_(cropped).jpg",
@@ -105,15 +82,7 @@
     {
       "id": "amichai-eliyahu",
       "name": "Amichai Eliyahu",
-      "dateOfBirth": "1979-04-24",
-      "gender": "male",
       "position": "Minister of Heritage",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q115005935",
-        "genderSource": "https://www.wikidata.org/wiki/Q115005935",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q115005935"
-      },
       "image": {
         "url": "/images/authors/amichai-eliyahu.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amichai_Eliyahu.jpg",
@@ -138,15 +107,7 @@
     {
       "id": "amit-halevi",
       "name": "Amit Halevi",
-      "dateOfBirth": "1971-06-05",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q97816805",
-        "genderSource": "https://www.wikidata.org/wiki/Q97816805",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q97816805"
-      },
       "image": {
         "url": "/images/authors/amit-halevi.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amit_Halevi_(ZAC_2603).jpg",
@@ -171,15 +132,7 @@
     {
       "id": "ariel-kallner",
       "name": "Ariel Kallner",
-      "dateOfBirth": "1980-07-05",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q63197463",
-        "genderSource": "https://www.wikidata.org/wiki/Q63197463",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q63197463"
-      },
       "image": {
         "url": "/images/authors/ariel-kallner.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ariel_Kallner.jpg",
@@ -204,15 +157,7 @@
     {
       "id": "avi-dichter",
       "name": "Avi Dichter",
-      "dateOfBirth": "1952-12-14",
-      "gender": "male",
       "position": "Minister of Agriculture and Rural Development",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q790699",
-        "genderSource": "https://www.wikidata.org/wiki/Q790699",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q790699"
-      },
       "image": {
         "url": "/images/authors/avi-dichter.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Avi_dichter.jpg",
@@ -237,15 +182,7 @@
     {
       "id": "avigdor-lieberman",
       "name": "Avigdor Lieberman",
-      "dateOfBirth": "1958-07-05",
-      "gender": "male",
       "position": "Member of the Israeli Knesset, Former Minister of Finance, and Deputy Prime Minister",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q58311",
-        "genderSource": "https://www.wikidata.org/wiki/Q58311",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q58311"
-      },
       "image": {
         "url": "/images/authors/avigdor-lieberman.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Avigdor_Lieberman_2017.jpg",
@@ -270,15 +207,7 @@
     {
       "id": "benjamin-netanyahu",
       "name": "Benjamin Netanyahu",
-      "dateOfBirth": "1949-10-21",
-      "gender": "male",
       "position": "Prime Minister",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q43723",
-        "genderSource": "https://www.wikidata.org/wiki/Q43723",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q43723"
-      },
       "image": {
         "url": "/images/authors/benjamin-netanyahu.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Benjamin_Netanyahu,_February_2023.jpg",
@@ -303,15 +232,7 @@
     {
       "id": "benny-gantz",
       "name": "Benny Gantz",
-      "dateOfBirth": "1959-06-09",
-      "gender": "male",
       "position": "War Cabinet Minister",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q557436",
-        "genderSource": "https://www.wikidata.org/wiki/Q557436",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q557436"
-      },
       "image": {
         "url": "/images/authors/benny-gantz.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Benny_Gantz_2019_(cropped).jpg",
@@ -336,15 +257,7 @@
     {
       "id": "bezalel-smotrich",
       "name": "Bezalel Smotrich",
-      "dateOfBirth": "1981-02-27",
-      "gender": "male",
       "position": "Minister of Finance",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q18759744",
-        "genderSource": "https://www.wikidata.org/wiki/Q18759744",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q18759744"
-      },
       "image": {
         "url": "/images/authors/bezalel-smotrich.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bezalel_Smotrich.jpg",
@@ -369,15 +282,7 @@
     {
       "id": "boaz-bismuth",
       "name": "Boaz Bismuth",
-      "dateOfBirth": "1964-11-25",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q12404410",
-        "genderSource": "https://www.wikidata.org/wiki/Q12404410",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q12404410"
-      },
       "image": {
         "url": "/images/authors/boaz-bismuth.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boaz_Bismuth.jpeg",
@@ -402,15 +307,7 @@
     {
       "id": "danny-dannon",
       "name": "Danny Dannon",
-      "dateOfBirth": "1971-05-08",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q2919440",
-        "genderSource": "https://www.wikidata.org/wiki/Q2919440",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q2919440"
-      },
       "image": {
         "url": "/images/authors/danny-dannon.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Danny_danon2.jpg",
@@ -435,30 +332,14 @@
     {
       "id": "david-roet",
       "name": "David Roet",
-      "dateOfBirth": "1963-08-13",
-      "gender": "male",
       "position": "Israeli Ambassador to Austria",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q123815364",
-        "genderSource": "https://www.wikidata.org/wiki/Q123815364",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q123815364"
-      },
       "image": null,
       "roleGroup": "public_officials"
     },
     {
       "id": "galit-distel-atbaryan",
       "name": "Galit Distel Atbaryan",
-      "dateOfBirth": "1971-01-10",
-      "gender": "female",
       "position": "Member of the Israeli Knesset, former Minister of Information",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q18822566",
-        "genderSource": "https://www.wikidata.org/wiki/Q18822566",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q18822566"
-      },
       "image": {
         "url": "/images/authors/galit-distel-atbaryan.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Galit_Distel-Atbaryan.jpg",
@@ -483,15 +364,7 @@
     {
       "id": "gila-gamliel",
       "name": "Gila Gamliel",
-      "dateOfBirth": "1974-02-24",
-      "gender": "female",
       "position": "Minister of Intelligence",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q445611",
-        "genderSource": "https://www.wikidata.org/wiki/Q445611",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q445611"
-      },
       "image": {
         "url": "/images/authors/gila-gamliel.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gila_Gamliel_1.jpg",
@@ -516,15 +389,7 @@
     {
       "id": "hanoch-milwidsky",
       "name": "Hanoch Milwidsky",
-      "dateOfBirth": "1973-02-13",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q115005812",
-        "genderSource": "https://www.wikidata.org/wiki/Q115005812",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q115005812"
-      },
       "image": {
         "url": "/images/authors/hanoch-milwidsky.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hanoch_Milwidsky.JPG",
@@ -549,15 +414,7 @@
     {
       "id": "idit-silman",
       "name": "Idit Silman",
-      "dateOfBirth": "1980-10-27",
-      "gender": "female",
       "position": "Minister of Environmental Protection",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q63181940",
-        "genderSource": "https://www.wikidata.org/wiki/Q63181940",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q63181940"
-      },
       "image": {
         "url": "/images/authors/idit-silman.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:עידית_סילמן_(cropped).jpg",
@@ -582,15 +439,7 @@
     {
       "id": "isaac-herzog",
       "name": "Isaac Herzog",
-      "dateOfBirth": "1960-09-22",
-      "gender": "male",
       "position": "President",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q983258",
-        "genderSource": "https://www.wikidata.org/wiki/Q983258",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q983258"
-      },
       "image": {
         "url": "/images/authors/isaac-herzog.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Israeli_President_Isaac_Herzog_in_2024_(cropped).jpg",
@@ -615,15 +464,7 @@
     {
       "id": "israel-katz",
       "name": "Israel Katz",
-      "dateOfBirth": "1955-09-21",
-      "gender": "male",
       "position": "Minister of Energy",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q487304",
-        "genderSource": "https://www.wikidata.org/wiki/Q487304",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q487304"
-      },
       "image": {
         "url": "/images/authors/israel-katz.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:ישראל_כץ_(cropped).jpg",
@@ -648,26 +489,14 @@
     {
       "id": "israeli-officials",
       "name": "Israeli Officials",
-      "dateOfBirth": null,
-      "gender": null,
       "position": "Israeli Officials",
-      "notes": null,
-      "externalIds": {},
       "image": null,
       "roleGroup": "others"
     },
     {
       "id": "itamar-ben-gvir",
       "name": "Itamar Ben Gvir",
-      "dateOfBirth": "1976-05-06",
-      "gender": "male",
       "position": "Minister of National Security",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q12403861",
-        "genderSource": "https://www.wikidata.org/wiki/Q12403861",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q12403861"
-      },
       "image": {
         "url": "/images/authors/itamar-ben-gvir.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Itamar_Ben_Gvir_3_(cropped).jpg",
@@ -692,15 +521,7 @@
     {
       "id": "keti-shitrit",
       "name": "Keti Shitrit",
-      "dateOfBirth": "1960-01-22",
-      "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q63166467",
-        "genderSource": "https://www.wikidata.org/wiki/Q63166467",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q63166467"
-      },
       "image": {
         "url": "/images/authors/keti-shitrit.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:MK_Keti_Shitrit.jpg",
@@ -725,15 +546,7 @@
     {
       "id": "limor-son-har-melech",
       "name": "Limor Son Har-Melech",
-      "dateOfBirth": "1979-07-30",
-      "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q115092610",
-        "genderSource": "https://www.wikidata.org/wiki/Q115092610",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q115092610"
-      },
       "image": {
         "url": "/images/authors/limor-son-har-melech.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Limor_Son_Har-Melech.jpg",
@@ -758,15 +571,7 @@
     {
       "id": "maj-gen-ghassan-alian",
       "name": "Maj. Gen. Ghassan Alian",
-      "dateOfBirth": "1972-03-21",
-      "gender": "male",
       "position": "Coordinator of Government Activities in the Territories",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q16129259",
-        "genderSource": "https://www.wikidata.org/wiki/Q16129259",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q16129259"
-      },
       "image": {
         "url": "/images/authors/maj-gen-ghassan-alian.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:רסאן_עליאן.jpg",
@@ -791,15 +596,7 @@
     {
       "id": "may-golan",
       "name": "May Golan",
-      "dateOfBirth": "1986-05-03",
-      "gender": "female",
       "position": "Minister of Women Empowerment",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q25490011",
-        "genderSource": "https://www.wikidata.org/wiki/Q25490011",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q25490011"
-      },
       "image": {
         "url": "/images/authors/may-golan.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:May_Golan_(cropped).jpg",
@@ -824,26 +621,14 @@
     {
       "id": "members-of-the-israeli-kenesset",
       "name": "Members of the Israeli Kenesset",
-      "dateOfBirth": null,
-      "gender": null,
       "position": "Government",
-      "notes": null,
-      "externalIds": {},
       "image": null,
       "roleGroup": "legislators"
     },
     {
       "id": "michal-waldiger",
       "name": "Michal Waldiger",
-      "dateOfBirth": "1969-01-06",
-      "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q106226075",
-        "genderSource": "https://www.wikidata.org/wiki/Q106226075",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q106226075"
-      },
       "image": {
         "url": "/images/authors/michal-waldiger.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Michal_Waldiger.jpg",
@@ -868,15 +653,7 @@
     {
       "id": "miki-levi",
       "name": "Miki Levi",
-      "dateOfBirth": "1951-06-21",
-      "gender": "male",
       "position": "Members of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q3701621",
-        "genderSource": "https://www.wikidata.org/wiki/Q3701621",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q3701621"
-      },
       "image": {
         "url": "/images/authors/miki-levi.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:מיקי_לוי.jpg",
@@ -901,26 +678,14 @@
     {
       "id": "ministry-of-intelligence",
       "name": "Ministry of Intelligence",
-      "dateOfBirth": null,
-      "gender": null,
       "position": "Ministry of Intelligence",
-      "notes": null,
-      "externalIds": {},
       "image": null,
       "roleGroup": "executive_officials"
     },
     {
       "id": "moshe-arbel",
       "name": "Moshe Arbel",
-      "dateOfBirth": "1983-12-26",
-      "gender": "male",
       "position": "Minister of Interior",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q63200127",
-        "genderSource": "https://www.wikidata.org/wiki/Q63200127",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q63200127"
-      },
       "image": {
         "url": "/images/authors/moshe-arbel.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Moshe_Arbel.jpg",
@@ -945,15 +710,7 @@
     {
       "id": "moshe-saada",
       "name": "Moshe Saada",
-      "dateOfBirth": "1972-09-14",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q113289336",
-        "genderSource": "https://www.wikidata.org/wiki/Q113289336",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q113289336"
-      },
       "image": {
         "url": "/images/authors/moshe-saada.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Moshe_Saada_(R_H_3588).jpg",
@@ -978,15 +735,7 @@
     {
       "id": "nissim-vaturi",
       "name": "Nissim Vaturi",
-      "dateOfBirth": "1969-10-23",
-      "gender": "male",
       "position": "Deputy Speaker of Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q104051298",
-        "genderSource": "https://www.wikidata.org/wiki/Q104051298",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q104051298"
-      },
       "image": {
         "url": "/images/authors/nissim-vaturi.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nissim_Vaturi.jpg",
@@ -1011,15 +760,7 @@
     {
       "id": "oded-forer",
       "name": "Oded Forer",
-      "dateOfBirth": "1977-05-30",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q20898016",
-        "genderSource": "https://www.wikidata.org/wiki/Q20898016",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q20898016"
-      },
       "image": {
         "url": "/images/authors/oded-forer.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oded_Forer_(SHL_8651).jpg",
@@ -1044,15 +785,7 @@
     {
       "id": "ohad-tal",
       "name": "Ohad Tal",
-      "dateOfBirth": "1982-01-04",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q115051874",
-        "genderSource": "https://www.wikidata.org/wiki/Q115051874",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q115051874"
-      },
       "image": {
         "url": "/images/authors/ohad-tal.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ohad_Tal2.jpg",
@@ -1077,15 +810,7 @@
     {
       "id": "omer-bar-lev",
       "name": "Omer Bar-Lev",
-      "dateOfBirth": "1953-10-02",
-      "gender": "male",
       "position": "Member of the Israeli Knesset and Former Minister of National Security",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q3593286",
-        "genderSource": "https://www.wikidata.org/wiki/Q3593286",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q3593286"
-      },
       "image": {
         "url": "/images/authors/omer-bar-lev.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:עומר_בר_לב.JPG",
@@ -1110,15 +835,7 @@
     {
       "id": "orit-strook",
       "name": "Orit Strook",
-      "dateOfBirth": "1960-03-15",
-      "gender": "female",
       "position": "Minister of Settlements and National Missions",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q3593944",
-        "genderSource": "https://www.wikidata.org/wiki/Q3593944",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q3593944"
-      },
       "image": {
         "url": "/images/authors/orit-strook.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Orit_Strook_(E32J026291).jpg",
@@ -1143,15 +860,7 @@
     {
       "id": "revital-gotliv",
       "name": "Revital Gotliv",
-      "dateOfBirth": "1975-11-03",
-      "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "genderSource": "https://en.wikipedia.org/wiki/Tally_Gotliv",
-        "wikidata": "Q113989783",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q113989783"
-      },
       "image": {
         "url": "/images/authors/revital-gotliv.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tali_Gottlieb.jpg",
@@ -1176,15 +885,7 @@
     {
       "id": "ron-dermer",
       "name": "Ron Dermer",
-      "dateOfBirth": "1971-04-16",
-      "gender": "male",
       "position": "Minister of Strategic Affairs",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q7363705",
-        "genderSource": "https://www.wikidata.org/wiki/Q7363705",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q7363705"
-      },
       "image": {
         "url": "/images/authors/ron-dermer.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ron_Dermer.jpg",
@@ -1209,15 +910,7 @@
     {
       "id": "shlomo-karhi",
       "name": "Shlomo Karhi",
-      "dateOfBirth": "1982-04-06",
-      "gender": "male",
       "position": "Minister of Communications",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q63124881",
-        "genderSource": "https://www.wikidata.org/wiki/Q63124881",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q63124881"
-      },
       "image": {
         "url": "/images/authors/shlomo-karhi.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:חבר_הכנסת_ד״ר_שלמה_קרעי.jpg",
@@ -1242,15 +935,7 @@
     {
       "id": "simcha-rothman",
       "name": "Simcha Rothman",
-      "dateOfBirth": "1980-08-13",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q105127281",
-        "genderSource": "https://www.wikidata.org/wiki/Q105127281",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q105127281"
-      },
       "image": {
         "url": "/images/authors/simcha-rothman.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Simcha_Rothman.jpg",
@@ -1275,15 +960,7 @@
     {
       "id": "tzipi-hotovely",
       "name": "Tzipi Hotovely",
-      "dateOfBirth": "1978-12-02",
-      "gender": "female",
       "position": "Israeli Ambassador to the UK",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q445606",
-        "genderSource": "https://www.wikidata.org/wiki/Q445606",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q445606"
-      },
       "image": {
         "url": "/images/authors/tzipi-hotovely.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tzipi_Hotovely_DSC0068.jpg",
@@ -1308,15 +985,7 @@
     {
       "id": "tzvi-sukkot",
       "name": "Tzvi Sukkot",
-      "dateOfBirth": "1990-10-03",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "genderSource": "https://www.jewishpress.com/news/israel/the-knesset/mk-tzvi-sukkot-announces-the-end-of-his-term-in-the-knesset/2025/01/19/",
-        "wikidata": "Q50379434",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q50379434"
-      },
       "image": {
         "url": "/images/authors/tzvi-sukkot.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:צבי_סוכות.jpg",
@@ -1341,15 +1010,7 @@
     {
       "id": "yair-lapid",
       "name": "Yair Lapid",
-      "dateOfBirth": "1963-11-05",
-      "gender": "male",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q1396120",
-        "genderSource": "https://www.wikidata.org/wiki/Q1396120",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q1396120"
-      },
       "image": {
         "url": "/images/authors/yair-lapid.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yair_Lapid_(D1237-011).jpg",
@@ -1374,15 +1035,7 @@
     {
       "id": "yifat-shasha-biton",
       "name": "Yifat Shasha Biton",
-      "dateOfBirth": "1973-05-23",
-      "gender": "female",
       "position": "Member of the Israeli Knesset",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q19634043",
-        "genderSource": "https://www.wikidata.org/wiki/Q19634043",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q19634043"
-      },
       "image": {
         "url": "/images/authors/yifat-shasha-biton.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:יפעת_שאשא_ביטון.jpg",
@@ -1407,15 +1060,7 @@
     {
       "id": "yoav-gallant",
       "name": "Yoav Gallant",
-      "dateOfBirth": "1958-11-08",
-      "gender": "male",
       "position": "Minister of Defense",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q723506",
-        "genderSource": "https://www.wikidata.org/wiki/Q723506",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q723506"
-      },
       "image": {
         "url": "/images/authors/yoav-gallant.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yoav_Galant_1.jpg",
@@ -1440,15 +1085,7 @@
     {
       "id": "yoav-kisch",
       "name": "Yoav Kisch",
-      "dateOfBirth": "1968-12-06",
-      "gender": "male",
       "position": "Minister of Education",
-      "notes": null,
-      "externalIds": {
-        "wikidata": "Q18785311",
-        "genderSource": "https://www.wikidata.org/wiki/Q18785311",
-        "wikidataSource": "https://www.wikidata.org/wiki/Q18785311"
-      },
       "image": {
         "url": "/images/authors/yoav-kisch.png",
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Yoav_Kish_(SHL_9437).jpg",
