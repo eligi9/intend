@@ -40,13 +40,9 @@ interface AuthorImage {
 export interface AuthorProfile {
   id: string
   name: string
-  dateOfBirth: string | null
-  gender: string | null
   position: string | null
   roleGroup: AuthorRoleGroup
   image: AuthorImage | null
-  notes?: string | null
-  externalIds?: Record<string, string>
 }
 
 export interface AuthorDataset {
@@ -58,7 +54,6 @@ export interface AuthorDataset {
 }
 
 export interface AuthorInstance extends AuthorProfile {
-  age: number | null
   mostUsedContentCategory: AuthorContentCategoryUsage | null
   mostUsedPattern: AuthorPatternUsage | null
   statementCount: number

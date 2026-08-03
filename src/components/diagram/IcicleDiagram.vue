@@ -208,7 +208,7 @@ onUnmounted(() => {
         class="icicle__side-label icicle__side-label--left"
         aria-hidden="true"
       >
-        Rhetorical Functions
+        Frames
       </span>
       <span
         class="icicle__side-label icicle__side-label--right"
@@ -219,7 +219,7 @@ onUnmounted(() => {
 
       <div
         class="icicle__side icicle__side--left"
-        aria-label="Rhetorical Functions"
+        aria-label="Frames"
       >
         <IcicleButton
           v-for="mainSegment in mainSegments"
